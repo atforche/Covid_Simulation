@@ -1,0 +1,52 @@
+\hypertarget{class_agent}{}\doxysection{Agent Class Reference}
+\label{class_agent}\index{Agent@{Agent}}
+
+
+The \mbox{\hyperlink{class_agent}{Agent}} Class Class that specifies the functionality of the Agents in the simulation Contains all information required for the agent to act in the environment.  
+
+
+
+
+{\ttfamily \#include $<$Agent.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_agent_a89811931f762ac116bfb180477b6445e}{Agent}} (int age)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_agent}{Agent}} Constructor for the \mbox{\hyperlink{class_agent}{Agent}} Class. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_agent_a9ad3d2850ef960042dbf08d0a194d167}\label{class_agent_a9ad3d2850ef960042dbf08d0a194d167}} 
+Q\+Graphics\+Rect\+Item $\ast$ \mbox{\hyperlink{class_agent_a9ad3d2850ef960042dbf08d0a194d167}{render\+Agent}} ()
+\begin{DoxyCompactList}\small\item\em render\+Agent Function to generate the Q\+Graphics\+Rect\+Item that represents this specific agent. Return value should be stored within \mbox{\hyperlink{class_simulation}{Simulation}} and added to UI element within simulation \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_agent_a8fc373177b32645f5709226cdb19097f}\label{class_agent_a8fc373177b32645f5709226cdb19097f}} 
+void \mbox{\hyperlink{class_agent_a8fc373177b32645f5709226cdb19097f}{update}} ()
+\begin{DoxyCompactList}\small\item\em update Function to update and redraw the agent in a new position \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_agent_ab8dd8d152605cf1339fed595376e83cb}\label{class_agent_ab8dd8d152605cf1339fed595376e83cb}} 
+\mbox{\hyperlink{class_agent_ab8dd8d152605cf1339fed595376e83cb}{$\sim$\+Agent}} ()
+\begin{DoxyCompactList}\small\item\em $\sim$\+Agent Destructor to free memory from the \mbox{\hyperlink{class_agent}{Agent}} class \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{class_agent}{Agent}} Class Class that specifies the functionality of the Agents in the simulation Contains all information required for the agent to act in the environment. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_agent_a89811931f762ac116bfb180477b6445e}\label{class_agent_a89811931f762ac116bfb180477b6445e}} 
+\index{Agent@{Agent}!Agent@{Agent}}
+\index{Agent@{Agent}!Agent@{Agent}}
+\doxysubsubsection{\texorpdfstring{Agent()}{Agent()}}
+{\footnotesize\ttfamily Agent\+::\+Agent (\begin{DoxyParamCaption}\item[{int}]{age }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{class_agent}{Agent}} Constructor for the \mbox{\hyperlink{class_agent}{Agent}} Class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em age} & the current age of the \mbox{\hyperlink{class_agent}{Agent}} \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Headers/Agent.\+h\item 
+src/Agent.\+cpp\end{DoxyCompactItemize}

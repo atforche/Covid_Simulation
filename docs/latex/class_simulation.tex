@@ -1,0 +1,74 @@
+\hypertarget{class_simulation}{}\doxysection{Simulation Class Reference}
+\label{class_simulation}\index{Simulation@{Simulation}}
+
+
+The \mbox{\hyperlink{class_simulation}{Simulation}} class The Abstract \mbox{\hyperlink{class_simulation}{Simulation}} class from which all other simulations will be derived. Provides a common interface through which each simulation can be executed in the same screen space with the same driver.  
+
+
+
+
+{\ttfamily \#include $<$Simulation.\+h$>$}
+
+
+
+Inheritance diagram for Simulation\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=172pt]{class_simulation__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_simulation_ab4d7fe11a5098550766a4f51c0af8409}\label{class_simulation_ab4d7fe11a5098550766a4f51c0af8409}} 
+virtual void \mbox{\hyperlink{class_simulation_ab4d7fe11a5098550766a4f51c0af8409}{init}} ()=0
+\begin{DoxyCompactList}\small\item\em init Function to initialize the simulation and screen components for the specific simulation type. Needs to be overridden by derived classes \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simulation_a8987b06b08f85c2dbc40800a1d05c985}\label{class_simulation_a8987b06b08f85c2dbc40800a1d05c985}} 
+virtual void \mbox{\hyperlink{class_simulation_a8987b06b08f85c2dbc40800a1d05c985}{reset}} ()=0
+\begin{DoxyCompactList}\small\item\em reset Function to reset the simulation and its screen to an initial state. Init needs to be called again before simulation can be run. Needs to be overridden by derived classes \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_simulation_affbbe939694dfa935a0fce528f1ef0ea}{test}} ()=0
+\begin{DoxyCompactList}\small\item\em execute Function to execute a single timestep in the simulation. Function should be called in a loop by the driver, not called within the class. Needs to be overridden by derived classes \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{class_simulation_a701bd94edc5cf562b5c4e66ae43400bb}{$\sim$\+Simulation}} ()
+\begin{DoxyCompactList}\small\item\em pause Function to pause the simulation. May be handled in driver? \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{class_simulation}{Simulation}} class The Abstract \mbox{\hyperlink{class_simulation}{Simulation}} class from which all other simulations will be derived. Provides a common interface through which each simulation can be executed in the same screen space with the same driver. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_simulation_a701bd94edc5cf562b5c4e66ae43400bb}\label{class_simulation_a701bd94edc5cf562b5c4e66ae43400bb}} 
+\index{Simulation@{Simulation}!````~Simulation@{$\sim$Simulation}}
+\index{````~Simulation@{$\sim$Simulation}!Simulation@{Simulation}}
+\doxysubsubsection{\texorpdfstring{$\sim$Simulation()}{~Simulation()}}
+{\footnotesize\ttfamily virtual Simulation\+::$\sim$\+Simulation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+pause Function to pause the simulation. May be handled in driver? 
+
+resume Functino to resume the simulation. May be handled in driver?
+
+$\sim$\+Simulation Destructor for the \mbox{\hyperlink{class_simulation}{Simulation}} Object. Clears all dynamic memory used within the simulation. Needs to be overridden by derived classes 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_simulation_affbbe939694dfa935a0fce528f1ef0ea}\label{class_simulation_affbbe939694dfa935a0fce528f1ef0ea}} 
+\index{Simulation@{Simulation}!test@{test}}
+\index{test@{test}!Simulation@{Simulation}}
+\doxysubsubsection{\texorpdfstring{test()}{test()}}
+{\footnotesize\ttfamily virtual void Simulation\+::test (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+execute Function to execute a single timestep in the simulation. Function should be called in a loop by the driver, not called within the class. Needs to be overridden by derived classes 
+
+test Function to test each simulation type. Exact purpose of function can change depending on what needs to be tested. Needs to be overridden by derived classes 
+
+Implemented in \mbox{\hyperlink{class_simple_simulation_a8fa34536fb673562dccd7e255d32bc71}{Simple\+Simulation}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Headers/Simulation.\+h\end{DoxyCompactItemize}
