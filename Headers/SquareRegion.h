@@ -29,41 +29,6 @@ private:
     /** A pointer to the screen element that is displaying this region */
     QGraphicsRectItem* rect;
 
-    /**
-     * @brief The LocationGenerator class
-     * Class that generates a set of locations for the region.
-     * Does this by randomly sampling coordinate within the bounds of the
-     * region. Checks to ensure region contains the point
-     */
-    class LocationGenerator {
-    private:
-        /** Random Device to generate random numbers*/
-        std::random_device rand;
-
-        /** Random Distribution from which to pull random numbers from*/
-        std::uniform_int_distribution<int> dist;
-
-        /** Pointer to the parent region*/
-        SquareRegion* parent;
-
-    public:
-
-        /**
-         * @brief LocationGenerator: Constructor for the LocationGenerator class
-         * @param height: the side lengths of the square region
-         */
-        LocationGenerator(SquareRegion* parent);
-
-        /**
-         * @brief generate: Function to randomly generate a new random Location
-         * @return a new randomly generated location within the bounds of the
-         * region
-         */
-        Location* generate();
-    };
-
-    LocationGenerator* generator;
-
 public:
 
     /**
@@ -103,14 +68,6 @@ public:
      * @return the height of the region as an int
      */
     int getHeight();
-
-    /**
-     * @brief generateLocations
-     * Function to randomly generation a set of Locations within the region.
-     * Locations are added to the Region using the setLocations function. Can
-     * be retrieved using the getLocations function
-     */
-    void generateLocations() override;
 
     /**
      * @brief renderLocations

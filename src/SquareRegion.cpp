@@ -5,7 +5,6 @@ SquareRegion::SquareRegion(int numLocations, Coordinate start, int height,
     : Region(numLocations, color, name),
       start(Coordinate(start.getX(), start.getY())) {
     this->height = height;
-    generator = new LocationGenerator(this);
 }
 
 
@@ -41,17 +40,6 @@ int SquareRegion::getHeight() {
 }
 
 
-void SquareRegion::generateLocations() {
-    std::vector<Location*> locations;
-    locations.reserve(getNumLocations());
-    for (int i = 0; i < getNumLocations(); ++i) {
-        Location* location = generator->generate();
-        locations.push_back(location);
-    }
-    setLocations(locations);
-}
-
-
 std::vector<QGraphicsItem*> SquareRegion::renderLocations() {
     std::vector<Location*> locations = getLocations();
     std::vector<QGraphicsItem*> *rendered =
@@ -64,25 +52,7 @@ std::vector<QGraphicsItem*> SquareRegion::renderLocations() {
 
 
 SquareRegion::~SquareRegion() {
-    delete generator;
+
 }
 
 
-SquareRegion::LocationGenerator::LocationGenerator(SquareRegion* parent) {
-    this->parent = parent;
-    dist = std::uniform_int_distribution<int>(10, parent->getHeight() - 10);
-}
-
-
-Location* SquareRegion::LocationGenerator::generate() {
-    while(true) {
-        int randx = dist(rand);
-        int randy = dist(rand);
-
-        QPointF check(randx + parent->getStart().getX(),
-                      randy + parent->getStart().getY());
-        if (parent->renderRegion()->contains(check)) {
-            return new Location(check.x(), check.y());
-        }
-    }
-}

@@ -30,3 +30,10 @@ QColor Region::getColor() {
 std::string Region::getName() {
     return this->name;
 }
+
+
+void Region::generateLocations(LocationGenerator* generator) {
+    std::vector<Location*> locations = generator->generate(getNumLocations(),
+                                                           renderRegion());
+    setLocations(locations);
+}

@@ -23,6 +23,11 @@ QGraphicsEllipseItem* Location::renderLocation() {
 }
 
 
+Coordinate* Location::getPosition() {
+    return this->position;
+}
+
+
 Location::~Location() {
     delete position;
 }

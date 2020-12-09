@@ -12,6 +12,8 @@
 #include <QGraphicsRectItem>
 #include <Headers/Agent.h>
 #include <Headers/SquareRegion.h>
+#include <Headers/AgentGenerator.h>
+#include "QtTest/QTest"
 
 class Region;
 
@@ -26,6 +28,8 @@ private:
     Region* leisureRegion;
     Region* schoolRegion;
 
+    /** Generator to handle generation and assignment of Agents to locations */
+    AgentGenerator* agentGenerator;
 
 public:
 
@@ -61,13 +65,13 @@ public:
      * Destructor function for the Simple Simulation Class. Clears all dynamic
      * memory used within the simulation
      */
-    virtual ~SimpleSimulation();
+    virtual ~SimpleSimulation() override;
 
     /**
      * @brief generateAgents
      * Function that generates Agents to be added to the simulation
      */
-    void generateAgents(Agent* agent);
+    void generateAgents();
 
 };
 

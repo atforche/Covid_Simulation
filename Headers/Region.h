@@ -11,6 +11,7 @@
 #include <string>
 #include "QColor"
 #include "QGraphicsItem"
+#include "LocationGenerator.h"
 class Location;
 
 class Region {
@@ -73,6 +74,16 @@ public:
     std::string getName();
 
     /**
+     * @brief generateLocations
+     * Function to randomly generation a set of Locations within the region.
+     * Locations are added to the Region using the setLocations function. Can
+     * be retrieved using the getLocations function
+     * @param generator: pointer to a location generator while will randomly
+     * sample and generate the locations
+     */
+    void generateLocations(LocationGenerator* generator);
+
+    /**
      * @brief renderRegion: Function to render the shape of the region onto
      * the canvas
      * @return a QGraphicsItem* representing the shape of the region
@@ -85,12 +96,6 @@ public:
      * @return a QGraphicsItem* containing the name of the region
      */
     virtual QGraphicsItem* renderName() = 0;
-
-    /**
-     * @brief generateLocations: Function to randomly generate the locations
-     * for this particular region
-     */
-    virtual void generateLocations() = 0;
 
     /**
      * @brief renderLocations: Function to render each of the randomly generated

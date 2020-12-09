@@ -57,6 +57,12 @@ public:
      */
     QGraphicsEllipseItem* renderLocation();
 
+    /**
+     * @brief getPosition: Getter function for the position of the Location
+     * @return the Coordinate position of the Location
+     */
+    Coordinate* getPosition();
+
     /** Destructor for the location class */
     ~Location();
 

@@ -10,8 +10,10 @@ CONFIG += c++11
 
 SOURCES += \
     src/Agent.cpp \
+    src/AgentGenerator.cpp \
     src/Coordinate.cpp \
     src/Location.cpp \
+    src/LocationGenerator.cpp \
     src/Region.cpp \
     src/SimpleSimulation.cpp \
     src/Simulation.cpp \
@@ -21,8 +23,10 @@ SOURCES += \
 
 HEADERS += \
     Headers/Agent.h \
+    Headers/AgentGenerator.h \
     Headers/Coordinate.h \
     Headers/Location.h \
+    Headers/LocationGenerator.h \
     Headers/Region.h \
     Headers/SimpleSimulation.h \
     Headers/Simulation.h \

@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
     view->setScene(scene);
 
     // Create a SimpleSimulation and connect it to the UI
-    SimpleSimulation* simulation = new SimpleSimulation(1, ui);
+    SimpleSimulation* simulation = new SimpleSimulation(50, ui);
     this->sim = simulation;
 
     // Define the values for the simulationTypes dropdown
@@ -47,6 +47,12 @@ void MainWindow::on_runSimulation_clicked()
     ui->simulationType->setEnabled(false);
     ui->runSimulation->setEnabled(false);
     ui->resetSimulation->setEnabled(true);
+    ui->numLocations->setEnabled(false);
+    ui->numAgents->setEnabled(false);
+    ui->visualize->setEnabled(false);
+    sim->reset();
+    delete sim;
+    sim = new SimpleSimulation(ui->numAgents->value(), ui);
     sim->init();
 }
 
@@ -57,9 +63,20 @@ void MainWindow::on_resetSimulation_clicked()
     ui->mainCanvas->scene()->clear();
     ui->runSimulation->setEnabled(true);
     ui->resetSimulation->setEnabled(false);
+    ui->numLocations->setEnabled(true);
+    ui->numAgents->setEnabled(true);
+    ui->visualize->setEnabled(true);
     sim->reset();
+}
 
-    // Reset and recreate the sim
-    delete sim;
-    sim = new SimpleSimulation(1, ui);
+
+void MainWindow::on_numLocations_valueChanged(int value)
+{
+    ui->numLocationsLabel->setText(QString::number(value));
+}
+
+
+void MainWindow::on_numAgents_valueChanged(int value)
+{
+    ui->numAgentsLabel->setText(QString::number(value));
 }

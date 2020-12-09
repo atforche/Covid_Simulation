@@ -2,6 +2,7 @@
 
 Simulation::Simulation(int numAgents, Ui::MainWindow* ui) {
     assert(numAgents >= 0);
+    this->locationGenerator = new LocationGenerator();
     this->numAgents = numAgents;
     this->agents.reserve(numAgents);
     this->ui = ui;
@@ -13,6 +14,14 @@ Simulation::Simulation(int numAgents, Ui::MainWindow* ui) {
 void Simulation::addAgent(Agent *agent) {
     if (this->agents.size() < static_cast<size_t>(this->numAgents)) {
         this->agents.push_back(agent);
+        addToScene(agent->renderAgent());
+
+        if (agent->getVisualize()) {
+            std::vector<QGraphicsItem*> lines = agent->renderVisualize();
+            for (size_t i = 0; i < lines.size(); ++i) {
+                addToScene(lines[i]);
+            }
+        }
     }
 }
 
@@ -44,4 +53,24 @@ int Simulation::getSimWidth() {
 
 int Simulation::getSimHeight() {
     return this->simHeight;
+}
+
+
+LocationGenerator* Simulation::getLocationGenerator() {
+    return this->locationGenerator;
+}
+
+
+int Simulation::getNumAgents() {
+    return this->numAgents;
+}
+
+
+bool Simulation::visualizeChecked() {
+    return (ui->visualize->checkState() == Qt::CheckState::Checked);
+}
+
+
+Simulation::~Simulation() {
+    delete locationGenerator;
 }

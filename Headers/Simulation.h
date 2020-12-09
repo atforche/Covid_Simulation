@@ -4,6 +4,7 @@
 #include <vector>
 #include <assert.h>
 #include "Agent.h"
+#include "LocationGenerator.h"
 
 /**
  * @brief The Simulation class
@@ -28,6 +29,9 @@ private:
 
     /** Integer that stores the height of the Sims canvas*/
     int simHeight;
+
+    /** LocationGenerator to create locations for each region */
+    LocationGenerator* locationGenerator;
 
 
 public:
@@ -84,13 +88,6 @@ public:
 //    virtual void resume() = 0;
 
     /**
-     * @brief ~Simulation
-     * Destructor for the Simulation Object. Clears all dynamic memory used
-     * within the simulation. Needs to be overridden by derived classes
-     */
-    virtual ~Simulation() {};
-
-    /**
      * @brief addAgent: Function to add a new agent to the simulation. Will not
      * add new agent if simulation is already at max number of agents
      * @param agent: the agent to be added to the simualtion, as a pointer
@@ -134,6 +131,30 @@ public:
      * @return an int representing the width of the sim
      */
     int getSimWidth();
+
+    /**
+     * @brief getGenerator: Getter function for the Location Generator within
+     * the simluation
+     * @return a pointer to the LocationGenerator
+     */
+    LocationGenerator* getLocationGenerator();
+
+    /**
+     * @brief getNumAgents: Getter function for the number of agents in the sim
+     * @return the number of agents in the sim
+     */
+    int getNumAgents();
+
+    /** Destructor for the Simulation Class*/
+    virtual ~Simulation();
+
+    /**
+     * @brief visualizeChecked
+     * Function to check if the visualize check box is checked and return a
+     * truth value
+     * @return
+     */
+    bool visualizeChecked();
 
 };
 

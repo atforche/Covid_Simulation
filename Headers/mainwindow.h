@@ -38,6 +38,15 @@ private slots:
      */
     void on_resetSimulation_clicked();
 
+    /**
+     * @brief on_numLocations_valueChanged
+     * On Value Changed listener for numLocations slider
+     * @param value: the new value of the slider
+     */
+    void on_numLocations_valueChanged(int value);
+
+    void on_numAgents_valueChanged(int value);
+
 private:
     /* Pointer to store and access the ui components of the window*/
     Ui::MainWindow *ui;
