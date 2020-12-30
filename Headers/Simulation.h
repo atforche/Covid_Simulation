@@ -12,7 +12,7 @@
  * derived. Provides a common interface through which each simulation can be
  * executed in the same screen space with the same driver.
  */
-class Simulation {
+class Simulation : public QObject {
 
 private:
     /** a vector of every agent in the simulation */
@@ -33,7 +33,6 @@ private:
     /** LocationGenerator to create locations for each region */
     LocationGenerator* locationGenerator;
 
-
 public:
 
     /**
@@ -52,20 +51,20 @@ public:
     virtual void init() = 0;
 
     /**
+     * @brief execute
+     * Function to execute a single timestep in the simulation. Function should
+     * be called in a loop by the driver, not called within the class. Needs to
+     * be overridden by derived classes
+     */
+    virtual void execute() = 0;
+
+    /**
      * @brief reset
      * Function to reset the simulation and its screen to an initial state.
      * Init needs to be called again before simulation can be run. Needs to
      * be overridden by derived classes
      */
     virtual void reset() = 0;
-
-    /**
-     * @brief execute
-     * Function to execute a single timestep in the simulation. Function should
-     * be called in a loop by the driver, not called within the class. Needs to
-     * be overridden by derived classes
-     */
-//    virtual void execute() = 0;
 
     /**
      * @brief test
@@ -87,6 +86,7 @@ public:
      */
 //    virtual void resume() = 0;
 
+
     /**
      * @brief addAgent: Function to add a new agent to the simulation. Will not
      * add new agent if simulation is already at max number of agents
@@ -95,23 +95,28 @@ public:
     void addAgent(Agent* agent);
 
     /**
-     * @brief getAgents: Getter function for the vector of all agents in the
-     * simulation
+     * @brief getAgents
+     * Getter function for the vector of all agents in the simulation. Returns
+     * a vector of all Agents
      * @return a std::vector containing pointers to every agent in the
      * simulation
      */
     std::vector<Agent*>& getAgents();
 
     /**
-     * @brief addToScene: Function to add a QGraphicsItem to the scene on
-     * which the simulation is being drawn
+     * @brief addToScene
+     * Function to add a QGraphicsItem to the scene on which the simulation
+     * is being drawn. Can add any QGraphicsItem. Use this function to add
+     * all objects that should be displayed to the simulation
      * @param item: a QGraphicsItem to be added
      */
     void addToScene(QGraphicsItem* item);
 
     /**
-     * @brief clearScene: Calls clear() on the drawing scene on which the
-     * simulation is being displayed
+     * @brief clearScene
+     * Calls clear() on the drawing scene on which the simulation is being
+     * displayed. Deletes the dynamic memory associated with every object
+     * in the scene.
      */
     void clearScene();
 
@@ -121,20 +126,26 @@ public:
     void clearAgents();
 
     /**
-     * @brief getSimHeight: Getter function for the height of the Sim
+     * @brief getSimHeight
+     * Getter function for the height of the QGraphicsScene window. Returns the
+     * height as an int
      * @return an int representing the height of the sim
      */
     int getSimHeight();
 
     /**
-     * @brief getSimWidth: Getter function for the width of the Sim
+     * @brief getSimWidth
+     * Getter function for the width of the QGraphicsScene window. Returns the
+     * width as an int
      * @return an int representing the width of the sim
      */
     int getSimWidth();
 
     /**
-     * @brief getGenerator: Getter function for the Location Generator within
-     * the simluation
+     * @brief getGenerator
+     * Getter function for the Location Generator within the simulation. Allows
+     * Regions to access the LocationGenerator within the Simulation. Returns
+     * the LocationGenerator as a pointer
      * @return a pointer to the LocationGenerator
      */
     LocationGenerator* getLocationGenerator();
@@ -151,10 +162,20 @@ public:
     /**
      * @brief visualizeChecked
      * Function to check if the visualize check box is checked and return a
-     * truth value
+     * truth value. Allows Simulation and Agents to know whether the
+     * visualization lines need to be drawn.
      * @return
      */
     bool visualizeChecked();
+
+public slots:
+    /**
+     * @brief renderAgentUpdate
+     * Function to render the agents in their new positions following an update.
+     * Called by the SimulationController when the SimulationWorker has
+     * completed an iteration of the Simulation's execution
+     */
+    void renderAgentUpdate();
 
 };
 

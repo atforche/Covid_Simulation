@@ -72,6 +72,14 @@ void SimpleSimulation::init() {
 }
 
 
+void SimpleSimulation::execute() {
+    std::vector<Agent*> agents = getAgents();
+    for (int i = 0; i < getNumAgents(); ++i) {
+        agents[i]->update();
+    }
+}
+
+
 void SimpleSimulation::reset() {
     clearScene();
     clearAgents();

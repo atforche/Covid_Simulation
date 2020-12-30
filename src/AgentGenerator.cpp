@@ -26,7 +26,7 @@ std::vector<Agent*> AgentGenerator::generate(int num, bool visualize) {
         int homeIndex = rand() % homeLocations.size();
         Coordinate* homePosition = homeLocations[homeIndex]->getPosition();
         Agent* agent = new Agent(rand() % 99,
-                                 Coordinate(homePosition->getX() + rand() % 10,
+                                 new Coordinate(homePosition->getX() + rand() % 10,
                                             homePosition->getY() + rand() % 10),
                                  visualize);
 

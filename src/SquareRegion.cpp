@@ -30,8 +30,8 @@ QGraphicsItem* SquareRegion::renderName() {
 }
 
 
-Coordinate SquareRegion::getStart() {
-    return this->start;
+Coordinate* SquareRegion::getStart() {
+    return &this->start;
 }
 
 

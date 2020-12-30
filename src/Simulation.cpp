@@ -26,6 +26,14 @@ void Simulation::addAgent(Agent *agent) {
 }
 
 
+void Simulation::renderAgentUpdate() {
+    std::vector<Agent*> agents = getAgents();
+    for (auto i : agents) {
+        i->renderUpdate();
+    }
+}
+
+
 std::vector<Agent*>& Simulation::getAgents() {
     return this->agents;
 }

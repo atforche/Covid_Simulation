@@ -30,4 +30,5 @@ Coordinate* Location::getPosition() {
 
 Location::~Location() {
     delete position;
+    position = nullptr;
 }

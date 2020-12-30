@@ -1,8 +1,6 @@
 #include "Headers/LocationGenerator.h"
 
-LocationGenerator::LocationGenerator() {
-
-}
+LocationGenerator::LocationGenerator() {}
 
 
 std::vector<Location*> LocationGenerator::generate(int num,

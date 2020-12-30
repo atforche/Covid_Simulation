@@ -18,6 +18,7 @@ SOURCES += \
     src/SimpleSimulation.cpp \
     src/Simulation.cpp \
     src/SquareRegion.cpp \
+    src/ThreadExecution.cpp \
     src/main.cpp \
     src/mainwindow.cpp
 
@@ -31,6 +32,7 @@ HEADERS += \
     Headers/SimpleSimulation.h \
     Headers/Simulation.h \
     Headers/SquareRegion.h \
+    Headers/ThreadExecution.h \
     Headers/mainwindow.h \
 
 FORMS += \

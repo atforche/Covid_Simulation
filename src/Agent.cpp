@@ -1,8 +1,8 @@
 #include <Headers/Agent.h>
 
-Agent::Agent(int age, Coordinate position, bool visualize) {
+Agent::Agent(int age, Coordinate* position, bool visualize) {
     this->age = age;
-    this->position = &position;
+    this->position = position;
     this->rect = new QGraphicsRectItem(this->position->getX(),
                                        this->position->getY(),
                                        AGENT_WIDTH, AGENT_WIDTH);
@@ -25,9 +25,7 @@ QGraphicsRectItem* Agent::renderAgent() {
 }
 
 
-void Agent::update() {
-    position->setX(position->getX() + 1);
-    position->setY(position->getY() + 1);
+void Agent::renderUpdate() {
     rect->setRect(position->getX(), position->getY(),
                   AGENT_WIDTH, AGENT_WIDTH);
 
@@ -57,6 +55,12 @@ void Agent::update() {
                                  getLeisure()->getPosition()->getY());
         }
     }
+}
+
+
+void Agent::update() {
+    position->setX(position->getX() + 1);
+    position->setY(position->getY() + 1);
 }
 
 
@@ -162,7 +166,25 @@ std::vector<QGraphicsItem*> Agent::renderVisualize() {
 }
 
 
+std::vector<QGraphicsItem*> Agent::allRenderedObject() {
+    std::vector<QGraphicsItem*> items = {this->rect, this->homeLine,
+                                         this->workLine, this->schoolLine,
+                                         this->leisureLine};
+    return items;
+}
+
 Agent::~Agent() {
     delete this->position;
+    delete this->rect;
+    delete this->homeLine;
+    delete this->schoolLine;
+    delete this->workLine;
+    delete this->leisureLine;
+
     this->position = nullptr;
+    this->rect = nullptr;
+    this->homeLine = nullptr;
+    this->schoolLine = nullptr;
+    this->workLine = nullptr;
+    this->leisureLine = nullptr;
 }

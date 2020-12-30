@@ -28,17 +28,21 @@ public:
 
     /**
      * @brief LocationGenerator
-     * Default constructor for the Location Generator class
+     * Default constructor for the Location Generator class. This class handles
+     * generating a set of locations that lie within some bounding Region. It
+     * is capable of generating locations in any odd shaped Region.
      */
     LocationGenerator();
 
     /**
      * @brief generate
      * Function to generate a set of random Locations that lie within
-     * any shaped region.
+     * any shaped region. This is accomplished by randomly sampling points
+     * within the bounding rectangle of the region until a suitable number of
+     * points lie within the Regions shape. Is generalizable to any shaped Region
      * @param num: the number of locations to generate
      * @param region: the bounding region in which the locations need
-     * to reside
+     * to reside. Can be any QGraphicsItem*
      * @return a std::vector of all the locations generated
      */
     std::vector<Location*> generate(int num, QGraphicsItem* region);

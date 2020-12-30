@@ -1,11 +1,4 @@
 #include "Headers/mainwindow.h"
-#include "ui_mainwindow.h"
-#include "QGraphicsRectItem"
-#include "QtTest/QTest"
-#include <vector>
-#include <string>
-#include <Headers/SimpleSimulation.h>
-
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -51,14 +44,22 @@ void MainWindow::on_runSimulation_clicked()
     ui->numAgents->setEnabled(false);
     ui->visualize->setEnabled(false);
     sim->reset();
+
     delete sim;
     sim = new SimpleSimulation(ui->numAgents->value(), ui);
     sim->init();
+
+    // Create a SimulationController and connect it to the Simulation
+    SimulationController* control = new SimulationController(this->sim,
+                                                             SimulationWorker::SLOW);
+    this->controller = control;
+    this->controller->startSimulation();
 }
 
 
 void MainWindow::on_resetSimulation_clicked()
 {
+    this->controller->endSimulation();
     ui->simulationType->setEnabled(true);
     ui->mainCanvas->scene()->clear();
     ui->runSimulation->setEnabled(true);
