@@ -3,6 +3,8 @@
 Agent::Agent(int age, Coordinate* position, bool visualize) {
     this->age = age;
     this->position = position;
+    this->destination = new Coordinate(-1,-1);
+    this->heading = new Coordinate(1,1); // Default heading for now
     this->rect = new QGraphicsRectItem(this->position->getX(),
                                        this->position->getY(),
                                        AGENT_WIDTH, AGENT_WIDTH);
@@ -17,6 +19,8 @@ Agent::Agent(int age, Coordinate* position, bool visualize) {
     this->school = nullptr;
     this->work = nullptr;
     this->leisure = nullptr;
+
+    this->currentPlace = Agent::HOME;
 }
 
 
@@ -59,8 +63,15 @@ void Agent::renderUpdate() {
 
 
 void Agent::update() {
-    position->setX(position->getX() + 1);
-    position->setY(position->getY() + 1);
+    if (destination->isValid()) {
+        position->setX(position->getX() + heading->getX());
+        position->setY(position->getY() + heading->getY());
+    } else {
+        position->setX(position->getX() + (rand() % 3 - 1));
+        position->setY(position->getY() + (rand() % 3 - 1));
+    }
+//    position->setX(position->getX() + 1);
+//    position->setY(position->getY() + 1);
 }
 
 
@@ -171,6 +182,18 @@ std::vector<QGraphicsItem*> Agent::allRenderedObject() {
                                          this->workLine, this->schoolLine,
                                          this->leisureLine};
     return items;
+}
+
+
+Coordinate* Agent::currentLocationPosition() {
+    if (currentPlace == currentLocation::HOME) {
+        return home->getPosition();
+    } else if (currentPlace == currentLocation::WORK) {
+        return work->getPosition();
+    } else if (currentPlace == currentLocation::SCHOOL) {
+        return school->getPosition();
+    }
+    return leisure->getPosition();
 }
 
 Agent::~Agent() {

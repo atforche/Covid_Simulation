@@ -132,8 +132,8 @@
      <rect>
       <x>10</x>
       <y>120</y>
-      <width>141</width>
-      <height>21</height>
+      <width>171</width>
+      <height>25</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="numLocationLayout">
@@ -145,9 +145,12 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="numLocationsLabel">
-       <property name="text">
-        <string>1</string>
+      <widget class="QSpinBox" name="numLocationsLabel">
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>100</number>
        </property>
       </widget>
      </item>
@@ -158,8 +161,8 @@
      <rect>
       <x>10</x>
       <y>160</y>
-      <width>141</width>
-      <height>21</height>
+      <width>161</width>
+      <height>25</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="numAgentsLayout">
@@ -171,9 +174,12 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="numAgentsLabel">
-       <property name="text">
-        <string>1</string>
+      <widget class="QSpinBox" name="numAgentsLabel">
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>100</number>
        </property>
       </widget>
      </item>

@@ -10,6 +10,12 @@ MainWindow::MainWindow(QWidget *parent)
     QGraphicsScene* scene = new QGraphicsScene(this);
     view->setScene(scene);
 
+    // Changes the maximum agents and locations based on constant values
+    ui->numAgents->setMaximum(MAX_AGENTS);
+    ui->numAgentsLabel->setMaximum(MAX_AGENTS);
+    ui->numLocations->setMaximum(MAX_LOCATIONS);
+    ui->numLocationsLabel->setMaximum(MAX_LOCATIONS);
+
     // Create a SimpleSimulation and connect it to the UI
     SimpleSimulation* simulation = new SimpleSimulation(50, ui);
     this->sim = simulation;
@@ -73,11 +79,24 @@ void MainWindow::on_resetSimulation_clicked()
 
 void MainWindow::on_numLocations_valueChanged(int value)
 {
-    ui->numLocationsLabel->setText(QString::number(value));
+    ui->numLocationsLabel->setValue(value);
 }
 
 
 void MainWindow::on_numAgents_valueChanged(int value)
 {
-    ui->numAgentsLabel->setText(QString::number(value));
+    ui->numAgentsLabel->setValue(value);
+}
+
+
+void MainWindow::on_numLocationsLabel_valueChanged(int arg1)
+{
+    ui->numLocations->setValue(arg1);
+}
+
+
+
+void MainWindow::on_numAgentsLabel_valueChanged(int arg1)
+{
+    ui->numAgents->setValue(arg1);
 }

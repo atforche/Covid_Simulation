@@ -68,6 +68,16 @@ public:
      */
     double distBetween(Coordinate& other);
 
+    /**
+     * @brief isValid
+     * Function to determine if a Coordinate is valid. A Coordinate is valid
+     * if it has two positive components. An invalid coordinate can be used to
+     * prevent an agent from pursuing something. Function may be expanded to
+     * check scene bounds in the future.
+     * @return
+     */
+    bool isValid();
+
 };
 
 #endif // COORDINATE_H

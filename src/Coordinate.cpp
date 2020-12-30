@@ -32,3 +32,8 @@ double Coordinate::distBetween(Coordinate &other) {
     double yDiff = getY() - other.getY();
     return sqrt((xDiff * xDiff) + (yDiff * yDiff));
 }
+
+
+bool Coordinate::isValid() {
+    return (x >= 0 && y >= 0);
+}

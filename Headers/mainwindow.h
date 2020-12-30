@@ -76,6 +76,22 @@ private slots:
      */
     void on_numAgents_valueChanged(int value);
 
+    /**
+     * @brief on_numLocationsLabel_valueChanged
+     * Value listener for the numLocationsLabel Spin box. Enables slider value
+     * to change in response to a change in the Spin Box value
+     * @param arg1: the new value of the spin box
+     */
+    void on_numLocationsLabel_valueChanged(int arg1);
+
+    /**
+     * @brief on_numAgentsLabel_valueChanged
+     * Value listener for the numAgentsLabel Spin box. Enables slider value
+     * to change in response to a change in the Spin Box value
+     * @param arg1
+     */
+    void on_numAgentsLabel_valueChanged(int arg1);
+
 private:
     /** Pointer to store and access the ui components of the window*/
     Ui::MainWindow *ui;
@@ -85,6 +101,10 @@ private:
 
     /** Controller that executes the Simulation in a separate thread */
     SimulationController* controller;
+
+    /** Maximum numbers for agents and locations */
+    static const int MAX_AGENTS = 100;
+    static const int MAX_LOCATIONS = 50;
 
 };
 #endif // MAINWINDOW_H

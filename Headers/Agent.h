@@ -14,47 +14,10 @@
 
 class Agent {
 
-private:
-    /** The current location of the Agent as a Coordinate*/
-    Coordinate* position;
-
-    /** The current age of the Agent as an Integer */
-    int age;
-
-    /** Int representing how wide the agents should be rendered as */
-    const int AGENT_WIDTH = 2;
-
-    /** Visualizes connection between agent to assignments if true */
-    bool visualize;
-
-    /** Rectangle corresponding to this rendered agent */
-    QGraphicsRectItem* rect;
-
-    /** Pointer to the agent's home location */
-    Location* home;
-
-    /** Line used to visualize assignment to home Location*/
-    QGraphicsLineItem* homeLine;
-
-    /** Pointer to the agent's school location, may be nullptr*/
-    Location* school;
-
-    /** Line used to visualize assignment to school Location */
-    QGraphicsLineItem* schoolLine;
-
-    /** Pointer to the agent's work location, may be nullptr*/
-    Location* work;
-
-    /** Line used to visualize assignment to work Location*/
-    QGraphicsLineItem* workLine;
-
-    /** Pointer to the agent's leisure location */
-    Location* leisure;
-
-    /** Line used to visualize assignment to leisure Location */
-    QGraphicsLineItem* leisureLine;
-
 public:
+
+    /** Enum that specifies the current location the Agent is at */
+    enum currentLocation{HOME, SCHOOL, WORK, LEISURE};
 
     /**
      * @brief Agent
@@ -205,11 +168,71 @@ public:
     std::vector<QGraphicsItem*> allRenderedObject();
 
     /**
+     * @brief currentLocationPosition
+     * Function that returns the position of the Agent's current location as
+     * a Coordinate*. Reads the currentLocation enum and returns the position
+     * associated with that location
+     * @return
+     */
+    Coordinate* currentLocationPosition();
+
+    /**
      * @brief ~Agent
      * Destructor to free memory from the Agent class
      */
     ~Agent();
 
+private:
+
+    /** The current location of the Agent as a Coordinate*/
+    Coordinate* position;
+
+    /** The current age of the Agent as an Integer */
+    int age;
+
+    /** Int representing how wide the agents should be rendered as */
+    static const int AGENT_WIDTH = 2;
+
+    /** Visualizes connection between agent to assignments if true */
+    bool visualize;
+
+    /** Rectangle corresponding to this rendered agent */
+    QGraphicsRectItem* rect;
+
+    /** Pointer to the agent's home location */
+    Location* home;
+
+    /** Line used to visualize assignment to home Location*/
+    QGraphicsLineItem* homeLine;
+
+    /** Pointer to the agent's school location, may be nullptr*/
+    Location* school;
+
+    /** Line used to visualize assignment to school Location */
+    QGraphicsLineItem* schoolLine;
+
+    /** Pointer to the agent's work location, may be nullptr*/
+    Location* work;
+
+    /** Line used to visualize assignment to work Location*/
+    QGraphicsLineItem* workLine;
+
+    /** Pointer to the agent's leisure location */
+    Location* leisure;
+
+    /** Line used to visualize assignment to leisure Location */
+    QGraphicsLineItem* leisureLine;
+
+    /** Coordinate that determines where the agent is trying to head. A
+    Coordiante of (-1,-1) indicates no destination*/
+    Coordinate* destination;
+
+    /** Coordinate that represents the heading between the agent and its
+    destination */
+    Coordinate* heading;
+
+    /** currentLocation enum that specifies where the Agent is at or heading */
+    currentLocation currentPlace;
 };
 
 #endif // AGENT_H
