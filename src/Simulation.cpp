@@ -8,6 +8,12 @@ Simulation::Simulation(int numAgents, Ui::MainWindow* ui) {
     this->ui = ui;
     this->simHeight = ui->mainCanvas->height();
     this->simWidth = ui->mainCanvas->width();
+
+    this->year = 0;
+    this->day = 0;
+    this->hour = 0;
+
+    this->agentController = new AgentController(NUM_BEHAVIORS);
 }
 
 
@@ -41,6 +47,31 @@ std::vector<Agent*>& Simulation::getAgents() {
 
 void Simulation::addToScene(QGraphicsItem *item) {
     ui->mainCanvas->scene()->addItem(item);
+}
+
+
+void Simulation::advanceTime() {
+    static int numFrames = 0;
+    numFrames++;
+    if (numFrames >= FRAMES_PER_HOUR) {
+        numFrames = 1;
+        this->hour++;
+        ui->hour->setText(QString::number(this->hour));
+        if (this->hour == 24) {
+            this->hour = 0;
+            ui->hour->setText(QString::number(this->hour));
+            this->day++;
+            ui->day->setText(QString::number(this->day));
+            if (this->day == 365) {
+                this->day = 0;
+                ui->day->setText(QString::number(this->day));
+                this->year++;
+                ui->year->setText(QString::number(this->year));
+            }
+        }
+        // Call down here to ensure correct hour value passed
+        agentController->setDestinations(getAgents(), this->hour);
+    }
 }
 
 
@@ -79,6 +110,22 @@ bool Simulation::visualizeChecked() {
 }
 
 
+int Simulation::getYear() {
+    return year;
+}
+
+
+int Simulation::getDay() {
+    return day;
+}
+
+
+int Simulation::getHour() {
+    return hour;
+}
+
+
 Simulation::~Simulation() {
     delete locationGenerator;
+    delete agentController;
 }

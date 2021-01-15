@@ -3,7 +3,8 @@
 
 #include <vector>
 #include <assert.h>
-#include "Agent.h"
+#include "ui_mainwindow.h"
+#include "AgentController.h"
 #include "LocationGenerator.h"
 
 /**
@@ -17,6 +18,9 @@ class Simulation : public QObject {
 private:
     /** a vector of every agent in the simulation */
     std::vector<Agent*> agents;
+
+    /** AgentController to dynamically control agent behavior */
+    AgentController* agentController;
 
     /** Integer containing the specified number of agents in the simulation */
     int numAgents;
@@ -32,6 +36,23 @@ private:
 
     /** LocationGenerator to create locations for each region */
     LocationGenerator* locationGenerator;
+
+    /** Int corresponding to the number of years that have passed in the Sim*/
+    int year;
+
+    /** Int corresponding to the number of days that have passed in the
+    current year in the Sim*/
+    int day;
+
+    /** Int corresponding to the number of hours that have passed in the
+    current day in the Sim*/
+    int hour;
+
+    /** Number of frames that occur before a new hour begins */
+    static const int FRAMES_PER_HOUR = 60;
+
+    /** Number of unique behaviors the simulation is configured for*/
+    static const int NUM_BEHAVIORS = 1;
 
 public:
 
@@ -113,6 +134,15 @@ public:
     void addToScene(QGraphicsItem* item);
 
     /**
+     * @brief advanceTime
+     * Function that should be called on every call to Simulation::execute().
+     * Advances the time in the simulation. Advances the hours after
+     * FRAMES_PER_HOUR number of functions calls. Advances the days after
+     * 24 hours have occurred. Advanced the year after 365 years have occurred.
+     */
+    void advanceTime();
+
+    /**
      * @brief clearScene
      * Calls clear() on the drawing scene on which the simulation is being
      * displayed. Deletes the dynamic memory associated with every object
@@ -155,6 +185,27 @@ public:
      * @return the number of agents in the sim
      */
     int getNumAgents();
+
+    /**
+     * @brief getYear
+     * Getter function for the current year in the Sim
+     * @return the year as an int
+     */
+    int getYear();
+
+    /**
+     * @brief getDay
+     * Getter function for the current day in the Sim
+     * @return the day as an int
+     */
+    int getDay();
+
+    /**
+     * @brief getHour
+     * Getter function for the current hour in the Sim
+     * @return the hour as an int
+     */
+    int getHour();
 
     /** Destructor for the Simulation Class*/
     virtual ~Simulation();

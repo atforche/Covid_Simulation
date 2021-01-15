@@ -8,7 +8,7 @@
  */
 
 #include <Headers/Coordinate.h>
-#include <ui_mainwindow.h>
+#include <QPen>
 #include <QGraphicsRectItem>
 #include "Location.h"
 
@@ -16,8 +16,8 @@ class Agent {
 
 public:
 
-    /** Enum that specifies the current location the Agent is at */
-    enum currentLocation{HOME, SCHOOL, WORK, LEISURE};
+    /** Enum that specifies the possible locations for the Agent to be */
+    enum LOCATIONS {HOME, SCHOOL, WORK, LEISURE};
 
     /**
      * @brief Agent
@@ -55,6 +55,33 @@ public:
      * called in a secondary thread to prevent blocking of the GUI thread.
      */
     void update();
+
+    /**
+     * @brief setDestination
+     * Sets the destination of this Agent to the new Location specified
+     * @param newLocation: a pointer to the new Location to set the agents
+     *                     destination to
+     */
+    void setDestination(Location* newLocation);
+
+    /**
+     * @brief setLocation
+     * Function to set the value of a Location assigned to the agent to a
+     * specific location
+     * @param location: a pointer to the new location
+     * @param which: specifies which of the Agent's locations to overwrite
+     * (Home, School, Leisure, Work)
+     */
+    void setLocation(Location* location, LOCATIONS which);
+
+    /**
+     * @brief getLocation
+     * Function to get a pointer to one of the Agents assigned locations
+     * @param which: specifies which of the Agent's locations to return (Home,
+     * School, Leisure, Work)
+     * @return the specified location as a pointer
+     */
+    Location* getLocation(LOCATIONS which);
 
     /**
      * @brief setHome
@@ -177,6 +204,14 @@ public:
     Coordinate* currentLocationPosition();
 
     /**
+     * @brief getBehavior
+     * Getter function for the behavior assignment of this agent. Returns
+     * the behavior assignment as an integer
+     * @return the behavior assignment as an integer
+     */
+    int getBehavior();
+
+    /**
      * @brief ~Agent
      * Destructor to free memory from the Agent class
      */
@@ -192,6 +227,16 @@ private:
 
     /** Int representing how wide the agents should be rendered as */
     static const int AGENT_WIDTH = 2;
+
+    /** Int representing how far an agent is allowed to "creep" away
+    from its current location through it's random movements */
+    static const int MAX_CREEP = 7;
+
+    /** Int representing the speed constant of the agent*/
+    static const int SPEED_CONSTANT = 5;
+
+    /** Int representing the current behavioral plan of the agent*/
+    int behavior;
 
     /** Visualizes connection between agent to assignments if true */
     bool visualize;
@@ -224,7 +269,7 @@ private:
     QGraphicsLineItem* leisureLine;
 
     /** Coordinate that determines where the agent is trying to head. A
-    Coordiante of (-1,-1) indicates no destination*/
+    Coordinate of (-1,-1) indicates no destination*/
     Coordinate* destination;
 
     /** Coordinate that represents the heading between the agent and its

@@ -66,7 +66,18 @@ public:
      * @param other: the second coordinate to calculate the distance to
      * @return the distance between the two coordinates as a double
      */
-    double distBetween(Coordinate& other);
+    double distBetween(Coordinate *other);
+
+    /**
+     * @brief headingBetween
+     * Function to calculate the heading vector that connects the current point
+     * to the point other. The heading vector is a straight line unit vector
+     * that connects the two points in as little distance as possible.
+     * @param other: the second point that the first point is trying to reach
+     * @return a Coordinate corresponding to the shortest 2D vector between
+     *         the two points
+     */
+    Coordinate* headingBetween(Coordinate *other);
 
     /**
      * @brief isValid

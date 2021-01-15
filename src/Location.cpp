@@ -18,7 +18,11 @@ void Location::removeAgent(Agent &agent) {
 
 
 QGraphicsEllipseItem* Location::renderLocation() {
-    return new QGraphicsEllipseItem(position->getX(), position->getY(),
+    // Offset by (LOCATION_WIDTH/2) is necessary to allow locations to be
+    // rendered so they are centered around their position, instead of the
+    // position being the top left coordinate of the Location
+    return new QGraphicsEllipseItem(position->getX() - (LOCATION_WIDTH/2),
+                                    position->getY() - (LOCATION_WIDTH/2),
                                     LOCATION_WIDTH, LOCATION_WIDTH);
 }
 

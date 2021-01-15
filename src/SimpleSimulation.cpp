@@ -73,6 +73,7 @@ void SimpleSimulation::init() {
 
 
 void SimpleSimulation::execute() {
+    advanceTime();
     std::vector<Agent*> agents = getAgents();
     for (int i = 0; i < getNumAgents(); ++i) {
         agents[i]->update();

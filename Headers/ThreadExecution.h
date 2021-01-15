@@ -22,7 +22,7 @@ class SimulationWorker : public QObject {
 public:
 
     /** Enum that defines the three different framerates*/
-    enum Speed {SLOW, MID, FAST};
+    enum Speed {PAUSED, SLOW, NORMAL, FAST, UNLIMITED};
 
     /**
      * @brief SimulationWorker
@@ -44,6 +44,16 @@ public:
      */
     void dropSimulation();
 
+    /**
+     * @brief changeSpeed
+     * Function that changes the interval of the QTimer that specifies the
+     * FPS of the simulation execution. Function should only be called by the
+     * SimulationController in charge of this worker. Sim must be paused and
+     * restarted for changes to take effect
+     * @param speedIn: enum specifying the new speed of the simulation
+     */
+    void changeSpeed(Speed speedIn);
+
 public slots:
     /**
      * @brief doWork
@@ -60,7 +70,6 @@ public slots:
      */
     void executeSimulation();
 
-
 signals:
     /** Signal that indicate that the thread has finished execution */
     void resultReady(const QString &result);
@@ -76,6 +85,9 @@ private:
     /** QTimer object that calls the execute loop after a certain
         amount of time has passed */
     QTimer* executeLoop;
+
+    /** Boolean that indicates whether or not to continue the Simulation */
+    bool continueSimulation;
 
 };
 
@@ -123,6 +135,15 @@ public:
      * execution
      */
     void endSimulation();
+
+    /**
+     * @brief changeSpeed
+     * This function changes the speed of the simulation being run by the
+     * Simulation Worker. Accomplishes this by pausing the SimulationWorker,
+     * calling SimulationWorker::changeSpeed, then restarting the Simulation
+     * @param newSpeed: enum specifying the new speed of the simulation
+     */
+    void changeSpeed(SimulationWorker::Speed newSpeed);
 
     /** Destructor for the Simulation Controller class */
     ~SimulationController();

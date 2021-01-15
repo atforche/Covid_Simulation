@@ -27,10 +27,22 @@ void Coordinate::setY(double y) {
 }
 
 
-double Coordinate::distBetween(Coordinate &other) {
-    double xDiff = getX() - other.getX();
-    double yDiff = getY() - other.getY();
+double Coordinate::distBetween(Coordinate *other) {
+    double xDiff = getX() - other->getX();
+    double yDiff = getY() - other->getY();
     return sqrt((xDiff * xDiff) + (yDiff * yDiff));
+}
+
+
+Coordinate* Coordinate::headingBetween(Coordinate *other) {
+    double xdiff = other->getX() - getX();
+    double ydiff = other->getY() - getY();
+    // Prevent divide by zero errors
+    if (xdiff == 0 && ydiff == 0) {
+        return new Coordinate(0,0);
+    }
+    double magnitude = sqrt((xdiff * xdiff) + (ydiff * ydiff));
+    return new Coordinate(xdiff / magnitude, ydiff / magnitude);
 }
 
 

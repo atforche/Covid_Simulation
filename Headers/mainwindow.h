@@ -6,6 +6,8 @@
 #include "ui_mainwindow.h"
 #include "QGraphicsRectItem"
 #include "QtTest/QTest"
+#include "QJsonDocument"
+#include "QJsonObject"
 #include <vector>
 #include <string>
 #include <Headers/SimpleSimulation.h>
@@ -28,17 +30,24 @@ public:
      */
     MainWindow(QWidget *parent = nullptr);
 
+    /**
+     * @brief disableUI
+     * Function that disables all necessary UI elements when the Simulation
+     * is started. Prevents user from changing constant values while the
+     * simulation is in execution.
+     */
+    void disableUI();
+
+    /**
+     * @brief enableUI
+     * Function that enables all the necessary UI elements when the Simulation
+     * is ended. Allows the user to be able to change constant values in
+     * between Simulation executions
+     */
+    void enableUI();
+
     /** Destructor for the MainWindow object, clears all memory*/
     ~MainWindow();
-
-signals:
-
-    /** Signal to halt simulation execution on other threads. Connect all
-      Simulation Controllers to this signal and halt their associated Workers
-      when it is emitted
-    */
-    void dropSimulation(QString result);
-
 
 private slots:
     /**
@@ -92,6 +101,32 @@ private slots:
      */
     void on_numAgentsLabel_valueChanged(int arg1);
 
+    /**
+     * @brief on_slowSim_clicked
+     * Click Listener for the slowSim button. Reduces the execution speed of
+     * the simulation by one stage. Different stages are Slow, Normal, Fast
+     * and Unlimited. Updates the speed label and has the simulation controller
+     * update the worker with the new speed
+     */
+    void on_slowSim_clicked();
+
+    /**
+     * @brief on_pauseSim_clicked
+     * Click Listener for the pauseSim button. Stops the execution of the
+     * Simulation by the Simulation Controller. Updates the speed label on
+     * the screen
+     */
+    void on_pauseSim_clicked();
+
+    /**
+     * @brief on_fastSim_clicked
+     * Click Listener for the slowSim button. Reduces the execution speed of
+     * the simulation by one stage. Different stages are Slow, Normal, Fast
+     * and Unlimited. Updates the speed label and has the simulation controller
+     * update the worker with the new speed
+     */
+    void on_fastSim_clicked();
+
 private:
     /** Pointer to store and access the ui components of the window*/
     Ui::MainWindow *ui;
@@ -105,6 +140,12 @@ private:
     /** Maximum numbers for agents and locations */
     static const int MAX_AGENTS = 100;
     static const int MAX_LOCATIONS = 50;
+
+    /** String specifying the current speed of the simualation */
+    QString currentSpeed;
+
+    /** Bool specifying if the simulation is paused */
+    bool paused;
 
 };
 #endif // MAINWINDOW_H

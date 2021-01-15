@@ -18,7 +18,7 @@
     <property name="geometry">
      <rect>
       <x>300</x>
-      <y>20</y>
+      <y>30</y>
       <width>950</width>
       <height>950</height>
      </rect>
@@ -226,6 +226,119 @@
      </item>
      <item>
       <widget class="QCheckBox" name="visualize">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget_4">
+    <property name="geometry">
+     <rect>
+      <x>1030</x>
+      <y>0</y>
+      <width>221</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLabel" name="yearLabel">
+       <property name="text">
+        <string>Year:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="year">
+       <property name="text">
+        <string>0</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="dayLabel">
+       <property name="text">
+        <string>Day:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="day">
+       <property name="text">
+        <string>0</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="hourLabel">
+       <property name="text">
+        <string>Hour</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="hour">
+       <property name="text">
+        <string>0</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget_5">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>0</y>
+      <width>101</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QLabel" name="speedLabel">
+       <property name="text">
+        <string>Speed:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="speed">
+       <property name="text">
+        <string>Normal</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget_6">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>0</y>
+      <width>201</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <item>
+      <widget class="QPushButton" name="slowSim">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pauseSim">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="fastSim">
        <property name="text">
         <string/>
        </property>

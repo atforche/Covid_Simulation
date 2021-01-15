@@ -4,27 +4,49 @@
 SimulationWorker::SimulationWorker(Simulation* sim, Speed frameRate) {
     this->sim = sim;
     this->frameRate = frameRate;
+    executeLoop = nullptr;
 }
 
 
 void SimulationWorker::doWork(const QString &) {
+    delete executeLoop; // ensure old timer is deleted to prevent two timers running
     executeLoop = new QTimer();
+    continueSimulation = true; // Ensure the simulation is able to continue
     connect(executeLoop, &QTimer::timeout, this,
             &SimulationWorker::executeSimulation);
-    executeLoop->start(16);
+    if (this->frameRate == UNLIMITED) {
+        executeLoop->start(1); //Unlimited FPS
+    } else if (this->frameRate == FAST) {
+        executeLoop->start(16); //60 FPS
+    } else if (this->frameRate == NORMAL) {
+        executeLoop->start(33); //30 FPS
+    } else {
+        executeLoop->start(65); //15 FPS
+    }
 }
 
 
 void SimulationWorker::executeSimulation() {
-    sim->execute();
-    emit resultReady("Done");
+    if (continueSimulation) {
+        sim->execute();
+        emit resultReady("Done");
+    } else {
+        executeLoop->stop();
+        delete executeLoop;
+        executeLoop = nullptr;
+    }
 }
 
 
 void SimulationWorker::dropSimulation() {
     // Stops the timer from executing which prevents the further calling
     // of the Simulation::execute() function
-    executeLoop->stop();
+    continueSimulation = false;
+}
+
+
+void SimulationWorker::changeSpeed(Speed speedIn) {
+    this->frameRate = speedIn;
 }
 
 
@@ -54,6 +76,13 @@ void SimulationController::endSimulation() {
     // mechanism. Although the SimulationWorker lives on another thread, its
     // own memory is not being modified by that thread
     this->worker->dropSimulation();
+}
+
+
+void SimulationController::changeSpeed(SimulationWorker::Speed newSpeed) {
+    endSimulation(); //Pause the simulation
+    this->worker->changeSpeed(newSpeed);
+    startSimulation();
 }
 
 

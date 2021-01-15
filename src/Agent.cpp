@@ -3,7 +3,7 @@
 Agent::Agent(int age, Coordinate* position, bool visualize) {
     this->age = age;
     this->position = position;
-    this->destination = new Coordinate(-1,-1);
+    this->destination = new Coordinate(-1,-1); // Default destination for now
     this->heading = new Coordinate(1,1); // Default heading for now
     this->rect = new QGraphicsRectItem(this->position->getX(),
                                        this->position->getY(),
@@ -21,6 +21,8 @@ Agent::Agent(int age, Coordinate* position, bool visualize) {
     this->leisure = nullptr;
 
     this->currentPlace = Agent::HOME;
+
+    this->behavior = 1; // Static as there is only one behavior; Change Later
 }
 
 
@@ -62,21 +64,36 @@ void Agent::renderUpdate() {
 }
 
 
+void Agent::setDestination(Location *newLocation) {
+    this->destination = newLocation->getPosition();
+}
+
+
 void Agent::update() {
-    if (destination->isValid()) {
-        position->setX(position->getX() + heading->getX());
-        position->setY(position->getY() + heading->getY());
-    } else {
+    // If the agent is within MAX_CREEP pixels of its destination, just move
+    // around randomly in the area. Otherwise, move toward the destination
+    // in a straight line
+    if (getPosition()->distBetween(this->destination) < MAX_CREEP) {
         position->setX(position->getX() + (rand() % 3 - 1));
         position->setY(position->getY() + (rand() % 3 - 1));
+    } else {
+        heading = getPosition()->headingBetween(this->destination);
+        position->setX(position->getX() + heading->getX() * SPEED_CONSTANT); // May need to add speed constant
+        position->setY(position->getY() + heading->getY() * SPEED_CONSTANT); // May need to add speed constant
     }
-//    position->setX(position->getX() + 1);
-//    position->setY(position->getY() + 1);
+//    if (destination->isValid()) {
+//        position->setX(position->getX() + heading->getX());
+//        position->setY(position->getY() + heading->getY());
+//    } else {
+//        position->setX(position->getX() + (rand() % 3 - 1));
+//        position->setY(position->getY() + (rand() % 3 - 1));
+//    }
 }
 
 
 void Agent::setHome(Location *home) {
     this->home = home;
+    this->destination = home->getPosition();
 }
 
 
@@ -186,14 +203,20 @@ std::vector<QGraphicsItem*> Agent::allRenderedObject() {
 
 
 Coordinate* Agent::currentLocationPosition() {
-    if (currentPlace == currentLocation::HOME) {
+    if (currentPlace == LOCATIONS::HOME) {
         return home->getPosition();
-    } else if (currentPlace == currentLocation::WORK) {
+    } else if (currentPlace == LOCATIONS::WORK) {
         return work->getPosition();
-    } else if (currentPlace == currentLocation::SCHOOL) {
+    } else if (currentPlace == LOCATIONS::SCHOOL) {
         return school->getPosition();
+    } else if (currentPlace == LOCATIONS::LEISURE) {
+        return leisure->getPosition();
     }
-    return leisure->getPosition();
+}
+
+
+int Agent::getBehavior() {
+    return this->behavior;
 }
 
 Agent::~Agent() {

@@ -9,6 +9,8 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    src/AgentController.cpp \
+    src/mainwindow.cpp \
     src/Agent.cpp \
     src/AgentGenerator.cpp \
     src/Coordinate.cpp \
@@ -20,9 +22,10 @@ SOURCES += \
     src/SquareRegion.cpp \
     src/ThreadExecution.cpp \
     src/main.cpp \
-    src/mainwindow.cpp
 
 HEADERS += \
+    Headers/AgentController.h \
+    Headers/mainwindow.h \
     Headers/Agent.h \
     Headers/AgentGenerator.h \
     Headers/Coordinate.h \
@@ -33,10 +36,12 @@ HEADERS += \
     Headers/Simulation.h \
     Headers/SquareRegion.h \
     Headers/ThreadExecution.h \
-    Headers/mainwindow.h \
+
 
 FORMS += \
     mainwindow.ui
+
+RESOURCES = resources.qrc
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
