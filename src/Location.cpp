@@ -2,11 +2,20 @@
 
 Location::Location(double x, double y) {
     position = new Coordinate(x, y);
+
+    // Offset by (LOCATION_WIDTH/2) is necessary to allow locations to be
+    // rendered so they are centered around their position, instead of the
+    // position being the top left coordinate of the Location
+    ellipse = new QGraphicsEllipseItem(
+                position->getCoord(Coordinate::X) - (LOCATION_WIDTH/2),
+                position->getCoord(Coordinate::Y) - (LOCATION_WIDTH/2),
+                LOCATION_WIDTH, LOCATION_WIDTH
+                );
 }
 
 
-void Location::addAgent(Agent &agent) {
-    agents.insert(&agent);
+void Location::addAgent(Agent *agent) {
+    agents.insert(agent);
 }
 
 
@@ -17,13 +26,8 @@ void Location::removeAgent(Agent &agent) {
 }
 
 
-QGraphicsEllipseItem* Location::renderLocation() {
-    // Offset by (LOCATION_WIDTH/2) is necessary to allow locations to be
-    // rendered so they are centered around their position, instead of the
-    // position being the top left coordinate of the Location
-    return new QGraphicsEllipseItem(position->getX() - (LOCATION_WIDTH/2),
-                                    position->getY() - (LOCATION_WIDTH/2),
-                                    LOCATION_WIDTH, LOCATION_WIDTH);
+QGraphicsEllipseItem* Location::getGraphicsObject() {
+    return ellipse;
 }
 
 

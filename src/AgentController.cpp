@@ -24,19 +24,19 @@ int AgentController::getNumBehaviors() {
 }
 
 
-void AgentController::setDestinations(std::vector<Agent*> agents, int hour) {
+void AgentController::assignAgentDestinations(std::vector<Agent*> agents, int hour) {
     for (size_t i = 0; i < agents.size(); ++i) {
         int behavior = agents[i]->getBehavior();
         QString destination = behaviors[behavior].value(
                     QString::number(hour)).toString();
         if (destination == "Home") {
-            agents[i]->setDestination(agents[i]->getHome());
+            agents[i]->setDestination(agents[i]->getLocation(Agent::HOME));
         } else if (destination == "School") {
-            agents[i]->setDestination(agents[i]->getSchool());
+            agents[i]->setDestination(agents[i]->getLocation(Agent::SCHOOL));
         } else if (destination == "Work") {
-            agents[i]->setDestination(agents[i]->getWork());
+            agents[i]->setDestination(agents[i]->getLocation(Agent::WORK));
         } else if (destination == "Leisure") {
-            agents[i]->setDestination(agents[i]->getLeisure());
+            agents[i]->setDestination(agents[i]->getLocation(Agent::LEISURE));
         }
     }
 }

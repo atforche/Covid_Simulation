@@ -1,0 +1,74 @@
+\hypertarget{class_agent_generator}{}\doxysection{Agent\+Generator Class Reference}
+\label{class_agent_generator}\index{AgentGenerator@{AgentGenerator}}
+
+
+The \mbox{\hyperlink{class_agent_generator}{Agent\+Generator}} class Class that handles randomly generating agents within each region and assigning them to different home, work, school, and leisure locations.  
+
+
+
+
+{\ttfamily \#include $<$Agent\+Generator.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_agent_generator_a5ddedcc8c2d908c43fbb3881921762aa}{Agent\+Generator}} (\mbox{\hyperlink{class_region}{Region}} $\ast$home, \mbox{\hyperlink{class_region}{Region}} $\ast$school, \mbox{\hyperlink{class_region}{Region}} $\ast$work, \mbox{\hyperlink{class_region}{Region}} $\ast$leisure)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_agent_generator}{Agent\+Generator}} Constructor for the \mbox{\hyperlink{class_agent}{Agent}} Generator Class. This class handles generating agents for a \mbox{\hyperlink{class_simulation}{Simulation}}, assigning each agent to one location in each \mbox{\hyperlink{class_region}{Region}}, and giving the \mbox{\hyperlink{class_agent}{Agent}} a starting position (currently always at home) \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{class_agent}{Agent}} $\ast$ $>$ \mbox{\hyperlink{class_agent_generator_a6e0356026a89e2301435d4c90f5e793b}{generate}} (int num)
+\begin{DoxyCompactList}\small\item\em generate Function to generator a number of Agents and randomly assign them to different locations in each region. A total of num agents are generated. Each agent is randomly assigned to a single location within each region. The agent is given a random starting position that is centered around its home location. Returns a vector of generated agents to be added to the simulation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{class_agent_generator}{Agent\+Generator}} class Class that handles randomly generating agents within each region and assigning them to different home, work, school, and leisure locations. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_agent_generator_a5ddedcc8c2d908c43fbb3881921762aa}\label{class_agent_generator_a5ddedcc8c2d908c43fbb3881921762aa}} 
+\index{AgentGenerator@{AgentGenerator}!AgentGenerator@{AgentGenerator}}
+\index{AgentGenerator@{AgentGenerator}!AgentGenerator@{AgentGenerator}}
+\doxysubsubsection{\texorpdfstring{AgentGenerator()}{AgentGenerator()}}
+{\footnotesize\ttfamily Agent\+Generator\+::\+Agent\+Generator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_region}{Region}} $\ast$}]{home,  }\item[{\mbox{\hyperlink{class_region}{Region}} $\ast$}]{school,  }\item[{\mbox{\hyperlink{class_region}{Region}} $\ast$}]{work,  }\item[{\mbox{\hyperlink{class_region}{Region}} $\ast$}]{leisure }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{class_agent_generator}{Agent\+Generator}} Constructor for the \mbox{\hyperlink{class_agent}{Agent}} Generator Class. This class handles generating agents for a \mbox{\hyperlink{class_simulation}{Simulation}}, assigning each agent to one location in each \mbox{\hyperlink{class_region}{Region}}, and giving the \mbox{\hyperlink{class_agent}{Agent}} a starting position (currently always at home) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em home} & a pointer to the home \mbox{\hyperlink{class_region}{Region}} in the simulation \\
+\hline
+{\em school} & a pointer to the school \mbox{\hyperlink{class_region}{Region}} in the simulation \\
+\hline
+{\em work} & a pointer to the work \mbox{\hyperlink{class_region}{Region}} in the simulation \\
+\hline
+{\em leisure} & a pointer to the leisure \mbox{\hyperlink{class_region}{Region}} in the simulation \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_agent_generator_a6e0356026a89e2301435d4c90f5e793b}\label{class_agent_generator_a6e0356026a89e2301435d4c90f5e793b}} 
+\index{AgentGenerator@{AgentGenerator}!generate@{generate}}
+\index{generate@{generate}!AgentGenerator@{AgentGenerator}}
+\doxysubsubsection{\texorpdfstring{generate()}{generate()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{class_agent}{Agent}} $\ast$ $>$ Agent\+Generator\+::generate (\begin{DoxyParamCaption}\item[{int}]{num }\end{DoxyParamCaption})}
+
+
+
+generate Function to generator a number of Agents and randomly assign them to different locations in each region. A total of num agents are generated. Each agent is randomly assigned to a single location within each region. The agent is given a random starting position that is centered around its home location. Returns a vector of generated agents to be added to the simulation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em num} & the number of agents to be generated \\
+\hline
+{\em visualize} & visualize connections between agents to assignments if true \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a vector of pointers pointing to the generated agents 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Headers/Agent\+Generator.\+h\item 
+src/Agent\+Generator.\+cpp\end{DoxyCompactItemize}

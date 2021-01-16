@@ -24,22 +24,33 @@ Collaboration diagram for Simple\+Simulation\+:
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{class_simple_simulation_ad16a2131994b9688b750210e8d1a5929}{Simple\+Simulation}} (int num\+Agents, Ui\+::\+Main\+Window $\ast$ui)
-\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_simple_simulation}{Simple\+Simulation}} The constructor for the \mbox{\hyperlink{class_simple_simulation}{Simple\+Simulation}} Class, sets up all controls necessary for the running of this simulation type. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_simple_simulation}{Simple\+Simulation}} ~\newline
+The constructor for the \mbox{\hyperlink{class_simple_simulation}{Simple\+Simulation}} Class, sets up all controls necessary for the running of this simulation type. Simple \mbox{\hyperlink{class_simulation}{Simulation}} is comprised of four Square\+Regions that are home, work, school, and leisure. It will implement agent assignment, motion, and behavior charts, however it will lack any more advanced features like infectivity or economy. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_simple_simulation_a53d5c24654dd7fb8c6733e2435f525a1}\label{class_simple_simulation_a53d5c24654dd7fb8c6733e2435f525a1}} 
 virtual void \mbox{\hyperlink{class_simple_simulation_a53d5c24654dd7fb8c6733e2435f525a1}{init}} () override
-\begin{DoxyCompactList}\small\item\em init Function to initialize the simulation. More documentation to come \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em init ~\newline
+Function to initialize the simulation. Initializes the Regions and Locations. Renders all the Regions and Locations and add all of them to the Q\+Graphics\+Scene. Also generates the agents in the Sim, assigns each of them to a set of Locations, and renders each of them to the Q\+Graphics\+Scene \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simple_simulation_aed5adff71da8e1700c9059dac85ffbc6}\label{class_simple_simulation_aed5adff71da8e1700c9059dac85ffbc6}} 
+virtual void \mbox{\hyperlink{class_simple_simulation_aed5adff71da8e1700c9059dac85ffbc6}{execute}} () override
+\begin{DoxyCompactList}\small\item\em execute ~\newline
+Function to execute a simple timestep of the simulation. Loops through every agent in the simulation and calls the update function on them. \mbox{\hyperlink{class_simulation_a2987cc476da3d7fa312d02e00b17f4d8}{Simulation\+::render\+Agent\+Update()}} is required for updates to appear on the screen (may need to be overridden) \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_simple_simulation_a66215e392b5eab33e9089b255c830417}\label{class_simple_simulation_a66215e392b5eab33e9089b255c830417}} 
 virtual void \mbox{\hyperlink{class_simple_simulation_a66215e392b5eab33e9089b255c830417}{reset}} () override
-\begin{DoxyCompactList}\small\item\em reset Function to reset the simulation. More documentation to come \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em reset ~\newline
+Function to reset the simulation. Resets the \mbox{\hyperlink{class_simulation}{Simulation}} by clearing the Scene and deleting all agents from the \mbox{\hyperlink{class_simulation}{Simulation}}. Redraws the Regions to the screen to the Q\+Graphics\+Scene does not appear blank to the user. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_simple_simulation_a8fa34536fb673562dccd7e255d32bc71}\label{class_simple_simulation_a8fa34536fb673562dccd7e255d32bc71}} 
 virtual void \mbox{\hyperlink{class_simple_simulation_a8fa34536fb673562dccd7e255d32bc71}{test}} () override
-\begin{DoxyCompactList}\small\item\em test Test Function that allows for functionalities of the simulation to be tested \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_simple_simulation_aa00abd0a15e93f551d0d20ab06e92ae5}\label{class_simple_simulation_aa00abd0a15e93f551d0d20ab06e92ae5}} 
-virtual \mbox{\hyperlink{class_simple_simulation_aa00abd0a15e93f551d0d20ab06e92ae5}{$\sim$\+Simple\+Simulation}} ()
-\begin{DoxyCompactList}\small\item\em $\sim$\+Simple\+Simulation Destructor function for the Simple \mbox{\hyperlink{class_simulation}{Simulation}} Class. Clears all dynamic memory used within the simulation \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_simple_simulation_a84f33735c2d1bd87f202e9c5f3ebfbde}\label{class_simple_simulation_a84f33735c2d1bd87f202e9c5f3ebfbde}} 
-void \mbox{\hyperlink{class_simple_simulation_a84f33735c2d1bd87f202e9c5f3ebfbde}{generate\+Agents}} (\mbox{\hyperlink{class_agent}{Agent}} $\ast$agent)
-\begin{DoxyCompactList}\small\item\em generate\+Agents Function that generates Agents to be added to the simulation \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em test ~\newline
+Test Function that allows for functionalities of the simulation to be tested. Function that can be modified as needed to test various functionalities of the simulation. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simple_simulation_afaf1cf90f5056c66525ad2ccb290dabe}\label{class_simple_simulation_afaf1cf90f5056c66525ad2ccb290dabe}} 
+virtual void \mbox{\hyperlink{class_simple_simulation_afaf1cf90f5056c66525ad2ccb290dabe}{generate\+Agents}} () override
+\begin{DoxyCompactList}\small\item\em generate\+Agents ~\newline
+Function to generate agents and assign them to behaviors and locations. Currently, randomly assign agents with ages, behaviors, and locations. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simple_simulation_a356ab8bcf216a925c4cd9d29bc14686e}\label{class_simple_simulation_a356ab8bcf216a925c4cd9d29bc14686e}} 
+virtual \mbox{\hyperlink{class_simple_simulation_a356ab8bcf216a925c4cd9d29bc14686e}{$\sim$\+Simple\+Simulation}} () override
+\begin{DoxyCompactList}\small\item\em $\sim$\+Simple\+Simulation ~\newline
+Destructor function for the Simple \mbox{\hyperlink{class_simulation}{Simulation}} Class. Clears all dynamic memory used within the \mbox{\hyperlink{class_simulation}{Simulation}} by clearing the scene (which clears all memory used by the scene) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -51,7 +62,8 @@ void \mbox{\hyperlink{class_simple_simulation_a84f33735c2d1bd87f202e9c5f3ebfbde}
 
 
 
-\mbox{\hyperlink{class_simple_simulation}{Simple\+Simulation}} The constructor for the \mbox{\hyperlink{class_simple_simulation}{Simple\+Simulation}} Class, sets up all controls necessary for the running of this simulation type. 
+\mbox{\hyperlink{class_simple_simulation}{Simple\+Simulation}} ~\newline
+The constructor for the \mbox{\hyperlink{class_simple_simulation}{Simple\+Simulation}} Class, sets up all controls necessary for the running of this simulation type. Simple \mbox{\hyperlink{class_simulation}{Simulation}} is comprised of four Square\+Regions that are home, work, school, and leisure. It will implement agent assignment, motion, and behavior charts, however it will lack any more advanced features like infectivity or economy. 
 
 
 \begin{DoxyParams}{Parameters}

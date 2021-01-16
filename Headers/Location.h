@@ -2,7 +2,7 @@
 #define LOCATION_H
 
 /**
- * @brief The Location class
+ * @brief The Location class \n
  * A base class that defines functionality of unique locations within the
  * Simulation
  */
@@ -25,10 +25,13 @@ private:
     /** Constant width of the locations ellipse on the screen */
     const int LOCATION_WIDTH = 10;
 
+    /** QGraphicsItem that represents this location on the screen */
+    QGraphicsEllipseItem* ellipse;
+
 public:
 
     /**
-     * @brief Location
+     * @brief Location \n
      * Constructor for the Location class. Each Location contains a position and
      * a vector of agents that are assigned to it. (May be useful to keep track
      * of what type of Location it is, problem for future Andy)
@@ -38,16 +41,16 @@ public:
     Location(double x, double y);
 
     /**
-     * @brief addAgent
+     * @brief addAgent \n
      * Function to assign an Agent to this Location. Adds the agent to the
      * agents set. Allows location to keep track of its associated agents
      * for quarantining purposes.
      * @param agent: the agent to be assigned to this location
      */
-    void addAgent(Agent &agent);
+    void addAgent(Agent *agent);
 
     /**
-     * @brief removeAgent
+     * @brief removeAgent \n
      * Function to remove an Agent from this Location. Removes this agent from
      * the agents set. This function will generally only be used in the case
      * of agent death, however it could be possible to introduce agent moving
@@ -57,16 +60,16 @@ public:
     void removeAgent(Agent &agent);
 
     /**
-     * @brief renderLocation
-     * Function that returns a QGraphicsEllipseItem to visulize this location.
+     * @brief getGraphicsObject \n
+     * Function that returns the QGraphicsEllipseItem to visulize this location.
      * The returned ellipse must be added to the simulation for it to appear in
      * the window. Currently, locations cannot be updated or moved once created.
      * @return a QGraphicsEllipseItem at this Location
      */
-    QGraphicsEllipseItem* renderLocation();
+    QGraphicsEllipseItem* getGraphicsObject();
 
     /**
-     * @brief getPosition:
+     * @brief getPosition: \n
      * Getter function for the position of the Location. Returns the position
      * of this location as a Coordinate
      * @return the Coordinate position of the Location

@@ -1,0 +1,155 @@
+\hypertarget{class_simulation_worker}{}\doxysection{Simulation\+Worker Class Reference}
+\label{class_simulation_worker}\index{SimulationWorker@{SimulationWorker}}
+
+
+The \mbox{\hyperlink{class_simulation_worker}{Simulation\+Worker}} class ~\newline
+Class that handles the execution of the \mbox{\hyperlink{class_simulation}{Simulation}} on a Threader. A Worker is dispatched by a controlled.  
+
+
+
+
+{\ttfamily \#include $<$Thread\+Execution.\+h$>$}
+
+
+
+Inheritance diagram for Simulation\+Worker\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=174pt]{class_simulation_worker__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Simulation\+Worker\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=174pt]{class_simulation_worker__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{class_simulation_worker_a77cfcb049fa15567e8b0b00e2fc28298}{Speed}} \{ \newline
+{\bfseries P\+A\+U\+S\+ED}, 
+{\bfseries S\+L\+OW}, 
+{\bfseries N\+O\+R\+M\+AL}, 
+{\bfseries F\+A\+ST}, 
+\newline
+{\bfseries U\+N\+L\+I\+M\+I\+T\+ED}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_simulation_worker_ac9905ae951eb189007c28167297fd35f}{start\+Thread}} (const Q\+String \&)
+\begin{DoxyCompactList}\small\item\em start\+Thread ~\newline
+Function to be attached to a separate thread. Drives the simulation\textquotesingle{}s execution on a time loop \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simulation_worker_ad796f3e651719642b53fac3641fecc0e}\label{class_simulation_worker_ad796f3e651719642b53fac3641fecc0e}} 
+void \mbox{\hyperlink{class_simulation_worker_ad796f3e651719642b53fac3641fecc0e}{execute\+Sim\+Timestep}} ()
+\begin{DoxyCompactList}\small\item\em execute\+Simulation ~\newline
+Slot that directly executes the simulation. Signals to the parent \mbox{\hyperlink{class_simulation}{Simulation}} of this worker to execute a timestep \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_simulation_worker_a6b40b53c9368783cfbb927724d8b3406}{timestep\+Complete}} (const Q\+String \&result)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_simulation_worker_a7f8f98617dfb98fd0808824724c4b9e7}{Simulation\+Worker}} (\mbox{\hyperlink{class_simulation}{Simulation}} $\ast$sim, \mbox{\hyperlink{class_simulation_worker_a77cfcb049fa15567e8b0b00e2fc28298}{Speed}} frame\+Rate)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_simulation_worker}{Simulation\+Worker}} ~\newline
+Constructor for the \mbox{\hyperlink{class_simulation_worker}{Simulation\+Worker}} class. Each simulation worker executes a loop in which the \mbox{\hyperlink{class_simulation}{Simulation}} takes timesteps forward. After each timestep is complete, the Worker signals to the \mbox{\hyperlink{class_simulation}{Simulation}} to render the updates to the G\+UI because G\+UI updates must be in the main thread. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simulation_worker_a989dd176397b244278f09c4114d93b62}\label{class_simulation_worker_a989dd176397b244278f09c4114d93b62}} 
+void \mbox{\hyperlink{class_simulation_worker_a989dd176397b244278f09c4114d93b62}{pause\+Simulation}} ()
+\begin{DoxyCompactList}\small\item\em pause\+Simulation ~\newline
+Function that instructs \mbox{\hyperlink{class_simulation_worker}{Simulation\+Worker}} to pause execution of the \mbox{\hyperlink{class_simulation}{Simulation}} Must be called by the Thread Controller, which is signaled by the reset or pause button in the G\+UI \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simulation_worker_a8d5565a41a7cdf636e262723cbb6005b}{change\+Speed}} (\mbox{\hyperlink{class_simulation_worker_a77cfcb049fa15567e8b0b00e2fc28298}{Speed}} speed\+In)
+\begin{DoxyCompactList}\small\item\em change\+Speed ~\newline
+Function that changes the interval of the Q\+Timer that specifies the F\+PS of the simulation execution. Function should only be called by the \mbox{\hyperlink{class_simulation_controller}{Simulation\+Controller}} in charge of this worker. Sim must be paused and restarted for changes to take effect \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{class_simulation_worker}{Simulation\+Worker}} class ~\newline
+Class that handles the execution of the \mbox{\hyperlink{class_simulation}{Simulation}} on a Threader. A Worker is dispatched by a controlled. 
+
+File that handles all classes required for multithreaded execution of the the simulation to prevent blocking of the UI 
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{class_simulation_worker_a77cfcb049fa15567e8b0b00e2fc28298}\label{class_simulation_worker_a77cfcb049fa15567e8b0b00e2fc28298}} 
+\index{SimulationWorker@{SimulationWorker}!Speed@{Speed}}
+\index{Speed@{Speed}!SimulationWorker@{SimulationWorker}}
+\doxysubsubsection{\texorpdfstring{Speed}{Speed}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{class_simulation_worker_a77cfcb049fa15567e8b0b00e2fc28298}{Simulation\+Worker\+::\+Speed}}}
+
+Enum that defines the different simulation framerates 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_simulation_worker_a7f8f98617dfb98fd0808824724c4b9e7}\label{class_simulation_worker_a7f8f98617dfb98fd0808824724c4b9e7}} 
+\index{SimulationWorker@{SimulationWorker}!SimulationWorker@{SimulationWorker}}
+\index{SimulationWorker@{SimulationWorker}!SimulationWorker@{SimulationWorker}}
+\doxysubsubsection{\texorpdfstring{SimulationWorker()}{SimulationWorker()}}
+{\footnotesize\ttfamily Simulation\+Worker\+::\+Simulation\+Worker (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_simulation}{Simulation}} $\ast$}]{sim,  }\item[{\mbox{\hyperlink{class_simulation_worker_a77cfcb049fa15567e8b0b00e2fc28298}{Speed}}}]{frame\+Rate }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{class_simulation_worker}{Simulation\+Worker}} ~\newline
+Constructor for the \mbox{\hyperlink{class_simulation_worker}{Simulation\+Worker}} class. Each simulation worker executes a loop in which the \mbox{\hyperlink{class_simulation}{Simulation}} takes timesteps forward. After each timestep is complete, the Worker signals to the \mbox{\hyperlink{class_simulation}{Simulation}} to render the updates to the G\+UI because G\+UI updates must be in the main thread. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sim} & pointer to the \mbox{\hyperlink{class_simulation}{Simulation}} the worker is driving \\
+\hline
+{\em frame\+Rate} & speed enum to define how long between sim executions \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_simulation_worker_a8d5565a41a7cdf636e262723cbb6005b}\label{class_simulation_worker_a8d5565a41a7cdf636e262723cbb6005b}} 
+\index{SimulationWorker@{SimulationWorker}!changeSpeed@{changeSpeed}}
+\index{changeSpeed@{changeSpeed}!SimulationWorker@{SimulationWorker}}
+\doxysubsubsection{\texorpdfstring{changeSpeed()}{changeSpeed()}}
+{\footnotesize\ttfamily void Simulation\+Worker\+::change\+Speed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_simulation_worker_a77cfcb049fa15567e8b0b00e2fc28298}{Speed}}}]{speed\+In }\end{DoxyParamCaption})}
+
+
+
+change\+Speed ~\newline
+Function that changes the interval of the Q\+Timer that specifies the F\+PS of the simulation execution. Function should only be called by the \mbox{\hyperlink{class_simulation_controller}{Simulation\+Controller}} in charge of this worker. Sim must be paused and restarted for changes to take effect 
+
+
+\begin{DoxyParams}{Parameters}
+{\em speed\+In} & enum specifying the new speed of the simulation \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_simulation_worker_ac9905ae951eb189007c28167297fd35f}\label{class_simulation_worker_ac9905ae951eb189007c28167297fd35f}} 
+\index{SimulationWorker@{SimulationWorker}!startThread@{startThread}}
+\index{startThread@{startThread}!SimulationWorker@{SimulationWorker}}
+\doxysubsubsection{\texorpdfstring{startThread}{startThread}}
+{\footnotesize\ttfamily void Simulation\+Worker\+::start\+Thread (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+start\+Thread ~\newline
+Function to be attached to a separate thread. Drives the simulation\textquotesingle{}s execution on a time loop 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parameter} & the status of the thread \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_simulation_worker_a6b40b53c9368783cfbb927724d8b3406}\label{class_simulation_worker_a6b40b53c9368783cfbb927724d8b3406}} 
+\index{SimulationWorker@{SimulationWorker}!timestepComplete@{timestepComplete}}
+\index{timestepComplete@{timestepComplete}!SimulationWorker@{SimulationWorker}}
+\doxysubsubsection{\texorpdfstring{timestepComplete}{timestepComplete}}
+{\footnotesize\ttfamily void Simulation\+Worker\+::timestep\+Complete (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{result }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+Signal that indicate that the thread has finished execution 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Headers/Thread\+Execution.\+h\item 
+src/Thread\+Execution.\+cpp\end{DoxyCompactItemize}

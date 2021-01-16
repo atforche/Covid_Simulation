@@ -7,45 +7,40 @@ Coordinate::Coordinate(double x, double y) {
 }
 
 
-double Coordinate::getX() {
-    return this->x;
+double Coordinate::getCoord(COORDINATES which) {
+    if (which == COORDINATES::X) {
+        return x;
+    } else if (which == COORDINATES::Y) {
+        return y;
+    } else {
+        return -1; // Default value if invalid Coordinate is selected
+    }
 }
 
 
-double Coordinate::getY() {
-    return this->y;
-}
-
-
-void Coordinate::setX(double x) {
-    this->x = x;
-}
-
-
-void Coordinate::setY(double y) {
-    this->y = y;
+void Coordinate::setCoord(double newVal, COORDINATES which) {
+    if (which == COORDINATES::X) {
+        x = newVal;
+    } else if (which == COORDINATES::Y) {
+        y = newVal;
+    }
 }
 
 
 double Coordinate::distBetween(Coordinate *other) {
-    double xDiff = getX() - other->getX();
-    double yDiff = getY() - other->getY();
+    double xDiff = getCoord(Coordinate::X) - other->getCoord(Coordinate::X);
+    double yDiff = getCoord(Coordinate::Y) - other->getCoord(Coordinate::Y);
     return sqrt((xDiff * xDiff) + (yDiff * yDiff));
 }
 
 
 Coordinate* Coordinate::headingBetween(Coordinate *other) {
-    double xdiff = other->getX() - getX();
-    double ydiff = other->getY() - getY();
+    double xdiff = other->getCoord(Coordinate::X) - getCoord(Coordinate::X);
+    double ydiff = other->getCoord(Coordinate::Y) - getCoord(Coordinate::Y);
     // Prevent divide by zero errors
     if (xdiff == 0 && ydiff == 0) {
         return new Coordinate(0,0);
     }
     double magnitude = sqrt((xdiff * xdiff) + (ydiff * ydiff));
     return new Coordinate(xdiff / magnitude, ydiff / magnitude);
-}
-
-
-bool Coordinate::isValid() {
-    return (x >= 0 && y >= 0);
 }

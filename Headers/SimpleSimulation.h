@@ -12,7 +12,6 @@
 #include <QGraphicsRectItem>
 #include <Headers/Agent.h>
 #include <Headers/SquareRegion.h>
-#include <Headers/AgentGenerator.h>
 #include "QtTest/QTest"
 
 class Region;
@@ -28,13 +27,10 @@ private:
     Region* leisureRegion;
     Region* schoolRegion;
 
-    /** Generator to handle generation and assignment of Agents to locations */
-    AgentGenerator* agentGenerator;
-
 public:
 
     /**
-     * @brief SimpleSimulation
+     * @brief SimpleSimulation \n
      * The constructor for the SimpleSimulation Class, sets up all controls
      * necessary for the running of this simulation type. Simple Simulation is
      * comprised of four SquareRegions that are home, work, school, and leisure.
@@ -45,7 +41,7 @@ public:
     SimpleSimulation(int numAgents, Ui::MainWindow* ui);
 
     /**
-     * @brief init
+     * @brief init \n
      * Function to initialize the simulation. Initializes the Regions and Locations.
      * Renders all the Regions and Locations and add all of them to the
      * QGraphicsScene. Also generates the agents in the Sim, assigns each of
@@ -54,7 +50,7 @@ public:
     virtual void init() override;
 
     /**
-     * @brief execute
+     * @brief execute \n
      * Function to execute a simple timestep of the simulation. Loops through
      * every agent in the simulation and calls the update function on them.
      * Simulation::renderAgentUpdate() is required for updates to appear on
@@ -63,7 +59,7 @@ public:
     virtual void execute() override;
 
     /**
-     * @brief reset
+     * @brief reset \n
      * Function to reset the simulation. Resets the Simulation by clearing the
      * Scene and deleting all agents from the Simulation. Redraws the Regions to
      * the screen to the QGraphicsScene does not appear blank to the user.
@@ -71,7 +67,7 @@ public:
     virtual void reset() override;
 
     /**
-     * @brief test
+     * @brief test \n
      * Test Function that allows for functionalities of the simulation
      * to be tested. Function that can be modified as needed to test various
      * functionalities of the simulation.
@@ -79,20 +75,19 @@ public:
     virtual void test() override;
 
     /**
-     * @brief ~SimpleSimulation
+     * @brief generateAgents \n
+     * Function to generate agents and assign them to behaviors and locations.
+     * Currently, randomly assign agents with ages, behaviors, and locations.
+     */
+    virtual void generateAgents() override;
+
+    /**
+     * @brief ~SimpleSimulation \n
      * Destructor function for the Simple Simulation Class. Clears all dynamic
      * memory used within the Simulation by clearing the scene (which clears
      * all memory used by the scene)
      */
     virtual ~SimpleSimulation() override;
-
-    /**
-     * @brief generateAgents
-     * Function that generates Agents to be added to the simulation. Utilizes
-     * the AgentGenerator to randomly generate a set of agents for the
-     * simulation and assign them to locations within each Region
-     */
-    void generateAgents();
 
 };
 

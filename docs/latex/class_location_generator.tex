@@ -1,0 +1,51 @@
+\hypertarget{class_location_generator}{}\doxysection{Location\+Generator Class Reference}
+\label{class_location_generator}\index{LocationGenerator@{LocationGenerator}}
+
+
+The \mbox{\hyperlink{class_location_generator}{Location\+Generator}} class Generic Class that handles generating a random sample of locations for a region regardless of the shape of the region.  
+
+
+
+
+{\ttfamily \#include $<$Location\+Generator.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_location_generator_a7015ee5cc4b21e7876fdb63d16cff7be}\label{class_location_generator_a7015ee5cc4b21e7876fdb63d16cff7be}} 
+\mbox{\hyperlink{class_location_generator_a7015ee5cc4b21e7876fdb63d16cff7be}{Location\+Generator}} ()
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_location_generator}{Location\+Generator}} Default constructor for the \mbox{\hyperlink{class_location}{Location}} Generator class. This class handles generating a set of locations that lie within some bounding \mbox{\hyperlink{class_region}{Region}}. It is capable of generating locations in any odd shaped \mbox{\hyperlink{class_region}{Region}}. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{class_location}{Location}} $\ast$ $>$ \mbox{\hyperlink{class_location_generator_a524d7c98107dbc4f1cae4b377217f57c}{generate}} (int num, Q\+Graphics\+Item $\ast$region)
+\begin{DoxyCompactList}\small\item\em generate Function to generate a set of random Locations that lie within any shaped region. This is accomplished by randomly sampling points within the bounding rectangle of the region until a suitable number of points lie within the Regions shape. Is generalizable to any shaped \mbox{\hyperlink{class_region}{Region}} \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{class_location_generator}{Location\+Generator}} class Generic Class that handles generating a random sample of locations for a region regardless of the shape of the region. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_location_generator_a524d7c98107dbc4f1cae4b377217f57c}\label{class_location_generator_a524d7c98107dbc4f1cae4b377217f57c}} 
+\index{LocationGenerator@{LocationGenerator}!generate@{generate}}
+\index{generate@{generate}!LocationGenerator@{LocationGenerator}}
+\doxysubsubsection{\texorpdfstring{generate()}{generate()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{class_location}{Location}} $\ast$ $>$ Location\+Generator\+::generate (\begin{DoxyParamCaption}\item[{int}]{num,  }\item[{Q\+Graphics\+Item $\ast$}]{region }\end{DoxyParamCaption})}
+
+
+
+generate Function to generate a set of random Locations that lie within any shaped region. This is accomplished by randomly sampling points within the bounding rectangle of the region until a suitable number of points lie within the Regions shape. Is generalizable to any shaped \mbox{\hyperlink{class_region}{Region}} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em num} & the number of locations to generate \\
+\hline
+{\em region} & the bounding region in which the locations need to reside. Can be any Q\+Graphics\+Item$\ast$ \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a std\+::vector of all the locations generated 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Headers/Location\+Generator.\+h\item 
+src/Location\+Generator.\+cpp\end{DoxyCompactItemize}

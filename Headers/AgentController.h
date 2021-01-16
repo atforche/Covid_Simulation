@@ -26,7 +26,7 @@ private:
 
 public:
     /**
-     * @brief AgentController
+     * @brief AgentController \n
      * Initial constructor for the Agent Controller class. Has controller
      * read in each of the behaviors from the JSON resource files and store
      * them as QJsonObjects in a vector.
@@ -36,7 +36,7 @@ public:
     AgentController(int numBehaviors);
 
     /**
-     * @brief getNumBehaviors
+     * @brief getNumBehaviors \n
      * Getter function for the number of unique behaviors that the Agent
      * controller is currently supporting
      * @return the number of unique behaviors as an integer
@@ -44,14 +44,14 @@ public:
     int getNumBehaviors();
 
     /**
-     * @brief setDestinations
+     * @brief assignAgentDestinations \n
      * Function that goes through each of the agents and assigns them to their
-     * correct destinations. Can be called from Simulation::advanceTime() at
+     * correct destinations. Should be called from Simulation::advanceTime() at
      * an hourly interval to save computations
      * @param agents: a vector of Agent* pointing to each agent in the Simulation
      * @param hour: the current hour of the simulation
      */
-    void setDestinations(std::vector<Agent*> agents, int hour);
+    void assignAgentDestinations(std::vector<Agent*> agents, int hour);
 
 };
 

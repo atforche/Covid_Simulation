@@ -9,39 +9,168 @@ The \mbox{\hyperlink{class_agent}{Agent}} Class Class that specifies the functio
 
 {\ttfamily \#include $<$Agent.\+h$>$}
 
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{class_agent_a58a4e791b29ab746f5d023facaa55046}{L\+O\+C\+A\+T\+I\+O\+NS}} \{ \newline
+{\bfseries H\+O\+ME}, 
+{\bfseries S\+C\+H\+O\+OL}, 
+{\bfseries W\+O\+RK}, 
+{\bfseries L\+E\+I\+S\+U\+RE}, 
+\newline
+{\bfseries L\+O\+C\+A\+T\+I\+O\+N\+S\+\_\+\+M\+AX} = 4
+ \}
+\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{class_agent_a89811931f762ac116bfb180477b6445e}{Agent}} (int age)
-\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_agent}{Agent}} Constructor for the \mbox{\hyperlink{class_agent}{Agent}} Class. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_agent_a9ad3d2850ef960042dbf08d0a194d167}\label{class_agent_a9ad3d2850ef960042dbf08d0a194d167}} 
-Q\+Graphics\+Rect\+Item $\ast$ \mbox{\hyperlink{class_agent_a9ad3d2850ef960042dbf08d0a194d167}{render\+Agent}} ()
-\begin{DoxyCompactList}\small\item\em render\+Agent Function to generate the Q\+Graphics\+Rect\+Item that represents this specific agent. Return value should be stored within \mbox{\hyperlink{class_simulation}{Simulation}} and added to UI element within simulation \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_agent_a8fc373177b32645f5709226cdb19097f}\label{class_agent_a8fc373177b32645f5709226cdb19097f}} 
-void \mbox{\hyperlink{class_agent_a8fc373177b32645f5709226cdb19097f}{update}} ()
-\begin{DoxyCompactList}\small\item\em update Function to update and redraw the agent in a new position \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_agent_abe2d36afb900ba6a22d71252b0fa15f0}{Agent}} (int age, \mbox{\hyperlink{class_coordinate}{Coordinate}} $\ast$position)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_agent}{Agent}} ~\newline
+Constructor for the \mbox{\hyperlink{class_agent}{Agent}} Class. Constructs an \mbox{\hyperlink{class_agent}{Agent}} object with a certain age and position. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_agent_ad39f0e4b928e14460c5fd08319135e7d}\label{class_agent_ad39f0e4b928e14460c5fd08319135e7d}} 
+Q\+Graphics\+Rect\+Item $\ast$ \mbox{\hyperlink{class_agent_ad39f0e4b928e14460c5fd08319135e7d}{get\+Graphics\+Object}} ()
+\begin{DoxyCompactList}\small\item\em get\+Graphics\+Object ~\newline
+Function that returns the Q\+Graphics object that represents the agent on the screen. Returned object should be added to the \mbox{\hyperlink{class_simulation}{Simulation}} in order for it to appear. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_agent_a7746a9133132cff44195bcf88a362654}\label{class_agent_a7746a9133132cff44195bcf88a362654}} 
+void \mbox{\hyperlink{class_agent_a7746a9133132cff44195bcf88a362654}{update\+Graphics\+Object}} ()
+\begin{DoxyCompactList}\small\item\em update\+Graphics\+Object ~\newline
+Function that updates the position of the Q\+Graphics object that represents the agent on the screen. Signals to the screen to redraw the agent. Can only be called from the main thread. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_agent_a36dd1016e9aa1509ef3eb74c5b7b2528}\label{class_agent_a36dd1016e9aa1509ef3eb74c5b7b2528}} 
+void \mbox{\hyperlink{class_agent_a36dd1016e9aa1509ef3eb74c5b7b2528}{take\+Time\+Step}} ()
+\begin{DoxyCompactList}\small\item\em take\+Time\+Step ~\newline
+Function that causes the agent to take a step forward in time. Currently, only updates the position of the \mbox{\hyperlink{class_agent}{Agent}}. \mbox{\hyperlink{class_agent_a7746a9133132cff44195bcf88a362654}{Agent\+::update\+Graphics\+Object}} should be called in order to update the agent on the screen \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_agent_ae7d5fb049a75e161f284b4270cdd3e1d}{set\+Destination}} (\mbox{\hyperlink{class_location}{Location}} $\ast$new\+Location)
+\begin{DoxyCompactList}\small\item\em set\+Destination ~\newline
+Sets the destination of this \mbox{\hyperlink{class_agent}{Agent}} to the new \mbox{\hyperlink{class_location}{Location}} specified \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_agent_a5472778409b1dde7892acdc2e70b452a}{set\+Location}} (\mbox{\hyperlink{class_location}{Location}} $\ast$location, \mbox{\hyperlink{class_agent_a58a4e791b29ab746f5d023facaa55046}{L\+O\+C\+A\+T\+I\+O\+NS}} which)
+\begin{DoxyCompactList}\small\item\em set\+Location ~\newline
+Function to set the value of an Agents assigned location to a new value \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_location}{Location}} $\ast$ \mbox{\hyperlink{class_agent_a93696fb8db11b6be4c2d8c59c76c4219}{get\+Location}} (\mbox{\hyperlink{class_agent_a58a4e791b29ab746f5d023facaa55046}{L\+O\+C\+A\+T\+I\+O\+NS}} which)
+\begin{DoxyCompactList}\small\item\em get\+Location ~\newline
+Function to get a pointer to one of the Agents assigned locations \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_coordinate}{Coordinate}} $\ast$ \mbox{\hyperlink{class_agent_a26ff3593969a6a82afd5c58ca70b45f8}{get\+Position}} ()
+\begin{DoxyCompactList}\small\item\em get\+Position\+: ~\newline
+Getter function for the position of the agent. Returns the current position of the agent as a Coordinate$\ast$ \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_agent_afbc63491e7abb852c83bcce7b6c89346}{get\+Behavior}} ()
+\begin{DoxyCompactList}\small\item\em get\+Behavior ~\newline
+Getter function for the behavior assignment of this agent. Returns the behavior assignment as an integer \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_agent_ab8dd8d152605cf1339fed595376e83cb}\label{class_agent_ab8dd8d152605cf1339fed595376e83cb}} 
 \mbox{\hyperlink{class_agent_ab8dd8d152605cf1339fed595376e83cb}{$\sim$\+Agent}} ()
-\begin{DoxyCompactList}\small\item\em $\sim$\+Agent Destructor to free memory from the \mbox{\hyperlink{class_agent}{Agent}} class \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em $\sim$\+Agent ~\newline
+Destructor to free memory from the \mbox{\hyperlink{class_agent}{Agent}} class \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 The \mbox{\hyperlink{class_agent}{Agent}} Class Class that specifies the functionality of the Agents in the simulation Contains all information required for the agent to act in the environment. 
 
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{class_agent_a58a4e791b29ab746f5d023facaa55046}\label{class_agent_a58a4e791b29ab746f5d023facaa55046}} 
+\index{Agent@{Agent}!LOCATIONS@{LOCATIONS}}
+\index{LOCATIONS@{LOCATIONS}!Agent@{Agent}}
+\doxysubsubsection{\texorpdfstring{LOCATIONS}{LOCATIONS}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{class_agent_a58a4e791b29ab746f5d023facaa55046}{Agent\+::\+L\+O\+C\+A\+T\+I\+O\+NS}}}
+
+Enum that specifies the possible locations for the \mbox{\hyperlink{class_agent}{Agent}} to be 
+
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{class_agent_a89811931f762ac116bfb180477b6445e}\label{class_agent_a89811931f762ac116bfb180477b6445e}} 
+\mbox{\Hypertarget{class_agent_abe2d36afb900ba6a22d71252b0fa15f0}\label{class_agent_abe2d36afb900ba6a22d71252b0fa15f0}} 
 \index{Agent@{Agent}!Agent@{Agent}}
 \index{Agent@{Agent}!Agent@{Agent}}
 \doxysubsubsection{\texorpdfstring{Agent()}{Agent()}}
-{\footnotesize\ttfamily Agent\+::\+Agent (\begin{DoxyParamCaption}\item[{int}]{age }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily Agent\+::\+Agent (\begin{DoxyParamCaption}\item[{int}]{age,  }\item[{\mbox{\hyperlink{class_coordinate}{Coordinate}} $\ast$}]{position }\end{DoxyParamCaption})}
 
 
 
-\mbox{\hyperlink{class_agent}{Agent}} Constructor for the \mbox{\hyperlink{class_agent}{Agent}} Class. 
+\mbox{\hyperlink{class_agent}{Agent}} ~\newline
+Constructor for the \mbox{\hyperlink{class_agent}{Agent}} Class. Constructs an \mbox{\hyperlink{class_agent}{Agent}} object with a certain age and position. 
 
 
 \begin{DoxyParams}{Parameters}
 {\em age} & the current age of the \mbox{\hyperlink{class_agent}{Agent}} \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_agent_afbc63491e7abb852c83bcce7b6c89346}\label{class_agent_afbc63491e7abb852c83bcce7b6c89346}} 
+\index{Agent@{Agent}!getBehavior@{getBehavior}}
+\index{getBehavior@{getBehavior}!Agent@{Agent}}
+\doxysubsubsection{\texorpdfstring{getBehavior()}{getBehavior()}}
+{\footnotesize\ttfamily int Agent\+::get\+Behavior (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+get\+Behavior ~\newline
+Getter function for the behavior assignment of this agent. Returns the behavior assignment as an integer 
+
+\begin{DoxyReturn}{Returns}
+the behavior assignment as an integer 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_agent_a93696fb8db11b6be4c2d8c59c76c4219}\label{class_agent_a93696fb8db11b6be4c2d8c59c76c4219}} 
+\index{Agent@{Agent}!getLocation@{getLocation}}
+\index{getLocation@{getLocation}!Agent@{Agent}}
+\doxysubsubsection{\texorpdfstring{getLocation()}{getLocation()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_location}{Location}} $\ast$ Agent\+::get\+Location (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_agent_a58a4e791b29ab746f5d023facaa55046}{L\+O\+C\+A\+T\+I\+O\+NS}}}]{which }\end{DoxyParamCaption})}
+
+
+
+get\+Location ~\newline
+Function to get a pointer to one of the Agents assigned locations 
+
+
+\begin{DoxyParams}{Parameters}
+{\em which} & specifies which of the \mbox{\hyperlink{class_agent}{Agent}}\textquotesingle{}s locations to return (Home, School, Leisure, Work) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the specified location as a pointer 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_agent_a26ff3593969a6a82afd5c58ca70b45f8}\label{class_agent_a26ff3593969a6a82afd5c58ca70b45f8}} 
+\index{Agent@{Agent}!getPosition@{getPosition}}
+\index{getPosition@{getPosition}!Agent@{Agent}}
+\doxysubsubsection{\texorpdfstring{getPosition()}{getPosition()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_coordinate}{Coordinate}} $\ast$ Agent\+::get\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+get\+Position\+: ~\newline
+Getter function for the position of the agent. Returns the current position of the agent as a Coordinate$\ast$ 
+
+\begin{DoxyReturn}{Returns}
+the position of the agent as a \mbox{\hyperlink{class_coordinate}{Coordinate}} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_agent_ae7d5fb049a75e161f284b4270cdd3e1d}\label{class_agent_ae7d5fb049a75e161f284b4270cdd3e1d}} 
+\index{Agent@{Agent}!setDestination@{setDestination}}
+\index{setDestination@{setDestination}!Agent@{Agent}}
+\doxysubsubsection{\texorpdfstring{setDestination()}{setDestination()}}
+{\footnotesize\ttfamily void Agent\+::set\+Destination (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_location}{Location}} $\ast$}]{new\+Location }\end{DoxyParamCaption})}
+
+
+
+set\+Destination ~\newline
+Sets the destination of this \mbox{\hyperlink{class_agent}{Agent}} to the new \mbox{\hyperlink{class_location}{Location}} specified 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Location} & a pointer to the new \mbox{\hyperlink{class_location}{Location}} to set the agents destination toward \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_agent_a5472778409b1dde7892acdc2e70b452a}\label{class_agent_a5472778409b1dde7892acdc2e70b452a}} 
+\index{Agent@{Agent}!setLocation@{setLocation}}
+\index{setLocation@{setLocation}!Agent@{Agent}}
+\doxysubsubsection{\texorpdfstring{setLocation()}{setLocation()}}
+{\footnotesize\ttfamily void Agent\+::set\+Location (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_location}{Location}} $\ast$}]{location,  }\item[{\mbox{\hyperlink{class_agent_a58a4e791b29ab746f5d023facaa55046}{L\+O\+C\+A\+T\+I\+O\+NS}}}]{which }\end{DoxyParamCaption})}
+
+
+
+set\+Location ~\newline
+Function to set the value of an Agents assigned location to a new value 
+
+
+\begin{DoxyParams}{Parameters}
+{\em location} & a pointer to the new location \\
+\hline
+{\em which} & specifies which of the \mbox{\hyperlink{class_agent}{Agent}}\textquotesingle{}s locations to overwrite (Home, School, Leisure, Work) \\
 \hline
 \end{DoxyParams}
 

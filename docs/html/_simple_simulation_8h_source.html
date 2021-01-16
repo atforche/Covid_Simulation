@@ -94,55 +94,52 @@ $(document).ready(function(){initNavTree('_simple_simulation_8h_source.html','')
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;Headers/Simulation.h&gt;</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;QGraphicsRectItem&gt;</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;Headers/Agent.h&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">class </span><a class="code" href="class_region.html">Region</a>;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;Headers/SquareRegion.h&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &quot;QtTest/QTest&quot;</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="class_simple_simulation.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_simple_simulation.html">SimpleSimulation</a> : <span class="keyword">public</span> <a class="code" href="class_simulation.html">Simulation</a> {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">class </span><a class="code" href="class_region.html">Region</a>;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    std::vector&lt;Agent*&gt; agents;</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="class_simple_simulation.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_simple_simulation.html">SimpleSimulation</a> : <span class="keyword">public</span> <a class="code" href="class_simulation.html">Simulation</a> {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">private</span>:</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <a class="code" href="class_region.html">Region</a>* workRegion;</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="class_region.html">Region</a>* homeRegion;</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="class_region.html">Region</a>* leisureRegion;</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="class_region.html">Region</a>* schoolRegion;</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordtype">int</span> numAgents;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    Ui::MainWindow* ui;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    QGraphicsRectItem* rect;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="class_simple_simulation.html#ad16a2131994b9688b750210e8d1a5929">SimpleSimulation</a>(<span class="keywordtype">int</span> numAgents, Ui::MainWindow* ui);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_simple_simulation.html#a53d5c24654dd7fb8c6733e2435f525a1">init</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_simple_simulation.html#a66215e392b5eab33e9089b255c830417">reset</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <a class="code" href="class_simple_simulation.html#ad16a2131994b9688b750210e8d1a5929">SimpleSimulation</a>(<span class="keywordtype">int</span> numAgents, Ui::MainWindow* ui);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_simple_simulation.html#a53d5c24654dd7fb8c6733e2435f525a1">init</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_simple_simulation.html#aed5adff71da8e1700c9059dac85ffbc6">execute</a>() <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_simple_simulation.html#a8fa34536fb673562dccd7e255d32bc71">test</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="class_simple_simulation.html#aa00abd0a15e93f551d0d20ab06e92ae5">~SimpleSimulation</a>();</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_simple_simulation.html#a84f33735c2d1bd87f202e9c5f3ebfbde">generateAgents</a>(<a class="code" href="class_agent.html">Agent</a>* agent);</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;};</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor">#endif // SIMPLESIMULATION_H</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_simple_simulation.html#a66215e392b5eab33e9089b255c830417">reset</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_simple_simulation.html#a8fa34536fb673562dccd7e255d32bc71">test</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_simple_simulation.html#afaf1cf90f5056c66525ad2ccb290dabe">generateAgents</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="class_simple_simulation.html#a356ab8bcf216a925c4cd9d29bc14686e">~SimpleSimulation</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;};</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="preprocessor">#endif // SIMPLESIMULATION_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclass_simulation_html"><div class="ttname"><a href="class_simulation.html">Simulation</a></div><div class="ttdoc">The Simulation class The Abstract Simulation class from which all other simulations will be derived....</div><div class="ttdef"><b>Definition:</b> Simulation.h:10</div></div>
-<div class="ttc" id="aclass_simple_simulation_html_ad16a2131994b9688b750210e8d1a5929"><div class="ttname"><a href="class_simple_simulation.html#ad16a2131994b9688b750210e8d1a5929">SimpleSimulation::SimpleSimulation</a></div><div class="ttdeci">SimpleSimulation(int numAgents, Ui::MainWindow *ui)</div><div class="ttdoc">SimpleSimulation The constructor for the SimpleSimulation Class, sets up all controls necessary for t...</div><div class="ttdef"><b>Definition:</b> SimpleSimulation.cpp:3</div></div>
-<div class="ttc" id="aclass_simple_simulation_html_a84f33735c2d1bd87f202e9c5f3ebfbde"><div class="ttname"><a href="class_simple_simulation.html#a84f33735c2d1bd87f202e9c5f3ebfbde">SimpleSimulation::generateAgents</a></div><div class="ttdeci">void generateAgents(Agent *agent)</div><div class="ttdoc">generateAgents Function that generates Agents to be added to the simulation</div><div class="ttdef"><b>Definition:</b> SimpleSimulation.cpp:27</div></div>
-<div class="ttc" id="aclass_simple_simulation_html_aa00abd0a15e93f551d0d20ab06e92ae5"><div class="ttname"><a href="class_simple_simulation.html#aa00abd0a15e93f551d0d20ab06e92ae5">SimpleSimulation::~SimpleSimulation</a></div><div class="ttdeci">virtual ~SimpleSimulation()</div><div class="ttdoc">~SimpleSimulation Destructor function for the Simple Simulation Class. Clears all dynamic memory used...</div><div class="ttdef"><b>Definition:</b> SimpleSimulation.cpp:33</div></div>
-<div class="ttc" id="aclass_region_html"><div class="ttname"><a href="class_region.html">Region</a></div><div class="ttdef"><b>Definition:</b> Region.h:13</div></div>
-<div class="ttc" id="aclass_simple_simulation_html"><div class="ttname"><a href="class_simple_simulation.html">SimpleSimulation</a></div><div class="ttdef"><b>Definition:</b> SimpleSimulation.h:18</div></div>
-<div class="ttc" id="aclass_simple_simulation_html_a66215e392b5eab33e9089b255c830417"><div class="ttname"><a href="class_simple_simulation.html#a66215e392b5eab33e9089b255c830417">SimpleSimulation::reset</a></div><div class="ttdeci">virtual void reset() override</div><div class="ttdoc">reset Function to reset the simulation. More documentation to come</div><div class="ttdef"><b>Definition:</b> SimpleSimulation.cpp:17</div></div>
-<div class="ttc" id="aclass_agent_html"><div class="ttname"><a href="class_agent.html">Agent</a></div><div class="ttdoc">The Agent Class Class that specifies the functionality of the Agents in the simulation Contains all i...</div><div class="ttdef"><b>Definition:</b> Agent.h:14</div></div>
-<div class="ttc" id="aclass_simple_simulation_html_a8fa34536fb673562dccd7e255d32bc71"><div class="ttname"><a href="class_simple_simulation.html#a8fa34536fb673562dccd7e255d32bc71">SimpleSimulation::test</a></div><div class="ttdeci">virtual void test() override</div><div class="ttdoc">test Test Function that allows for functionalities of the simulation to be tested</div><div class="ttdef"><b>Definition:</b> SimpleSimulation.cpp:22</div></div>
-<div class="ttc" id="aclass_simple_simulation_html_a53d5c24654dd7fb8c6733e2435f525a1"><div class="ttname"><a href="class_simple_simulation.html#a53d5c24654dd7fb8c6733e2435f525a1">SimpleSimulation::init</a></div><div class="ttdeci">virtual void init() override</div><div class="ttdoc">init Function to initialize the simulation. More documentation to come</div><div class="ttdef"><b>Definition:</b> SimpleSimulation.cpp:10</div></div>
+<div class="ttc" id="aclass_simulation_html"><div class="ttname"><a href="class_simulation.html">Simulation</a></div><div class="ttdoc">The Simulation class  The Abstract Simulation class from which all other simulations will be derived....</div><div class="ttdef"><b>Definition:</b> Simulation.h:17</div></div>
+<div class="ttc" id="aclass_simple_simulation_html_ad16a2131994b9688b750210e8d1a5929"><div class="ttname"><a href="class_simple_simulation.html#ad16a2131994b9688b750210e8d1a5929">SimpleSimulation::SimpleSimulation</a></div><div class="ttdeci">SimpleSimulation(int numAgents, Ui::MainWindow *ui)</div><div class="ttdoc">SimpleSimulation  The constructor for the SimpleSimulation Class, sets up all controls necessary for ...</div><div class="ttdef"><b>Definition:</b> SimpleSimulation.cpp:3</div></div>
+<div class="ttc" id="aclass_region_html"><div class="ttname"><a href="class_region.html">Region</a></div><div class="ttdef"><b>Definition:</b> Region.h:16</div></div>
+<div class="ttc" id="aclass_simple_simulation_html"><div class="ttname"><a href="class_simple_simulation.html">SimpleSimulation</a></div><div class="ttdef"><b>Definition:</b> SimpleSimulation.h:20</div></div>
+<div class="ttc" id="aclass_simple_simulation_html_a356ab8bcf216a925c4cd9d29bc14686e"><div class="ttname"><a href="class_simple_simulation.html#a356ab8bcf216a925c4cd9d29bc14686e">SimpleSimulation::~SimpleSimulation</a></div><div class="ttdeci">virtual ~SimpleSimulation() override</div><div class="ttdoc">~SimpleSimulation  Destructor function for the Simple Simulation Class. Clears all dynamic memory use...</div><div class="ttdef"><b>Definition:</b> SimpleSimulation.cpp:132</div></div>
+<div class="ttc" id="aclass_simple_simulation_html_aed5adff71da8e1700c9059dac85ffbc6"><div class="ttname"><a href="class_simple_simulation.html#aed5adff71da8e1700c9059dac85ffbc6">SimpleSimulation::execute</a></div><div class="ttdeci">virtual void execute() override</div><div class="ttdoc">execute  Function to execute a simple timestep of the simulation. Loops through every agent in the si...</div><div class="ttdef"><b>Definition:</b> SimpleSimulation.cpp:70</div></div>
+<div class="ttc" id="aclass_simple_simulation_html_a66215e392b5eab33e9089b255c830417"><div class="ttname"><a href="class_simple_simulation.html#a66215e392b5eab33e9089b255c830417">SimpleSimulation::reset</a></div><div class="ttdeci">virtual void reset() override</div><div class="ttdoc">reset  Function to reset the simulation. Resets the Simulation by clearing the Scene and deleting all...</div><div class="ttdef"><b>Definition:</b> SimpleSimulation.cpp:79</div></div>
+<div class="ttc" id="aclass_simple_simulation_html_afaf1cf90f5056c66525ad2ccb290dabe"><div class="ttname"><a href="class_simple_simulation.html#afaf1cf90f5056c66525ad2ccb290dabe">SimpleSimulation::generateAgents</a></div><div class="ttdeci">virtual void generateAgents() override</div><div class="ttdoc">generateAgents  Function to generate agents and assign them to behaviors and locations....</div><div class="ttdef"><b>Definition:</b> SimpleSimulation.cpp:101</div></div>
+<div class="ttc" id="aclass_simple_simulation_html_a8fa34536fb673562dccd7e255d32bc71"><div class="ttname"><a href="class_simple_simulation.html#a8fa34536fb673562dccd7e255d32bc71">SimpleSimulation::test</a></div><div class="ttdeci">virtual void test() override</div><div class="ttdoc">test  Test Function that allows for functionalities of the simulation to be tested....</div><div class="ttdef"><b>Definition:</b> SimpleSimulation.cpp:95</div></div>
+<div class="ttc" id="aclass_simple_simulation_html_a53d5c24654dd7fb8c6733e2435f525a1"><div class="ttname"><a href="class_simple_simulation.html#a53d5c24654dd7fb8c6733e2435f525a1">SimpleSimulation::init</a></div><div class="ttdeci">virtual void init() override</div><div class="ttdoc">init  Function to initialize the simulation. Initializes the Regions and Locations....</div><div class="ttdef"><b>Definition:</b> SimpleSimulation.cpp:39</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

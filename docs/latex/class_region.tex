@@ -1,28 +1,58 @@
 \hypertarget{class_region}{}\doxysection{Region Class Reference}
 \label{class_region}\index{Region@{Region}}
+
+
+Inheritance diagram for Region\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=157pt]{class_region__inherit__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{class_region_ae8c90d8f2053ad1486e6dd439bc4a3c6}{Region}} (int num\+Locations)
-\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_region}{Region}} Constructor for the \mbox{\hyperlink{class_region}{Region}} Class. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_region_ab7b579a2caffc452772d17fed68abb62}{Region}} (int num\+Locations, Q\+Color color, std\+::string name)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_region}{Region}} ~\newline
+Constructor for the \mbox{\hyperlink{class_region}{Region}} Class. A \mbox{\hyperlink{class_region}{Region}} is a container class that wraps around a set of locations. Locations in different regions are subject to different rules and result in different agent behaviors. Each \mbox{\hyperlink{class_region}{Region}} has an associated shape that is rendered to the screen. Use a Location\+Generator to generate Locations within the \mbox{\hyperlink{class_region}{Region}}. \end{DoxyCompactList}\item 
 std\+::vector$<$ \mbox{\hyperlink{class_location}{Location}} $\ast$ $>$ \& \mbox{\hyperlink{class_region_a08e13bb97cb5131213df7155050f6007}{get\+Locations}} ()
-\begin{DoxyCompactList}\small\item\em get\+Locations Getter functions for the vector of Locations within a region \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em get\+Locations ~\newline
+Getter functions for the vector of Locations within a region. Returns the Locations within the \mbox{\hyperlink{class_region}{Region}} as a vector \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_region_a7d3db569b8569b891de84e577760890d}{set\+Locations}} (std\+::vector$<$ \mbox{\hyperlink{class_location}{Location}} $\ast$ $>$ \&locations)
-\begin{DoxyCompactList}\small\item\em set\+Locations Setter function for the vector of Locations within a region \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em set\+Locations ~\newline
+Setter function for the vector of Locations within a region. Pass in a vector of Locations to set all Locations in a \mbox{\hyperlink{class_region}{Region}} at once \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{class_region_ada82a5f675586ca4072713941f7c7c39}{get\+Num\+Locations}} ()
-\begin{DoxyCompactList}\small\item\em get\+Num\+Locations Getter function for the number of Locations within a \mbox{\hyperlink{class_region}{Region}} \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em get\+Num\+Locations ~\newline
+Getter function for the number of Locations within a \mbox{\hyperlink{class_region}{Region}}. Returns the number of Locations in a \mbox{\hyperlink{class_region}{Region}} as an int \end{DoxyCompactList}\item 
+Q\+Color \mbox{\hyperlink{class_region_a7afe91a845ead6ab45f5908383c56ecc}{get\+Color}} ()
+\begin{DoxyCompactList}\small\item\em get\+Color ~\newline
+Getter function for the color assigned to the region. Returns the color as a Q\+Color \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_region_a122cc5422c5154463ded851f665975c4}{get\+Name}} ()
+\begin{DoxyCompactList}\small\item\em get\+Name ~\newline
+Getter function for the name assigned to the region. Returns the name as a std\+::string \end{DoxyCompactList}\item 
+virtual Q\+Graphics\+Item $\ast$ \mbox{\hyperlink{class_region_a3f37617fe92c32b4263d3615a8cfc459}{get\+Graphics\+Object}} ()=0
+\begin{DoxyCompactList}\small\item\em get\+Graphics\+Object ~\newline
+Function to return a Q\+Graphics\+Item$\ast$ corresponding to the shape of the \mbox{\hyperlink{class_region}{Region}}. This Q\+Graphics\+Item$\ast$ must be added to a simulation in order for it to appear. \mbox{\hyperlink{class_region}{Region}} can not be updated or re-\/rendered once created. Must be overridden by derived classes \end{DoxyCompactList}\item 
+virtual Q\+Graphics\+Item $\ast$ \mbox{\hyperlink{class_region_a7475a567b0806b64b45085740712f5cc}{get\+Name\+Graphics\+Object}} ()=0
+\begin{DoxyCompactList}\small\item\em get\+Name\+Graphics\+Object ~\newline
+Function to render the name of the region onto the canvas. Exactly rendering mechanism depends on the shape of the \mbox{\hyperlink{class_region}{Region}}. Must be overridden by derived classes \end{DoxyCompactList}\item 
+virtual std\+::vector$<$ Q\+Graphics\+Item $\ast$ $>$ \mbox{\hyperlink{class_region_ae57d91c9f9eae6a0e3c1feb055f2ae09}{get\+Locations\+Graphics\+Object}} ()=0
+\begin{DoxyCompactList}\small\item\em render\+Locations ~\newline
+Function to return a vector of Q\+Graphics\+Items$\ast$ corresponding to the Locations within the \mbox{\hyperlink{class_region}{Region}}. Locations must be added to a \mbox{\hyperlink{class_simulation}{Simulation}} in order to appear \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{class_region_ae8c90d8f2053ad1486e6dd439bc4a3c6}\label{class_region_ae8c90d8f2053ad1486e6dd439bc4a3c6}} 
+\mbox{\Hypertarget{class_region_ab7b579a2caffc452772d17fed68abb62}\label{class_region_ab7b579a2caffc452772d17fed68abb62}} 
 \index{Region@{Region}!Region@{Region}}
 \index{Region@{Region}!Region@{Region}}
 \doxysubsubsection{\texorpdfstring{Region()}{Region()}}
-{\footnotesize\ttfamily Region\+::\+Region (\begin{DoxyParamCaption}\item[{int}]{num\+Locations }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily Region\+::\+Region (\begin{DoxyParamCaption}\item[{int}]{num\+Locations,  }\item[{Q\+Color}]{color,  }\item[{std\+::string}]{name }\end{DoxyParamCaption})}
 
 
 
-\mbox{\hyperlink{class_region}{Region}} Constructor for the \mbox{\hyperlink{class_region}{Region}} Class. 
+\mbox{\hyperlink{class_region}{Region}} ~\newline
+Constructor for the \mbox{\hyperlink{class_region}{Region}} Class. A \mbox{\hyperlink{class_region}{Region}} is a container class that wraps around a set of locations. Locations in different regions are subject to different rules and result in different agent behaviors. Each \mbox{\hyperlink{class_region}{Region}} has an associated shape that is rendered to the screen. Use a Location\+Generator to generate Locations within the \mbox{\hyperlink{class_region}{Region}}. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -32,6 +62,38 @@ int \mbox{\hyperlink{class_region_ada82a5f675586ca4072713941f7c7c39}{get\+Num\+L
 
 
 \doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_region_a7afe91a845ead6ab45f5908383c56ecc}\label{class_region_a7afe91a845ead6ab45f5908383c56ecc}} 
+\index{Region@{Region}!getColor@{getColor}}
+\index{getColor@{getColor}!Region@{Region}}
+\doxysubsubsection{\texorpdfstring{getColor()}{getColor()}}
+{\footnotesize\ttfamily Q\+Color Region\+::get\+Color (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+get\+Color ~\newline
+Getter function for the color assigned to the region. Returns the color as a Q\+Color 
+
+\begin{DoxyReturn}{Returns}
+the Q\+Color that the region will be drawn in 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_region_a3f37617fe92c32b4263d3615a8cfc459}\label{class_region_a3f37617fe92c32b4263d3615a8cfc459}} 
+\index{Region@{Region}!getGraphicsObject@{getGraphicsObject}}
+\index{getGraphicsObject@{getGraphicsObject}!Region@{Region}}
+\doxysubsubsection{\texorpdfstring{getGraphicsObject()}{getGraphicsObject()}}
+{\footnotesize\ttfamily virtual Q\+Graphics\+Item$\ast$ Region\+::get\+Graphics\+Object (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+get\+Graphics\+Object ~\newline
+Function to return a Q\+Graphics\+Item$\ast$ corresponding to the shape of the \mbox{\hyperlink{class_region}{Region}}. This Q\+Graphics\+Item$\ast$ must be added to a simulation in order for it to appear. \mbox{\hyperlink{class_region}{Region}} can not be updated or re-\/rendered once created. Must be overridden by derived classes 
+
+\begin{DoxyReturn}{Returns}
+a Q\+Graphics\+Item$\ast$ representing the shape of the region 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_square_region_a11f67456aa7432bdb266cbc7cfdd19ed}{Square\+Region}}.
+
 \mbox{\Hypertarget{class_region_a08e13bb97cb5131213df7155050f6007}\label{class_region_a08e13bb97cb5131213df7155050f6007}} 
 \index{Region@{Region}!getLocations@{getLocations}}
 \index{getLocations@{getLocations}!Region@{Region}}
@@ -40,11 +102,62 @@ int \mbox{\hyperlink{class_region_ada82a5f675586ca4072713941f7c7c39}{get\+Num\+L
 
 
 
-get\+Locations Getter functions for the vector of Locations within a region 
+get\+Locations ~\newline
+Getter functions for the vector of Locations within a region. Returns the Locations within the \mbox{\hyperlink{class_region}{Region}} as a vector 
 
 \begin{DoxyReturn}{Returns}
 a vector$<$\+Location$\ast$$>$ contains all the Locations within the \mbox{\hyperlink{class_region}{Region}} 
 \end{DoxyReturn}
+\mbox{\Hypertarget{class_region_ae57d91c9f9eae6a0e3c1feb055f2ae09}\label{class_region_ae57d91c9f9eae6a0e3c1feb055f2ae09}} 
+\index{Region@{Region}!getLocationsGraphicsObject@{getLocationsGraphicsObject}}
+\index{getLocationsGraphicsObject@{getLocationsGraphicsObject}!Region@{Region}}
+\doxysubsubsection{\texorpdfstring{getLocationsGraphicsObject()}{getLocationsGraphicsObject()}}
+{\footnotesize\ttfamily virtual std\+::vector$<$Q\+Graphics\+Item$\ast$$>$ Region\+::get\+Locations\+Graphics\+Object (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+render\+Locations ~\newline
+Function to return a vector of Q\+Graphics\+Items$\ast$ corresponding to the Locations within the \mbox{\hyperlink{class_region}{Region}}. Locations must be added to a \mbox{\hyperlink{class_simulation}{Simulation}} in order to appear 
+
+\begin{DoxyReturn}{Returns}
+a vector of Q\+Graphics\+Item$\ast$ that render all the locations 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_square_region_a3d46c9d8bea9b9b219b88c3f03b164a8}{Square\+Region}}.
+
+\mbox{\Hypertarget{class_region_a122cc5422c5154463ded851f665975c4}\label{class_region_a122cc5422c5154463ded851f665975c4}} 
+\index{Region@{Region}!getName@{getName}}
+\index{getName@{getName}!Region@{Region}}
+\doxysubsubsection{\texorpdfstring{getName()}{getName()}}
+{\footnotesize\ttfamily std\+::string Region\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+get\+Name ~\newline
+Getter function for the name assigned to the region. Returns the name as a std\+::string 
+
+\begin{DoxyReturn}{Returns}
+the name of the region 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_region_a7475a567b0806b64b45085740712f5cc}\label{class_region_a7475a567b0806b64b45085740712f5cc}} 
+\index{Region@{Region}!getNameGraphicsObject@{getNameGraphicsObject}}
+\index{getNameGraphicsObject@{getNameGraphicsObject}!Region@{Region}}
+\doxysubsubsection{\texorpdfstring{getNameGraphicsObject()}{getNameGraphicsObject()}}
+{\footnotesize\ttfamily virtual Q\+Graphics\+Item$\ast$ Region\+::get\+Name\+Graphics\+Object (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+get\+Name\+Graphics\+Object ~\newline
+Function to render the name of the region onto the canvas. Exactly rendering mechanism depends on the shape of the \mbox{\hyperlink{class_region}{Region}}. Must be overridden by derived classes 
+
+\begin{DoxyReturn}{Returns}
+a Q\+Graphics\+Item$\ast$ containing the name of the region 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_square_region_a3d494004f346b84d99570bdb3283075e}{Square\+Region}}.
+
 \mbox{\Hypertarget{class_region_ada82a5f675586ca4072713941f7c7c39}\label{class_region_ada82a5f675586ca4072713941f7c7c39}} 
 \index{Region@{Region}!getNumLocations@{getNumLocations}}
 \index{getNumLocations@{getNumLocations}!Region@{Region}}
@@ -53,7 +166,8 @@ a vector$<$\+Location$\ast$$>$ contains all the Locations within the \mbox{\hype
 
 
 
-get\+Num\+Locations Getter function for the number of Locations within a \mbox{\hyperlink{class_region}{Region}} 
+get\+Num\+Locations ~\newline
+Getter function for the number of Locations within a \mbox{\hyperlink{class_region}{Region}}. Returns the number of Locations in a \mbox{\hyperlink{class_region}{Region}} as an int 
 
 \begin{DoxyReturn}{Returns}
 the number of locations in the region as an int 
@@ -66,7 +180,8 @@ the number of locations in the region as an int
 
 
 
-set\+Locations Setter function for the vector of Locations within a region 
+set\+Locations ~\newline
+Setter function for the vector of Locations within a region. Pass in a vector of Locations to set all Locations in a \mbox{\hyperlink{class_region}{Region}} at once 
 
 
 \begin{DoxyParams}{Parameters}

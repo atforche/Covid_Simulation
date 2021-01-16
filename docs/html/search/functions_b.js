@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['_7eagent_58',['~Agent',['../class_agent.html#ab8dd8d152605cf1339fed595376e83cb',1,'Agent']]],
-  ['_7emainwindow_59',['~MainWindow',['../class_main_window.html#ae98d00a93bc118200eeef9f9bba1dba7',1,'MainWindow']]],
-  ['_7esimplesimulation_60',['~SimpleSimulation',['../class_simple_simulation.html#aa00abd0a15e93f551d0d20ab06e92ae5',1,'SimpleSimulation']]],
-  ['_7esimulation_61',['~Simulation',['../class_simulation.html#a701bd94edc5cf562b5c4e66ae43400bb',1,'Simulation']]]
+  ['region_129',['Region',['../class_region.html#ab7b579a2caffc452772d17fed68abb62',1,'Region']]],
+  ['removeagent_130',['removeAgent',['../class_location.html#a6755bf5e85cff5d58a2f6974ec78d5ec',1,'Location']]],
+  ['renderagentupdate_131',['renderAgentUpdate',['../class_simulation.html#a2987cc476da3d7fa312d02e00b17f4d8',1,'Simulation']]],
+  ['reset_132',['reset',['../class_simple_simulation.html#a66215e392b5eab33e9089b255c830417',1,'SimpleSimulation::reset()'],['../class_simulation.html#a8987b06b08f85c2dbc40800a1d05c985',1,'Simulation::reset()']]]
 ];

@@ -12,7 +12,7 @@
 */
 
 /**
- * @brief The SimulationWorker class
+ * @brief The SimulationWorker class \n
  * Class that handles the execution of the Simulation on a Threader. A Worker
  * is dispatched by a controlled
  */
@@ -21,11 +21,11 @@ class SimulationWorker : public QObject {
 
 public:
 
-    /** Enum that defines the three different framerates*/
+    /** Enum that defines the different simulation framerates*/
     enum Speed {PAUSED, SLOW, NORMAL, FAST, UNLIMITED};
 
     /**
-     * @brief SimulationWorker
+     * @brief SimulationWorker \n
      * Constructor for the SimulationWorker class. Each simulation worker
      * executes a loop in which the Simulation takes timesteps forward. After
      * each timestep is complete, the Worker signals to the Simulation to
@@ -37,15 +37,15 @@ public:
     SimulationWorker(Simulation* sim, Speed frameRate);
 
     /**
-     * @brief dropSimulation
-     * Function that instructs Thread Work to drop execution of the Simulation
+     * @brief pauseSimulation \n
+     * Function that instructs SimulationWorker to pause execution of the Simulation
      * Must be called by the Thread Controller, which is signaled by the reset
-     * button in the GUI
+     * or pause button in the GUI
      */
-    void dropSimulation();
+    void pauseSimulation();
 
     /**
-     * @brief changeSpeed
+     * @brief changeSpeed \n
      * Function that changes the interval of the QTimer that specifies the
      * FPS of the simulation execution. Function should only be called by the
      * SimulationController in charge of this worker. Sim must be paused and
@@ -56,23 +56,23 @@ public:
 
 public slots:
     /**
-     * @brief doWork
+     * @brief startThread \n
      * Function to be attached to a separate thread. Drives the simulation's
      * execution on a time loop
      * @param parameter: the status of the thread
      */
-    void doWork(const QString &);
+    void startThread(const QString &);
 
     /**
-     * @brief executeSimulation
+     * @brief executeSimulation \n
      * Slot that directly executes the simulation. Signals to the parent
      * Simulation of this worker to execute a timestep
      */
-    void executeSimulation();
+    void executeSimTimestep();
 
 signals:
     /** Signal that indicate that the thread has finished execution */
-    void resultReady(const QString &result);
+    void timestepComplete(const QString &result);
 
 private:
 
@@ -92,7 +92,7 @@ private:
 };
 
 /**
- * @brief The SimulationController class
+ * @brief The SimulationController class \n
  * Class that controls the simulation and delegates it to a thread. Also
  * controls pausing and resuming thread execution
  */
@@ -113,7 +113,7 @@ private:
 public:
 
     /**
-     * @brief SimulationController
+     * @brief SimulationController \n
      * Constructor for the Simulation Controller class. The simulation
      * controller class delegates SimulationWorkers to threads and assigns
      * tasks to the different workers to drive the simulation forward. Currently
@@ -122,22 +122,22 @@ public:
     SimulationController(Simulation* sim, SimulationWorker::Speed frameRate);
 
     /**
-     * @brief startSimulation
+     * @brief startSimulation \n
      * Function to emit a signal to the SimulationWorker thread to begin
      * execution of the Simulation on a separate thread
      */
     void startSimulation();
 
     /**
-     * @brief endSimulation
+     * @brief endSimulation \n
      * Function that calls the dropSimulation() function on the Simulation
      * Worker. This prevents the Worker from entering it's next step in
      * execution
      */
-    void endSimulation();
+    void pauseSimulation();
 
     /**
-     * @brief changeSpeed
+     * @brief changeSpeed \n
      * This function changes the speed of the simulation being run by the
      * Simulation Worker. Accomplishes this by pausing the SimulationWorker,
      * calling SimulationWorker::changeSpeed, then restarting the Simulation
@@ -151,16 +151,17 @@ public:
 public slots:
 
     /**
-     * @brief handleResults
-     * Function to handle the results of the threads execution and clean up
+     * @brief updateScreen \n
+     * Function to handle the results of the previous timestep and render
+     * those results to the screen
      */
-    void handleResults(const QString &);
+    void updateScreen(const QString &);
 
 
 signals:
 
     /**
-     * @brief operate
+     * @brief operate \n
      * Signal that enables the SimulationWorker to begin performing work
      */
     void operate(const QString &);

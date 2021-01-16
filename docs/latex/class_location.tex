@@ -4,11 +4,22 @@
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{class_location_a16f296df02f800d987865b74d392fe76}{Location}} (double x, double y)
-\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_location}{Location}} Constructor for the \mbox{\hyperlink{class_location}{Location}} class. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{class_location_ae6b4ef65c5987955e448dc328d1be179}{add\+Agent}} (\mbox{\hyperlink{class_agent}{Agent}} \&agent)
-\begin{DoxyCompactList}\small\item\em add\+Agent Function to assign an \mbox{\hyperlink{class_agent}{Agent}} to this \mbox{\hyperlink{class_location}{Location}} \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_location}{Location}} ~\newline
+Constructor for the \mbox{\hyperlink{class_location}{Location}} class. Each \mbox{\hyperlink{class_location}{Location}} contains a position and a vector of agents that are assigned to it. (May be useful to keep track of what type of \mbox{\hyperlink{class_location}{Location}} it is, problem for future Andy) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_location_a0ebb13d03ed6110beeba2e568c367022}{add\+Agent}} (\mbox{\hyperlink{class_agent}{Agent}} $\ast$agent)
+\begin{DoxyCompactList}\small\item\em add\+Agent ~\newline
+Function to assign an \mbox{\hyperlink{class_agent}{Agent}} to this \mbox{\hyperlink{class_location}{Location}}. Adds the agent to the agents set. Allows location to keep track of its associated agents for quarantining purposes. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_location_a6755bf5e85cff5d58a2f6974ec78d5ec}{remove\+Agent}} (\mbox{\hyperlink{class_agent}{Agent}} \&agent)
-\begin{DoxyCompactList}\small\item\em remove\+Agent Function to remove an \mbox{\hyperlink{class_agent}{Agent}} from this \mbox{\hyperlink{class_location}{Location}} \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em remove\+Agent ~\newline
+Function to remove an \mbox{\hyperlink{class_agent}{Agent}} from this \mbox{\hyperlink{class_location}{Location}}. Removes this agent from the agents set. This function will generally only be used in the case of agent death, however it could be possible to introduce agent moving locations \end{DoxyCompactList}\item 
+Q\+Graphics\+Ellipse\+Item $\ast$ \mbox{\hyperlink{class_location_ad1b3ba99c5c2e6c85ddee13af0f5384a}{get\+Graphics\+Object}} ()
+\begin{DoxyCompactList}\small\item\em get\+Graphics\+Object ~\newline
+Function that returns the Q\+Graphics\+Ellipse\+Item to visulize this location. The returned ellipse must be added to the simulation for it to appear in the window. Currently, locations cannot be updated or moved once created. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_coordinate}{Coordinate}} $\ast$ \mbox{\hyperlink{class_location_a99c757de01579796729f81bdfd84ab27}{get\+Position}} ()
+\begin{DoxyCompactList}\small\item\em get\+Position\+: ~\newline
+Getter function for the position of the \mbox{\hyperlink{class_location}{Location}}. Returns the position of this location as a \mbox{\hyperlink{class_coordinate}{Coordinate}} \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_location_af5be2c6550bbd96137cbb3144ec3c529}{$\sim$\+Location}} ()
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -20,7 +31,8 @@ void \mbox{\hyperlink{class_location_a6755bf5e85cff5d58a2f6974ec78d5ec}{remove\+
 
 
 
-\mbox{\hyperlink{class_location}{Location}} Constructor for the \mbox{\hyperlink{class_location}{Location}} class. 
+\mbox{\hyperlink{class_location}{Location}} ~\newline
+Constructor for the \mbox{\hyperlink{class_location}{Location}} class. Each \mbox{\hyperlink{class_location}{Location}} contains a position and a vector of agents that are assigned to it. (May be useful to keep track of what type of \mbox{\hyperlink{class_location}{Location}} it is, problem for future Andy) 
 
 
 \begin{DoxyParams}{Parameters}
@@ -29,24 +41,59 @@ void \mbox{\hyperlink{class_location_a6755bf5e85cff5d58a2f6974ec78d5ec}{remove\+
 {\em y} & the y position of the \mbox{\hyperlink{class_location}{Location}} \\
 \hline
 \end{DoxyParams}
+\mbox{\Hypertarget{class_location_af5be2c6550bbd96137cbb3144ec3c529}\label{class_location_af5be2c6550bbd96137cbb3144ec3c529}} 
+\index{Location@{Location}!````~Location@{$\sim$Location}}
+\index{````~Location@{$\sim$Location}!Location@{Location}}
+\doxysubsubsection{\texorpdfstring{$\sim$Location()}{~Location()}}
+{\footnotesize\ttfamily Location\+::$\sim$\+Location (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+Destructor for the location class 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{class_location_ae6b4ef65c5987955e448dc328d1be179}\label{class_location_ae6b4ef65c5987955e448dc328d1be179}} 
+\mbox{\Hypertarget{class_location_a0ebb13d03ed6110beeba2e568c367022}\label{class_location_a0ebb13d03ed6110beeba2e568c367022}} 
 \index{Location@{Location}!addAgent@{addAgent}}
 \index{addAgent@{addAgent}!Location@{Location}}
 \doxysubsubsection{\texorpdfstring{addAgent()}{addAgent()}}
-{\footnotesize\ttfamily void Location\+::add\+Agent (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_agent}{Agent}} \&}]{agent }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void Location\+::add\+Agent (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_agent}{Agent}} $\ast$}]{agent }\end{DoxyParamCaption})}
 
 
 
-add\+Agent Function to assign an \mbox{\hyperlink{class_agent}{Agent}} to this \mbox{\hyperlink{class_location}{Location}} 
+add\+Agent ~\newline
+Function to assign an \mbox{\hyperlink{class_agent}{Agent}} to this \mbox{\hyperlink{class_location}{Location}}. Adds the agent to the agents set. Allows location to keep track of its associated agents for quarantining purposes. 
 
 
 \begin{DoxyParams}{Parameters}
 {\em agent} & the agent to be assigned to this location \\
 \hline
 \end{DoxyParams}
+\mbox{\Hypertarget{class_location_ad1b3ba99c5c2e6c85ddee13af0f5384a}\label{class_location_ad1b3ba99c5c2e6c85ddee13af0f5384a}} 
+\index{Location@{Location}!getGraphicsObject@{getGraphicsObject}}
+\index{getGraphicsObject@{getGraphicsObject}!Location@{Location}}
+\doxysubsubsection{\texorpdfstring{getGraphicsObject()}{getGraphicsObject()}}
+{\footnotesize\ttfamily Q\+Graphics\+Ellipse\+Item $\ast$ Location\+::get\+Graphics\+Object (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+get\+Graphics\+Object ~\newline
+Function that returns the Q\+Graphics\+Ellipse\+Item to visulize this location. The returned ellipse must be added to the simulation for it to appear in the window. Currently, locations cannot be updated or moved once created. 
+
+\begin{DoxyReturn}{Returns}
+a Q\+Graphics\+Ellipse\+Item at this \mbox{\hyperlink{class_location}{Location}} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_location_a99c757de01579796729f81bdfd84ab27}\label{class_location_a99c757de01579796729f81bdfd84ab27}} 
+\index{Location@{Location}!getPosition@{getPosition}}
+\index{getPosition@{getPosition}!Location@{Location}}
+\doxysubsubsection{\texorpdfstring{getPosition()}{getPosition()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_coordinate}{Coordinate}} $\ast$ Location\+::get\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+get\+Position\+: ~\newline
+Getter function for the position of the \mbox{\hyperlink{class_location}{Location}}. Returns the position of this location as a \mbox{\hyperlink{class_coordinate}{Coordinate}} 
+
+\begin{DoxyReturn}{Returns}
+the \mbox{\hyperlink{class_coordinate}{Coordinate}} position of the \mbox{\hyperlink{class_location}{Location}} 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_location_a6755bf5e85cff5d58a2f6974ec78d5ec}\label{class_location_a6755bf5e85cff5d58a2f6974ec78d5ec}} 
 \index{Location@{Location}!removeAgent@{removeAgent}}
 \index{removeAgent@{removeAgent}!Location@{Location}}
@@ -55,7 +102,8 @@ add\+Agent Function to assign an \mbox{\hyperlink{class_agent}{Agent}} to this \
 
 
 
-remove\+Agent Function to remove an \mbox{\hyperlink{class_agent}{Agent}} from this \mbox{\hyperlink{class_location}{Location}} 
+remove\+Agent ~\newline
+Function to remove an \mbox{\hyperlink{class_agent}{Agent}} from this \mbox{\hyperlink{class_location}{Location}}. Removes this agent from the agents set. This function will generally only be used in the case of agent death, however it could be possible to introduce agent moving locations 
 
 
 \begin{DoxyParams}{Parameters}
@@ -64,6 +112,7 @@ remove\+Agent Function to remove an \mbox{\hyperlink{class_agent}{Agent}} from t
 \end{DoxyParams}
 
 
-The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-Headers/Location.\+h\end{DoxyCompactItemize}
+Headers/Location.\+h\item 
+src/Location.\+cpp\end{DoxyCompactItemize}

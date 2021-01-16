@@ -24,47 +24,42 @@ SimpleSimulation::SimpleSimulation(int numAgents, Ui::MainWindow* ui) :
                                         getSimHeight() / 2,
                                         QColor(0, 227, 19),
                                         "Leisure");
-    addToScene(homeRegion->renderRegion());
-    addToScene(homeRegion->renderName());
-    addToScene(workRegion->renderRegion());
-    addToScene(workRegion->renderName());
-    addToScene(schoolRegion->renderRegion());
-    addToScene(schoolRegion->renderName());
-    addToScene(leisureRegion->renderRegion());
-    addToScene(leisureRegion->renderName());
 
-
-    agentGenerator = new AgentGenerator(homeRegion,
-                                        schoolRegion,
-                                        workRegion,
-                                        leisureRegion);
+    addToScreen(homeRegion->getGraphicsObject());
+    addToScreen(homeRegion->getNameGraphicsObject());
+    addToScreen(workRegion->getGraphicsObject());
+    addToScreen(workRegion->getNameGraphicsObject());
+    addToScreen(schoolRegion->getGraphicsObject());
+    addToScreen(schoolRegion->getNameGraphicsObject());
+    addToScreen(leisureRegion->getGraphicsObject());
+    addToScreen(leisureRegion->getNameGraphicsObject());
 }
 
 
 void SimpleSimulation::init() {
 
-    homeRegion->generateLocations(getLocationGenerator());
-    std::vector<QGraphicsItem*> toRender = homeRegion->renderLocations();
+    generateLocations(homeRegion, homeRegion->getNumLocations());
+    std::vector<QGraphicsItem*> toRender = homeRegion->getLocationsGraphicsObject();
     for(auto item : toRender) {
-        addToScene(item);
+        addToScreen(item);
     }
 
-    workRegion->generateLocations(getLocationGenerator());
-    toRender = workRegion->renderLocations();
+    generateLocations(workRegion, workRegion->getNumLocations());
+    toRender = workRegion->getLocationsGraphicsObject();
     for(auto item : toRender) {
-        addToScene(item);
+        addToScreen(item);
     }
 
-    schoolRegion->generateLocations(getLocationGenerator());
-    toRender = schoolRegion->renderLocations();
+    generateLocations(schoolRegion, schoolRegion->getNumLocations());
+    toRender = schoolRegion->getLocationsGraphicsObject();
     for(auto item : toRender) {
-        addToScene(item);
+        addToScreen(item);
     }
 
-    leisureRegion->generateLocations(getLocationGenerator());
-    toRender = leisureRegion->renderLocations();
+    generateLocations(leisureRegion, leisureRegion->getNumLocations());
+    toRender = leisureRegion->getLocationsGraphicsObject();
     for(auto item : toRender) {
-        addToScene(item);
+        addToScreen(item);
     }
 
     generateAgents();
@@ -76,42 +71,64 @@ void SimpleSimulation::execute() {
     advanceTime();
     std::vector<Agent*> agents = getAgents();
     for (int i = 0; i < getNumAgents(); ++i) {
-        agents[i]->update();
+        agents[i]->takeTimeStep();
     }
 }
 
 
 void SimpleSimulation::reset() {
-    clearScene();
+    clearScreen();
     clearAgents();
 
-    // Redraw the regions to the screen
-    addToScene(homeRegion->renderRegion());
-    addToScene(homeRegion->renderName());
-    addToScene(workRegion->renderRegion());
-    addToScene(workRegion->renderName());
-    addToScene(schoolRegion->renderRegion());
-    addToScene(schoolRegion->renderName());
-    addToScene(leisureRegion->renderRegion());
-    addToScene(leisureRegion->renderName());
+    // Redraw the regions to the screen to prevent blank area
+    addToScreen(homeRegion->getGraphicsObject());
+    addToScreen(homeRegion->getNameGraphicsObject());
+    addToScreen(workRegion->getGraphicsObject());
+    addToScreen(workRegion->getNameGraphicsObject());
+    addToScreen(schoolRegion->getGraphicsObject());
+    addToScreen(schoolRegion->getNameGraphicsObject());
+    addToScreen(leisureRegion->getGraphicsObject());
+    addToScreen(leisureRegion->getNameGraphicsObject());
 }
 
 
 void SimpleSimulation::test() {
     std::vector<Agent*> agents = getAgents();
-    agents[0]->update();
+    agents[0]->takeTimeStep();
 }
 
 
 void SimpleSimulation::generateAgents() {
-    std::vector<Agent*> agents = agentGenerator->generate(getNumAgents(),
-                                                         visualizeChecked());
-    for (auto agent : agents) {
+    std::vector<Location*> homeLocations = homeRegion->getLocations();
+    std::vector<Location*> schoolLocations = schoolRegion->getLocations();
+    std::vector<Location*> workLocations = workRegion->getLocations();
+    std::vector<Location*> leisureLocations = leisureRegion->getLocations();
+
+    for (int i = 0; i < getNumAgents(); ++i) {
+        int homeIndex = rand() % homeLocations.size();
+        Coordinate* homePosition = homeLocations[homeIndex]->getPosition();
+        Agent* agent = new Agent(rand() % 99,
+                                 new Coordinate(homePosition->getCoord(Coordinate::X) + rand() % 10,
+                                            homePosition->getCoord(Coordinate::Y) + rand() % 10));
+
+        int schoolIndex = rand() % schoolLocations.size();
+        int workIndex = rand() % workLocations.size();
+        int leisureIndex = rand() % leisureLocations.size();
+
+        agent->setLocation(homeLocations[homeIndex], Agent::HOME);
+        homeLocations[homeIndex]->addAgent(agent);
+        agent->setLocation(schoolLocations[schoolIndex], Agent::SCHOOL);
+        schoolLocations[schoolIndex]->addAgent(agent);
+        agent->setLocation(workLocations[workIndex], Agent::WORK);
+        workLocations[workIndex]->addAgent(agent);
+        agent->setLocation(leisureLocations[leisureIndex], Agent::LEISURE);
+        leisureLocations[leisureIndex]->addAgent(agent);
+
         addAgent(agent);
     }
 }
 
 
 SimpleSimulation::~SimpleSimulation() {
-    clearScene();
+    clearScreen();
 }

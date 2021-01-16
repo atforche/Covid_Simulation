@@ -2,32 +2,53 @@
 \label{class_coordinate}\index{Coordinate@{Coordinate}}
 
 
-The \mbox{\hyperlink{class_coordinate}{Coordinate}} class A Class that represents positiions within the simulation. Also supports calculations between Coordinates.  
+The \mbox{\hyperlink{class_coordinate}{Coordinate}} class ~\newline
+A Class that represents positiions within the simulation. Also supports calculations between Coordinates.  
 
 
 
 
 {\ttfamily \#include $<$Coordinate.\+h$>$}
 
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{class_coordinate_ac308d9529cd564e3556e761ee26f9257}{C\+O\+O\+R\+D\+I\+N\+A\+T\+ES}} \{ {\bfseries X}, 
+{\bfseries Y}
+ \}
+\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{class_coordinate_a06991f42b26d92d1c771c198f2a01103}{Coordinate}} (double x, double y)
-\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_coordinate}{Coordinate}} Constructor for the \mbox{\hyperlink{class_coordinate}{Coordinate}} Clas. \end{DoxyCompactList}\item 
-double \mbox{\hyperlink{class_coordinate_a7e93370e1e78d52a228a39e27595b181}{getX}} ()
-\begin{DoxyCompactList}\small\item\em getX Getter function for the X position of the \mbox{\hyperlink{class_coordinate}{Coordinate}} \end{DoxyCompactList}\item 
-double \mbox{\hyperlink{class_coordinate_ad29a9b9f3322eadc79a403eb4d0088cd}{getY}} ()
-\begin{DoxyCompactList}\small\item\em getY Getter function for the Y position of the \mbox{\hyperlink{class_coordinate}{Coordinate}} \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{class_coordinate_a41920d4ceeb4d40019c95d5c63d672d7}{setX}} (double x)
-\begin{DoxyCompactList}\small\item\em setX Setter function for the X position of the \mbox{\hyperlink{class_coordinate}{Coordinate}} \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{class_coordinate_ae597496ce66220d534aeded511fde851}{setY}} (double y)
-\begin{DoxyCompactList}\small\item\em setY Setter function for the Y position of the \mbox{\hyperlink{class_coordinate}{Coordinate}} \end{DoxyCompactList}\item 
-double \mbox{\hyperlink{class_coordinate_a95b4e8e42ad25a74e9e3d70623acb1b5}{dist\+Between}} (\mbox{\hyperlink{class_coordinate}{Coordinate}} \&other)
-\begin{DoxyCompactList}\small\item\em dist\+Between Function to calculate the distance between two coordinates \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_coordinate}{Coordinate}} ~\newline
+Constructor for the \mbox{\hyperlink{class_coordinate}{Coordinate}} Class. A \mbox{\hyperlink{class_coordinate}{Coordinate}} is an object that has an X and Y position and can represent a position in the \mbox{\hyperlink{class_simulation}{Simulation}} space. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_coordinate_a41666a7112689a21fceae113e1e59e3e}{get\+Coord}} (\mbox{\hyperlink{class_coordinate_ac308d9529cd564e3556e761ee26f9257}{C\+O\+O\+R\+D\+I\+N\+A\+T\+ES}} which)
+\begin{DoxyCompactList}\small\item\em get\+Coord ~\newline
+Function to return one of the \mbox{\hyperlink{class_coordinate}{Coordinate}} values stored within the \mbox{\hyperlink{class_coordinate}{Coordinate}} Class \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_coordinate_a29c9b456c706ee8bcc37b71f07952d5c}{set\+Coord}} (double new\+Val, \mbox{\hyperlink{class_coordinate_ac308d9529cd564e3556e761ee26f9257}{C\+O\+O\+R\+D\+I\+N\+A\+T\+ES}} which)
+\begin{DoxyCompactList}\small\item\em set\+Coord ~\newline
+Function to set one of the \mbox{\hyperlink{class_coordinate}{Coordinate}} values stored within the \mbox{\hyperlink{class_coordinate}{Coordinate}} class to a new value \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_coordinate_a96c55e5aeb105efb691e08e224d92831}{dist\+Between}} (\mbox{\hyperlink{class_coordinate}{Coordinate}} $\ast$other)
+\begin{DoxyCompactList}\small\item\em dist\+Between ~\newline
+Function to calculate the distance between two coordinates. Calculates the Euclidean distance between this \mbox{\hyperlink{class_coordinate}{Coordinate}} and another \mbox{\hyperlink{class_coordinate}{Coordinate}} \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_coordinate}{Coordinate}} $\ast$ \mbox{\hyperlink{class_coordinate_adb89fc7199af0ccedf154612b6f1cdad}{heading\+Between}} (\mbox{\hyperlink{class_coordinate}{Coordinate}} $\ast$other)
+\begin{DoxyCompactList}\small\item\em heading\+Between ~\newline
+Function to calculate the heading vector that connects the current point to the point other. The heading vector is a straight line unit vector that connects the two points in as little distance as possible. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-The \mbox{\hyperlink{class_coordinate}{Coordinate}} class A Class that represents positiions within the simulation. Also supports calculations between Coordinates. 
+The \mbox{\hyperlink{class_coordinate}{Coordinate}} class ~\newline
+A Class that represents positiions within the simulation. Also supports calculations between Coordinates. 
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{class_coordinate_ac308d9529cd564e3556e761ee26f9257}\label{class_coordinate_ac308d9529cd564e3556e761ee26f9257}} 
+\index{Coordinate@{Coordinate}!COORDINATES@{COORDINATES}}
+\index{COORDINATES@{COORDINATES}!Coordinate@{Coordinate}}
+\doxysubsubsection{\texorpdfstring{COORDINATES}{COORDINATES}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{class_coordinate_ac308d9529cd564e3556e761ee26f9257}{Coordinate\+::\+C\+O\+O\+R\+D\+I\+N\+A\+T\+ES}}}
+
+Enum specifying the different coordinate values stored in the class 
 
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{class_coordinate_a06991f42b26d92d1c771c198f2a01103}\label{class_coordinate_a06991f42b26d92d1c771c198f2a01103}} 
@@ -38,7 +59,8 @@ The \mbox{\hyperlink{class_coordinate}{Coordinate}} class A Class that represent
 
 
 
-\mbox{\hyperlink{class_coordinate}{Coordinate}} Constructor for the \mbox{\hyperlink{class_coordinate}{Coordinate}} Clas. 
+\mbox{\hyperlink{class_coordinate}{Coordinate}} ~\newline
+Constructor for the \mbox{\hyperlink{class_coordinate}{Coordinate}} Class. A \mbox{\hyperlink{class_coordinate}{Coordinate}} is an object that has an X and Y position and can represent a position in the \mbox{\hyperlink{class_simulation}{Simulation}} space. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -50,78 +72,79 @@ The \mbox{\hyperlink{class_coordinate}{Coordinate}} class A Class that represent
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{class_coordinate_a95b4e8e42ad25a74e9e3d70623acb1b5}\label{class_coordinate_a95b4e8e42ad25a74e9e3d70623acb1b5}} 
+\mbox{\Hypertarget{class_coordinate_a96c55e5aeb105efb691e08e224d92831}\label{class_coordinate_a96c55e5aeb105efb691e08e224d92831}} 
 \index{Coordinate@{Coordinate}!distBetween@{distBetween}}
 \index{distBetween@{distBetween}!Coordinate@{Coordinate}}
 \doxysubsubsection{\texorpdfstring{distBetween()}{distBetween()}}
-{\footnotesize\ttfamily double Coordinate\+::dist\+Between (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_coordinate}{Coordinate}} \&}]{other }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily double Coordinate\+::dist\+Between (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_coordinate}{Coordinate}} $\ast$}]{other }\end{DoxyParamCaption})}
 
 
 
-dist\+Between Function to calculate the distance between two coordinates 
+dist\+Between ~\newline
+Function to calculate the distance between two coordinates. Calculates the Euclidean distance between this \mbox{\hyperlink{class_coordinate}{Coordinate}} and another \mbox{\hyperlink{class_coordinate}{Coordinate}} 
 
 
 \begin{DoxyParams}{Parameters}
-{\em other} & \\
+{\em other} & the second coordinate to calculate the distance to \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 the distance between the two coordinates as a double 
 \end{DoxyReturn}
-\mbox{\Hypertarget{class_coordinate_a7e93370e1e78d52a228a39e27595b181}\label{class_coordinate_a7e93370e1e78d52a228a39e27595b181}} 
-\index{Coordinate@{Coordinate}!getX@{getX}}
-\index{getX@{getX}!Coordinate@{Coordinate}}
-\doxysubsubsection{\texorpdfstring{getX()}{getX()}}
-{\footnotesize\ttfamily double Coordinate\+::getX (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{class_coordinate_a41666a7112689a21fceae113e1e59e3e}\label{class_coordinate_a41666a7112689a21fceae113e1e59e3e}} 
+\index{Coordinate@{Coordinate}!getCoord@{getCoord}}
+\index{getCoord@{getCoord}!Coordinate@{Coordinate}}
+\doxysubsubsection{\texorpdfstring{getCoord()}{getCoord()}}
+{\footnotesize\ttfamily double Coordinate\+::get\+Coord (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_coordinate_ac308d9529cd564e3556e761ee26f9257}{C\+O\+O\+R\+D\+I\+N\+A\+T\+ES}}}]{which }\end{DoxyParamCaption})}
 
 
 
-getX Getter function for the X position of the \mbox{\hyperlink{class_coordinate}{Coordinate}} 
-
-\begin{DoxyReturn}{Returns}
-the X position of the \mbox{\hyperlink{class_coordinate}{Coordinate}} 
-\end{DoxyReturn}
-\mbox{\Hypertarget{class_coordinate_ad29a9b9f3322eadc79a403eb4d0088cd}\label{class_coordinate_ad29a9b9f3322eadc79a403eb4d0088cd}} 
-\index{Coordinate@{Coordinate}!getY@{getY}}
-\index{getY@{getY}!Coordinate@{Coordinate}}
-\doxysubsubsection{\texorpdfstring{getY()}{getY()}}
-{\footnotesize\ttfamily double Coordinate\+::getY (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
-
-
-
-getY Getter function for the Y position of the \mbox{\hyperlink{class_coordinate}{Coordinate}} 
-
-\begin{DoxyReturn}{Returns}
-the Y position of the \mbox{\hyperlink{class_coordinate}{Coordinate}} 
-\end{DoxyReturn}
-\mbox{\Hypertarget{class_coordinate_a41920d4ceeb4d40019c95d5c63d672d7}\label{class_coordinate_a41920d4ceeb4d40019c95d5c63d672d7}} 
-\index{Coordinate@{Coordinate}!setX@{setX}}
-\index{setX@{setX}!Coordinate@{Coordinate}}
-\doxysubsubsection{\texorpdfstring{setX()}{setX()}}
-{\footnotesize\ttfamily void Coordinate\+::setX (\begin{DoxyParamCaption}\item[{double}]{x }\end{DoxyParamCaption})}
-
-
-
-setX Setter function for the X position of the \mbox{\hyperlink{class_coordinate}{Coordinate}} 
+get\+Coord ~\newline
+Function to return one of the \mbox{\hyperlink{class_coordinate}{Coordinate}} values stored within the \mbox{\hyperlink{class_coordinate}{Coordinate}} Class 
 
 
 \begin{DoxyParams}{Parameters}
-{\em x} & the new X position of the coordinate \\
+{\em which} & enum specifying which \mbox{\hyperlink{class_coordinate}{Coordinate}} value to return \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_coordinate_ae597496ce66220d534aeded511fde851}\label{class_coordinate_ae597496ce66220d534aeded511fde851}} 
-\index{Coordinate@{Coordinate}!setY@{setY}}
-\index{setY@{setY}!Coordinate@{Coordinate}}
-\doxysubsubsection{\texorpdfstring{setY()}{setY()}}
-{\footnotesize\ttfamily void Coordinate\+::setY (\begin{DoxyParamCaption}\item[{double}]{y }\end{DoxyParamCaption})}
+\begin{DoxyReturn}{Returns}
+the specified coordinate value as a double 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_coordinate_adb89fc7199af0ccedf154612b6f1cdad}\label{class_coordinate_adb89fc7199af0ccedf154612b6f1cdad}} 
+\index{Coordinate@{Coordinate}!headingBetween@{headingBetween}}
+\index{headingBetween@{headingBetween}!Coordinate@{Coordinate}}
+\doxysubsubsection{\texorpdfstring{headingBetween()}{headingBetween()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_coordinate}{Coordinate}} $\ast$ Coordinate\+::heading\+Between (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_coordinate}{Coordinate}} $\ast$}]{other }\end{DoxyParamCaption})}
 
 
 
-setY Setter function for the Y position of the \mbox{\hyperlink{class_coordinate}{Coordinate}} 
+heading\+Between ~\newline
+Function to calculate the heading vector that connects the current point to the point other. The heading vector is a straight line unit vector that connects the two points in as little distance as possible. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em y} & the new Y position of the coordinate \\
+{\em other} & the second point that the first point is trying to reach \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a \mbox{\hyperlink{class_coordinate}{Coordinate}} corresponding to the shortest 2D vector between the two points 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_coordinate_a29c9b456c706ee8bcc37b71f07952d5c}\label{class_coordinate_a29c9b456c706ee8bcc37b71f07952d5c}} 
+\index{Coordinate@{Coordinate}!setCoord@{setCoord}}
+\index{setCoord@{setCoord}!Coordinate@{Coordinate}}
+\doxysubsubsection{\texorpdfstring{setCoord()}{setCoord()}}
+{\footnotesize\ttfamily void Coordinate\+::set\+Coord (\begin{DoxyParamCaption}\item[{double}]{new\+Val,  }\item[{\mbox{\hyperlink{class_coordinate_ac308d9529cd564e3556e761ee26f9257}{C\+O\+O\+R\+D\+I\+N\+A\+T\+ES}}}]{which }\end{DoxyParamCaption})}
+
+
+
+set\+Coord ~\newline
+Function to set one of the \mbox{\hyperlink{class_coordinate}{Coordinate}} values stored within the \mbox{\hyperlink{class_coordinate}{Coordinate}} class to a new value 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Val} & the new value of the coordinate \\
+\hline
+{\em which} & enum specifying which \mbox{\hyperlink{class_coordinate}{Coordinate}} value to change \\
 \hline
 \end{DoxyParams}
 

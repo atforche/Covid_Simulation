@@ -47,7 +47,6 @@ void MainWindow::disableUI() {
     ui->numLocationsLabel->setEnabled(false);
     ui->numAgents->setEnabled(false);
     ui->numAgentsLabel->setEnabled(false);
-    ui->visualize->setEnabled(false);
 
     ui->resetSimulation->setEnabled(true);
     ui->slowSim->setEnabled(true);
@@ -63,7 +62,6 @@ void MainWindow::enableUI() {
     ui->numLocationsLabel->setEnabled(true);
     ui->numAgents->setEnabled(true);
     ui->numAgentsLabel->setEnabled(true);
-    ui->visualize->setEnabled(true);
 
     ui->resetSimulation->setEnabled(false);
     ui->slowSim->setEnabled(false);
@@ -105,11 +103,12 @@ void MainWindow::on_runSimulation_clicked()
 
 void MainWindow::on_resetSimulation_clicked()
 {
-    this->controller->endSimulation(); // Call to simulation controller to end execution
+    this->controller->pauseSimulation(); // Call to simulation controller to end execution
     ui->mainCanvas->scene()->clear();
     enableUI();
     ui->pauseSim->setIcon(style()->standardIcon(QStyle::SP_MediaPause));
     sim->reset();
+    currentSpeed = "Normal";
 }
 
 
@@ -167,7 +166,7 @@ void MainWindow::on_pauseSim_clicked()
         ui->slowSim->setEnabled(currentSpeed != "Slow");
         ui->fastSim->setEnabled(currentSpeed != "Unlimited");
     } else {
-        this->controller->endSimulation();
+        this->controller->pauseSimulation();
         ui->pauseSim->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
         ui->speed->setText("Paused");
         this->paused = true;

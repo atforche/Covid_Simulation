@@ -8,12 +8,12 @@ SimulationWorker::SimulationWorker(Simulation* sim, Speed frameRate) {
 }
 
 
-void SimulationWorker::doWork(const QString &) {
+void SimulationWorker::startThread(const QString &) {
     delete executeLoop; // ensure old timer is deleted to prevent two timers running
     executeLoop = new QTimer();
     continueSimulation = true; // Ensure the simulation is able to continue
     connect(executeLoop, &QTimer::timeout, this,
-            &SimulationWorker::executeSimulation);
+            &SimulationWorker::executeSimTimestep);
     if (this->frameRate == UNLIMITED) {
         executeLoop->start(1); //Unlimited FPS
     } else if (this->frameRate == FAST) {
@@ -26,10 +26,10 @@ void SimulationWorker::doWork(const QString &) {
 }
 
 
-void SimulationWorker::executeSimulation() {
+void SimulationWorker::executeSimTimestep() {
     if (continueSimulation) {
         sim->execute();
-        emit resultReady("Done");
+        emit timestepComplete("Done");
     } else {
         executeLoop->stop();
         delete executeLoop;
@@ -38,7 +38,7 @@ void SimulationWorker::executeSimulation() {
 }
 
 
-void SimulationWorker::dropSimulation() {
+void SimulationWorker::pauseSimulation() {
     // Stops the timer from executing which prevents the further calling
     // of the Simulation::execute() function
     continueSimulation = false;
@@ -59,9 +59,9 @@ SimulationController::SimulationController(Simulation* sim,
     connect(&workerThread, &QThread::finished, sim, &Simulation::renderAgentUpdate);
     connect(&workerThread, &QThread::finished, worker, &QObject::deleteLater);
     connect(this, &SimulationController::operate, worker,
-            &SimulationWorker::doWork);
-    connect(worker, &SimulationWorker::resultReady, this,
-            &SimulationController::handleResults);
+            &SimulationWorker::startThread);
+    connect(worker, &SimulationWorker::timestepComplete, this,
+            &SimulationController::updateScreen);
     workerThread.start();
 }
 
@@ -71,16 +71,16 @@ void SimulationController::startSimulation() {
 }
 
 
-void SimulationController::endSimulation() {
+void SimulationController::pauseSimulation() {
     // This is allowable because it operates more quickly than the signal
     // mechanism. Although the SimulationWorker lives on another thread, its
     // own memory is not being modified by that thread
-    this->worker->dropSimulation();
+    this->worker->pauseSimulation();
 }
 
 
 void SimulationController::changeSpeed(SimulationWorker::Speed newSpeed) {
-    endSimulation(); //Pause the simulation
+    pauseSimulation(); //Pause the simulation
     this->worker->changeSpeed(newSpeed);
     startSimulation();
 }
@@ -92,7 +92,7 @@ SimulationController::~SimulationController() {
 }
 
 
-void SimulationController::handleResults(const QString &) {
+void SimulationController::updateScreen(const QString &) {
     sim->renderAgentUpdate();
     return;
 }

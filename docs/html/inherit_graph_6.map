@@ -1,0 +1,7 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" title=" " alt="" coords="5,56,76,83"/>
+<area shape="rect" id="node2" href="$class_simulation.html" title="The Simulation class &#160;The Abstract Simulation class from which all other simulations will be derived...." alt="" coords="152,5,235,32"/>
+<area shape="rect" id="node4" href="$class_simulation_controller.html" title="The SimulationController class &#160;Class that controls the simulation and delegates it to a thread...." alt="" coords="124,56,263,83"/>
+<area shape="rect" id="node5" href="$class_simulation_worker.html" title="The SimulationWorker class &#160;Class that handles the execution of the Simulation on a Threader...." alt="" coords="131,107,256,133"/>
+<area shape="rect" id="node3" href="$class_simple_simulation.html" title=" " alt="" coords="311,5,433,32"/>
+</map>

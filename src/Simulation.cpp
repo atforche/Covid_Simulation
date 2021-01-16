@@ -2,7 +2,6 @@
 
 Simulation::Simulation(int numAgents, Ui::MainWindow* ui) {
     assert(numAgents >= 0);
-    this->locationGenerator = new LocationGenerator();
     this->numAgents = numAgents;
     this->agents.reserve(numAgents);
     this->ui = ui;
@@ -20,22 +19,7 @@ Simulation::Simulation(int numAgents, Ui::MainWindow* ui) {
 void Simulation::addAgent(Agent *agent) {
     if (this->agents.size() < static_cast<size_t>(this->numAgents)) {
         this->agents.push_back(agent);
-        addToScene(agent->renderAgent());
-
-        if (agent->getVisualize()) {
-            std::vector<QGraphicsItem*> lines = agent->renderVisualize();
-            for (size_t i = 0; i < lines.size(); ++i) {
-                addToScene(lines[i]);
-            }
-        }
-    }
-}
-
-
-void Simulation::renderAgentUpdate() {
-    std::vector<Agent*> agents = getAgents();
-    for (auto i : agents) {
-        i->renderUpdate();
+        addToScreen(agent->getGraphicsObject());
     }
 }
 
@@ -45,7 +29,7 @@ std::vector<Agent*>& Simulation::getAgents() {
 }
 
 
-void Simulation::addToScene(QGraphicsItem *item) {
+void Simulation::addToScreen(QGraphicsItem *item) {
     ui->mainCanvas->scene()->addItem(item);
 }
 
@@ -70,18 +54,49 @@ void Simulation::advanceTime() {
             }
         }
         // Call down here to ensure correct hour value passed
-        agentController->setDestinations(getAgents(), this->hour);
+        agentController->assignAgentDestinations(getAgents(), this->hour);
     }
 }
 
 
-void Simulation::clearScene() {
+void Simulation::clearScreen() {
     ui->mainCanvas->scene()->clear();
 }
 
 
 void Simulation::clearAgents() {
     agents.clear();
+}
+
+
+void Simulation::generateLocations(Region *region, int num) {
+    QRectF regionBound = region->getGraphicsObject()->boundingRect();
+    QGraphicsItem* regionGraphics = region->getGraphicsObject();
+
+    std::vector<Location*> locations;
+    locations.reserve(num);
+
+    std::uniform_int_distribution<int> xdist(10,
+                                            regionBound.width() - 10);
+    std::uniform_int_distribution<int> ydist(10,
+                                             regionBound.height() - 10);
+    std::random_device rand;
+    // For each location, random sample points within the boundingRect until the
+    // point lies within the shape
+    for (int i = 0; i < num; ++i) {
+        while(true) {
+            int randx = xdist(rand);
+            int randy = ydist(rand);
+
+            QPointF check(randx + regionGraphics->boundingRect().topLeft().x(),
+                          randy + regionGraphics->boundingRect().topLeft().y());
+            if (regionGraphics->boundingRect().contains(check)) {
+                locations.push_back(new Location(check.x(), check.y()));
+                break;
+            }
+        }
+    }
+    region->setLocations(locations);
 }
 
 
@@ -95,18 +110,8 @@ int Simulation::getSimHeight() {
 }
 
 
-LocationGenerator* Simulation::getLocationGenerator() {
-    return this->locationGenerator;
-}
-
-
 int Simulation::getNumAgents() {
     return this->numAgents;
-}
-
-
-bool Simulation::visualizeChecked() {
-    return (ui->visualize->checkState() == Qt::CheckState::Checked);
 }
 
 
@@ -126,6 +131,13 @@ int Simulation::getHour() {
 
 
 Simulation::~Simulation() {
-    delete locationGenerator;
     delete agentController;
+}
+
+
+void Simulation::renderAgentUpdate() {
+    std::vector<Agent*> agents = getAgents();
+    for (auto i : agents) {
+        i->updateGraphicsObject();
+    }
 }

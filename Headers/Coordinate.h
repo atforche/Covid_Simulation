@@ -2,7 +2,7 @@
 #define COORDINATE_H
 
 /**
- * @brief The Coordinate class
+ * @brief The Coordinate class \n
  * A Class that represents positiions within the simulation. Also
  * supports calculations between Coordinates
  */
@@ -17,8 +17,11 @@ private:
 
 public:
 
+    /** Enum specifying the different coordinate values stored in the class*/
+    enum COORDINATES {X, Y};
+
     /**
-     * @brief Coordinate
+     * @brief Coordinate \n
      * Constructor for the Coordinate Class. A Coordinate is an object that
      * has an X and Y position and can represent a position in the Simulation
      * space.
@@ -28,48 +31,34 @@ public:
     Coordinate(double x, double y);
 
     /**
-     * @brief getX
-     * Getter function for the X position of the Coordinate. Returns the X
-     * position of this Coordinate as a double
-     * @return the X position of the Coordinate
+     * @brief getCoord \n
+     * Function to return one of the Coordinate values stored within the
+     * Coordinate Class
+     * @param which: enum specifying which Coordinate value to return
+     * @return the specified coordinate value as a double
      */
-    double getX();
+    double getCoord(COORDINATES which);
 
     /**
-     * @brief getY
-     * Getter function for the Y position of the Coordinate. Returns the Y
-     * position of this Coordinate as a double
-     * @return the Y position of the Coordinate
+     * @brief setCoord \n
+     * Function to set one of the Coordinate values stored within the
+     * Coordinate class to a new value
+     * @param newVal: the new value of the coordinate
+     * @param which: enum specifying which Coordinate value to change
      */
-    double getY();
+    void setCoord(double newVal, COORDINATES which);
 
     /**
-     * @brief setX
-     * Setter function for the X position of the Coordinate. Sets the X
-     * position of this Coordinate to a new double
-     * @param x: the new X position of the coordinate
-     */
-    void setX(double x);
-
-    /**
-     * @brief setY
-     * Setter function for the Y position of the Coordinate. Sets the Y
-     * position of this Coordinate to a new double
-     * @param y: the new Y position of the coordinate
-     */
-    void setY(double y);
-
-    /**
-     * @brief distBetween
+     * @brief distBetween \n
      * Function to calculate the distance between two coordinates. Calculates
-     * the Euclidean distance between this Coordinate and a second Coordinate
+     * the Euclidean distance between this Coordinate and another Coordinate
      * @param other: the second coordinate to calculate the distance to
      * @return the distance between the two coordinates as a double
      */
     double distBetween(Coordinate *other);
 
     /**
-     * @brief headingBetween
+     * @brief headingBetween \n
      * Function to calculate the heading vector that connects the current point
      * to the point other. The heading vector is a straight line unit vector
      * that connects the two points in as little distance as possible.
@@ -78,16 +67,6 @@ public:
      *         the two points
      */
     Coordinate* headingBetween(Coordinate *other);
-
-    /**
-     * @brief isValid
-     * Function to determine if a Coordinate is valid. A Coordinate is valid
-     * if it has two positive components. An invalid coordinate can be used to
-     * prevent an agent from pursuing something. Function may be expanded to
-     * check scene bounds in the future.
-     * @return
-     */
-    bool isValid();
 
 };
 

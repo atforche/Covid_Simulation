@@ -93,8 +93,9 @@ Inheritance diagram for SimpleSimulation:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_simple_simulation__inherit__graph.png" border="0" usemap="#a_simple_simulation_inherit__map" alt="Inheritance graph"/></div>
 <map name="_simple_simulation_inherit__map" id="a_simple_simulation_inherit__map">
-<area shape="rect" title=" " alt="" coords="5,80,128,107"/>
-<area shape="rect" href="class_simulation.html" title="The Simulation class The Abstract Simulation class from which all other simulations will be derived...." alt="" coords="25,5,108,32"/>
+<area shape="rect" title=" " alt="" coords="5,155,128,181"/>
+<area shape="rect" href="class_simulation.html" title="The Simulation class &#160;The Abstract Simulation class from which all other simulations will be derived...." alt="" coords="25,80,108,107"/>
+<area shape="rect" title=" " alt="" coords="31,5,102,32"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -102,40 +103,119 @@ Collaboration diagram for SimpleSimulation:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_simple_simulation__coll__graph.png" border="0" usemap="#a_simple_simulation_coll__map" alt="Collaboration graph"/></div>
 <map name="_simple_simulation_coll__map" id="a_simple_simulation_coll__map">
-<area shape="rect" title=" " alt="" coords="5,80,128,107"/>
-<area shape="rect" href="class_simulation.html" title="The Simulation class The Abstract Simulation class from which all other simulations will be derived...." alt="" coords="25,5,108,32"/>
+<area shape="rect" title=" " alt="" coords="5,155,128,181"/>
+<area shape="rect" href="class_simulation.html" title="The Simulation class &#160;The Abstract Simulation class from which all other simulations will be derived...." alt="" coords="25,80,108,107"/>
+<area shape="rect" title=" " alt="" coords="31,5,102,32"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ad16a2131994b9688b750210e8d1a5929"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simple_simulation.html#ad16a2131994b9688b750210e8d1a5929">SimpleSimulation</a> (int numAgents, Ui::MainWindow *ui)</td></tr>
-<tr class="memdesc:ad16a2131994b9688b750210e8d1a5929"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_simple_simulation.html">SimpleSimulation</a> The constructor for the <a class="el" href="class_simple_simulation.html">SimpleSimulation</a> Class, sets up all controls necessary for the running of this simulation type.  <a href="class_simple_simulation.html#ad16a2131994b9688b750210e8d1a5929">More...</a><br /></td></tr>
+<tr class="memdesc:ad16a2131994b9688b750210e8d1a5929"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_simple_simulation.html">SimpleSimulation</a> <br  />
+The constructor for the <a class="el" href="class_simple_simulation.html">SimpleSimulation</a> Class, sets up all controls necessary for the running of this simulation type. Simple <a class="el" href="class_simulation.html" title="The Simulation class  The Abstract Simulation class from which all other simulations will be derived....">Simulation</a> is comprised of four SquareRegions that are home, work, school, and leisure. It will implement agent assignment, motion, and behavior charts, however it will lack any more advanced features like infectivity or economy.  <a href="class_simple_simulation.html#ad16a2131994b9688b750210e8d1a5929">More...</a><br /></td></tr>
 <tr class="separator:ad16a2131994b9688b750210e8d1a5929"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53d5c24654dd7fb8c6733e2435f525a1"><td class="memItemLeft" align="right" valign="top"><a id="a53d5c24654dd7fb8c6733e2435f525a1"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simple_simulation.html#a53d5c24654dd7fb8c6733e2435f525a1">init</a> () override</td></tr>
-<tr class="memdesc:a53d5c24654dd7fb8c6733e2435f525a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">init Function to initialize the simulation. More documentation to come <br /></td></tr>
+<tr class="memdesc:a53d5c24654dd7fb8c6733e2435f525a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">init <br  />
+Function to initialize the simulation. Initializes the Regions and Locations. Renders all the Regions and Locations and add all of them to the QGraphicsScene. Also generates the agents in the Sim, assigns each of them to a set of Locations, and renders each of them to the QGraphicsScene <br /></td></tr>
 <tr class="separator:a53d5c24654dd7fb8c6733e2435f525a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed5adff71da8e1700c9059dac85ffbc6"><td class="memItemLeft" align="right" valign="top"><a id="aed5adff71da8e1700c9059dac85ffbc6"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simple_simulation.html#aed5adff71da8e1700c9059dac85ffbc6">execute</a> () override</td></tr>
+<tr class="memdesc:aed5adff71da8e1700c9059dac85ffbc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">execute <br  />
+Function to execute a simple timestep of the simulation. Loops through every agent in the simulation and calls the update function on them. <a class="el" href="class_simulation.html#a2987cc476da3d7fa312d02e00b17f4d8" title="renderAgentUpdate  Function to render the agents in their new positions following an update....">Simulation::renderAgentUpdate()</a> is required for updates to appear on the screen (may need to be overridden) <br /></td></tr>
+<tr class="separator:aed5adff71da8e1700c9059dac85ffbc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a66215e392b5eab33e9089b255c830417"><td class="memItemLeft" align="right" valign="top"><a id="a66215e392b5eab33e9089b255c830417"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simple_simulation.html#a66215e392b5eab33e9089b255c830417">reset</a> () override</td></tr>
-<tr class="memdesc:a66215e392b5eab33e9089b255c830417"><td class="mdescLeft">&#160;</td><td class="mdescRight">reset Function to reset the simulation. More documentation to come <br /></td></tr>
+<tr class="memdesc:a66215e392b5eab33e9089b255c830417"><td class="mdescLeft">&#160;</td><td class="mdescRight">reset <br  />
+Function to reset the simulation. Resets the <a class="el" href="class_simulation.html" title="The Simulation class  The Abstract Simulation class from which all other simulations will be derived....">Simulation</a> by clearing the Scene and deleting all agents from the <a class="el" href="class_simulation.html" title="The Simulation class  The Abstract Simulation class from which all other simulations will be derived....">Simulation</a>. Redraws the Regions to the screen to the QGraphicsScene does not appear blank to the user. <br /></td></tr>
 <tr class="separator:a66215e392b5eab33e9089b255c830417"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8fa34536fb673562dccd7e255d32bc71"><td class="memItemLeft" align="right" valign="top"><a id="a8fa34536fb673562dccd7e255d32bc71"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simple_simulation.html#a8fa34536fb673562dccd7e255d32bc71">test</a> () override</td></tr>
-<tr class="memdesc:a8fa34536fb673562dccd7e255d32bc71"><td class="mdescLeft">&#160;</td><td class="mdescRight">test Test Function that allows for functionalities of the simulation to be tested <br /></td></tr>
+<tr class="memdesc:a8fa34536fb673562dccd7e255d32bc71"><td class="mdescLeft">&#160;</td><td class="mdescRight">test <br  />
+Test Function that allows for functionalities of the simulation to be tested. Function that can be modified as needed to test various functionalities of the simulation. <br /></td></tr>
 <tr class="separator:a8fa34536fb673562dccd7e255d32bc71"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa00abd0a15e93f551d0d20ab06e92ae5"><td class="memItemLeft" align="right" valign="top"><a id="aa00abd0a15e93f551d0d20ab06e92ae5"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simple_simulation.html#aa00abd0a15e93f551d0d20ab06e92ae5">~SimpleSimulation</a> ()</td></tr>
-<tr class="memdesc:aa00abd0a15e93f551d0d20ab06e92ae5"><td class="mdescLeft">&#160;</td><td class="mdescRight">~SimpleSimulation Destructor function for the Simple <a class="el" href="class_simulation.html" title="The Simulation class The Abstract Simulation class from which all other simulations will be derived....">Simulation</a> Class. Clears all dynamic memory used within the simulation <br /></td></tr>
-<tr class="separator:aa00abd0a15e93f551d0d20ab06e92ae5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84f33735c2d1bd87f202e9c5f3ebfbde"><td class="memItemLeft" align="right" valign="top"><a id="a84f33735c2d1bd87f202e9c5f3ebfbde"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simple_simulation.html#a84f33735c2d1bd87f202e9c5f3ebfbde">generateAgents</a> (<a class="el" href="class_agent.html">Agent</a> *agent)</td></tr>
-<tr class="memdesc:a84f33735c2d1bd87f202e9c5f3ebfbde"><td class="mdescLeft">&#160;</td><td class="mdescRight">generateAgents Function that generates Agents to be added to the simulation <br /></td></tr>
-<tr class="separator:a84f33735c2d1bd87f202e9c5f3ebfbde"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afaf1cf90f5056c66525ad2ccb290dabe"><td class="memItemLeft" align="right" valign="top"><a id="afaf1cf90f5056c66525ad2ccb290dabe"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simple_simulation.html#afaf1cf90f5056c66525ad2ccb290dabe">generateAgents</a> () override</td></tr>
+<tr class="memdesc:afaf1cf90f5056c66525ad2ccb290dabe"><td class="mdescLeft">&#160;</td><td class="mdescRight">generateAgents <br  />
+Function to generate agents and assign them to behaviors and locations. Currently, randomly assign agents with ages, behaviors, and locations. <br /></td></tr>
+<tr class="separator:afaf1cf90f5056c66525ad2ccb290dabe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a356ab8bcf216a925c4cd9d29bc14686e"><td class="memItemLeft" align="right" valign="top"><a id="a356ab8bcf216a925c4cd9d29bc14686e"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simple_simulation.html#a356ab8bcf216a925c4cd9d29bc14686e">~SimpleSimulation</a> () override</td></tr>
+<tr class="memdesc:a356ab8bcf216a925c4cd9d29bc14686e"><td class="mdescLeft">&#160;</td><td class="mdescRight">~SimpleSimulation <br  />
+Destructor function for the Simple <a class="el" href="class_simulation.html" title="The Simulation class  The Abstract Simulation class from which all other simulations will be derived....">Simulation</a> Class. Clears all dynamic memory used within the <a class="el" href="class_simulation.html" title="The Simulation class  The Abstract Simulation class from which all other simulations will be derived....">Simulation</a> by clearing the scene (which clears all memory used by the scene) <br /></td></tr>
+<tr class="separator:a356ab8bcf216a925c4cd9d29bc14686e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_simulation"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_simulation')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_simulation.html">Simulation</a></td></tr>
-<tr class="memitem:a701bd94edc5cf562b5c4e66ae43400bb inherit pub_methods_class_simulation"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a701bd94edc5cf562b5c4e66ae43400bb">~Simulation</a> ()</td></tr>
-<tr class="memdesc:a701bd94edc5cf562b5c4e66ae43400bb inherit pub_methods_class_simulation"><td class="mdescLeft">&#160;</td><td class="mdescRight">pause Function to pause the simulation. May be handled in driver?  <a href="class_simulation.html#a701bd94edc5cf562b5c4e66ae43400bb">More...</a><br /></td></tr>
-<tr class="separator:a701bd94edc5cf562b5c4e66ae43400bb inherit pub_methods_class_simulation"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b8b152c3232ab7f6d15eca28cd29132 inherit pub_methods_class_simulation"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a7b8b152c3232ab7f6d15eca28cd29132">Simulation</a> (int numAgents, Ui::MainWindow *ui)</td></tr>
+<tr class="memdesc:a7b8b152c3232ab7f6d15eca28cd29132 inherit pub_methods_class_simulation"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_simulation.html" title="The Simulation class  The Abstract Simulation class from which all other simulations will be derived....">Simulation</a>: <br  />
+Constructor for the Base <a class="el" href="class_simulation.html" title="The Simulation class  The Abstract Simulation class from which all other simulations will be derived....">Simulation</a> Object. Takes in all parameters that are universal to all simulation types.  <a href="class_simulation.html#a7b8b152c3232ab7f6d15eca28cd29132">More...</a><br /></td></tr>
+<tr class="separator:a7b8b152c3232ab7f6d15eca28cd29132 inherit pub_methods_class_simulation"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0bae49f6d2d7745d1490e668b50bfa9 inherit pub_methods_class_simulation"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#ae0bae49f6d2d7745d1490e668b50bfa9">addAgent</a> (<a class="el" href="class_agent.html">Agent</a> *agent)</td></tr>
+<tr class="memdesc:ae0bae49f6d2d7745d1490e668b50bfa9 inherit pub_methods_class_simulation"><td class="mdescLeft">&#160;</td><td class="mdescRight">addAgent <br  />
+Function to add a new agent to the simulation. Will not add new agent if simulation is already at max number of agents (May need to change in future)  <a href="class_simulation.html#ae0bae49f6d2d7745d1490e668b50bfa9">More...</a><br /></td></tr>
+<tr class="separator:ae0bae49f6d2d7745d1490e668b50bfa9 inherit pub_methods_class_simulation"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ae30e90c1666e86caf97329c5f26ec8 inherit pub_methods_class_simulation"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_agent.html">Agent</a> * &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a8ae30e90c1666e86caf97329c5f26ec8">getAgents</a> ()</td></tr>
+<tr class="memdesc:a8ae30e90c1666e86caf97329c5f26ec8 inherit pub_methods_class_simulation"><td class="mdescLeft">&#160;</td><td class="mdescRight">getAgents <br  />
+Getter function for the vector of all agents in the simulation. Returns a vector of all Agents  <a href="class_simulation.html#a8ae30e90c1666e86caf97329c5f26ec8">More...</a><br /></td></tr>
+<tr class="separator:a8ae30e90c1666e86caf97329c5f26ec8 inherit pub_methods_class_simulation"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70d474820a2351e8e298e6daca95b513 inherit pub_methods_class_simulation"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a70d474820a2351e8e298e6daca95b513">addToScreen</a> (QGraphicsItem *item)</td></tr>
+<tr class="memdesc:a70d474820a2351e8e298e6daca95b513 inherit pub_methods_class_simulation"><td class="mdescLeft">&#160;</td><td class="mdescRight">addToScreen <br  />
+Function to add a QGraphicsItem to the scene on which the simulation is being drawn. Can add any QGraphicsItem. Use this function to add all objects that should be displayed to the simulation  <a href="class_simulation.html#a70d474820a2351e8e298e6daca95b513">More...</a><br /></td></tr>
+<tr class="separator:a70d474820a2351e8e298e6daca95b513 inherit pub_methods_class_simulation"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09a1b2085074e6fb4de3d62b360bef72 inherit pub_methods_class_simulation"><td class="memItemLeft" align="right" valign="top"><a id="a09a1b2085074e6fb4de3d62b360bef72"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a09a1b2085074e6fb4de3d62b360bef72">advanceTime</a> ()</td></tr>
+<tr class="memdesc:a09a1b2085074e6fb4de3d62b360bef72 inherit pub_methods_class_simulation"><td class="mdescLeft">&#160;</td><td class="mdescRight">advanceTime <br  />
+Function that should be called on every call to <a class="el" href="class_simulation.html#a7600fcd885ba7f84cfe19f55fad95404" title="execute  Function to execute a single timestep in the simulation. Function should be called in a loop...">Simulation::execute()</a>. Advances the time in the simulation. Advances the hours after FRAMES_PER_HOUR number of functions calls. Advances the days after 24 hours have occurred. Advanced the year after 365 years have occurred. <br /></td></tr>
+<tr class="separator:a09a1b2085074e6fb4de3d62b360bef72 inherit pub_methods_class_simulation"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a963e4f60e07f29bd854b67d9a5a006a2 inherit pub_methods_class_simulation"><td class="memItemLeft" align="right" valign="top"><a id="a963e4f60e07f29bd854b67d9a5a006a2"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a963e4f60e07f29bd854b67d9a5a006a2">clearScreen</a> ()</td></tr>
+<tr class="memdesc:a963e4f60e07f29bd854b67d9a5a006a2 inherit pub_methods_class_simulation"><td class="mdescLeft">&#160;</td><td class="mdescRight">clearScreen <br  />
+Calls clear() on the drawing scene on which the simulation is being displayed. Deletes the dynamic memory associated with every object in the scene. <br /></td></tr>
+<tr class="separator:a963e4f60e07f29bd854b67d9a5a006a2 inherit pub_methods_class_simulation"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac730e7d1564578fbadeba0ce32c58cca inherit pub_methods_class_simulation"><td class="memItemLeft" align="right" valign="top"><a id="ac730e7d1564578fbadeba0ce32c58cca"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#ac730e7d1564578fbadeba0ce32c58cca">clearAgents</a> ()</td></tr>
+<tr class="memdesc:ac730e7d1564578fbadeba0ce32c58cca inherit pub_methods_class_simulation"><td class="mdescLeft">&#160;</td><td class="mdescRight">clearAgents <br  />
+Calls clear() on the std::vector of Agents to eliminate all of the agents from the simulation <br /></td></tr>
+<tr class="separator:ac730e7d1564578fbadeba0ce32c58cca inherit pub_methods_class_simulation"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37329fde91a2d8c771a2d8c42e799c99 inherit pub_methods_class_simulation"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a37329fde91a2d8c771a2d8c42e799c99">generateLocations</a> (<a class="el" href="class_region.html">Region</a> *region, int num)</td></tr>
+<tr class="memdesc:a37329fde91a2d8c771a2d8c42e799c99 inherit pub_methods_class_simulation"><td class="mdescLeft">&#160;</td><td class="mdescRight">generateLocations <br  />
+Function that generates a set of Locations within the specified <a class="el" href="class_region.html">Region</a>. Generates the number of locations specified in the UI. Ensures all locations generated sit within the bounds of the <a class="el" href="class_region.html">Region</a>. Generated Locations will be automatically added into the <a class="el" href="class_region.html">Region</a>  <a href="class_simulation.html#a37329fde91a2d8c771a2d8c42e799c99">More...</a><br /></td></tr>
+<tr class="separator:a37329fde91a2d8c771a2d8c42e799c99 inherit pub_methods_class_simulation"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2dc3a986efb0fe35518fd1dbdb4e9ce inherit pub_methods_class_simulation"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#ac2dc3a986efb0fe35518fd1dbdb4e9ce">getSimHeight</a> ()</td></tr>
+<tr class="memdesc:ac2dc3a986efb0fe35518fd1dbdb4e9ce inherit pub_methods_class_simulation"><td class="mdescLeft">&#160;</td><td class="mdescRight">getSimHeight <br  />
+Getter function for the height of the QGraphicsScene window. Returns the height as an int  <a href="class_simulation.html#ac2dc3a986efb0fe35518fd1dbdb4e9ce">More...</a><br /></td></tr>
+<tr class="separator:ac2dc3a986efb0fe35518fd1dbdb4e9ce inherit pub_methods_class_simulation"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a688115850cca6f68f19a5ad6b66ed9fb inherit pub_methods_class_simulation"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a688115850cca6f68f19a5ad6b66ed9fb">getSimWidth</a> ()</td></tr>
+<tr class="memdesc:a688115850cca6f68f19a5ad6b66ed9fb inherit pub_methods_class_simulation"><td class="mdescLeft">&#160;</td><td class="mdescRight">getSimWidth <br  />
+Getter function for the width of the QGraphicsScene window. Returns the width as an int  <a href="class_simulation.html#a688115850cca6f68f19a5ad6b66ed9fb">More...</a><br /></td></tr>
+<tr class="separator:a688115850cca6f68f19a5ad6b66ed9fb inherit pub_methods_class_simulation"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb0496dab2348e930cfa9bce3610c4fd inherit pub_methods_class_simulation"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#adb0496dab2348e930cfa9bce3610c4fd">getNumAgents</a> ()</td></tr>
+<tr class="memdesc:adb0496dab2348e930cfa9bce3610c4fd inherit pub_methods_class_simulation"><td class="mdescLeft">&#160;</td><td class="mdescRight">getNumAgents <br  />
+Getter function for the number of agents in the sim  <a href="class_simulation.html#adb0496dab2348e930cfa9bce3610c4fd">More...</a><br /></td></tr>
+<tr class="separator:adb0496dab2348e930cfa9bce3610c4fd inherit pub_methods_class_simulation"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a930797907136599651cfe84145e57973 inherit pub_methods_class_simulation"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a930797907136599651cfe84145e57973">getYear</a> ()</td></tr>
+<tr class="memdesc:a930797907136599651cfe84145e57973 inherit pub_methods_class_simulation"><td class="mdescLeft">&#160;</td><td class="mdescRight">getYear <br  />
+Getter function for the current year in the Sim  <a href="class_simulation.html#a930797907136599651cfe84145e57973">More...</a><br /></td></tr>
+<tr class="separator:a930797907136599651cfe84145e57973 inherit pub_methods_class_simulation"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef28d4ac97f24e41ea7ed079b2716548 inherit pub_methods_class_simulation"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#aef28d4ac97f24e41ea7ed079b2716548">getDay</a> ()</td></tr>
+<tr class="memdesc:aef28d4ac97f24e41ea7ed079b2716548 inherit pub_methods_class_simulation"><td class="mdescLeft">&#160;</td><td class="mdescRight">getDay <br  />
+Getter function for the current day in the Sim  <a href="class_simulation.html#aef28d4ac97f24e41ea7ed079b2716548">More...</a><br /></td></tr>
+<tr class="separator:aef28d4ac97f24e41ea7ed079b2716548 inherit pub_methods_class_simulation"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b4094d997d1d63f15c9eaa2c157b4be inherit pub_methods_class_simulation"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a7b4094d997d1d63f15c9eaa2c157b4be">getHour</a> ()</td></tr>
+<tr class="memdesc:a7b4094d997d1d63f15c9eaa2c157b4be inherit pub_methods_class_simulation"><td class="mdescLeft">&#160;</td><td class="mdescRight">getHour <br  />
+Getter function for the current hour in the Sim  <a href="class_simulation.html#a7b4094d997d1d63f15c9eaa2c157b4be">More...</a><br /></td></tr>
+<tr class="separator:a7b4094d997d1d63f15c9eaa2c157b4be inherit pub_methods_class_simulation"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80fad3f57dfaf195a36f7bc49bc88279 inherit pub_methods_class_simulation"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a80fad3f57dfaf195a36f7bc49bc88279">~Simulation</a> ()</td></tr>
+<tr class="separator:a80fad3f57dfaf195a36f7bc49bc88279 inherit pub_methods_class_simulation"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pub_slots_class_simulation"><td colspan="2" onclick="javascript:toggleInherit('pub_slots_class_simulation')"><img src="closed.png" alt="-"/>&#160;Public Slots inherited from <a class="el" href="class_simulation.html">Simulation</a></td></tr>
+<tr class="memitem:a2987cc476da3d7fa312d02e00b17f4d8 inherit pub_slots_class_simulation"><td class="memItemLeft" align="right" valign="top"><a id="a2987cc476da3d7fa312d02e00b17f4d8"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a2987cc476da3d7fa312d02e00b17f4d8">renderAgentUpdate</a> ()</td></tr>
+<tr class="memdesc:a2987cc476da3d7fa312d02e00b17f4d8 inherit pub_slots_class_simulation"><td class="mdescLeft">&#160;</td><td class="mdescRight">renderAgentUpdate <br  />
+Function to render the agents in their new positions following an update. Called by the <a class="el" href="class_simulation_controller.html" title="The SimulationController class  Class that controls the simulation and delegates it to a thread....">SimulationController</a> when the <a class="el" href="class_simulation_worker.html" title="The SimulationWorker class  Class that handles the execution of the Simulation on a Threader....">SimulationWorker</a> has completed an iteration of the <a class="el" href="class_simulation.html" title="The Simulation class  The Abstract Simulation class from which all other simulations will be derived....">Simulation</a>'s execution <br /></td></tr>
+<tr class="separator:a2987cc476da3d7fa312d02e00b17f4d8 inherit pub_slots_class_simulation"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ad16a2131994b9688b750210e8d1a5929"></a>
@@ -164,7 +244,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
       </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="class_simple_simulation.html">SimpleSimulation</a> The constructor for the <a class="el" href="class_simple_simulation.html">SimpleSimulation</a> Class, sets up all controls necessary for the running of this simulation type. </p>
+<p><a class="el" href="class_simple_simulation.html">SimpleSimulation</a> <br  />
+The constructor for the <a class="el" href="class_simple_simulation.html">SimpleSimulation</a> Class, sets up all controls necessary for the running of this simulation type. Simple <a class="el" href="class_simulation.html" title="The Simulation class  The Abstract Simulation class from which all other simulations will be derived....">Simulation</a> is comprised of four SquareRegions that are home, work, school, and leisure. It will implement agent assignment, motion, and behavior charts, however it will lack any more advanced features like infectivity or economy. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">numAgents</td><td>the specified number of agents in the simulation </td></tr>

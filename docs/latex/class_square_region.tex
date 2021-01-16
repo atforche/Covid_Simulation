@@ -1,0 +1,166 @@
+\hypertarget{class_square_region}{}\doxysection{Square\+Region Class Reference}
+\label{class_square_region}\index{SquareRegion@{SquareRegion}}
+
+
+The \mbox{\hyperlink{class_square_region}{Square\+Region}} class ~\newline
+Class that defined the functionality for a square region. Inherited from the \mbox{\hyperlink{class_region}{Region}} Class.  
+
+
+
+
+{\ttfamily \#include $<$Square\+Region.\+h$>$}
+
+
+
+Inheritance diagram for Square\+Region\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=157pt]{class_square_region__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Square\+Region\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=157pt]{class_square_region__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_square_region_a1f9180219cee2ed7930c64e4a05b538b}{Square\+Region}} (int num\+Locations, \mbox{\hyperlink{class_coordinate}{Coordinate}} start, int height, Q\+Color color, std\+::string name)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_square_region}{Square\+Region}} ~\newline
+Constructor for the \mbox{\hyperlink{class_square_region}{Square\+Region}} Class. A Square \mbox{\hyperlink{class_region}{Region}} is a derived region that is represented by a Q\+Graphics\+Rect\+Item. \end{DoxyCompactList}\item 
+virtual Q\+Graphics\+Item $\ast$ \mbox{\hyperlink{class_square_region_a11f67456aa7432bdb266cbc7cfdd19ed}{get\+Graphics\+Object}} () override
+\begin{DoxyCompactList}\small\item\em get\+Graphics\+Object ~\newline
+Function that returns a Q\+Graphics\+Rect\+Item$\ast$ used to render the region on the Q\+Graphics\+Scene. Returns Q\+Graphics\+Item needs to be added to the \mbox{\hyperlink{class_simulation}{Simulation}} for it to appear. \end{DoxyCompactList}\item 
+virtual Q\+Graphics\+Item $\ast$ \mbox{\hyperlink{class_square_region_a3d494004f346b84d99570bdb3283075e}{get\+Name\+Graphics\+Object}} () override
+\begin{DoxyCompactList}\small\item\em get\+Name\+Graphics\+Object ~\newline
+Function to render the text name of the region onto the canvas. Renders the name as a Q\+Graphics\+Text\+Item and places it in the top left corner of the \mbox{\hyperlink{class_square_region}{Square\+Region}}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_coordinate}{Coordinate}} $\ast$ \mbox{\hyperlink{class_square_region_a4e20fae9bd0048a178f214428faf76b8}{get\+Starting\+Coordinate}} ()
+\begin{DoxyCompactList}\small\item\em get\+Starting\+Coordinate ~\newline
+Getter function for the starting \mbox{\hyperlink{class_coordinate}{Coordinate}} of the square region (top left corner). Returns the \mbox{\hyperlink{class_coordinate}{Coordinate}} as a pointer \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_square_region_a6bef136f28625f03f20932b2ffbd5ca6}{get\+Height}} ()
+\begin{DoxyCompactList}\small\item\em get\+Height ~\newline
+Getter function for the height of the region. Returns the height of the \mbox{\hyperlink{class_region}{Region}} as an int. get\+Width function is not necessary because these are all square regions \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_square_region_a3d46c9d8bea9b9b219b88c3f03b164a8}\label{class_square_region_a3d46c9d8bea9b9b219b88c3f03b164a8}} 
+std\+::vector$<$ Q\+Graphics\+Item $\ast$ $>$ \mbox{\hyperlink{class_square_region_a3d46c9d8bea9b9b219b88c3f03b164a8}{get\+Locations\+Graphics\+Object}} () override
+\begin{DoxyCompactList}\small\item\em render\+Locations ~\newline
+Function to render the randomly generated locations to the screen. Returns a vector of Q\+Graphics\+Items that are the objects to render the Locations on the Q\+Graphics\+Scene. The returned objects need to be added to a \mbox{\hyperlink{class_simulation}{Simulation}} in order to appear \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_square_region_a6181932e47152576b64e4a8abb4361cc}{$\sim$\+Square\+Region}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{class_square_region}{Square\+Region}} class ~\newline
+Class that defined the functionality for a square region. Inherited from the \mbox{\hyperlink{class_region}{Region}} Class. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_square_region_a1f9180219cee2ed7930c64e4a05b538b}\label{class_square_region_a1f9180219cee2ed7930c64e4a05b538b}} 
+\index{SquareRegion@{SquareRegion}!SquareRegion@{SquareRegion}}
+\index{SquareRegion@{SquareRegion}!SquareRegion@{SquareRegion}}
+\doxysubsubsection{\texorpdfstring{SquareRegion()}{SquareRegion()}}
+{\footnotesize\ttfamily Square\+Region\+::\+Square\+Region (\begin{DoxyParamCaption}\item[{int}]{num\+Locations,  }\item[{\mbox{\hyperlink{class_coordinate}{Coordinate}}}]{start,  }\item[{int}]{height,  }\item[{Q\+Color}]{color,  }\item[{std\+::string}]{name }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{class_square_region}{Square\+Region}} ~\newline
+Constructor for the \mbox{\hyperlink{class_square_region}{Square\+Region}} Class. A Square \mbox{\hyperlink{class_region}{Region}} is a derived region that is represented by a Q\+Graphics\+Rect\+Item. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em num\+Locations} & the number of locations in the region \\
+\hline
+{\em start} & the \mbox{\hyperlink{class_coordinate}{Coordinate}} of the top-\/left corner of the region \\
+\hline
+{\em height} & the side length of the region \\
+\hline
+{\em color} & the Q\+Color with which the region will be drawn \\
+\hline
+{\em name} & the name of the region \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_square_region_a6181932e47152576b64e4a8abb4361cc}\label{class_square_region_a6181932e47152576b64e4a8abb4361cc}} 
+\index{SquareRegion@{SquareRegion}!````~SquareRegion@{$\sim$SquareRegion}}
+\index{````~SquareRegion@{$\sim$SquareRegion}!SquareRegion@{SquareRegion}}
+\doxysubsubsection{\texorpdfstring{$\sim$SquareRegion()}{~SquareRegion()}}
+{\footnotesize\ttfamily Square\+Region\+::$\sim$\+Square\+Region (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Destructor for the \mbox{\hyperlink{class_square_region}{Square\+Region}} Class 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_square_region_a11f67456aa7432bdb266cbc7cfdd19ed}\label{class_square_region_a11f67456aa7432bdb266cbc7cfdd19ed}} 
+\index{SquareRegion@{SquareRegion}!getGraphicsObject@{getGraphicsObject}}
+\index{getGraphicsObject@{getGraphicsObject}!SquareRegion@{SquareRegion}}
+\doxysubsubsection{\texorpdfstring{getGraphicsObject()}{getGraphicsObject()}}
+{\footnotesize\ttfamily Q\+Graphics\+Item $\ast$ Square\+Region\+::get\+Graphics\+Object (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+get\+Graphics\+Object ~\newline
+Function that returns a Q\+Graphics\+Rect\+Item$\ast$ used to render the region on the Q\+Graphics\+Scene. Returns Q\+Graphics\+Item needs to be added to the \mbox{\hyperlink{class_simulation}{Simulation}} for it to appear. 
+
+\begin{DoxyReturn}{Returns}
+a Q\+Graphics\+Item$\ast$ representing the rectangular region 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_region_a3f37617fe92c32b4263d3615a8cfc459}{Region}}.
+
+\mbox{\Hypertarget{class_square_region_a6bef136f28625f03f20932b2ffbd5ca6}\label{class_square_region_a6bef136f28625f03f20932b2ffbd5ca6}} 
+\index{SquareRegion@{SquareRegion}!getHeight@{getHeight}}
+\index{getHeight@{getHeight}!SquareRegion@{SquareRegion}}
+\doxysubsubsection{\texorpdfstring{getHeight()}{getHeight()}}
+{\footnotesize\ttfamily int Square\+Region\+::get\+Height (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+get\+Height ~\newline
+Getter function for the height of the region. Returns the height of the \mbox{\hyperlink{class_region}{Region}} as an int. get\+Width function is not necessary because these are all square regions 
+
+\begin{DoxyReturn}{Returns}
+the height of the region as an int 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_square_region_a3d494004f346b84d99570bdb3283075e}\label{class_square_region_a3d494004f346b84d99570bdb3283075e}} 
+\index{SquareRegion@{SquareRegion}!getNameGraphicsObject@{getNameGraphicsObject}}
+\index{getNameGraphicsObject@{getNameGraphicsObject}!SquareRegion@{SquareRegion}}
+\doxysubsubsection{\texorpdfstring{getNameGraphicsObject()}{getNameGraphicsObject()}}
+{\footnotesize\ttfamily Q\+Graphics\+Item $\ast$ Square\+Region\+::get\+Name\+Graphics\+Object (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+get\+Name\+Graphics\+Object ~\newline
+Function to render the text name of the region onto the canvas. Renders the name as a Q\+Graphics\+Text\+Item and places it in the top left corner of the \mbox{\hyperlink{class_square_region}{Square\+Region}}. 
+
+\begin{DoxyReturn}{Returns}
+a Q\+Graphics\+Item$\ast$ representing the name of the region 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_region_a7475a567b0806b64b45085740712f5cc}{Region}}.
+
+\mbox{\Hypertarget{class_square_region_a4e20fae9bd0048a178f214428faf76b8}\label{class_square_region_a4e20fae9bd0048a178f214428faf76b8}} 
+\index{SquareRegion@{SquareRegion}!getStartingCoordinate@{getStartingCoordinate}}
+\index{getStartingCoordinate@{getStartingCoordinate}!SquareRegion@{SquareRegion}}
+\doxysubsubsection{\texorpdfstring{getStartingCoordinate()}{getStartingCoordinate()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_coordinate}{Coordinate}} $\ast$ Square\+Region\+::get\+Starting\+Coordinate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+get\+Starting\+Coordinate ~\newline
+Getter function for the starting \mbox{\hyperlink{class_coordinate}{Coordinate}} of the square region (top left corner). Returns the \mbox{\hyperlink{class_coordinate}{Coordinate}} as a pointer 
+
+\begin{DoxyReturn}{Returns}
+the starting coordinate of the square region 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Headers/Square\+Region.\+h\item 
+src/Square\+Region.\+cpp\end{DoxyCompactItemize}

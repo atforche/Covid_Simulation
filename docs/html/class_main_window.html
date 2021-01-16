@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('class_main_window.html',''); initResiz
 Inheritance diagram for MainWindow:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_main_window__inherit__graph.png" border="0" usemap="#a_main_window_inherit__map" alt="Inheritance graph"/></div>
-<map name="_main_window_inherit__map" id="a_main_window_inherit__map">
+<map name="_main_window_inherit__map" id="_main_window_inherit__map">
 <area shape="rect" title=" " alt="" coords="11,80,107,107"/>
 <area shape="rect" title=" " alt="" coords="5,5,112,32"/>
 </map>
@@ -101,7 +101,7 @@ Inheritance diagram for MainWindow:</div>
 Collaboration diagram for MainWindow:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_main_window__coll__graph.png" border="0" usemap="#a_main_window_coll__map" alt="Collaboration graph"/></div>
-<map name="_main_window_coll__map" id="a_main_window_coll__map">
+<map name="_main_window_coll__map" id="_main_window_coll__map">
 <area shape="rect" title=" " alt="" coords="11,80,107,107"/>
 <area shape="rect" title=" " alt="" coords="5,5,112,32"/>
 </map>
@@ -110,14 +110,21 @@ Collaboration diagram for MainWindow:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a996c5a2b6f77944776856f08ec30858d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_window.html#a996c5a2b6f77944776856f08ec30858d">MainWindow</a> (QWidget *parent=nullptr)</td></tr>
-<tr class="memdesc:a996c5a2b6f77944776856f08ec30858d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for the <a class="el" href="class_main_window.html">MainWindow</a> of the application Creates the UI design for the main window. Initializes the drawing scene and all individual UI elements.  <a href="class_main_window.html#a996c5a2b6f77944776856f08ec30858d">More...</a><br /></td></tr>
+<tr class="memdesc:a996c5a2b6f77944776856f08ec30858d"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_main_window.html">MainWindow</a> <br  />
+Creates the UI design for the main window. Initializes the drawing scene and all individual UI elements. Primarily handled by Qt.  <a href="class_main_window.html#a996c5a2b6f77944776856f08ec30858d">More...</a><br /></td></tr>
 <tr class="separator:a996c5a2b6f77944776856f08ec30858d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa723299753b520d39ddf3a0cc8f66ebf"><td class="memItemLeft" align="right" valign="top"><a id="aa723299753b520d39ddf3a0cc8f66ebf"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_window.html#aa723299753b520d39ddf3a0cc8f66ebf">disableUI</a> ()</td></tr>
+<tr class="memdesc:aa723299753b520d39ddf3a0cc8f66ebf"><td class="mdescLeft">&#160;</td><td class="mdescRight">disableUI <br  />
+Function that disables all necessary UI elements when the <a class="el" href="class_simulation.html" title="The Simulation class  The Abstract Simulation class from which all other simulations will be derived....">Simulation</a> is started. Prevents user from changing constant values while the simulation is in execution. <br /></td></tr>
+<tr class="separator:aa723299753b520d39ddf3a0cc8f66ebf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98b4b0619a6464a3986137f27e2b33fc"><td class="memItemLeft" align="right" valign="top"><a id="a98b4b0619a6464a3986137f27e2b33fc"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_window.html#a98b4b0619a6464a3986137f27e2b33fc">enableUI</a> ()</td></tr>
+<tr class="memdesc:a98b4b0619a6464a3986137f27e2b33fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">enableUI <br  />
+Function that enables all the necessary UI elements when the <a class="el" href="class_simulation.html" title="The Simulation class  The Abstract Simulation class from which all other simulations will be derived....">Simulation</a> is ended. Allows the user to be able to change constant values in between <a class="el" href="class_simulation.html" title="The Simulation class  The Abstract Simulation class from which all other simulations will be derived....">Simulation</a> executions <br /></td></tr>
+<tr class="separator:a98b4b0619a6464a3986137f27e2b33fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae98d00a93bc118200eeef9f9bba1dba7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_window.html#ae98d00a93bc118200eeef9f9bba1dba7">~MainWindow</a> ()</td></tr>
 <tr class="separator:ae98d00a93bc118200eeef9f9bba1dba7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a694a4f99a7244d842d815391cc322b8d"><td class="memItemLeft" align="right" valign="top"><a id="a694a4f99a7244d842d815391cc322b8d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_window.html#a694a4f99a7244d842d815391cc322b8d">Draw_Regions</a> ()</td></tr>
-<tr class="memdesc:a694a4f99a7244d842d815391cc322b8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function that sets up and draws the fours regions for the simulation. <br /></td></tr>
-<tr class="separator:a694a4f99a7244d842d815391cc322b8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a996c5a2b6f77944776856f08ec30858d"></a>
@@ -136,7 +143,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
       </table>
 </div><div class="memdoc">
 
-<p>Constructor for the <a class="el" href="class_main_window.html">MainWindow</a> of the application Creates the UI design for the main window. Initializes the drawing scene and all individual UI elements. </p>
+<p><a class="el" href="class_main_window.html">MainWindow</a> <br  />
+Creates the UI design for the main window. Initializes the drawing scene and all individual UI elements. Primarily handled by Qt. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">parent</td><td>the parent widget to which this window belongs </td></tr>

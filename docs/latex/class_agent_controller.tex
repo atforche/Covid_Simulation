@@ -1,0 +1,86 @@
+\hypertarget{class_agent_controller}{}\doxysection{Agent\+Controller Class Reference}
+\label{class_agent_controller}\index{AgentController@{AgentController}}
+
+
+The \mbox{\hyperlink{class_agent_controller}{Agent\+Controller}} class Class that sits within the \mbox{\hyperlink{class_simulation}{Simulation}} and dynamically determines each agents destination based on its assigned behavior plan. Reads in each of the behavior plans from their J\+S\+ON resources files, which specify the destination of the agent at every hour of the day.  
+
+
+
+
+{\ttfamily \#include $<$Agent\+Controller.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_agent_controller_a8bf24f1a9f3904b915fdd27adadf2dc3}{Agent\+Controller}} (int num\+Behaviors)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_agent_controller}{Agent\+Controller}} ~\newline
+Initial constructor for the \mbox{\hyperlink{class_agent}{Agent}} Controller class. Has controller read in each of the behaviors from the J\+S\+ON resource files and store them as Q\+Json\+Objects in a vector. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_agent_controller_a03f6aef058a830ab9a496a1b89291e38}{get\+Num\+Behaviors}} ()
+\begin{DoxyCompactList}\small\item\em get\+Num\+Behaviors ~\newline
+Getter function for the number of unique behaviors that the \mbox{\hyperlink{class_agent}{Agent}} controller is currently supporting \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_agent_controller_a1574fc5722eaf00126c55281f1a2cb92}{assign\+Agent\+Destinations}} (std\+::vector$<$ \mbox{\hyperlink{class_agent}{Agent}} $\ast$ $>$ agents, int hour)
+\begin{DoxyCompactList}\small\item\em assign\+Agent\+Destinations ~\newline
+Function that goes through each of the agents and assigns them to their correct destinations. Should be called from \mbox{\hyperlink{class_simulation_a09a1b2085074e6fb4de3d62b360bef72}{Simulation\+::advance\+Time()}} at an hourly interval to save computations \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{class_agent_controller}{Agent\+Controller}} class Class that sits within the \mbox{\hyperlink{class_simulation}{Simulation}} and dynamically determines each agents destination based on its assigned behavior plan. Reads in each of the behavior plans from their J\+S\+ON resources files, which specify the destination of the agent at every hour of the day. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_agent_controller_a8bf24f1a9f3904b915fdd27adadf2dc3}\label{class_agent_controller_a8bf24f1a9f3904b915fdd27adadf2dc3}} 
+\index{AgentController@{AgentController}!AgentController@{AgentController}}
+\index{AgentController@{AgentController}!AgentController@{AgentController}}
+\doxysubsubsection{\texorpdfstring{AgentController()}{AgentController()}}
+{\footnotesize\ttfamily Agent\+Controller\+::\+Agent\+Controller (\begin{DoxyParamCaption}\item[{int}]{num\+Behaviors }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{class_agent_controller}{Agent\+Controller}} ~\newline
+Initial constructor for the \mbox{\hyperlink{class_agent}{Agent}} Controller class. Has controller read in each of the behaviors from the J\+S\+ON resource files and store them as Q\+Json\+Objects in a vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em num\+Behaviors} & int that specifies the number of unique behaviors to read in \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_agent_controller_a1574fc5722eaf00126c55281f1a2cb92}\label{class_agent_controller_a1574fc5722eaf00126c55281f1a2cb92}} 
+\index{AgentController@{AgentController}!assignAgentDestinations@{assignAgentDestinations}}
+\index{assignAgentDestinations@{assignAgentDestinations}!AgentController@{AgentController}}
+\doxysubsubsection{\texorpdfstring{assignAgentDestinations()}{assignAgentDestinations()}}
+{\footnotesize\ttfamily void Agent\+Controller\+::assign\+Agent\+Destinations (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{class_agent}{Agent}} $\ast$ $>$}]{agents,  }\item[{int}]{hour }\end{DoxyParamCaption})}
+
+
+
+assign\+Agent\+Destinations ~\newline
+Function that goes through each of the agents and assigns them to their correct destinations. Should be called from \mbox{\hyperlink{class_simulation_a09a1b2085074e6fb4de3d62b360bef72}{Simulation\+::advance\+Time()}} at an hourly interval to save computations 
+
+
+\begin{DoxyParams}{Parameters}
+{\em agents} & a vector of Agent$\ast$ pointing to each agent in the \mbox{\hyperlink{class_simulation}{Simulation}} \\
+\hline
+{\em hour} & the current hour of the simulation \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_agent_controller_a03f6aef058a830ab9a496a1b89291e38}\label{class_agent_controller_a03f6aef058a830ab9a496a1b89291e38}} 
+\index{AgentController@{AgentController}!getNumBehaviors@{getNumBehaviors}}
+\index{getNumBehaviors@{getNumBehaviors}!AgentController@{AgentController}}
+\doxysubsubsection{\texorpdfstring{getNumBehaviors()}{getNumBehaviors()}}
+{\footnotesize\ttfamily int Agent\+Controller\+::get\+Num\+Behaviors (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+get\+Num\+Behaviors ~\newline
+Getter function for the number of unique behaviors that the \mbox{\hyperlink{class_agent}{Agent}} controller is currently supporting 
+
+\begin{DoxyReturn}{Returns}
+the number of unique behaviors as an integer 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Headers/Agent\+Controller.\+h\item 
+src/Agent\+Controller.\+cpp\end{DoxyCompactItemize}

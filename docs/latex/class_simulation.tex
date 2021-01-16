@@ -2,7 +2,8 @@
 \label{class_simulation}\index{Simulation@{Simulation}}
 
 
-The \mbox{\hyperlink{class_simulation}{Simulation}} class The Abstract \mbox{\hyperlink{class_simulation}{Simulation}} class from which all other simulations will be derived. Provides a common interface through which each simulation can be executed in the same screen space with the same driver.  
+The \mbox{\hyperlink{class_simulation}{Simulation}} class ~\newline
+The Abstract \mbox{\hyperlink{class_simulation}{Simulation}} class from which all other simulations will be derived. Provides a common interface through which each simulation can be executed in the same screen space with the same driver.  
 
 
 
@@ -19,56 +20,276 @@ Inheritance diagram for Simulation\+:
 \includegraphics[width=172pt]{class_simulation__inherit__graph}
 \end{center}
 \end{figure}
+
+
+Collaboration diagram for Simulation\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=142pt]{class_simulation__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_simulation_a2987cc476da3d7fa312d02e00b17f4d8}\label{class_simulation_a2987cc476da3d7fa312d02e00b17f4d8}} 
+void \mbox{\hyperlink{class_simulation_a2987cc476da3d7fa312d02e00b17f4d8}{render\+Agent\+Update}} ()
+\begin{DoxyCompactList}\small\item\em render\+Agent\+Update ~\newline
+Function to render the agents in their new positions following an update. Called by the \mbox{\hyperlink{class_simulation_controller}{Simulation\+Controller}} when the \mbox{\hyperlink{class_simulation_worker}{Simulation\+Worker}} has completed an iteration of the \mbox{\hyperlink{class_simulation}{Simulation}}\textquotesingle{}s execution \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
+\mbox{\hyperlink{class_simulation_a7b8b152c3232ab7f6d15eca28cd29132}{Simulation}} (int num\+Agents, Ui\+::\+Main\+Window $\ast$ui)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_simulation}{Simulation}}\+: ~\newline
+Constructor for the Base \mbox{\hyperlink{class_simulation}{Simulation}} Object. Takes in all parameters that are universal to all simulation types. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_simulation_ab4d7fe11a5098550766a4f51c0af8409}\label{class_simulation_ab4d7fe11a5098550766a4f51c0af8409}} 
 virtual void \mbox{\hyperlink{class_simulation_ab4d7fe11a5098550766a4f51c0af8409}{init}} ()=0
-\begin{DoxyCompactList}\small\item\em init Function to initialize the simulation and screen components for the specific simulation type. Needs to be overridden by derived classes \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em init ~\newline
+Function to initialize the simulation and screen components for the specific simulation type. Needs to be overridden by derived classes \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simulation_a7600fcd885ba7f84cfe19f55fad95404}\label{class_simulation_a7600fcd885ba7f84cfe19f55fad95404}} 
+virtual void \mbox{\hyperlink{class_simulation_a7600fcd885ba7f84cfe19f55fad95404}{execute}} ()=0
+\begin{DoxyCompactList}\small\item\em execute ~\newline
+Function to execute a single timestep in the simulation. Function should be called in a loop by the driver, not called within the class. Needs to be overridden by derived classes \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_simulation_a8987b06b08f85c2dbc40800a1d05c985}\label{class_simulation_a8987b06b08f85c2dbc40800a1d05c985}} 
 virtual void \mbox{\hyperlink{class_simulation_a8987b06b08f85c2dbc40800a1d05c985}{reset}} ()=0
-\begin{DoxyCompactList}\small\item\em reset Function to reset the simulation and its screen to an initial state. Init needs to be called again before simulation can be run. Needs to be overridden by derived classes \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em reset ~\newline
+Function to reset the simulation and its screen to an initial state. Init needs to be called again before simulation can be run. Needs to be overridden by derived classes \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simulation_affbbe939694dfa935a0fce528f1ef0ea}\label{class_simulation_affbbe939694dfa935a0fce528f1ef0ea}} 
 virtual void \mbox{\hyperlink{class_simulation_affbbe939694dfa935a0fce528f1ef0ea}{test}} ()=0
-\begin{DoxyCompactList}\small\item\em execute Function to execute a single timestep in the simulation. Function should be called in a loop by the driver, not called within the class. Needs to be overridden by derived classes \end{DoxyCompactList}\item 
-virtual \mbox{\hyperlink{class_simulation_a701bd94edc5cf562b5c4e66ae43400bb}{$\sim$\+Simulation}} ()
-\begin{DoxyCompactList}\small\item\em pause Function to pause the simulation. May be handled in driver? \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em test ~\newline
+Function to test each simulation type. Exact purpose of function can change depending on what needs to be tested. Needs to be overridden by derived classes \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simulation_a660be863fc2ae95c333fc97d4acbf7a3}\label{class_simulation_a660be863fc2ae95c333fc97d4acbf7a3}} 
+virtual void \mbox{\hyperlink{class_simulation_a660be863fc2ae95c333fc97d4acbf7a3}{generate\+Agents}} ()=0
+\begin{DoxyCompactList}\small\item\em generate\+Agents ~\newline
+Function to generate the agents and assign them to behaviors and locations. Should be overridden by derived classes to customize assignment process to the rules of the \mbox{\hyperlink{class_simulation}{Simulation}} type \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simulation_ae0bae49f6d2d7745d1490e668b50bfa9}{add\+Agent}} (\mbox{\hyperlink{class_agent}{Agent}} $\ast$agent)
+\begin{DoxyCompactList}\small\item\em add\+Agent ~\newline
+Function to add a new agent to the simulation. Will not add new agent if simulation is already at max number of agents (May need to change in future) \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{class_agent}{Agent}} $\ast$ $>$ \& \mbox{\hyperlink{class_simulation_a8ae30e90c1666e86caf97329c5f26ec8}{get\+Agents}} ()
+\begin{DoxyCompactList}\small\item\em get\+Agents ~\newline
+Getter function for the vector of all agents in the simulation. Returns a vector of all Agents \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simulation_a70d474820a2351e8e298e6daca95b513}{add\+To\+Screen}} (Q\+Graphics\+Item $\ast$item)
+\begin{DoxyCompactList}\small\item\em add\+To\+Screen ~\newline
+Function to add a Q\+Graphics\+Item to the scene on which the simulation is being drawn. Can add any Q\+Graphics\+Item. Use this function to add all objects that should be displayed to the simulation \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simulation_a09a1b2085074e6fb4de3d62b360bef72}\label{class_simulation_a09a1b2085074e6fb4de3d62b360bef72}} 
+void \mbox{\hyperlink{class_simulation_a09a1b2085074e6fb4de3d62b360bef72}{advance\+Time}} ()
+\begin{DoxyCompactList}\small\item\em advance\+Time ~\newline
+Function that should be called on every call to \mbox{\hyperlink{class_simulation_a7600fcd885ba7f84cfe19f55fad95404}{Simulation\+::execute()}}. Advances the time in the simulation. Advances the hours after F\+R\+A\+M\+E\+S\+\_\+\+P\+E\+R\+\_\+\+H\+O\+UR number of functions calls. Advances the days after 24 hours have occurred. Advanced the year after 365 years have occurred. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simulation_a963e4f60e07f29bd854b67d9a5a006a2}\label{class_simulation_a963e4f60e07f29bd854b67d9a5a006a2}} 
+void \mbox{\hyperlink{class_simulation_a963e4f60e07f29bd854b67d9a5a006a2}{clear\+Screen}} ()
+\begin{DoxyCompactList}\small\item\em clear\+Screen ~\newline
+Calls clear() on the drawing scene on which the simulation is being displayed. Deletes the dynamic memory associated with every object in the scene. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simulation_ac730e7d1564578fbadeba0ce32c58cca}\label{class_simulation_ac730e7d1564578fbadeba0ce32c58cca}} 
+void \mbox{\hyperlink{class_simulation_ac730e7d1564578fbadeba0ce32c58cca}{clear\+Agents}} ()
+\begin{DoxyCompactList}\small\item\em clear\+Agents ~\newline
+Calls clear() on the std\+::vector of Agents to eliminate all of the agents from the simulation \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simulation_a37329fde91a2d8c771a2d8c42e799c99}{generate\+Locations}} (\mbox{\hyperlink{class_region}{Region}} $\ast$region, int num)
+\begin{DoxyCompactList}\small\item\em generate\+Locations ~\newline
+Function that generates a set of Locations within the specified \mbox{\hyperlink{class_region}{Region}}. Generates the number of locations specified in the UI. Ensures all locations generated sit within the bounds of the \mbox{\hyperlink{class_region}{Region}}. Generated Locations will be automatically added into the \mbox{\hyperlink{class_region}{Region}} \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_simulation_ac2dc3a986efb0fe35518fd1dbdb4e9ce}{get\+Sim\+Height}} ()
+\begin{DoxyCompactList}\small\item\em get\+Sim\+Height ~\newline
+Getter function for the height of the Q\+Graphics\+Scene window. Returns the height as an int \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_simulation_a688115850cca6f68f19a5ad6b66ed9fb}{get\+Sim\+Width}} ()
+\begin{DoxyCompactList}\small\item\em get\+Sim\+Width ~\newline
+Getter function for the width of the Q\+Graphics\+Scene window. Returns the width as an int \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_simulation_adb0496dab2348e930cfa9bce3610c4fd}{get\+Num\+Agents}} ()
+\begin{DoxyCompactList}\small\item\em get\+Num\+Agents ~\newline
+Getter function for the number of agents in the sim \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_simulation_a930797907136599651cfe84145e57973}{get\+Year}} ()
+\begin{DoxyCompactList}\small\item\em get\+Year ~\newline
+Getter function for the current year in the Sim \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_simulation_aef28d4ac97f24e41ea7ed079b2716548}{get\+Day}} ()
+\begin{DoxyCompactList}\small\item\em get\+Day ~\newline
+Getter function for the current day in the Sim \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_simulation_a7b4094d997d1d63f15c9eaa2c157b4be}{get\+Hour}} ()
+\begin{DoxyCompactList}\small\item\em get\+Hour ~\newline
+Getter function for the current hour in the Sim \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{class_simulation_a80fad3f57dfaf195a36f7bc49bc88279}{$\sim$\+Simulation}} ()
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-The \mbox{\hyperlink{class_simulation}{Simulation}} class The Abstract \mbox{\hyperlink{class_simulation}{Simulation}} class from which all other simulations will be derived. Provides a common interface through which each simulation can be executed in the same screen space with the same driver. 
+The \mbox{\hyperlink{class_simulation}{Simulation}} class ~\newline
+The Abstract \mbox{\hyperlink{class_simulation}{Simulation}} class from which all other simulations will be derived. Provides a common interface through which each simulation can be executed in the same screen space with the same driver. 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{class_simulation_a701bd94edc5cf562b5c4e66ae43400bb}\label{class_simulation_a701bd94edc5cf562b5c4e66ae43400bb}} 
+\mbox{\Hypertarget{class_simulation_a7b8b152c3232ab7f6d15eca28cd29132}\label{class_simulation_a7b8b152c3232ab7f6d15eca28cd29132}} 
+\index{Simulation@{Simulation}!Simulation@{Simulation}}
+\index{Simulation@{Simulation}!Simulation@{Simulation}}
+\doxysubsubsection{\texorpdfstring{Simulation()}{Simulation()}}
+{\footnotesize\ttfamily Simulation\+::\+Simulation (\begin{DoxyParamCaption}\item[{int}]{num\+Agents,  }\item[{Ui\+::\+Main\+Window $\ast$}]{ui }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{class_simulation}{Simulation}}\+: ~\newline
+Constructor for the Base \mbox{\hyperlink{class_simulation}{Simulation}} Object. Takes in all parameters that are universal to all simulation types. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em num\+Agents} & the number of agents in the simulation \\
+\hline
+{\em ui} & the main window in which the simulation will runs \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_simulation_a80fad3f57dfaf195a36f7bc49bc88279}\label{class_simulation_a80fad3f57dfaf195a36f7bc49bc88279}} 
 \index{Simulation@{Simulation}!````~Simulation@{$\sim$Simulation}}
 \index{````~Simulation@{$\sim$Simulation}!Simulation@{Simulation}}
 \doxysubsubsection{\texorpdfstring{$\sim$Simulation()}{~Simulation()}}
-{\footnotesize\ttfamily virtual Simulation\+::$\sim$\+Simulation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily Simulation\+::$\sim$\+Simulation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
-
-
-pause Function to pause the simulation. May be handled in driver? 
-
-resume Functino to resume the simulation. May be handled in driver?
-
-$\sim$\+Simulation Destructor for the \mbox{\hyperlink{class_simulation}{Simulation}} Object. Clears all dynamic memory used within the simulation. Needs to be overridden by derived classes 
+Destructor for the \mbox{\hyperlink{class_simulation}{Simulation}} Class 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{class_simulation_affbbe939694dfa935a0fce528f1ef0ea}\label{class_simulation_affbbe939694dfa935a0fce528f1ef0ea}} 
-\index{Simulation@{Simulation}!test@{test}}
-\index{test@{test}!Simulation@{Simulation}}
-\doxysubsubsection{\texorpdfstring{test()}{test()}}
-{\footnotesize\ttfamily virtual void Simulation\+::test (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+\mbox{\Hypertarget{class_simulation_ae0bae49f6d2d7745d1490e668b50bfa9}\label{class_simulation_ae0bae49f6d2d7745d1490e668b50bfa9}} 
+\index{Simulation@{Simulation}!addAgent@{addAgent}}
+\index{addAgent@{addAgent}!Simulation@{Simulation}}
+\doxysubsubsection{\texorpdfstring{addAgent()}{addAgent()}}
+{\footnotesize\ttfamily void Simulation\+::add\+Agent (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_agent}{Agent}} $\ast$}]{agent }\end{DoxyParamCaption})}
 
 
 
-execute Function to execute a single timestep in the simulation. Function should be called in a loop by the driver, not called within the class. Needs to be overridden by derived classes 
-
-test Function to test each simulation type. Exact purpose of function can change depending on what needs to be tested. Needs to be overridden by derived classes 
-
-Implemented in \mbox{\hyperlink{class_simple_simulation_a8fa34536fb673562dccd7e255d32bc71}{Simple\+Simulation}}.
+add\+Agent ~\newline
+Function to add a new agent to the simulation. Will not add new agent if simulation is already at max number of agents (May need to change in future) 
 
 
+\begin{DoxyParams}{Parameters}
+{\em agent} & the agent to be added to the simualtion, as a pointer \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_simulation_a70d474820a2351e8e298e6daca95b513}\label{class_simulation_a70d474820a2351e8e298e6daca95b513}} 
+\index{Simulation@{Simulation}!addToScreen@{addToScreen}}
+\index{addToScreen@{addToScreen}!Simulation@{Simulation}}
+\doxysubsubsection{\texorpdfstring{addToScreen()}{addToScreen()}}
+{\footnotesize\ttfamily void Simulation\+::add\+To\+Screen (\begin{DoxyParamCaption}\item[{Q\+Graphics\+Item $\ast$}]{item }\end{DoxyParamCaption})}
 
-The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+
+
+add\+To\+Screen ~\newline
+Function to add a Q\+Graphics\+Item to the scene on which the simulation is being drawn. Can add any Q\+Graphics\+Item. Use this function to add all objects that should be displayed to the simulation 
+
+
+\begin{DoxyParams}{Parameters}
+{\em item} & a Q\+Graphics\+Item to be added \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_simulation_a37329fde91a2d8c771a2d8c42e799c99}\label{class_simulation_a37329fde91a2d8c771a2d8c42e799c99}} 
+\index{Simulation@{Simulation}!generateLocations@{generateLocations}}
+\index{generateLocations@{generateLocations}!Simulation@{Simulation}}
+\doxysubsubsection{\texorpdfstring{generateLocations()}{generateLocations()}}
+{\footnotesize\ttfamily void Simulation\+::generate\+Locations (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_region}{Region}} $\ast$}]{region,  }\item[{int}]{num }\end{DoxyParamCaption})}
+
+
+
+generate\+Locations ~\newline
+Function that generates a set of Locations within the specified \mbox{\hyperlink{class_region}{Region}}. Generates the number of locations specified in the UI. Ensures all locations generated sit within the bounds of the \mbox{\hyperlink{class_region}{Region}}. Generated Locations will be automatically added into the \mbox{\hyperlink{class_region}{Region}} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em region} & the region to generate Locations for \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_simulation_a8ae30e90c1666e86caf97329c5f26ec8}\label{class_simulation_a8ae30e90c1666e86caf97329c5f26ec8}} 
+\index{Simulation@{Simulation}!getAgents@{getAgents}}
+\index{getAgents@{getAgents}!Simulation@{Simulation}}
+\doxysubsubsection{\texorpdfstring{getAgents()}{getAgents()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{class_agent}{Agent}} $\ast$ $>$ \& Simulation\+::get\+Agents (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+get\+Agents ~\newline
+Getter function for the vector of all agents in the simulation. Returns a vector of all Agents 
+
+\begin{DoxyReturn}{Returns}
+a std\+::vector containing pointers to every agent in the simulation 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_simulation_aef28d4ac97f24e41ea7ed079b2716548}\label{class_simulation_aef28d4ac97f24e41ea7ed079b2716548}} 
+\index{Simulation@{Simulation}!getDay@{getDay}}
+\index{getDay@{getDay}!Simulation@{Simulation}}
+\doxysubsubsection{\texorpdfstring{getDay()}{getDay()}}
+{\footnotesize\ttfamily int Simulation\+::get\+Day (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+get\+Day ~\newline
+Getter function for the current day in the Sim 
+
+\begin{DoxyReturn}{Returns}
+the day as an int 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_simulation_a7b4094d997d1d63f15c9eaa2c157b4be}\label{class_simulation_a7b4094d997d1d63f15c9eaa2c157b4be}} 
+\index{Simulation@{Simulation}!getHour@{getHour}}
+\index{getHour@{getHour}!Simulation@{Simulation}}
+\doxysubsubsection{\texorpdfstring{getHour()}{getHour()}}
+{\footnotesize\ttfamily int Simulation\+::get\+Hour (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+get\+Hour ~\newline
+Getter function for the current hour in the Sim 
+
+\begin{DoxyReturn}{Returns}
+the hour as an int 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_simulation_adb0496dab2348e930cfa9bce3610c4fd}\label{class_simulation_adb0496dab2348e930cfa9bce3610c4fd}} 
+\index{Simulation@{Simulation}!getNumAgents@{getNumAgents}}
+\index{getNumAgents@{getNumAgents}!Simulation@{Simulation}}
+\doxysubsubsection{\texorpdfstring{getNumAgents()}{getNumAgents()}}
+{\footnotesize\ttfamily int Simulation\+::get\+Num\+Agents (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+get\+Num\+Agents ~\newline
+Getter function for the number of agents in the sim 
+
+\begin{DoxyReturn}{Returns}
+the number of agents in the sim 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_simulation_ac2dc3a986efb0fe35518fd1dbdb4e9ce}\label{class_simulation_ac2dc3a986efb0fe35518fd1dbdb4e9ce}} 
+\index{Simulation@{Simulation}!getSimHeight@{getSimHeight}}
+\index{getSimHeight@{getSimHeight}!Simulation@{Simulation}}
+\doxysubsubsection{\texorpdfstring{getSimHeight()}{getSimHeight()}}
+{\footnotesize\ttfamily int Simulation\+::get\+Sim\+Height (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+get\+Sim\+Height ~\newline
+Getter function for the height of the Q\+Graphics\+Scene window. Returns the height as an int 
+
+\begin{DoxyReturn}{Returns}
+an int representing the height of the sim 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_simulation_a688115850cca6f68f19a5ad6b66ed9fb}\label{class_simulation_a688115850cca6f68f19a5ad6b66ed9fb}} 
+\index{Simulation@{Simulation}!getSimWidth@{getSimWidth}}
+\index{getSimWidth@{getSimWidth}!Simulation@{Simulation}}
+\doxysubsubsection{\texorpdfstring{getSimWidth()}{getSimWidth()}}
+{\footnotesize\ttfamily int Simulation\+::get\+Sim\+Width (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+get\+Sim\+Width ~\newline
+Getter function for the width of the Q\+Graphics\+Scene window. Returns the width as an int 
+
+\begin{DoxyReturn}{Returns}
+an int representing the width of the sim 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_simulation_a930797907136599651cfe84145e57973}\label{class_simulation_a930797907136599651cfe84145e57973}} 
+\index{Simulation@{Simulation}!getYear@{getYear}}
+\index{getYear@{getYear}!Simulation@{Simulation}}
+\doxysubsubsection{\texorpdfstring{getYear()}{getYear()}}
+{\footnotesize\ttfamily int Simulation\+::get\+Year (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+get\+Year ~\newline
+Getter function for the current year in the Sim 
+
+\begin{DoxyReturn}{Returns}
+the year as an int 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-Headers/Simulation.\+h\end{DoxyCompactItemize}
+Headers/Simulation.\+h\item 
+src/Simulation.\+cpp\end{DoxyCompactItemize}

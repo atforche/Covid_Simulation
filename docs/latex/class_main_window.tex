@@ -2,8 +2,7 @@
 \label{class_main_window}\index{MainWindow@{MainWindow}}
 
 
-Inheritance diagram for Main\+Window\+:
-\nopagebreak
+Inheritance diagram for Main\+Window\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -12,8 +11,7 @@ Inheritance diagram for Main\+Window\+:
 \end{figure}
 
 
-Collaboration diagram for Main\+Window\+:
-\nopagebreak
+Collaboration diagram for Main\+Window\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -24,12 +22,18 @@ Collaboration diagram for Main\+Window\+:
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{class_main_window_a996c5a2b6f77944776856f08ec30858d}{Main\+Window}} (Q\+Widget $\ast$parent=nullptr)
-\begin{DoxyCompactList}\small\item\em Constructor for the \mbox{\hyperlink{class_main_window}{Main\+Window}} of the application Creates the UI design for the main window. Initializes the drawing scene and all individual UI elements. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_main_window}{Main\+Window}} ~\newline
+Creates the UI design for the main window. Initializes the drawing scene and all individual UI elements. Primarily handled by Qt. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_main_window_aa723299753b520d39ddf3a0cc8f66ebf}\label{class_main_window_aa723299753b520d39ddf3a0cc8f66ebf}} 
+void \mbox{\hyperlink{class_main_window_aa723299753b520d39ddf3a0cc8f66ebf}{disable\+UI}} ()
+\begin{DoxyCompactList}\small\item\em disable\+UI ~\newline
+Function that disables all necessary UI elements when the \mbox{\hyperlink{class_simulation}{Simulation}} is started. Prevents user from changing constant values while the simulation is in execution. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_main_window_a98b4b0619a6464a3986137f27e2b33fc}\label{class_main_window_a98b4b0619a6464a3986137f27e2b33fc}} 
+void \mbox{\hyperlink{class_main_window_a98b4b0619a6464a3986137f27e2b33fc}{enable\+UI}} ()
+\begin{DoxyCompactList}\small\item\em enable\+UI ~\newline
+Function that enables all the necessary UI elements when the \mbox{\hyperlink{class_simulation}{Simulation}} is ended. Allows the user to be able to change constant values in between \mbox{\hyperlink{class_simulation}{Simulation}} executions \end{DoxyCompactList}\item 
 \mbox{\hyperlink{class_main_window_ae98d00a93bc118200eeef9f9bba1dba7}{$\sim$\+Main\+Window}} ()
-\item 
-\mbox{\Hypertarget{class_main_window_a694a4f99a7244d842d815391cc322b8d}\label{class_main_window_a694a4f99a7244d842d815391cc322b8d}} 
-void \mbox{\hyperlink{class_main_window_a694a4f99a7244d842d815391cc322b8d}{Draw\+\_\+\+Regions}} ()
-\begin{DoxyCompactList}\small\item\em Function that sets up and draws the fours regions for the simulation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -41,7 +45,8 @@ void \mbox{\hyperlink{class_main_window_a694a4f99a7244d842d815391cc322b8d}{Draw\
 
 
 
-Constructor for the \mbox{\hyperlink{class_main_window}{Main\+Window}} of the application Creates the UI design for the main window. Initializes the drawing scene and all individual UI elements. 
+\mbox{\hyperlink{class_main_window}{Main\+Window}} ~\newline
+Creates the UI design for the main window. Initializes the drawing scene and all individual UI elements. Primarily handled by Qt. 
 
 
 \begin{DoxyParams}{Parameters}

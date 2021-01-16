@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['mainwindow_12',['MainWindow',['../class_main_window.html',1,'MainWindow'],['../class_main_window.html#a996c5a2b6f77944776856f08ec30858d',1,'MainWindow::MainWindow()']]]
+  ['init_40',['init',['../class_simple_simulation.html#a53d5c24654dd7fb8c6733e2435f525a1',1,'SimpleSimulation::init()'],['../class_simulation.html#ab4d7fe11a5098550766a4f51c0af8409',1,'Simulation::init()']]]
 ];

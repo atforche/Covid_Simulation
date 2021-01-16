@@ -1,0 +1,104 @@
+\hypertarget{class_simulation_controller}{}\doxysection{Simulation\+Controller Class Reference}
+\label{class_simulation_controller}\index{SimulationController@{SimulationController}}
+
+
+The \mbox{\hyperlink{class_simulation_controller}{Simulation\+Controller}} class ~\newline
+Class that controls the simulation and delegates it to a thread. Also controls pausing and resuming thread execution.  
+
+
+
+
+{\ttfamily \#include $<$Thread\+Execution.\+h$>$}
+
+
+
+Inheritance diagram for Simulation\+Controller\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=184pt]{class_simulation_controller__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Simulation\+Controller\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=184pt]{class_simulation_controller__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_simulation_controller_a7d8130bbec8690f946da73101cffbd67}\label{class_simulation_controller_a7d8130bbec8690f946da73101cffbd67}} 
+void \mbox{\hyperlink{class_simulation_controller_a7d8130bbec8690f946da73101cffbd67}{update\+Screen}} (const Q\+String \&)
+\begin{DoxyCompactList}\small\item\em update\+Screen ~\newline
+Function to handle the results of the previous timestep and render those results to the screen \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_simulation_controller_a58104fc04f41630770d141c4b27f35ac}\label{class_simulation_controller_a58104fc04f41630770d141c4b27f35ac}} 
+void \mbox{\hyperlink{class_simulation_controller_a58104fc04f41630770d141c4b27f35ac}{operate}} (const Q\+String \&)
+\begin{DoxyCompactList}\small\item\em operate ~\newline
+Signal that enables the \mbox{\hyperlink{class_simulation_worker}{Simulation\+Worker}} to begin performing work \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_simulation_controller_a98959daaa79ec23a6f5f1704d0d0d33b}\label{class_simulation_controller_a98959daaa79ec23a6f5f1704d0d0d33b}} 
+\mbox{\hyperlink{class_simulation_controller_a98959daaa79ec23a6f5f1704d0d0d33b}{Simulation\+Controller}} (\mbox{\hyperlink{class_simulation}{Simulation}} $\ast$sim, \mbox{\hyperlink{class_simulation_worker_a77cfcb049fa15567e8b0b00e2fc28298}{Simulation\+Worker\+::\+Speed}} frame\+Rate)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_simulation_controller}{Simulation\+Controller}} ~\newline
+Constructor for the \mbox{\hyperlink{class_simulation}{Simulation}} Controller class. The simulation controller class delegates Simulation\+Workers to threads and assigns tasks to the different workers to drive the simulation forward. Currently only one worker is allocated. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simulation_controller_a884224ae701a70aba2001215039ff070}\label{class_simulation_controller_a884224ae701a70aba2001215039ff070}} 
+void \mbox{\hyperlink{class_simulation_controller_a884224ae701a70aba2001215039ff070}{start\+Simulation}} ()
+\begin{DoxyCompactList}\small\item\em start\+Simulation ~\newline
+Function to emit a signal to the \mbox{\hyperlink{class_simulation_worker}{Simulation\+Worker}} thread to begin execution of the \mbox{\hyperlink{class_simulation}{Simulation}} on a separate thread \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simulation_controller_a122601b78d7e6b7429ed7d15823902e8}\label{class_simulation_controller_a122601b78d7e6b7429ed7d15823902e8}} 
+void \mbox{\hyperlink{class_simulation_controller_a122601b78d7e6b7429ed7d15823902e8}{pause\+Simulation}} ()
+\begin{DoxyCompactList}\small\item\em end\+Simulation ~\newline
+Function that calls the drop\+Simulation() function on the \mbox{\hyperlink{class_simulation}{Simulation}} Worker. This prevents the Worker from entering it\textquotesingle{}s next step in execution \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simulation_controller_ac3140b4ff061bf96a0b604f7fdb37073}{change\+Speed}} (\mbox{\hyperlink{class_simulation_worker_a77cfcb049fa15567e8b0b00e2fc28298}{Simulation\+Worker\+::\+Speed}} new\+Speed)
+\begin{DoxyCompactList}\small\item\em change\+Speed ~\newline
+This function changes the speed of the simulation being run by the \mbox{\hyperlink{class_simulation}{Simulation}} Worker. Accomplishes this by pausing the \mbox{\hyperlink{class_simulation_worker}{Simulation\+Worker}}, calling \mbox{\hyperlink{class_simulation_worker_a8d5565a41a7cdf636e262723cbb6005b}{Simulation\+Worker\+::change\+Speed}}, then restarting the \mbox{\hyperlink{class_simulation}{Simulation}} \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_simulation_controller_a43133924e74a5714bbcd1ca5e4de1b18}{$\sim$\+Simulation\+Controller}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{class_simulation_controller}{Simulation\+Controller}} class ~\newline
+Class that controls the simulation and delegates it to a thread. Also controls pausing and resuming thread execution. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_simulation_controller_a43133924e74a5714bbcd1ca5e4de1b18}\label{class_simulation_controller_a43133924e74a5714bbcd1ca5e4de1b18}} 
+\index{SimulationController@{SimulationController}!````~SimulationController@{$\sim$SimulationController}}
+\index{````~SimulationController@{$\sim$SimulationController}!SimulationController@{SimulationController}}
+\doxysubsubsection{\texorpdfstring{$\sim$SimulationController()}{~SimulationController()}}
+{\footnotesize\ttfamily Simulation\+Controller\+::$\sim$\+Simulation\+Controller (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Destructor for the \mbox{\hyperlink{class_simulation}{Simulation}} Controller class 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_simulation_controller_ac3140b4ff061bf96a0b604f7fdb37073}\label{class_simulation_controller_ac3140b4ff061bf96a0b604f7fdb37073}} 
+\index{SimulationController@{SimulationController}!changeSpeed@{changeSpeed}}
+\index{changeSpeed@{changeSpeed}!SimulationController@{SimulationController}}
+\doxysubsubsection{\texorpdfstring{changeSpeed()}{changeSpeed()}}
+{\footnotesize\ttfamily void Simulation\+Controller\+::change\+Speed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_simulation_worker_a77cfcb049fa15567e8b0b00e2fc28298}{Simulation\+Worker\+::\+Speed}}}]{new\+Speed }\end{DoxyParamCaption})}
+
+
+
+change\+Speed ~\newline
+This function changes the speed of the simulation being run by the \mbox{\hyperlink{class_simulation}{Simulation}} Worker. Accomplishes this by pausing the \mbox{\hyperlink{class_simulation_worker}{Simulation\+Worker}}, calling \mbox{\hyperlink{class_simulation_worker_a8d5565a41a7cdf636e262723cbb6005b}{Simulation\+Worker\+::change\+Speed}}, then restarting the \mbox{\hyperlink{class_simulation}{Simulation}} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Speed} & enum specifying the new speed of the simulation \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Headers/Thread\+Execution.\+h\item 
+src/Thread\+Execution.\+cpp\end{DoxyCompactItemize}

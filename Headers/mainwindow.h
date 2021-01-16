@@ -23,7 +23,7 @@ class MainWindow : public QMainWindow
 
 public:
     /**
-     * @brief Constructor for the MainWindow of the application
+     * @brief MainWindow \n
      * Creates the UI design for the main window. Initializes the drawing scene
      * and all individual UI elements. Primarily handled by Qt
      * @param parent: the parent widget to which this window belongs
@@ -31,7 +31,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
 
     /**
-     * @brief disableUI
+     * @brief disableUI \n
      * Function that disables all necessary UI elements when the Simulation
      * is started. Prevents user from changing constant values while the
      * simulation is in execution.
@@ -39,7 +39,7 @@ public:
     void disableUI();
 
     /**
-     * @brief enableUI
+     * @brief enableUI \n
      * Function that enables all the necessary UI elements when the Simulation
      * is ended. Allows the user to be able to change constant values in
      * between Simulation executions
@@ -51,7 +51,7 @@ public:
 
 private slots:
     /**
-     * @brief on_runSimulation_clicked()
+     * @brief on_runSimulation_clicked \n
      * Starts the simulation when the runSimulation button is clicked. Disables
      * UI buttons, creates a new Simulation, creates a new Simulation Controller,
      * and signals to the Simulation Controller to begin execution
@@ -59,7 +59,7 @@ private slots:
     void on_runSimulation_clicked();
 
     /**
-     * @brief on_resetSimulation_clicked()
+     * @brief on_resetSimulation_clicked \n
      * Resets the simulation to its initial conditions when the resetSimulation
      * button is pressed. Re-enables the UI buttons, resets the current
      * simulation that is rendered on the screen, signals to the Simulation
@@ -68,7 +68,7 @@ private slots:
     void on_resetSimulation_clicked();
 
     /**
-     * @brief on_numLocations_valueChanged
+     * @brief on_numLocations_valueChanged \n
      * On Value Changed listener for numLocations slider. Updates the text box
      * with the current value of the numLocations slider so the user can see
      * the exact value of the slider
@@ -77,7 +77,7 @@ private slots:
     void on_numLocations_valueChanged(int value);
 
     /**
-     * @brief on_numAgents_valueChanged
+     * @brief on_numAgents_valueChanged \n
      * Slider Listener for numAgents slider. Updates the text box with the
      * current value of the numAgents slider so the user can see the exact
      * value of the slider
@@ -86,7 +86,7 @@ private slots:
     void on_numAgents_valueChanged(int value);
 
     /**
-     * @brief on_numLocationsLabel_valueChanged
+     * @brief on_numLocationsLabel_valueChanged \n
      * Value listener for the numLocationsLabel Spin box. Enables slider value
      * to change in response to a change in the Spin Box value
      * @param arg1: the new value of the spin box
@@ -94,7 +94,7 @@ private slots:
     void on_numLocationsLabel_valueChanged(int arg1);
 
     /**
-     * @brief on_numAgentsLabel_valueChanged
+     * @brief on_numAgentsLabel_valueChanged \n
      * Value listener for the numAgentsLabel Spin box. Enables slider value
      * to change in response to a change in the Spin Box value
      * @param arg1
@@ -102,7 +102,7 @@ private slots:
     void on_numAgentsLabel_valueChanged(int arg1);
 
     /**
-     * @brief on_slowSim_clicked
+     * @brief on_slowSim_clicked \n
      * Click Listener for the slowSim button. Reduces the execution speed of
      * the simulation by one stage. Different stages are Slow, Normal, Fast
      * and Unlimited. Updates the speed label and has the simulation controller
@@ -111,7 +111,7 @@ private slots:
     void on_slowSim_clicked();
 
     /**
-     * @brief on_pauseSim_clicked
+     * @brief on_pauseSim_clicked \n
      * Click Listener for the pauseSim button. Stops the execution of the
      * Simulation by the Simulation Controller. Updates the speed label on
      * the screen
@@ -119,7 +119,7 @@ private slots:
     void on_pauseSim_clicked();
 
     /**
-     * @brief on_fastSim_clicked
+     * @brief on_fastSim_clicked \n
      * Click Listener for the slowSim button. Reduces the execution speed of
      * the simulation by one stage. Different stages are Slow, Normal, Fast
      * and Unlimited. Updates the speed label and has the simulation controller
@@ -146,6 +146,5 @@ private:
 
     /** Bool specifying if the simulation is paused */
     bool paused;
-
 };
 #endif // MAINWINDOW_H
