@@ -1,0 +1,7 @@
+<map id="Region::getGraphicsObject" name="Region::getGraphicsObject">
+<area shape="rect" id="node1" title="getGraphicsObject &#160;Function to return a QGraphicsItem* corresponding to the shape of the Region...." alt="" coords="447,56,625,83"/>
+<area shape="rect" id="node2" href="$class_simulation.html#a37329fde91a2d8c771a2d8c42e799c99" title="generateLocations &#160;Function that generates a set of Locations within the specified Region...." alt="" coords="201,5,399,32"/>
+<area shape="rect" id="node4" href="$class_simple_simulation.html#a66215e392b5eab33e9089b255c830417" title="reset &#160;Function to reset the simulation. Resets the Simulation by clearing the Scene and deleting all..." alt="" coords="220,56,380,83"/>
+<area shape="rect" id="node5" href="$class_simple_simulation.html#ad16a2131994b9688b750210e8d1a5929" title="SimpleSimulation &#160;The constructor for the SimpleSimulation Class, sets up all controls necessary for ..." alt="" coords="215,107,385,149"/>
+<area shape="rect" id="node3" href="$class_simple_simulation.html#a53d5c24654dd7fb8c6733e2435f525a1" title="init &#160;Function to initialize the simulation. Initializes the Regions and Locations...." alt="" coords="5,5,153,32"/>
+</map>

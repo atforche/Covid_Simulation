@@ -1,0 +1,4 @@
+<map id="Coordinate::distBetween" name="Coordinate::distBetween">
+<area shape="rect" id="node1" title="distBetween &#160;Function to calculate the distance between two coordinates. Calculates the Euclidean dis..." alt="" coords="5,5,168,32"/>
+<area shape="rect" id="node2" href="$class_coordinate.html#a41666a7112689a21fceae113e1e59e3e" title="getCoord &#160;Function to return one of the Coordinate values stored within the Coordinate Class" alt="" coords="216,5,360,32"/>
+</map>

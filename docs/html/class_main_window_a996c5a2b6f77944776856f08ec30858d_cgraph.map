@@ -1,0 +1,4 @@
+<map id="MainWindow::MainWindow" name="MainWindow::MainWindow">
+<area shape="rect" id="node1" title="MainWindow &#160;Creates the UI design for the main window. Initializes the drawing scene and all individu..." alt="" coords="5,5,184,32"/>
+<area shape="rect" id="node2" href="$class_main_window.html#a98b4b0619a6464a3986137f27e2b33fc" title="enableUI &#160;Function that enables all the necessary UI elements when the Simulation is ended...." alt="" coords="232,5,387,32"/>
+</map>

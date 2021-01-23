@@ -1,0 +1,4 @@
+<map id="Location::Location" name="Location::Location">
+<area shape="rect" id="node1" title="Location &#160;Constructor for the Location class. Each Location contains a position and a vector of agent..." alt="" coords="5,5,133,32"/>
+<area shape="rect" id="node2" href="$class_coordinate.html#a41666a7112689a21fceae113e1e59e3e" title="getCoord &#160;Function to return one of the Coordinate values stored within the Coordinate Class" alt="" coords="181,5,325,32"/>
+</map>

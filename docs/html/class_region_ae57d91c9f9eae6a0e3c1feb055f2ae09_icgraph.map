@@ -1,0 +1,4 @@
+<map id="Region::getLocationsGraphicsObject" name="Region::getLocationsGraphicsObject">
+<area shape="rect" id="node1" title="renderLocations &#160;Function to return a vector of QGraphicsItems* corresponding to the Locations within..." alt="" coords="201,5,397,47"/>
+<area shape="rect" id="node2" href="$class_simple_simulation.html#a53d5c24654dd7fb8c6733e2435f525a1" title="init &#160;Function to initialize the simulation. Initializes the Regions and Locations...." alt="" coords="5,13,153,39"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="SimulationWorker::startThread" name="SimulationWorker::startThread">
+<area shape="rect" id="node1" title="startThread &#160;Function to be attached to a separate thread. Drives the simulation&#39;s execution on a tim..." alt="" coords="200,13,399,39"/>
+<area shape="rect" id="node2" href="$class_simulation_controller.html#a98959daaa79ec23a6f5f1704d0d0d33b" title="SimulationController &#160;Constructor for the Simulation Controller class. The simulation controller clas..." alt="" coords="5,5,152,47"/>
+</map>

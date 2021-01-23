@@ -2,7 +2,7 @@
 #define AGENT_H
 
 /**
- * @brief The Agent Class
+ * @brief The Agent Class \n
  * Class that specifies the functionality of the Agents in the simulation
  * Contains all information required for the agent to act in the environment
  */

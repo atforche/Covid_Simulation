@@ -1,0 +1,7 @@
+<map id="SimulationController::changeSpeed" name="SimulationController::changeSpeed">
+<area shape="rect" id="node1" title="changeSpeed &#160;This function changes the speed of the simulation being run by the Simulation Worker...." alt="" coords="5,71,144,112"/>
+<area shape="rect" id="node2" href="$class_simulation_worker.html#a8d5565a41a7cdf636e262723cbb6005b" title="changeSpeed &#160;Function that changes the interval of the QTimer that specifies the FPS of the simulatio..." alt="" coords="192,5,367,47"/>
+<area shape="rect" id="node3" href="$class_simulation_controller.html#a122601b78d7e6b7429ed7d15823902e8" title="endSimulation &#160;Function that calls the dropSimulation() function on the Simulation Worker...." alt="" coords="210,71,349,112"/>
+<area shape="rect" id="node5" href="$class_simulation_controller.html#a884224ae701a70aba2001215039ff070" title="startSimulation &#160;Function to emit a signal to the SimulationWorker thread to begin execution of the S..." alt="" coords="210,136,349,177"/>
+<area shape="rect" id="node4" href="$class_simulation_worker.html#a989dd176397b244278f09c4114d93b62" title="pauseSimulation &#160;Function that instructs SimulationWorker to pause execution of the Simulation Must b..." alt="" coords="415,78,644,105"/>
+</map>

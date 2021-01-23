@@ -1,0 +1,5 @@
+<map id="Region::getColor" name="Region::getColor">
+<area shape="rect" id="node1" title="getColor &#160;Getter function for the color assigned to the region. Returns the color as a QColor" alt="" coords="468,13,587,39"/>
+<area shape="rect" id="node2" href="$class_square_region.html#a11f67456aa7432bdb266cbc7cfdd19ed" title="getGraphicsObject &#160;Function that returns a QGraphicsRectItem* used to render the region on the QGraph..." alt="" coords="239,5,420,47"/>
+<area shape="rect" id="node3" href="$class_square_region.html#a3d46c9d8bea9b9b219b88c3f03b164a8" title="renderLocations &#160;Function to render the randomly generated locations to the screen...." alt="" coords="5,5,191,47"/>
+</map>

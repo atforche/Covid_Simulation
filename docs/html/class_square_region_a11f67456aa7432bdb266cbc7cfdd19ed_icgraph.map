@@ -1,0 +1,4 @@
+<map id="SquareRegion::getGraphicsObject" name="SquareRegion::getGraphicsObject">
+<area shape="rect" id="node1" title="getGraphicsObject &#160;Function that returns a QGraphicsRectItem* used to render the region on the QGraph..." alt="" coords="239,5,420,47"/>
+<area shape="rect" id="node2" href="$class_square_region.html#a3d46c9d8bea9b9b219b88c3f03b164a8" title="renderLocations &#160;Function to render the randomly generated locations to the screen...." alt="" coords="5,5,191,47"/>
+</map>

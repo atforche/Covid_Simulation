@@ -1,0 +1,7 @@
+<map id="SimpleSimulation::SimpleSimulation" name="SimpleSimulation::SimpleSimulation">
+<area shape="rect" id="node1" title="SimpleSimulation &#160;The constructor for the SimpleSimulation Class, sets up all controls necessary for ..." alt="" coords="5,74,176,115"/>
+<area shape="rect" id="node2" href="$class_simulation.html#a70d474820a2351e8e298e6daca95b513" title="addToScreen &#160;Function to add a QGraphicsItem to the scene on which the simulation is being drawn...." alt="" coords="247,5,413,32"/>
+<area shape="rect" id="node3" href="$class_region.html#a3f37617fe92c32b4263d3615a8cfc459" title="getGraphicsObject &#160;Function to return a QGraphicsItem* corresponding to the shape of the Region...." alt="" coords="241,56,419,83"/>
+<area shape="rect" id="node4" href="$class_region.html#a7475a567b0806b64b45085740712f5cc" title="getNameGraphicsObject &#160;Function to render the name of the region onto the canvas. Exactly rendering m..." alt="" coords="224,107,436,133"/>
+<area shape="rect" id="node5" href="$class_simulation.html#ac2dc3a986efb0fe35518fd1dbdb4e9ce" title="getSimHeight &#160;Getter function for the height of the QGraphicsScene window. Returns the height as an i..." alt="" coords="245,157,415,184"/>
+</map>

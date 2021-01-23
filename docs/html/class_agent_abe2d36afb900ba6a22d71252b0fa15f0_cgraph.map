@@ -1,0 +1,4 @@
+<map id="Agent::Agent" name="Agent::Agent">
+<area shape="rect" id="node1" title="Agent &#160;Constructor for the Agent Class. Constructs an Agent object with a certain age and position." alt="" coords="5,5,104,32"/>
+<area shape="rect" id="node2" href="$class_coordinate.html#a41666a7112689a21fceae113e1e59e3e" title="getCoord &#160;Function to return one of the Coordinate values stored within the Coordinate Class" alt="" coords="152,5,296,32"/>
+</map>

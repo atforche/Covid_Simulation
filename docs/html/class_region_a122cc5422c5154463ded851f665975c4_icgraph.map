@@ -1,0 +1,4 @@
+<map id="Region::getName" name="Region::getName">
+<area shape="rect" id="node1" title="getName &#160;Getter function for the name assigned to the region. Returns the name as a std::string" alt="" coords="268,13,391,39"/>
+<area shape="rect" id="node2" href="$class_square_region.html#a3d494004f346b84d99570bdb3283075e" title="getNameGraphicsObject &#160;Function to render the text name of the region onto the canvas...." alt="" coords="5,5,220,47"/>
+</map>

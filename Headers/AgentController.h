@@ -9,7 +9,7 @@
 #include "Agent.h"
 
 /**
- * @brief The AgentController class
+ * @brief The AgentController class \n
  * Class that sits within the Simulation and dynamically determines each
  * agents destination based on its assigned behavior plan. Reads in each
  * of the behavior plans from their JSON resources files, which specify the

@@ -1,0 +1,5 @@
+<map id="Simulation::addAgent" name="Simulation::addAgent">
+<area shape="rect" id="node1" title="addAgent &#160;Function to add a new agent to the simulation. Will not add new agent if simulation is alre..." alt="" coords="5,31,152,57"/>
+<area shape="rect" id="node2" href="$class_simulation.html#a70d474820a2351e8e298e6daca95b513" title="addToScreen &#160;Function to add a QGraphicsItem to the scene on which the simulation is being drawn...." alt="" coords="203,5,369,32"/>
+<area shape="rect" id="node3" href="$class_agent.html#ad39f0e4b928e14460c5fd08319135e7d" title="getGraphicsObject &#160;Function that returns the QGraphics object that represents the agent on the screen..." alt="" coords="200,56,372,83"/>
+</map>

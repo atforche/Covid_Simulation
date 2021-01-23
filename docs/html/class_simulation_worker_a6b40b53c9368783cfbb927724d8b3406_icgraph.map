@@ -1,0 +1,6 @@
+<map id="SimulationWorker::timestepComplete" name="SimulationWorker::timestepComplete">
+<area shape="rect" id="node1" title=" " alt="" coords="673,35,856,76"/>
+<area shape="rect" id="node2" href="$class_simulation_worker.html#ad796f3e651719642b53fac3641fecc0e" title="executeSimulation &#160;Slot that directly executes the simulation. Signals to the parent Simulation of th..." alt="" coords="447,5,625,47"/>
+<area shape="rect" id="node4" href="$class_simulation_controller.html#a98959daaa79ec23a6f5f1704d0d0d33b" title="SimulationController &#160;Constructor for the Simulation Controller class. The simulation controller clas..." alt="" coords="5,39,152,80"/>
+<area shape="rect" id="node3" href="$class_simulation_worker.html#ac9905ae951eb189007c28167297fd35f" title="startThread &#160;Function to be attached to a separate thread. Drives the simulation&#39;s execution on a tim..." alt="" coords="200,17,399,43"/>
+</map>

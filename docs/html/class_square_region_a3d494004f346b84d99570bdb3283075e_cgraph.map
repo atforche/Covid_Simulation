@@ -1,0 +1,5 @@
+<map id="SquareRegion::getNameGraphicsObject" name="SquareRegion::getNameGraphicsObject">
+<area shape="rect" id="node1" title="getNameGraphicsObject &#160;Function to render the text name of the region onto the canvas...." alt="" coords="5,23,220,65"/>
+<area shape="rect" id="node2" href="$class_coordinate.html#a41666a7112689a21fceae113e1e59e3e" title="getCoord &#160;Function to return one of the Coordinate values stored within the Coordinate Class" alt="" coords="268,5,412,32"/>
+<area shape="rect" id="node3" href="$class_region.html#a122cc5422c5154463ded851f665975c4" title="getName &#160;Getter function for the name assigned to the region. Returns the name as a std::string" alt="" coords="279,56,401,83"/>
+</map>

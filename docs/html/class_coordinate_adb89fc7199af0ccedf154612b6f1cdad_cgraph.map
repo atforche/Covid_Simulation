@@ -1,0 +1,5 @@
+<map id="Coordinate::headingBetween" name="Coordinate::headingBetween">
+<area shape="rect" id="node1" title="headingBetween &#160;Function to calculate the heading vector that connects the current point to the point..." alt="" coords="5,31,192,57"/>
+<area shape="rect" id="node2" href="$class_coordinate.html#a06991f42b26d92d1c771c198f2a01103" title="Coordinate &#160;Constructor for the Coordinate Class. A Coordinate is an object that has an X and Y posit..." alt="" coords="240,5,395,32"/>
+<area shape="rect" id="node3" href="$class_coordinate.html#a41666a7112689a21fceae113e1e59e3e" title="getCoord &#160;Function to return one of the Coordinate values stored within the Coordinate Class" alt="" coords="245,56,389,83"/>
+</map>

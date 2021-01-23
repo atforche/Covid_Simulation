@@ -1,0 +1,5 @@
+<map id="Coordinate::Coordinate" name="Coordinate::Coordinate">
+<area shape="rect" id="node1" title="Coordinate &#160;Constructor for the Coordinate Class. A Coordinate is an object that has an X and Y posit..." alt="" coords="432,5,587,32"/>
+<area shape="rect" id="node2" href="$class_coordinate.html#adb89fc7199af0ccedf154612b6f1cdad" title="headingBetween &#160;Function to calculate the heading vector that connects the current point to the point..." alt="" coords="197,5,384,32"/>
+<area shape="rect" id="node3" href="$class_agent.html#a36dd1016e9aa1509ef3eb74c5b7b2528" title="takeTimeStep &#160;Function that causes the agent to take a step forward in time. Currently,..." alt="" coords="5,5,149,32"/>
+</map>

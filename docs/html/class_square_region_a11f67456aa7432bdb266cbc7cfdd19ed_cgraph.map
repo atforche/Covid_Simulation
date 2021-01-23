@@ -1,0 +1,5 @@
+<map id="SquareRegion::getGraphicsObject" name="SquareRegion::getGraphicsObject">
+<area shape="rect" id="node1" title="getGraphicsObject &#160;Function that returns a QGraphicsRectItem* used to render the region on the QGraph..." alt="" coords="5,23,187,65"/>
+<area shape="rect" id="node2" href="$class_region.html#a7afe91a845ead6ab45f5908383c56ecc" title="getColor &#160;Getter function for the color assigned to the region. Returns the color as a QColor" alt="" coords="247,5,366,32"/>
+<area shape="rect" id="node3" href="$class_coordinate.html#a41666a7112689a21fceae113e1e59e3e" title="getCoord &#160;Function to return one of the Coordinate values stored within the Coordinate Class" alt="" coords="235,56,379,83"/>
+</map>

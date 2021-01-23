@@ -1,0 +1,4 @@
+<map id="SimulationWorker::changeSpeed" name="SimulationWorker::changeSpeed">
+<area shape="rect" id="node1" title="changeSpeed &#160;Function that changes the interval of the QTimer that specifies the FPS of the simulatio..." alt="" coords="192,5,367,47"/>
+<area shape="rect" id="node2" href="$class_simulation_controller.html#ac3140b4ff061bf96a0b604f7fdb37073" title="changeSpeed &#160;This function changes the speed of the simulation being run by the Simulation Worker...." alt="" coords="5,5,144,47"/>
+</map>
