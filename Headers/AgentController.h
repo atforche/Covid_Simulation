@@ -5,6 +5,7 @@
 #include <QJsonObject>
 #include <QFile>
 #include <QString>
+#include <QDir>
 #include <vector>
 #include "Agent.h"
 
@@ -18,30 +19,39 @@
 class AgentController {
 
 private:
-    /** The number of unique behaviors that agents can have */
-    int numBehaviors;
 
     /** Vector containing the QJsonObjects that specify different behaviors*/
-    std::vector<QJsonObject> behaviors;
+    std::vector<QJsonObject> adultBehaviors;
+
+    /** Vector of QJsonObjects specifying different child behaviors*/
+    std::vector<QJsonObject> childBehaviors;
 
 public:
     /**
      * @brief AgentController \n
      * Initial constructor for the Agent Controller class. Has controller
      * read in each of the behaviors from the JSON resource files and store
-     * them as QJsonObjects in a vector.
-     * @param numBehaviors: int that specifies the number of unique behaviors
-     *                      to read in
+     * them as QJsonObjects in a vector. Dynamically determines the number of
+     * adult and child behaviors by reading the entries in the bin/behaviors
+     * directory
      */
-    AgentController(int numBehaviors);
+    AgentController();
 
     /**
      * @brief getNumBehaviors \n
-     * Getter function for the number of unique behaviors that the Agent
-     * controller is currently supporting
+     * Getter function for the number of unique adult behaviors that an adult
+     * agent could possibly have
      * @return the number of unique behaviors as an integer
      */
-    int getNumBehaviors();
+    int numAdultBehaviors();
+
+    /**
+     * @brief numChildBehaviors \n
+     * Getter function for the number of unique child behaviors that a child
+     * agent could possibly have
+     * @return the number of child behaviors
+     */
+    int numChildBehaviors();
 
     /**
      * @brief assignAgentDestinations \n
@@ -52,6 +62,18 @@ public:
      * @param hour: the current hour of the simulation
      */
     void assignAgentDestinations(std::vector<Agent*> agents, int hour);
+
+    /**
+     * @brief getDestinationAssignment \n
+     * Function that returns the specific destination assignment for a specific
+     * behavior chart at a specific hour
+     * @param behaviorChart: the behavior chart to query
+     * @param hour: the hour of the day to query
+     * @param isAdult: determines whether to check the adult beahavior or the
+     *        child behavior chart
+     * @return
+     */
+    QString getDestinationAssignment(int behaviorChart, int hour, bool isAdult);
 
 };
 

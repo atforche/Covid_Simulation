@@ -17,7 +17,7 @@ class Location {
 private:
 
     /** Coordinate storing the exact position of the Location*/
-    Coordinate* position;
+    Coordinate position;
 
     /** A vector keeping track of agents assigned to this location */
     std::unordered_set<Agent*> agents;
@@ -74,7 +74,7 @@ public:
      * of this location as a Coordinate
      * @return the Coordinate position of the Location
      */
-    Coordinate* getPosition();
+    Coordinate getPosition();
 
     /** Destructor for the location class */
     ~Location();

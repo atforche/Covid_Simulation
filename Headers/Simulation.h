@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <random>
+#include <map>
 #include "ui_mainwindow.h"
 #include "AgentController.h"
 #include "Location.h"
@@ -19,6 +20,9 @@ class Simulation : public QObject {
 private:
     /** a vector of every agent in the simulation */
     std::vector<Agent*> agents;
+
+    /** Map of various debug information to be passed into the Simulation*/
+    std::map<std::string, bool> debug;
 
     /** AgentController to dynamically control agent behavior */
     AgentController* agentController;
@@ -49,9 +53,6 @@ private:
     /** Number of frames that occur before a new hour begins */
     static const int FRAMES_PER_HOUR = 60;
 
-    /** Number of unique behaviors the simulation is configured for*/
-    static const int NUM_BEHAVIORS = 1;
-
 public:
 
     /**
@@ -60,8 +61,10 @@ public:
      * in all parameters that are universal to all simulation types
      * @param numAgents: the number of agents in the simulation
      * @param ui: the main window in which the simulation will runs
+     * @param debug: a dict that contains the boolean values of various debug
+     *               values;
      */
-    Simulation(int numAgents, Ui::MainWindow* ui);
+    Simulation(int numAgents, Ui::MainWindow* ui, std::map<std::string, bool> debug);
 
     /**
      * @brief init \n
@@ -206,6 +209,23 @@ public:
      * @return the hour as an int
      */
     int getHour();
+
+    /**
+     * @brief getController \n
+     * Getter function for the AgentController driving the Agent's behavior
+     * @return the AgentController for the Simulation
+     */
+    AgentController* getController();
+
+    /**
+     * @brief checkDebug \n
+     * Checks the debug dict passed into the Simulation for the truth value
+     * of the specified string. If the value is true, return true. If the value
+     * is false or does not appear, return false.
+     * @param val: the debug value to be queried
+     * @return true if the valid is true, false otherwise
+     */
+    bool checkDebug(std::string val);
 
     /** Destructor for the Simulation Class*/
     virtual ~Simulation();

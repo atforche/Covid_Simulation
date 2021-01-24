@@ -23,8 +23,10 @@ public:
      * Constructor for the Agent Class. Constructs an Agent object with a
      * certain age and position
      * @param age: the current age of the Agent
+     * @param startingLocation: the initial location to create this agent at
+     * @param behavior: the behavior assignment of this agent
      */
-    Agent(int age, Coordinate* position);
+    Agent(int age, Location* startingLocation, int behavior);
 
     /**
      * @brief getGraphicsObject \n
@@ -82,7 +84,7 @@ public:
      * position of the agent as a Coordinate*
      * @return the position of the agent as a Coordinate
      */
-    Coordinate* getPosition();
+    Coordinate getPosition();
 
     /**
      * @brief getBehavior \n
@@ -93,6 +95,14 @@ public:
     int getBehavior();
 
     /**
+     * @brief isAdult \n
+     * Returns whether or not this agent is an adult. An agent is considered
+     * an adult if they are 18 years of age.
+     * @return whether the agent is an adult
+     */
+    bool isAdult();
+
+    /**
      * @brief ~Agent \n
      * Destructor to free memory from the Agent class
      */
@@ -101,7 +111,7 @@ public:
 private:
 
     /** The current location of the Agent as a Coordinate*/
-    Coordinate* position;
+    Coordinate position;
 
     /** The current age of the Agent as an Integer */
     int age;
@@ -114,7 +124,10 @@ private:
     static const int MAX_CREEP = 7;
 
     /** Int representing the speed constant of the agent*/
-    static const int SPEED_CONSTANT = 5;
+    static const int BASE_SPEED = 5;
+
+    /** Current speed of the agent. Can differ from the base speed.*/
+    double speed;
 
     /** Int representing the current behavioral plan of the agent*/
     int behavior;
@@ -128,7 +141,7 @@ private:
 
     /** Coordinate that determines where the agent is trying to head. A
     Coordinate of (-1,-1) indicates no destination*/
-    Coordinate* destination;
+    Coordinate destination;
 
 };
 

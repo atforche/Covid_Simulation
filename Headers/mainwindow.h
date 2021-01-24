@@ -46,6 +46,15 @@ public:
      */
     void enableUI();
 
+    /**
+     * @brief checkDebugInfo \n
+     * Function that checks the state of various UI components that specify
+     * debug states and info. Returns a std::map that makes these pieces of
+     * debug info to their respective truth value.
+     * @return
+     */
+    std::map<std::string, bool> checkDebugInfo();
+
     /** Destructor for the MainWindow object, clears all memory*/
     ~MainWindow();
 

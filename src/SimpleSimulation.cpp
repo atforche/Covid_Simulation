@@ -1,7 +1,8 @@
 #include <Headers/SimpleSimulation.h>
 
-SimpleSimulation::SimpleSimulation(int numAgents, Ui::MainWindow* ui) :
-    Simulation(numAgents, ui) {
+SimpleSimulation::SimpleSimulation(int numAgents, Ui::MainWindow* ui,
+                                   std::map<std::string, bool> debug) :
+    Simulation(numAgents, ui, debug) {
 
     this->homeRegion = new SquareRegion(ui->numLocations->value(),
                                         Coordinate(0, 0),
@@ -99,21 +100,72 @@ void SimpleSimulation::test() {
 
 
 void SimpleSimulation::generateAgents() {
+
+    // Dynamically create enough colors to uniquely visualize each of the
+    // different strategies
+    std::vector<QColor> agentColors;
+    int adultBehaviors = getController()->numAdultBehaviors();
+    int childBehaviors = getController()->numChildBehaviors();
+    for (int i = 0; i < adultBehaviors + childBehaviors; ++i) {
+        agentColors.push_back(QColor(rand() % 256,
+                                     rand() % 256,
+                                     rand() % 256));
+    }
+
     std::vector<Location*> homeLocations = homeRegion->getLocations();
     std::vector<Location*> schoolLocations = schoolRegion->getLocations();
     std::vector<Location*> workLocations = workRegion->getLocations();
     std::vector<Location*> leisureLocations = leisureRegion->getLocations();
 
     for (int i = 0; i < getNumAgents(); ++i) {
+        // Randomly sample the four locations of interest for the agent
         int homeIndex = rand() % homeLocations.size();
-        Coordinate* homePosition = homeLocations[homeIndex]->getPosition();
-        Agent* agent = new Agent(rand() % 99,
-                                 new Coordinate(homePosition->getCoord(Coordinate::X) + rand() % 10,
-                                            homePosition->getCoord(Coordinate::Y) + rand() % 10));
-
         int schoolIndex = rand() % schoolLocations.size();
         int workIndex = rand() % workLocations.size();
         int leisureIndex = rand() % leisureLocations.size();
+
+        // Randomly sample an age assignment for the agent
+        int ageAssignment = rand() % 99;
+
+        // Randomly sample a behavior assignment of the agent based on its age
+        int behaviorAssignment;
+        if (ageAssignment >= 18) {
+            behaviorAssignment = rand() % getController()->numAdultBehaviors();
+        } else {
+            behaviorAssignment = rand() % getController()->numChildBehaviors();
+        }
+
+        // Determine the starting position of this behavior chart and assign
+        // this starting position of the agent to it
+        QString startingLocation = getController()->getDestinationAssignment(
+                    behaviorAssignment, 0, ageAssignment >= 18);
+
+        Location* initialLocation;
+        if (startingLocation == "Home") {
+            initialLocation = homeLocations[homeIndex];
+        } else if (startingLocation == "School") {
+            initialLocation = schoolLocations[schoolIndex];
+        } else if (startingLocation == "Work") {
+            initialLocation = workLocations[workIndex];
+        } else if (startingLocation == "Leisure") {
+            initialLocation = leisureLocations[leisureIndex];
+        } else {
+            throw "Invalid Behavior File Loaded";
+        }
+
+        // Create the agent with the sampled behavior assignment and starting
+        // location
+        Agent* agent = new Agent(ageAssignment,
+                                 initialLocation,
+                                 behaviorAssignment);
+
+        // If the agentBehavior checkbox is checked. Assign unique colors to
+        // each behavior if checked (needs fixing to get debug into)
+        if (checkDebug("visualize behaviors")) {
+            agent->getGraphicsObject()->setPen(
+                        agentColors[behaviorAssignment + agent->isAdult() * childBehaviors]
+                        );
+        }
 
         agent->setLocation(homeLocations[homeIndex], Agent::HOME);
         homeLocations[homeIndex]->addAgent(agent);
@@ -124,6 +176,7 @@ void SimpleSimulation::generateAgents() {
         agent->setLocation(leisureLocations[leisureIndex], Agent::LEISURE);
         leisureLocations[leisureIndex]->addAgent(agent);
 
+        // Add the agent to the simulation
         addAgent(agent);
     }
 }

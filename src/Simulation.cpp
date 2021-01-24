@@ -1,6 +1,7 @@
 #include "Headers/Simulation.h"
 
-Simulation::Simulation(int numAgents, Ui::MainWindow* ui) {
+Simulation::Simulation(int numAgents, Ui::MainWindow* ui,
+                       std::map<std::string, bool> debug) {
     assert(numAgents >= 0);
     this->numAgents = numAgents;
     this->agents.reserve(numAgents);
@@ -8,11 +9,13 @@ Simulation::Simulation(int numAgents, Ui::MainWindow* ui) {
     this->simHeight = ui->mainCanvas->height();
     this->simWidth = ui->mainCanvas->width();
 
+    this->debug = debug;
+
     this->year = 0;
     this->day = 0;
     this->hour = 0;
 
-    this->agentController = new AgentController(NUM_BEHAVIORS);
+    this->agentController = new AgentController();
 }
 
 
@@ -127,6 +130,19 @@ int Simulation::getDay() {
 
 int Simulation::getHour() {
     return hour;
+}
+
+
+AgentController* Simulation::getController() {
+    return agentController;
+}
+
+
+bool Simulation::checkDebug(std::string val) {
+    if (this->debug.find(val) != this->debug.end()) {
+        return this->debug[val];
+    }
+    return false;
 }
 
 

@@ -24,7 +24,7 @@ MainWindow::MainWindow(QWidget *parent)
     paused = true;
 
     // Create a SimpleSimulation and connect it to the UI
-    SimpleSimulation* simulation = new SimpleSimulation(50, ui);
+    SimpleSimulation* simulation = new SimpleSimulation(50, ui, checkDebugInfo());
     this->sim = simulation;
 
     // Define the values for the simulationTypes dropdown
@@ -75,6 +75,14 @@ void MainWindow::enableUI() {
 }
 
 
+std::map<std::string, bool> MainWindow::checkDebugInfo() {
+    std::map<std::string, bool> debug;
+    debug["visualize behaviors"] = (ui->agentBehaviors->checkState() ==
+                                    Qt::CheckState::Checked);
+    return debug;
+}
+
+
 MainWindow::~MainWindow()
 {
     delete sim;
@@ -89,7 +97,7 @@ void MainWindow::on_runSimulation_clicked()
     sim->reset();
 
     delete sim;
-    sim = new SimpleSimulation(ui->numAgents->value(), ui);
+    sim = new SimpleSimulation(ui->numAgents->value(), ui, checkDebugInfo());
     sim->init();
 
     // Create a SimulationController and connect it to the Simulation

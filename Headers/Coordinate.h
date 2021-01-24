@@ -21,6 +21,13 @@ public:
     enum COORDINATES {X, Y};
 
     /**
+     * @brief Coordinate
+     * Default constructor for the Coordinate class. Creates a Coordinate
+     * located at (0,0)
+     */
+    Coordinate();
+
+    /**
      * @brief Coordinate \n
      * Constructor for the Coordinate Class. A Coordinate is an object that
      * has an X and Y position and can represent a position in the Simulation
@@ -55,7 +62,7 @@ public:
      * @param other: the second coordinate to calculate the distance to
      * @return the distance between the two coordinates as a double
      */
-    double distBetween(Coordinate *other);
+    double distBetween(Coordinate& other);
 
     /**
      * @brief headingBetween \n
@@ -66,7 +73,20 @@ public:
      * @return a Coordinate corresponding to the shortest 2D vector between
      *         the two points
      */
-    Coordinate* headingBetween(Coordinate *other);
+    Coordinate headingBetween(Coordinate& other);
+
+    /**
+     * @brief operator == \n
+     * Overloaded equality operator for the Coordinate Class. Enables Coordinates
+     * to be compared using "==". Returns true of the Coordinates X and Y
+     * members are equal
+     * @param lhs: first Coordinate to compare
+     * @param rhs: second Coordinate to compare
+     * @return whether the two Coordinates are equivalent
+     */
+    friend bool operator==(const Coordinate& lhs, const Coordinate& rhs) {
+        return lhs.x == rhs.x && lhs.y == rhs.y;
+    };
 
 };
 

@@ -38,7 +38,8 @@ public:
      * it will lack any more advanced features like infectivity or economy.
      * @param numAgents: the specified number of agents in the simulation
      */
-    SimpleSimulation(int numAgents, Ui::MainWindow* ui);
+    SimpleSimulation(int numAgents, Ui::MainWindow* ui,
+                     std::map<std::string, bool> debug);
 
     /**
      * @brief init \n

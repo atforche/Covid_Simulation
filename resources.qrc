@@ -1,5 +1,9 @@
-<!DOCTYPE RCC><RCC version="1.0">
-<qresource>
-    <file>bin/behaviors/1.json</file>
-</qresource>
+<RCC>
+    <qresource prefix="/">
+        <file>bin/behaviors/adult_1.json</file>
+        <file>bin/behaviors/adult_2.json</file>
+        <file>bin/behaviors/adult_3.json</file>
+        <file>bin/behaviors/adult_4.json</file>
+        <file>bin/behaviors/child_1.json</file>
+    </qresource>
 </RCC>
