@@ -137,8 +137,8 @@ void SimpleSimulation::generateAgents() {
 
         // Determine the starting position of this behavior chart and assign
         // this starting position of the agent to it
-        QString startingLocation = getController()->getDestinationAssignment(
-                    behaviorAssignment, 0, ageAssignment >= 18);
+        QString startingLocation = getController()->getStartingAssignment(
+                    behaviorAssignment, ageAssignment >= 18);
 
         Location* initialLocation;
         if (startingLocation == "Home") {

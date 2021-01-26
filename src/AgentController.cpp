@@ -54,23 +54,33 @@ void AgentController::assignAgentDestinations(std::vector<Agent*> agents, int ho
         bool adult = agents[i]->isAdult();
 
         // Pull the Agent's destination from the appriopriate behavior chart
-        QString destination;
-        if (adult) {
-            destination = adultBehaviors[behavior].value(
-                        QString::number(hour)).toString();
+        QJsonValue destination = getDestinationAssignment(behavior, hour, adult);
+        QString destinationString;
+
+        // Destination will either be a JSON string or object. Check which it is
+        // and process it accordingly
+        if (destination.isString()) {
+            destinationString = destination.toString();
         } else {
-            destination = childBehaviors[behavior].value(
-                        QString::number(hour)).toString();
+            QJsonObject object = destination.toObject();
+            QStringList keys = object.keys();
+            std::vector<double> probabilities(keys.size());
+            for (int i = 0; i < keys.size(); ++i) {
+                probabilities[i] = object.value(keys[i]).toDouble();
+            }
+            destinationString = evaluateDestination(keys, probabilities);
         }
 
         // Updates the Agent's destination
-        if (destination == "Home") {
+        if (destinationString == "No Change") {
+            continue;
+        } else if (destinationString == "Home") {
             agents[i]->setDestination(agents[i]->getLocation(Agent::HOME));
-        } else if (destination == "School") {
+        } else if (destinationString == "School") {
             agents[i]->setDestination(agents[i]->getLocation(Agent::SCHOOL));
-        } else if (destination == "Work") {
+        } else if (destinationString == "Work") {
             agents[i]->setDestination(agents[i]->getLocation(Agent::WORK));
-        } else if (destination == "Leisure") {
+        } else if (destinationString == "Leisure") {
             agents[i]->setDestination(agents[i]->getLocation(Agent::LEISURE));
         } else {
             // Throw an exception if an invalid behavior is loaded
@@ -80,12 +90,66 @@ void AgentController::assignAgentDestinations(std::vector<Agent*> agents, int ho
 }
 
 
-QString AgentController::getDestinationAssignment(int behaviorChart,
-                                                  int hour, bool isAdult) {
+QString AgentController::getStartingAssignment(int behaviorChart,
+                                               bool isAdult) {
     if (isAdult) {
         return adultBehaviors[behaviorChart].value(
-                    QString::number((hour))).toString();
+                    QString::number(0)).toString();
     }
     return childBehaviors[behaviorChart].value(
-                QString::number(hour)).toString();
+                QString::number(0)).toString();
+}
+
+
+QString AgentController::evaluateDestination(QStringList &keys,
+                                             std::vector<double> &probabilities) {
+    // Generate a cumulative weighted total for each key
+    int weightedSum = 0;
+    for (size_t i = 0; i < probabilities.size(); ++i) {
+        probabilities[i] = 100 * probabilities[i] + weightedSum;
+        weightedSum = probabilities[i];
+    }
+
+    // Randomly sample a value in [0,weightedSum). Return the first key for
+    // which this random value is less than the weighted sum
+    int random = rand() % weightedSum;
+    for (size_t i = 0; i < probabilities.size(); ++i) {
+        if (random < probabilities[i]) {
+            return keys.at(i);
+        }
+    }
+
+    // Default return case
+    return keys.at(0);
+}
+
+
+QJsonValue AgentController::getDestinationAssignment(int behavior,
+                                                     int hour, bool adult) {
+    QJsonValue destination;
+    QJsonObject::iterator key;
+    if (adult) {
+        // Check if current hour exists in adult chart. If it does,
+        // store the QJsonValue. Else, store a default QJsonValue
+        key = adultBehaviors[behavior].find(
+                    QString::number(hour));
+        if (key != adultBehaviors[behavior].end()) {
+            destination = key.value();
+        } else {
+            destination = QJsonValue("No Change");
+        }
+
+    } else {
+        // Check if current hour exists in adult chart. If it does,
+        // store the QJsonValue. Else, store a default QJsonValue
+        key = childBehaviors[behavior].find(
+                    QString::number(hour));
+        if (key != childBehaviors[behavior].end()) {
+            destination = key.value();
+        } else {
+            destination = QJsonValue("No Change");
+        }
+    }
+
+    return destination;
 }

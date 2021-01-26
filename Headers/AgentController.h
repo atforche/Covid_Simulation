@@ -64,16 +64,38 @@ public:
     void assignAgentDestinations(std::vector<Agent*> agents, int hour);
 
     /**
-     * @brief getDestinationAssignment \n
+     * @brief getStartingAssignment \n
      * Function that returns the specific destination assignment for a specific
-     * behavior chart at a specific hour
+     * behavior chart at th start of the simulation (hour 0)
      * @param behaviorChart: the behavior chart to query
-     * @param hour: the hour of the day to query
      * @param isAdult: determines whether to check the adult beahavior or the
      *        child behavior chart
      * @return
      */
-    QString getDestinationAssignment(int behaviorChart, int hour, bool isAdult);
+    QString getStartingAssignment(int behaviorChart, bool isAdult);
+
+    /**
+     * @brief evaluateDestination \n
+     * Evaluates the different possible locations and their probabilities.
+     * Randomly selects a single location with weighted probability.
+     * @param keys: different locations to select from
+     * @param probabilities: unique weighted probability for each location
+     * @return the selected location
+     */
+    QString evaluateDestination(QStringList &keys, std::vector<double> &probabilities);
+
+    /**
+     * @brief getDestinationAssignment \n
+     * Returns the destination assignment for the given behaviorChart at the
+     * given hour as a QJsonValue. Returns a JSON string if single destination
+     * is specified. Returns a JSON object is multiple destinations are
+     * possible. Returns a JSON string of "No Change" if hour is not specified
+     * @param behaviorChart: behavior chart assigned to agent
+     * @param hour: hour for which to search the chart
+     * @param isAdult: whether the agent is an adult
+     * @return the destination assignment for the given hour
+     */
+    QJsonValue getDestinationAssignment(int behaviorChart, int hour, bool isAdult);
 
 };
 
