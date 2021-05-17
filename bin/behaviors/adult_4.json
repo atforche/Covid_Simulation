@@ -1,0 +1,20 @@
+{
+    "Description": "Random Worker",
+    "0": {
+        "Work": 0.5,
+        "Home": 0.5
+    },
+    "8": {
+        "Home": 0.3,
+        "Leisure": 0.3,
+        "Work": 0.3
+    },
+    "16": {
+        "Work": 0.3,
+        "Leisure": 0.3,
+        "Home": 0.3
+    },
+    "specialDates": {
+
+    }
+}

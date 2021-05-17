@@ -1,0 +1,15 @@
+{
+    "Description": "Second Shift Worker",
+    "0": "Home",
+    "8": {
+        "Home": 0.5,
+        "Leisure": 0.5
+    },
+    "16": {
+        "Work": 0.85,
+        "Leisure": 0.15
+    },
+    "specialDates": {
+
+    }
+}

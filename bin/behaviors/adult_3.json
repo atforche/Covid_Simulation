@@ -1,0 +1,15 @@
+{
+    "Description": "Third Shift Worker",
+    "0": {
+        "Work": 0.85,
+        "Home": 0.15
+    },
+    "8": "Home",
+    "16": {
+        "Home": 0.5,
+        "Leisure": 0.5
+    },
+    "specialDates": {
+
+    }
+}

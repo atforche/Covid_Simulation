@@ -38,38 +38,19 @@ AgentController::AgentController() {
 }
 
 
-int AgentController::numAdultBehaviors() {
+int AgentController::getNumAdultBehaviors() {
     return static_cast<int>(adultBehaviors.size());
 }
 
 
-int AgentController::numChildBehaviors() {
+int AgentController::getNumChildBehaviors() {
     return static_cast<int>(childBehaviors.size());
 }
 
-void AgentController::assignAgentDestinations(std::vector<Agent*> agents, int hour) {
+void AgentController::updateAgentDestination(std::vector<Agent *> agents, int hour) {
     for (size_t i = 0; i < agents.size(); ++i) {
-        // Get the agents behavior assignment and whether they are an adult
-        int behavior = agents[i]->getBehavior();
-        bool adult = agents[i]->isAdult();
-
-        // Pull the Agent's destination from the appriopriate behavior chart
-        QJsonValue destination = getDestinationAssignment(behavior, hour, adult);
-        QString destinationString;
-
-        // Destination will either be a JSON string or object. Check which it is
-        // and process it accordingly
-        if (destination.isString()) {
-            destinationString = destination.toString();
-        } else {
-            QJsonObject object = destination.toObject();
-            QStringList keys = object.keys();
-            std::vector<double> probabilities(keys.size());
-            for (int i = 0; i < keys.size(); ++i) {
-                probabilities[i] = object.value(keys[i]).toDouble();
-            }
-            destinationString = evaluateDestination(keys, probabilities);
-        }
+        // Determine to where the agent will be assigned
+        QString destinationString = getDestinationAssignment(agents[i], hour);
 
         // Updates the Agent's destination
         if (destinationString == "No Change") {
@@ -90,19 +71,17 @@ void AgentController::assignAgentDestinations(std::vector<Agent*> agents, int ho
 }
 
 
-QString AgentController::getStartingAssignment(int behaviorChart,
+QString AgentController::getStartingDestination(int behaviorChart,
                                                bool isAdult) {
-    if (isAdult) {
-        return adultBehaviors[behaviorChart].value(
-                    QString::number(0)).toString();
-    }
-    return childBehaviors[behaviorChart].value(
-                QString::number(0)).toString();
+    int age = isAdult ? 50 : 10;
+    Location temp2(0,0);
+    Agent temp(age, &temp2, behaviorChart);
+    return getDestinationAssignment(&temp, 0);
 }
 
 
-QString AgentController::evaluateDestination(QStringList &keys,
-                                             std::vector<double> &probabilities) {
+QString AgentController::evaluateDestinationProbabilities(QStringList &keys,
+                                                          std::vector<double> &probabilities) {
     // Generate a cumulative weighted total for each key
     int weightedSum = 0;
     for (size_t i = 0; i < probabilities.size(); ++i) {
@@ -124,7 +103,7 @@ QString AgentController::evaluateDestination(QStringList &keys,
 }
 
 
-QJsonValue AgentController::getDestinationAssignment(int behavior,
+QJsonValue AgentController::extractDestinationAssignment(int behavior,
                                                      int hour, bool adult) {
     QJsonValue destination;
     QJsonObject::iterator key;
@@ -152,4 +131,32 @@ QJsonValue AgentController::getDestinationAssignment(int behavior,
     }
 
     return destination;
+}
+
+
+QString AgentController::getDestinationAssignment(Agent *agent, int hour) {
+    // Get the agents behavior assignment and whether they are an adult
+    int behavior = agent->getBehavior();
+    bool adult = agent->isAdult();
+
+    // Pull the Agent's destination from the appriopriate behavior chart
+    QJsonValue destination = extractDestinationAssignment(behavior, hour,
+                                                          adult);
+    QString destinationString;
+    // Destination will either be a JSON string or object. Check which it is
+    // and process it accordingly
+    if (destination.isString()) {
+        destinationString = destination.toString();
+    } else {
+        QJsonObject object = destination.toObject();
+        QStringList keys = object.keys();
+        std::vector<double> probabilities(keys.size());
+        for (int i = 0; i < keys.size(); ++i) {
+            probabilities[i] = object.value(keys[i]).toDouble();
+        }
+        destinationString = evaluateDestinationProbabilities(keys,
+                                                             probabilities);
+    }
+
+    return destinationString;
 }

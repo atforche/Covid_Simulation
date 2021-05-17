@@ -1,12 +1,16 @@
 {
+    "Description": "Regular Student",
     "0": "Home",
     "8": {
-        "School": 1
+        "School": 0.9,
+        "Home": 0.1
     },
-    "17": {
-        "Leisure": 1
+    "15": {
+        "Leisure": 0.3,
+        "School": 0.3,
+        "Home": 0.3
     },
-    "19": {
+    "18": {
         "Home": 1
     },
     "specialDates": {

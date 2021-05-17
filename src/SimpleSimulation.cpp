@@ -104,8 +104,8 @@ void SimpleSimulation::generateAgents() {
     // Dynamically create enough colors to uniquely visualize each of the
     // different strategies
     std::vector<QColor> agentColors;
-    int adultBehaviors = getController()->numAdultBehaviors();
-    int childBehaviors = getController()->numChildBehaviors();
+    int adultBehaviors = getController()->getNumAdultBehaviors();
+    int childBehaviors = getController()->getNumChildBehaviors();
     for (int i = 0; i < adultBehaviors + childBehaviors; ++i) {
         agentColors.push_back(QColor(rand() % 256,
                                      rand() % 256,
@@ -130,14 +130,14 @@ void SimpleSimulation::generateAgents() {
         // Randomly sample a behavior assignment of the agent based on its age
         int behaviorAssignment;
         if (ageAssignment >= 18) {
-            behaviorAssignment = rand() % getController()->numAdultBehaviors();
+            behaviorAssignment = rand() % getController()->getNumAdultBehaviors();
         } else {
-            behaviorAssignment = rand() % getController()->numChildBehaviors();
+            behaviorAssignment = rand() % getController()->getNumChildBehaviors();
         }
 
         // Determine the starting position of this behavior chart and assign
         // this starting position of the agent to it
-        QString startingLocation = getController()->getStartingAssignment(
+        QString startingLocation = getController()->getStartingDestination(
                     behaviorAssignment, ageAssignment >= 18);
 
         Location* initialLocation;

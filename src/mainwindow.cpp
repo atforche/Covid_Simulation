@@ -47,6 +47,7 @@ void MainWindow::disableUI() {
     ui->numLocationsLabel->setEnabled(false);
     ui->numAgents->setEnabled(false);
     ui->numAgentsLabel->setEnabled(false);
+    ui->agentBehaviors->setEnabled(false);
 
     ui->resetSimulation->setEnabled(true);
     ui->slowSim->setEnabled(true);
@@ -62,6 +63,7 @@ void MainWindow::enableUI() {
     ui->numLocationsLabel->setEnabled(true);
     ui->numAgents->setEnabled(true);
     ui->numAgentsLabel->setEnabled(true);
+    ui->agentBehaviors->setEnabled(true);
 
     ui->resetSimulation->setEnabled(false);
     ui->slowSim->setEnabled(false);

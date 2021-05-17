@@ -1,0 +1,18 @@
+{
+    "Description": "Homeschooled",
+    "0": "Home",
+    "8": {
+        "Home": 0.85,
+        "Leisure": 0.15
+    },
+    "15": {
+        "Leisure": 0.25,
+        "Home": 0.75
+    },
+    "18": {
+        "Home": 1
+    },
+    "specialDates": {
+
+    }
+}

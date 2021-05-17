@@ -38,12 +38,12 @@ public:
     AgentController();
 
     /**
-     * @brief getNumBehaviors \n
+     * @brief getNumAdultBehaviors \n
      * Getter function for the number of unique adult behaviors that an adult
      * agent could possibly have
      * @return the number of unique behaviors as an integer
      */
-    int numAdultBehaviors();
+    int getNumAdultBehaviors();
 
     /**
      * @brief numChildBehaviors \n
@@ -51,20 +51,20 @@ public:
      * agent could possibly have
      * @return the number of child behaviors
      */
-    int numChildBehaviors();
+    int getNumChildBehaviors();
 
     /**
-     * @brief assignAgentDestinations \n
+     * @brief updateAgentDestinations \n
      * Function that goes through each of the agents and assigns them to their
      * correct destinations. Should be called from Simulation::advanceTime() at
      * an hourly interval to save computations
      * @param agents: a vector of Agent* pointing to each agent in the Simulation
      * @param hour: the current hour of the simulation
      */
-    void assignAgentDestinations(std::vector<Agent*> agents, int hour);
+    void updateAgentDestination(std::vector<Agent*> agents, int hour);
 
     /**
-     * @brief getStartingAssignment \n
+     * @brief getStartingDestination \n
      * Function that returns the specific destination assignment for a specific
      * behavior chart at th start of the simulation (hour 0)
      * @param behaviorChart: the behavior chart to query
@@ -72,20 +72,21 @@ public:
      *        child behavior chart
      * @return
      */
-    QString getStartingAssignment(int behaviorChart, bool isAdult);
+    QString getStartingDestination(int behaviorChart, bool isAdult);
 
     /**
-     * @brief evaluateDestination \n
+     * @brief evaluateDestinationProbabilities \n
      * Evaluates the different possible locations and their probabilities.
      * Randomly selects a single location with weighted probability.
      * @param keys: different locations to select from
      * @param probabilities: unique weighted probability for each location
      * @return the selected location
      */
-    QString evaluateDestination(QStringList &keys, std::vector<double> &probabilities);
+    QString evaluateDestinationProbabilities(QStringList &keys,
+                                             std::vector<double> &probabilities);
 
     /**
-     * @brief getDestinationAssignment \n
+     * @brief extractDestinationAssignment \n
      * Returns the destination assignment for the given behaviorChart at the
      * given hour as a QJsonValue. Returns a JSON string if single destination
      * is specified. Returns a JSON object is multiple destinations are
@@ -95,7 +96,20 @@ public:
      * @param isAdult: whether the agent is an adult
      * @return the destination assignment for the given hour
      */
-    QJsonValue getDestinationAssignment(int behaviorChart, int hour, bool isAdult);
+    QJsonValue extractDestinationAssignment(int behaviorChart, int hour,
+                                            bool isAdult);
+
+    /**
+     * @brief getDestinationAssignment \n
+     * Determines what location the agent should be assign to. Reads the
+     * behavior chart to determine the possible locations. Samples which
+     * location should be assigned according to the probabilities. Returns
+     * the QString corresponding to the selected location
+     * @param agent: the agent who will be assigned
+     * @param hour: the current hour in the simulation
+     * @return which location the agent will be assigned to
+     */
+    QString getDestinationAssignment(Agent* agent, int hour);
 
 };
 

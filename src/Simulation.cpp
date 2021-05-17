@@ -57,7 +57,7 @@ void Simulation::advanceTime() {
             }
         }
         // Call down here to ensure correct hour value passed
-        agentController->assignAgentDestinations(getAgents(), this->hour);
+        agentController->updateAgentDestination(getAgents(), this->hour);
     }
 }
 
