@@ -32,6 +32,9 @@ Function that disables all necessary UI elements when the \mbox{\hyperlink{class
 void \mbox{\hyperlink{class_main_window_a98b4b0619a6464a3986137f27e2b33fc}{enable\+UI}} ()
 \begin{DoxyCompactList}\small\item\em enable\+UI ~\newline
 Function that enables all the necessary UI elements when the \mbox{\hyperlink{class_simulation}{Simulation}} is ended. Allows the user to be able to change constant values in between \mbox{\hyperlink{class_simulation}{Simulation}} executions \end{DoxyCompactList}\item 
+std\+::map$<$ std\+::string, bool $>$ \mbox{\hyperlink{class_main_window_a02e533c825c69b768e39f3ffc6db6155}{check\+Debug\+Info}} ()
+\begin{DoxyCompactList}\small\item\em check\+Debug\+Info ~\newline
+Function that checks the state of various UI components that specify debug states and info. Returns a std\+::map that makes these pieces of debug info to their respective truth value. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{class_main_window_ae98d00a93bc118200eeef9f9bba1dba7}{$\sim$\+Main\+Window}} ()
 \end{DoxyCompactItemize}
 
@@ -53,14 +56,6 @@ Creates the UI design for the main window. Initializes the drawing scene and all
 {\em parent} & the parent widget to which this window belongs \\
 \hline
 \end{DoxyParams}
-Here is the call graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{class_main_window_a996c5a2b6f77944776856f08ec30858d_cgraph}
-\end{center}
-\end{figure}
 \mbox{\Hypertarget{class_main_window_ae98d00a93bc118200eeef9f9bba1dba7}\label{class_main_window_ae98d00a93bc118200eeef9f9bba1dba7}} 
 \index{MainWindow@{MainWindow}!````~MainWindow@{$\sim$MainWindow}}
 \index{````~MainWindow@{$\sim$MainWindow}!MainWindow@{MainWindow}}
@@ -68,6 +63,23 @@ Here is the call graph for this function\+:
 {\footnotesize\ttfamily Main\+Window\+::$\sim$\+Main\+Window (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 Destructor for the \mbox{\hyperlink{class_main_window}{Main\+Window}} object, clears all memory 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_main_window_a02e533c825c69b768e39f3ffc6db6155}\label{class_main_window_a02e533c825c69b768e39f3ffc6db6155}} 
+\index{MainWindow@{MainWindow}!checkDebugInfo@{checkDebugInfo}}
+\index{checkDebugInfo@{checkDebugInfo}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{checkDebugInfo()}{checkDebugInfo()}}
+{\footnotesize\ttfamily std\+::map$<$ std\+::string, bool $>$ Main\+Window\+::check\+Debug\+Info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+check\+Debug\+Info ~\newline
+Function that checks the state of various UI components that specify debug states and info. Returns a std\+::map that makes these pieces of debug info to their respective truth value. 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

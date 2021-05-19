@@ -1,6 +1,11 @@
 var class_agent_controller =
 [
-    [ "AgentController", "class_agent_controller.html#a8bf24f1a9f3904b915fdd27adadf2dc3", null ],
-    [ "assignAgentDestinations", "class_agent_controller.html#a1574fc5722eaf00126c55281f1a2cb92", null ],
-    [ "getNumBehaviors", "class_agent_controller.html#a03f6aef058a830ab9a496a1b89291e38", null ]
+    [ "AgentController", "class_agent_controller.html#a7e51ef48183b7bb9ed30b79d98895780", null ],
+    [ "evaluateDestinationProbabilities", "class_agent_controller.html#ac66ea2eba7326c59d9183991ea52bcd1", null ],
+    [ "extractDestinationAssignment", "class_agent_controller.html#ae73117bcb773698e70ed732c5c70ff05", null ],
+    [ "getDestinationAssignment", "class_agent_controller.html#acbe670ec2ed2581ffc5f64a7707e5ed0", null ],
+    [ "getNumAdultBehaviors", "class_agent_controller.html#af9abb95ce567f65cb68fa25342f8b5ec", null ],
+    [ "getNumChildBehaviors", "class_agent_controller.html#a9949edc3068aab2b0fcc334fdf31e937", null ],
+    [ "getStartingDestination", "class_agent_controller.html#a02d22757dce690853747d3b406f7d164", null ],
+    [ "updateAgentDestination", "class_agent_controller.html#a52ef1e68c38d265174d0290e5bd6618d", null ]
 ];

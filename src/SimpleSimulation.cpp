@@ -4,6 +4,7 @@ SimpleSimulation::SimpleSimulation(int numAgents, Ui::MainWindow* ui,
                                    std::map<std::string, bool> debug) :
     Simulation(numAgents, ui, debug) {
 
+    // Create four square regions (Home, Work, School, Leisure)
     this->homeRegion = new SquareRegion(ui->numLocations->value(),
                                         Coordinate(0, 0),
                                         getSimHeight() / 2,
@@ -26,50 +27,61 @@ SimpleSimulation::SimpleSimulation(int numAgents, Ui::MainWindow* ui,
                                         QColor(0, 227, 19),
                                         "Leisure");
 
+    // Add the region squares and the name labels to the screen
     addToScreen(homeRegion->getGraphicsObject());
     addToScreen(homeRegion->getNameGraphicsObject());
+
     addToScreen(workRegion->getGraphicsObject());
     addToScreen(workRegion->getNameGraphicsObject());
+
     addToScreen(schoolRegion->getGraphicsObject());
     addToScreen(schoolRegion->getNameGraphicsObject());
+
     addToScreen(leisureRegion->getGraphicsObject());
     addToScreen(leisureRegion->getNameGraphicsObject());
 }
 
 
 void SimpleSimulation::init() {
-
+    // Generate locations within the HomeRegion and add them to the screen
     generateLocations(homeRegion, homeRegion->getNumLocations());
     std::vector<QGraphicsItem*> toRender = homeRegion->getLocationsGraphicsObject();
     for(auto item : toRender) {
         addToScreen(item);
     }
 
+    // Generate locations within the WorkRegion and add them to the screen
     generateLocations(workRegion, workRegion->getNumLocations());
     toRender = workRegion->getLocationsGraphicsObject();
     for(auto item : toRender) {
         addToScreen(item);
     }
 
+    // Generate locations within the SchoolRegion and add them to the screen
     generateLocations(schoolRegion, schoolRegion->getNumLocations());
     toRender = schoolRegion->getLocationsGraphicsObject();
     for(auto item : toRender) {
         addToScreen(item);
     }
 
+    // Generate locations within the LeisureREgion and add them to the screen
     generateLocations(leisureRegion, leisureRegion->getNumLocations());
     toRender = leisureRegion->getLocationsGraphicsObject();
     for(auto item : toRender) {
         addToScreen(item);
     }
 
+    // Generate a set of agents for the simulation
     generateAgents();
 
 }
 
 
 void SimpleSimulation::execute() {
+    // Advance time by a single tick
     advanceTime();
+
+    // Advance time for each agent
     std::vector<Agent*> agents = getAgents();
     for (int i = 0; i < getNumAgents(); ++i) {
         agents[i]->takeTimeStep();
@@ -78,16 +90,20 @@ void SimpleSimulation::execute() {
 
 
 void SimpleSimulation::reset() {
+    // Completely reset the screen and the simulation
     clearScreen();
     clearAgents();
 
     // Redraw the regions to the screen to prevent blank area
     addToScreen(homeRegion->getGraphicsObject());
     addToScreen(homeRegion->getNameGraphicsObject());
+
     addToScreen(workRegion->getGraphicsObject());
     addToScreen(workRegion->getNameGraphicsObject());
+
     addToScreen(schoolRegion->getGraphicsObject());
     addToScreen(schoolRegion->getNameGraphicsObject());
+
     addToScreen(leisureRegion->getGraphicsObject());
     addToScreen(leisureRegion->getNameGraphicsObject());
 }
@@ -100,9 +116,7 @@ void SimpleSimulation::test() {
 
 
 void SimpleSimulation::generateAgents() {
-
-    // Dynamically create enough colors to uniquely visualize each of the
-    // different strategies
+    // Create a random color for each strategy
     std::vector<QColor> agentColors;
     int adultBehaviors = getController()->getNumAdultBehaviors();
     int childBehaviors = getController()->getNumChildBehaviors();
@@ -112,6 +126,7 @@ void SimpleSimulation::generateAgents() {
                                      rand() % 256));
     }
 
+    // Get a set of locations from each Region
     std::vector<Location*> homeLocations = homeRegion->getLocations();
     std::vector<Location*> schoolLocations = schoolRegion->getLocations();
     std::vector<Location*> workLocations = workRegion->getLocations();
@@ -124,7 +139,7 @@ void SimpleSimulation::generateAgents() {
         int workIndex = rand() % workLocations.size();
         int leisureIndex = rand() % leisureLocations.size();
 
-        // Randomly sample an age assignment for the agent
+        // Randomly sample an age assignment for the agent (update later)
         int ageAssignment = rand() % 99;
 
         // Randomly sample a behavior assignment of the agent based on its age
@@ -140,6 +155,7 @@ void SimpleSimulation::generateAgents() {
         QString startingLocation = getController()->getStartingDestination(
                     behaviorAssignment, ageAssignment >= 18);
 
+        // Set the initial location of the agent based on the behavior chart
         Location* initialLocation;
         if (startingLocation == "Home") {
             initialLocation = homeLocations[homeIndex];
@@ -153,26 +169,28 @@ void SimpleSimulation::generateAgents() {
             throw "Invalid Behavior File Loaded";
         }
 
-        // Create the agent with the sampled behavior assignment and starting
-        // location
+        // Create an agent with the determines behavior and location
         Agent* agent = new Agent(ageAssignment,
                                  initialLocation,
                                  behaviorAssignment);
 
-        // If the agentBehavior checkbox is checked. Assign unique colors to
-        // each behavior if checked (needs fixing to get debug into)
+        // If selected, set a unique color for each behavior
         if (checkDebug("visualize behaviors")) {
             agent->getGraphicsObject()->setPen(
                         agentColors[behaviorAssignment + agent->isAdult() * childBehaviors]
                         );
         }
 
+        // Set the location for each of the Agents locations
         agent->setLocation(homeLocations[homeIndex], Agent::HOME);
         homeLocations[homeIndex]->addAgent(agent);
+
         agent->setLocation(schoolLocations[schoolIndex], Agent::SCHOOL);
         schoolLocations[schoolIndex]->addAgent(agent);
+
         agent->setLocation(workLocations[workIndex], Agent::WORK);
         workLocations[workIndex]->addAgent(agent);
+
         agent->setLocation(leisureLocations[leisureIndex], Agent::LEISURE);
         leisureLocations[leisureIndex]->addAgent(agent);
 

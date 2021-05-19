@@ -125,10 +125,10 @@ Function to render the agents in their new positions following an update. Called
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a7b8b152c3232ab7f6d15eca28cd29132"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a7b8b152c3232ab7f6d15eca28cd29132">Simulation</a> (int numAgents, Ui::MainWindow *ui)</td></tr>
-<tr class="memdesc:a7b8b152c3232ab7f6d15eca28cd29132"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_simulation.html" title="The Simulation class  The Abstract Simulation class from which all other simulations will be derived....">Simulation</a>: <br  />
-Constructor for the Base <a class="el" href="class_simulation.html" title="The Simulation class  The Abstract Simulation class from which all other simulations will be derived....">Simulation</a> Object. Takes in all parameters that are universal to all simulation types.  <a href="class_simulation.html#a7b8b152c3232ab7f6d15eca28cd29132">More...</a><br /></td></tr>
-<tr class="separator:a7b8b152c3232ab7f6d15eca28cd29132"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17598f7260e97396b2dc118fd7b9400d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a17598f7260e97396b2dc118fd7b9400d">Simulation</a> (int numAgents, Ui::MainWindow *ui, std::map&lt; std::string, bool &gt; debug)</td></tr>
+<tr class="memdesc:a17598f7260e97396b2dc118fd7b9400d"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_simulation.html" title="The Simulation class  The Abstract Simulation class from which all other simulations will be derived....">Simulation</a>: <br  />
+Constructor for the Base <a class="el" href="class_simulation.html" title="The Simulation class  The Abstract Simulation class from which all other simulations will be derived....">Simulation</a> Object. Takes in all parameters that are universal to all simulation types.  <a href="class_simulation.html#a17598f7260e97396b2dc118fd7b9400d">More...</a><br /></td></tr>
+<tr class="separator:a17598f7260e97396b2dc118fd7b9400d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab4d7fe11a5098550766a4f51c0af8409"><td class="memItemLeft" align="right" valign="top"><a id="ab4d7fe11a5098550766a4f51c0af8409"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#ab4d7fe11a5098550766a4f51c0af8409">init</a> ()=0</td></tr>
 <tr class="memdesc:ab4d7fe11a5098550766a4f51c0af8409"><td class="mdescLeft">&#160;</td><td class="mdescRight">init <br  />
@@ -209,6 +209,14 @@ Getter function for the current day in the Sim  <a href="class_simulation.html#a
 <tr class="memdesc:a7b4094d997d1d63f15c9eaa2c157b4be"><td class="mdescLeft">&#160;</td><td class="mdescRight">getHour <br  />
 Getter function for the current hour in the Sim  <a href="class_simulation.html#a7b4094d997d1d63f15c9eaa2c157b4be">More...</a><br /></td></tr>
 <tr class="separator:a7b4094d997d1d63f15c9eaa2c157b4be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a409ca0d5f3912f95d3958ad8c2eab3f7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_agent_controller.html">AgentController</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a409ca0d5f3912f95d3958ad8c2eab3f7">getController</a> ()</td></tr>
+<tr class="memdesc:a409ca0d5f3912f95d3958ad8c2eab3f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">getController <br  />
+Getter function for the <a class="el" href="class_agent_controller.html" title="The AgentController class  Class that sits within the Simulation and dynamically determines each agen...">AgentController</a> driving the <a class="el" href="class_agent.html" title="The Agent Class  Class that specifies the functionality of the Agents in the simulation Contains all ...">Agent</a>'s behavior  <a href="class_simulation.html#a409ca0d5f3912f95d3958ad8c2eab3f7">More...</a><br /></td></tr>
+<tr class="separator:a409ca0d5f3912f95d3958ad8c2eab3f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51dacc3695f3cf7b35b98cd1bcb4ee02"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a51dacc3695f3cf7b35b98cd1bcb4ee02">checkDebug</a> (std::string val)</td></tr>
+<tr class="memdesc:a51dacc3695f3cf7b35b98cd1bcb4ee02"><td class="mdescLeft">&#160;</td><td class="mdescRight">checkDebug <br  />
+Checks the debug dict passed into the <a class="el" href="class_simulation.html" title="The Simulation class  The Abstract Simulation class from which all other simulations will be derived....">Simulation</a> for the truth value of the specified string. If the value is true, return true. If the value is false or does not appear, return false.  <a href="class_simulation.html#a51dacc3695f3cf7b35b98cd1bcb4ee02">More...</a><br /></td></tr>
+<tr class="separator:a51dacc3695f3cf7b35b98cd1bcb4ee02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80fad3f57dfaf195a36f7bc49bc88279"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a80fad3f57dfaf195a36f7bc49bc88279">~Simulation</a> ()</td></tr>
 <tr class="separator:a80fad3f57dfaf195a36f7bc49bc88279"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -216,8 +224,8 @@ Getter function for the current hour in the Sim  <a href="class_simulation.html#
 <div class="textblock"><p>The <a class="el" href="class_simulation.html" title="The Simulation class  The Abstract Simulation class from which all other simulations will be derived....">Simulation</a> class <br  />
 The Abstract <a class="el" href="class_simulation.html" title="The Simulation class  The Abstract Simulation class from which all other simulations will be derived....">Simulation</a> class from which all other simulations will be derived. Provides a common interface through which each simulation can be executed in the same screen space with the same driver. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a7b8b152c3232ab7f6d15eca28cd29132"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7b8b152c3232ab7f6d15eca28cd29132">&#9670;&nbsp;</a></span>Simulation()</h2>
+<a id="a17598f7260e97396b2dc118fd7b9400d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17598f7260e97396b2dc118fd7b9400d">&#9670;&nbsp;</a></span>Simulation()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -232,7 +240,13 @@ The Abstract <a class="el" href="class_simulation.html" title="The Simulation cl
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">Ui::MainWindow *&#160;</td>
-          <td class="paramname"><em>ui</em>&#160;</td>
+          <td class="paramname"><em>ui</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::map&lt; std::string, bool &gt;&#160;</td>
+          <td class="paramname"><em>debug</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -248,6 +262,7 @@ Constructor for the Base <a class="el" href="class_simulation.html" title="The S
   <table class="params">
     <tr><td class="paramname">numAgents</td><td>the number of agents in the simulation </td></tr>
     <tr><td class="paramname">ui</td><td>the main window in which the simulation will runs </td></tr>
+    <tr><td class="paramname">debug</td><td>a dict that contains the boolean values of various debug values; </td></tr>
   </table>
   </dd>
 </dl>
@@ -305,26 +320,6 @@ Function to add a new agent to the simulation. Will not add new agent if simulat
   </table>
   </dd>
 </dl>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_simulation_ae0bae49f6d2d7745d1490e668b50bfa9_cgraph.png" border="0" usemap="#aclass_simulation_ae0bae49f6d2d7745d1490e668b50bfa9_cgraph" alt=""/></div>
-<map name="class_simulation_ae0bae49f6d2d7745d1490e668b50bfa9_cgraph" id="aclass_simulation_ae0bae49f6d2d7745d1490e668b50bfa9_cgraph">
-<area shape="rect" title="addAgent &#160;Function to add a new agent to the simulation. Will not add new agent if simulation is alre..." alt="" coords="5,31,152,57"/>
-<area shape="rect" href="class_simulation.html#a70d474820a2351e8e298e6daca95b513" title="addToScreen &#160;Function to add a QGraphicsItem to the scene on which the simulation is being drawn...." alt="" coords="203,5,369,32"/>
-<area shape="rect" href="class_agent.html#ad39f0e4b928e14460c5fd08319135e7d" title="getGraphicsObject &#160;Function that returns the QGraphics object that represents the agent on the screen..." alt="" coords="200,56,372,83"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_simulation_ae0bae49f6d2d7745d1490e668b50bfa9_icgraph.png" border="0" usemap="#aclass_simulation_ae0bae49f6d2d7745d1490e668b50bfa9_icgraph" alt=""/></div>
-<map name="class_simulation_ae0bae49f6d2d7745d1490e668b50bfa9_icgraph" id="aclass_simulation_ae0bae49f6d2d7745d1490e668b50bfa9_icgraph">
-<area shape="rect" title="addAgent &#160;Function to add a new agent to the simulation. Will not add new agent if simulation is alre..." alt="" coords="431,13,577,39"/>
-<area shape="rect" href="class_simple_simulation.html#afaf1cf90f5056c66525ad2ccb290dabe" title="generateAgents &#160;Function to generate agents and assign them to behaviors and locations...." alt="" coords="201,5,383,47"/>
-<area shape="rect" href="class_simple_simulation.html#a53d5c24654dd7fb8c6733e2435f525a1" title="init &#160;Function to initialize the simulation. Initializes the Regions and Locations...." alt="" coords="5,13,153,39"/>
-</map>
-</div>
 
 </div>
 </div>
@@ -352,19 +347,34 @@ Function to add a QGraphicsItem to the scene on which the simulation is being dr
   </table>
   </dd>
 </dl>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_simulation_a70d474820a2351e8e298e6daca95b513_icgraph.png" border="0" usemap="#aclass_simulation_a70d474820a2351e8e298e6daca95b513_icgraph" alt=""/></div>
-<map name="class_simulation_a70d474820a2351e8e298e6daca95b513_icgraph" id="aclass_simulation_a70d474820a2351e8e298e6daca95b513_icgraph">
-<area shape="rect" title="addToScreen &#160;Function to add a QGraphicsItem to the scene on which the simulation is being drawn...." alt="" coords="649,97,816,123"/>
-<area shape="rect" href="class_simulation.html#ae0bae49f6d2d7745d1490e668b50bfa9" title="addAgent &#160;Function to add a new agent to the simulation. Will not add new agent if simulation is alre..." alt="" coords="443,17,589,43"/>
-<area shape="rect" href="class_simple_simulation.html#a53d5c24654dd7fb8c6733e2435f525a1" title="init &#160;Function to initialize the simulation. Initializes the Regions and Locations...." alt="" coords="5,42,153,69"/>
-<area shape="rect" href="class_simple_simulation.html#a66215e392b5eab33e9089b255c830417" title="reset &#160;Function to reset the simulation. Resets the Simulation by clearing the Scene and deleting all..." alt="" coords="436,122,596,149"/>
-<area shape="rect" href="class_simple_simulation.html#ad16a2131994b9688b750210e8d1a5929" title="SimpleSimulation &#160;The constructor for the SimpleSimulation Class, sets up all controls necessary for ..." alt="" coords="431,173,601,215"/>
-<area shape="rect" href="class_simple_simulation.html#afaf1cf90f5056c66525ad2ccb290dabe" title="generateAgents &#160;Function to generate agents and assign them to behaviors and locations...." alt="" coords="201,5,383,47"/>
-</map>
+
 </div>
+</div>
+<a id="a51dacc3695f3cf7b35b98cd1bcb4ee02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51dacc3695f3cf7b35b98cd1bcb4ee02">&#9670;&nbsp;</a></span>checkDebug()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Simulation::checkDebug </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>val</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>checkDebug <br  />
+Checks the debug dict passed into the <a class="el" href="class_simulation.html" title="The Simulation class  The Abstract Simulation class from which all other simulations will be derived....">Simulation</a> for the truth value of the specified string. If the value is true, return true. If the value is false or does not appear, return false. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">val</td><td>the debug value to be queried </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the valid is true, false otherwise </dd></dl>
 
 </div>
 </div>
@@ -402,25 +412,6 @@ Function that generates a set of Locations within the specified <a class="el" hr
   </table>
   </dd>
 </dl>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_simulation_a37329fde91a2d8c771a2d8c42e799c99_cgraph.png" border="0" usemap="#aclass_simulation_a37329fde91a2d8c771a2d8c42e799c99_cgraph" alt=""/></div>
-<map name="class_simulation_a37329fde91a2d8c771a2d8c42e799c99_cgraph" id="aclass_simulation_a37329fde91a2d8c771a2d8c42e799c99_cgraph">
-<area shape="rect" title="generateLocations &#160;Function that generates a set of Locations within the specified Region...." alt="" coords="5,31,203,57"/>
-<area shape="rect" href="class_region.html#a3f37617fe92c32b4263d3615a8cfc459" title="getGraphicsObject &#160;Function to return a QGraphicsItem* corresponding to the shape of the Region...." alt="" coords="251,5,429,32"/>
-<area shape="rect" href="class_region.html#a7d3db569b8569b891de84e577760890d" title="setLocations &#160;Setter function for the vector of Locations within a region. Pass in a vector of Locati..." alt="" coords="268,56,412,83"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_simulation_a37329fde91a2d8c771a2d8c42e799c99_icgraph.png" border="0" usemap="#aclass_simulation_a37329fde91a2d8c771a2d8c42e799c99_icgraph" alt=""/></div>
-<map name="class_simulation_a37329fde91a2d8c771a2d8c42e799c99_icgraph" id="aclass_simulation_a37329fde91a2d8c771a2d8c42e799c99_icgraph">
-<area shape="rect" title="generateLocations &#160;Function that generates a set of Locations within the specified Region...." alt="" coords="201,5,399,32"/>
-<area shape="rect" href="class_simple_simulation.html#a53d5c24654dd7fb8c6733e2435f525a1" title="init &#160;Function to initialize the simulation. Initializes the Regions and Locations...." alt="" coords="5,5,153,32"/>
-</map>
-</div>
 
 </div>
 </div>
@@ -442,20 +433,27 @@ Here is the caller graph for this function:</div>
 <p>getAgents <br  />
 Getter function for the vector of all agents in the simulation. Returns a vector of all Agents </p>
 <dl class="section return"><dt>Returns</dt><dd>a std::vector containing pointers to every agent in the simulation </dd></dl>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_simulation_a8ae30e90c1666e86caf97329c5f26ec8_icgraph.png" border="0" usemap="#aclass_simulation_a8ae30e90c1666e86caf97329c5f26ec8_icgraph" alt=""/></div>
-<map name="class_simulation_a8ae30e90c1666e86caf97329c5f26ec8_icgraph" id="aclass_simulation_a8ae30e90c1666e86caf97329c5f26ec8_icgraph">
-<area shape="rect" title="getAgents &#160;Getter function for the vector of all agents in the simulation. Returns a vector of all Ag..." alt="" coords="676,81,827,108"/>
-<area shape="rect" href="class_simulation.html#a09a1b2085074e6fb4de3d62b360bef72" title="advanceTime &#160;Function that should be called on every call to Simulation::execute()...." alt="" coords="443,5,610,32"/>
-<area shape="rect" href="class_simple_simulation.html#aed5adff71da8e1700c9059dac85ffbc6" title="execute &#160;Function to execute a simple timestep of the simulation. Loops through every agent in the si..." alt="" coords="200,17,377,44"/>
-<area shape="rect" href="class_simulation.html#a2987cc476da3d7fa312d02e00b17f4d8" title="renderAgentUpdate &#160;Function to render the agents in their new positions following an update...." alt="" coords="425,107,628,133"/>
-<area shape="rect" href="class_simple_simulation.html#a8fa34536fb673562dccd7e255d32bc71" title="test &#160;Test Function that allows for functionalities of the simulation to be tested...." alt="" coords="450,157,603,184"/>
-<area shape="rect" href="class_simulation_controller.html#a98959daaa79ec23a6f5f1704d0d0d33b" title="SimulationController &#160;Constructor for the Simulation Controller class. The simulation controller clas..." alt="" coords="5,115,152,157"/>
-<area shape="rect" href="class_simulation_controller.html#a7d8130bbec8690f946da73101cffbd67" title="updateScreen &#160;Function to handle the results of the previous timestep and render those results to the..." alt="" coords="219,145,358,186"/>
-</map>
+
 </div>
+</div>
+<a id="a409ca0d5f3912f95d3958ad8c2eab3f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a409ca0d5f3912f95d3958ad8c2eab3f7">&#9670;&nbsp;</a></span>getController()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_agent_controller.html">AgentController</a> * Simulation::getController </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>getController <br  />
+Getter function for the <a class="el" href="class_agent_controller.html" title="The AgentController class  Class that sits within the Simulation and dynamically determines each agen...">AgentController</a> driving the <a class="el" href="class_agent.html" title="The Agent Class  Class that specifies the functionality of the Agents in the simulation Contains all ...">Agent</a>'s behavior </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_agent_controller.html" title="The AgentController class  Class that sits within the Simulation and dynamically determines each agen...">AgentController</a> for the <a class="el" href="class_simulation.html" title="The Simulation class  The Abstract Simulation class from which all other simulations will be derived....">Simulation</a> </dd></dl>
 
 </div>
 </div>
@@ -519,17 +517,6 @@ Getter function for the current hour in the Sim </p>
 <p>getNumAgents <br  />
 Getter function for the number of agents in the sim </p>
 <dl class="section return"><dt>Returns</dt><dd>the number of agents in the sim </dd></dl>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_simulation_adb0496dab2348e930cfa9bce3610c4fd_icgraph.png" border="0" usemap="#aclass_simulation_adb0496dab2348e930cfa9bce3610c4fd_icgraph" alt=""/></div>
-<map name="class_simulation_adb0496dab2348e930cfa9bce3610c4fd_icgraph" id="aclass_simulation_adb0496dab2348e930cfa9bce3610c4fd_icgraph">
-<area shape="rect" title="getNumAgents &#160;Getter function for the number of agents in the sim" alt="" coords="431,35,608,61"/>
-<area shape="rect" href="class_simple_simulation.html#aed5adff71da8e1700c9059dac85ffbc6" title="execute &#160;Function to execute a simple timestep of the simulation. Loops through every agent in the si..." alt="" coords="203,5,381,32"/>
-<area shape="rect" href="class_simple_simulation.html#afaf1cf90f5056c66525ad2ccb290dabe" title="generateAgents &#160;Function to generate agents and assign them to behaviors and locations...." alt="" coords="201,57,383,98"/>
-<area shape="rect" href="class_simple_simulation.html#a53d5c24654dd7fb8c6733e2435f525a1" title="init &#160;Function to initialize the simulation. Initializes the Regions and Locations...." alt="" coords="5,64,153,91"/>
-</map>
-</div>
 
 </div>
 </div>
@@ -551,15 +538,6 @@ Here is the caller graph for this function:</div>
 <p>getSimHeight <br  />
 Getter function for the height of the QGraphicsScene window. Returns the height as an int </p>
 <dl class="section return"><dt>Returns</dt><dd>an int representing the height of the sim </dd></dl>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_simulation_ac2dc3a986efb0fe35518fd1dbdb4e9ce_icgraph.png" border="0" usemap="#aclass_simulation_ac2dc3a986efb0fe35518fd1dbdb4e9ce_icgraph" alt=""/></div>
-<map name="class_simulation_ac2dc3a986efb0fe35518fd1dbdb4e9ce_icgraph" id="aclass_simulation_ac2dc3a986efb0fe35518fd1dbdb4e9ce_icgraph">
-<area shape="rect" title="getSimHeight &#160;Getter function for the height of the QGraphicsScene window. Returns the height as an i..." alt="" coords="224,13,393,39"/>
-<area shape="rect" href="class_simple_simulation.html#ad16a2131994b9688b750210e8d1a5929" title="SimpleSimulation &#160;The constructor for the SimpleSimulation Class, sets up all controls necessary for ..." alt="" coords="5,5,176,47"/>
-</map>
-</div>
 
 </div>
 </div>

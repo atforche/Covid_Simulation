@@ -2,6 +2,8 @@
 
 Simulation::Simulation(int numAgents, Ui::MainWindow* ui,
                        std::map<std::string, bool> debug) {
+
+    // Initialize main components of the UI
     assert(numAgents >= 0);
     this->numAgents = numAgents;
     this->agents.reserve(numAgents);
@@ -9,17 +11,21 @@ Simulation::Simulation(int numAgents, Ui::MainWindow* ui,
     this->simHeight = ui->mainCanvas->height();
     this->simWidth = ui->mainCanvas->width();
 
+    // Read in the debug information
     this->debug = debug;
 
+    // Initialize the time information to zero
     this->year = 0;
     this->day = 0;
     this->hour = 0;
 
+    // Create an AgentController for the Simulation
     this->agentController = new AgentController();
 }
 
 
 void Simulation::addAgent(Agent *agent) {
+    // Add a new agent to the simulation and add it to the screen
     if (this->agents.size() < static_cast<size_t>(this->numAgents)) {
         this->agents.push_back(agent);
         addToScreen(agent->getGraphicsObject());
@@ -38,6 +44,7 @@ void Simulation::addToScreen(QGraphicsItem *item) {
 
 
 void Simulation::advanceTime() {
+    // Increment the time by one frame
     static int numFrames = 0;
     numFrames++;
     if (numFrames >= FRAMES_PER_HOUR) {
@@ -56,7 +63,8 @@ void Simulation::advanceTime() {
                 ui->year->setText(QString::number(this->year));
             }
         }
-        // Call down here to ensure correct hour value passed
+
+        // Call update down here to ensure correct hour value passed
         agentController->updateAgentDestination(getAgents(), this->hour);
     }
 }
@@ -73,20 +81,27 @@ void Simulation::clearAgents() {
 
 
 void Simulation::generateLocations(Region *region, int num) {
+
+    // Get the boundary of the region and the GraphicsObject
     QRectF regionBound = region->getGraphicsObject()->boundingRect();
     QGraphicsItem* regionGraphics = region->getGraphicsObject();
 
+    // Initialize a vector with enough space for each location
     std::vector<Location*> locations;
     locations.reserve(num);
 
+    // Create random distributions in the range [10, regionBound-10)
     std::uniform_int_distribution<int> xdist(10,
                                             regionBound.width() - 10);
     std::uniform_int_distribution<int> ydist(10,
                                              regionBound.height() - 10);
     std::random_device rand;
-    // For each location, random sample points within the boundingRect until the
-    // point lies within the shape
+
+    // Create num locations within the region
     for (int i = 0; i < num; ++i) {
+
+        // Randomly sample point from the distribution until one is within the
+        // boundaries of the GraphicsObject (Monte Carlo style)
         while(true) {
             int randx = xdist(rand);
             int randy = ydist(rand);
@@ -99,6 +114,8 @@ void Simulation::generateLocations(Region *region, int num) {
             }
         }
     }
+
+    // Give the region its vector of locations
     region->setLocations(locations);
 }
 
@@ -152,6 +169,7 @@ Simulation::~Simulation() {
 
 
 void Simulation::renderAgentUpdate() {
+    // Update the GraphicsObject for each agent in the simulation
     std::vector<Agent*> agents = getAgents();
     for (auto i : agents) {
         i->updateGraphicsObject();

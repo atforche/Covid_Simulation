@@ -1,9 +1,14 @@
 #include <Headers/Agent.h>
 
 Agent::Agent(int age, Location* startingLocation, int behavior) {
+    // Initialize the Agent's age
     this->age = age;
+
+    // Set the Agent's position and place them at their starting location
     this->position = startingLocation->getPosition();
     setDestination(startingLocation);
+
+    // Initialize a QRect to render the agent
     this->rect = new QGraphicsRectItem(this->position.getCoord(Coordinate::X),
                                        this->position.getCoord(Coordinate::Y),
                                        AGENT_WIDTH, AGENT_WIDTH);
@@ -14,6 +19,7 @@ Agent::Agent(int age, Location* startingLocation, int behavior) {
     // Give the agent the default speed
     this->speed = BASE_SPEED;
 
+    // Assign the agent a specific behavior
     this->behavior = behavior;
 }
 
@@ -31,9 +37,11 @@ void Agent::updateGraphicsObject() {
 
 
 void Agent::setDestination(Location *newLocation) {
+
+    // Update the destination of the agent
     this->destination = newLocation->getPosition();
-    // Update the speed of the Agent so it arrives in no more than
-    // 30 minutes (30 frames)
+
+    // Ensure the agent arrives in no more than 30 frames
     double dist = this->position.distBetween(this->destination);
     this->speed = std::max(static_cast<double>(BASE_SPEED), dist/30);
 }
@@ -50,10 +58,10 @@ Location* Agent::getLocation(LOCATIONS which) {
 
 
 void Agent::takeTimeStep() {
-    // If the agent is within MAX_CREEP pixels of its destination, just move
-    // around randomly in the area. Otherwise, move toward the destination
-    // in a straight line
+
+    // If the agent is close to it's destination, just move randomly
     if (position.distBetween(this->destination) < MAX_CREEP) {
+
         // Reset the agents speed
         this->speed = BASE_SPEED;
 
@@ -63,6 +71,7 @@ void Agent::takeTimeStep() {
         position.setCoord(position.getCoord(Coordinate::Y) + (rand() % 3 - 1),
                            Coordinate::Y);
     } else {
+        // Else, move in a straight line toward the destination
         Coordinate heading = position.headingBetween(this->destination);
         position.setCoord(position.getCoord(Coordinate::X) +
                        heading.getCoord(Coordinate::X) * speed,

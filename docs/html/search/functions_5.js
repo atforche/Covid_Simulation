@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['headingbetween_123',['headingBetween',['../class_coordinate.html#adb89fc7199af0ccedf154612b6f1cdad',1,'Coordinate']]]
+  ['headingbetween_140',['headingBetween',['../class_coordinate.html#a0cbc4e80333d2da210ce44377a7908f1',1,'Coordinate']]]
 ];

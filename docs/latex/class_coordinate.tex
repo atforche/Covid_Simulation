@@ -20,6 +20,9 @@ enum \mbox{\hyperlink{class_coordinate_ac308d9529cd564e3556e761ee26f9257}{C\+O\+
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
+\mbox{\Hypertarget{class_coordinate_aac6f323a685fc1e88fbea9c86f1e600d}\label{class_coordinate_aac6f323a685fc1e88fbea9c86f1e600d}} 
+\mbox{\hyperlink{class_coordinate_aac6f323a685fc1e88fbea9c86f1e600d}{Coordinate}} ()
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_coordinate}{Coordinate}} Default constructor for the \mbox{\hyperlink{class_coordinate}{Coordinate}} class. Creates a \mbox{\hyperlink{class_coordinate}{Coordinate}} located at (0,0) \end{DoxyCompactList}\item 
 \mbox{\hyperlink{class_coordinate_a06991f42b26d92d1c771c198f2a01103}{Coordinate}} (double x, double y)
 \begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_coordinate}{Coordinate}} ~\newline
 Constructor for the \mbox{\hyperlink{class_coordinate}{Coordinate}} Class. A \mbox{\hyperlink{class_coordinate}{Coordinate}} is an object that has an X and Y position and can represent a position in the \mbox{\hyperlink{class_simulation}{Simulation}} space. \end{DoxyCompactList}\item 
@@ -29,12 +32,18 @@ Function to return one of the \mbox{\hyperlink{class_coordinate}{Coordinate}} va
 void \mbox{\hyperlink{class_coordinate_a29c9b456c706ee8bcc37b71f07952d5c}{set\+Coord}} (double new\+Val, \mbox{\hyperlink{class_coordinate_ac308d9529cd564e3556e761ee26f9257}{C\+O\+O\+R\+D\+I\+N\+A\+T\+ES}} which)
 \begin{DoxyCompactList}\small\item\em set\+Coord ~\newline
 Function to set one of the \mbox{\hyperlink{class_coordinate}{Coordinate}} values stored within the \mbox{\hyperlink{class_coordinate}{Coordinate}} class to a new value \end{DoxyCompactList}\item 
-double \mbox{\hyperlink{class_coordinate_a96c55e5aeb105efb691e08e224d92831}{dist\+Between}} (\mbox{\hyperlink{class_coordinate}{Coordinate}} $\ast$other)
+double \mbox{\hyperlink{class_coordinate_a95b4e8e42ad25a74e9e3d70623acb1b5}{dist\+Between}} (\mbox{\hyperlink{class_coordinate}{Coordinate}} \&other)
 \begin{DoxyCompactList}\small\item\em dist\+Between ~\newline
 Function to calculate the distance between two coordinates. Calculates the Euclidean distance between this \mbox{\hyperlink{class_coordinate}{Coordinate}} and another \mbox{\hyperlink{class_coordinate}{Coordinate}} \end{DoxyCompactList}\item 
-\mbox{\hyperlink{class_coordinate}{Coordinate}} $\ast$ \mbox{\hyperlink{class_coordinate_adb89fc7199af0ccedf154612b6f1cdad}{heading\+Between}} (\mbox{\hyperlink{class_coordinate}{Coordinate}} $\ast$other)
+\mbox{\hyperlink{class_coordinate}{Coordinate}} \mbox{\hyperlink{class_coordinate_a0cbc4e80333d2da210ce44377a7908f1}{heading\+Between}} (\mbox{\hyperlink{class_coordinate}{Coordinate}} \&other)
 \begin{DoxyCompactList}\small\item\em heading\+Between ~\newline
 Function to calculate the heading vector that connects the current point to the point other. The heading vector is a straight line unit vector that connects the two points in as little distance as possible. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{class_coordinate_a838d40d68570f04bcd2847af0061f66b}{operator==}} (const \mbox{\hyperlink{class_coordinate}{Coordinate}} \&lhs, const \mbox{\hyperlink{class_coordinate}{Coordinate}} \&rhs)
+\begin{DoxyCompactList}\small\item\em operator == ~\newline
+Overloaded equality operator for the \mbox{\hyperlink{class_coordinate}{Coordinate}} Class. Enables Coordinates to be compared using \char`\"{}==\char`\"{}. Returns true of the Coordinates X and Y members are equal \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -69,22 +78,14 @@ Constructor for the \mbox{\hyperlink{class_coordinate}{Coordinate}} Class. A \mb
 {\em y} & the y position of the \mbox{\hyperlink{class_coordinate}{Coordinate}} \\
 \hline
 \end{DoxyParams}
-Here is the caller graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{class_coordinate_a06991f42b26d92d1c771c198f2a01103_icgraph}
-\end{center}
-\end{figure}
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{class_coordinate_a96c55e5aeb105efb691e08e224d92831}\label{class_coordinate_a96c55e5aeb105efb691e08e224d92831}} 
+\mbox{\Hypertarget{class_coordinate_a95b4e8e42ad25a74e9e3d70623acb1b5}\label{class_coordinate_a95b4e8e42ad25a74e9e3d70623acb1b5}} 
 \index{Coordinate@{Coordinate}!distBetween@{distBetween}}
 \index{distBetween@{distBetween}!Coordinate@{Coordinate}}
 \doxysubsubsection{\texorpdfstring{distBetween()}{distBetween()}}
-{\footnotesize\ttfamily double Coordinate\+::dist\+Between (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_coordinate}{Coordinate}} $\ast$}]{other }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily double Coordinate\+::dist\+Between (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_coordinate}{Coordinate}} \&}]{other }\end{DoxyParamCaption})}
 
 
 
@@ -99,14 +100,6 @@ Function to calculate the distance between two coordinates. Calculates the Eucli
 \begin{DoxyReturn}{Returns}
 the distance between the two coordinates as a double 
 \end{DoxyReturn}
-Here is the call graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=346pt]{class_coordinate_a96c55e5aeb105efb691e08e224d92831_cgraph}
-\end{center}
-\end{figure}
 \mbox{\Hypertarget{class_coordinate_a41666a7112689a21fceae113e1e59e3e}\label{class_coordinate_a41666a7112689a21fceae113e1e59e3e}} 
 \index{Coordinate@{Coordinate}!getCoord@{getCoord}}
 \index{getCoord@{getCoord}!Coordinate@{Coordinate}}
@@ -126,19 +119,11 @@ Function to return one of the \mbox{\hyperlink{class_coordinate}{Coordinate}} va
 \begin{DoxyReturn}{Returns}
 the specified coordinate value as a double 
 \end{DoxyReturn}
-Here is the caller graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{class_coordinate_a41666a7112689a21fceae113e1e59e3e_icgraph}
-\end{center}
-\end{figure}
-\mbox{\Hypertarget{class_coordinate_adb89fc7199af0ccedf154612b6f1cdad}\label{class_coordinate_adb89fc7199af0ccedf154612b6f1cdad}} 
+\mbox{\Hypertarget{class_coordinate_a0cbc4e80333d2da210ce44377a7908f1}\label{class_coordinate_a0cbc4e80333d2da210ce44377a7908f1}} 
 \index{Coordinate@{Coordinate}!headingBetween@{headingBetween}}
 \index{headingBetween@{headingBetween}!Coordinate@{Coordinate}}
 \doxysubsubsection{\texorpdfstring{headingBetween()}{headingBetween()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{class_coordinate}{Coordinate}} $\ast$ Coordinate\+::heading\+Between (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_coordinate}{Coordinate}} $\ast$}]{other }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_coordinate}{Coordinate}} Coordinate\+::heading\+Between (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_coordinate}{Coordinate}} \&}]{other }\end{DoxyParamCaption})}
 
 
 
@@ -153,22 +138,6 @@ Function to calculate the heading vector that connects the current point to the 
 \begin{DoxyReturn}{Returns}
 a \mbox{\hyperlink{class_coordinate}{Coordinate}} corresponding to the shortest 2D vector between the two points 
 \end{DoxyReturn}
-Here is the call graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{class_coordinate_adb89fc7199af0ccedf154612b6f1cdad_cgraph}
-\end{center}
-\end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{class_coordinate_adb89fc7199af0ccedf154612b6f1cdad_icgraph}
-\end{center}
-\end{figure}
 \mbox{\Hypertarget{class_coordinate_a29c9b456c706ee8bcc37b71f07952d5c}\label{class_coordinate_a29c9b456c706ee8bcc37b71f07952d5c}} 
 \index{Coordinate@{Coordinate}!setCoord@{setCoord}}
 \index{setCoord@{setCoord}!Coordinate@{Coordinate}}
@@ -187,14 +156,30 @@ Function to set one of the \mbox{\hyperlink{class_coordinate}{Coordinate}} value
 {\em which} & enum specifying which \mbox{\hyperlink{class_coordinate}{Coordinate}} value to change \\
 \hline
 \end{DoxyParams}
-Here is the caller graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=332pt]{class_coordinate_a29c9b456c706ee8bcc37b71f07952d5c_icgraph}
-\end{center}
-\end{figure}
+
+
+\doxysubsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{class_coordinate_a838d40d68570f04bcd2847af0061f66b}\label{class_coordinate_a838d40d68570f04bcd2847af0061f66b}} 
+\index{Coordinate@{Coordinate}!operator==@{operator==}}
+\index{operator==@{operator==}!Coordinate@{Coordinate}}
+\doxysubsubsection{\texorpdfstring{operator==}{operator==}}
+{\footnotesize\ttfamily bool operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_coordinate}{Coordinate}} \&}]{lhs,  }\item[{const \mbox{\hyperlink{class_coordinate}{Coordinate}} \&}]{rhs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+operator == ~\newline
+Overloaded equality operator for the \mbox{\hyperlink{class_coordinate}{Coordinate}} Class. Enables Coordinates to be compared using \char`\"{}==\char`\"{}. Returns true of the Coordinates X and Y members are equal 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lhs} & first \mbox{\hyperlink{class_coordinate}{Coordinate}} to compare \\
+\hline
+{\em rhs} & second \mbox{\hyperlink{class_coordinate}{Coordinate}} to compare \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether the two Coordinates are equivalent 
+\end{DoxyReturn}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

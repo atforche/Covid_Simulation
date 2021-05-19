@@ -25,7 +25,7 @@ enum \mbox{\hyperlink{class_agent_a58a4e791b29ab746f5d023facaa55046}{L\+O\+C\+A\
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{class_agent_abe2d36afb900ba6a22d71252b0fa15f0}{Agent}} (int age, \mbox{\hyperlink{class_coordinate}{Coordinate}} $\ast$position)
+\mbox{\hyperlink{class_agent_a3cc7c1727eed39b426d61779c92ded74}{Agent}} (int age, \mbox{\hyperlink{class_location}{Location}} $\ast$starting\+Location, int behavior)
 \begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_agent}{Agent}} ~\newline
 Constructor for the \mbox{\hyperlink{class_agent}{Agent}} Class. Constructs an \mbox{\hyperlink{class_agent}{Agent}} object with a certain age and position. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_agent_ad39f0e4b928e14460c5fd08319135e7d}\label{class_agent_ad39f0e4b928e14460c5fd08319135e7d}} 
@@ -49,12 +49,15 @@ Function to set the value of an Agents assigned location to a new value \end{Dox
 \mbox{\hyperlink{class_location}{Location}} $\ast$ \mbox{\hyperlink{class_agent_a93696fb8db11b6be4c2d8c59c76c4219}{get\+Location}} (\mbox{\hyperlink{class_agent_a58a4e791b29ab746f5d023facaa55046}{L\+O\+C\+A\+T\+I\+O\+NS}} which)
 \begin{DoxyCompactList}\small\item\em get\+Location ~\newline
 Function to get a pointer to one of the Agents assigned locations \end{DoxyCompactList}\item 
-\mbox{\hyperlink{class_coordinate}{Coordinate}} $\ast$ \mbox{\hyperlink{class_agent_a26ff3593969a6a82afd5c58ca70b45f8}{get\+Position}} ()
+\mbox{\hyperlink{class_coordinate}{Coordinate}} \mbox{\hyperlink{class_agent_aa4084d813b256e8aad45c30644358e4f}{get\+Position}} ()
 \begin{DoxyCompactList}\small\item\em get\+Position\+: ~\newline
 Getter function for the position of the agent. Returns the current position of the agent as a Coordinate$\ast$ \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{class_agent_afbc63491e7abb852c83bcce7b6c89346}{get\+Behavior}} ()
 \begin{DoxyCompactList}\small\item\em get\+Behavior ~\newline
 Getter function for the behavior assignment of this agent. Returns the behavior assignment as an integer \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_agent_a985c0d381d13b99d6bba3fe123f0fbd3}{is\+Adult}} ()
+\begin{DoxyCompactList}\small\item\em is\+Adult ~\newline
+Returns whether or not this agent is an adult. An agent is considered an adult if they are 18 years of age. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_agent_ab8dd8d152605cf1339fed595376e83cb}\label{class_agent_ab8dd8d152605cf1339fed595376e83cb}} 
 \mbox{\hyperlink{class_agent_ab8dd8d152605cf1339fed595376e83cb}{$\sim$\+Agent}} ()
 \begin{DoxyCompactList}\small\item\em $\sim$\+Agent ~\newline
@@ -75,11 +78,11 @@ Class that specifies the functionality of the Agents in the simulation Contains 
 Enum that specifies the possible locations for the \mbox{\hyperlink{class_agent}{Agent}} to be 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{class_agent_abe2d36afb900ba6a22d71252b0fa15f0}\label{class_agent_abe2d36afb900ba6a22d71252b0fa15f0}} 
+\mbox{\Hypertarget{class_agent_a3cc7c1727eed39b426d61779c92ded74}\label{class_agent_a3cc7c1727eed39b426d61779c92ded74}} 
 \index{Agent@{Agent}!Agent@{Agent}}
 \index{Agent@{Agent}!Agent@{Agent}}
 \doxysubsubsection{\texorpdfstring{Agent()}{Agent()}}
-{\footnotesize\ttfamily Agent\+::\+Agent (\begin{DoxyParamCaption}\item[{int}]{age,  }\item[{\mbox{\hyperlink{class_coordinate}{Coordinate}} $\ast$}]{position }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily Agent\+::\+Agent (\begin{DoxyParamCaption}\item[{int}]{age,  }\item[{\mbox{\hyperlink{class_location}{Location}} $\ast$}]{starting\+Location,  }\item[{int}]{behavior }\end{DoxyParamCaption})}
 
 
 
@@ -90,15 +93,11 @@ Constructor for the \mbox{\hyperlink{class_agent}{Agent}} Class. Constructs an \
 \begin{DoxyParams}{Parameters}
 {\em age} & the current age of the \mbox{\hyperlink{class_agent}{Agent}} \\
 \hline
+{\em starting\+Location} & the initial location to create this agent at \\
+\hline
+{\em behavior} & the behavior assignment of this agent \\
+\hline
 \end{DoxyParams}
-Here is the call graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=298pt]{class_agent_abe2d36afb900ba6a22d71252b0fa15f0_cgraph}
-\end{center}
-\end{figure}
 
 
 \doxysubsection{Member Function Documentation}
@@ -135,11 +134,11 @@ Function to get a pointer to one of the Agents assigned locations
 \begin{DoxyReturn}{Returns}
 the specified location as a pointer 
 \end{DoxyReturn}
-\mbox{\Hypertarget{class_agent_a26ff3593969a6a82afd5c58ca70b45f8}\label{class_agent_a26ff3593969a6a82afd5c58ca70b45f8}} 
+\mbox{\Hypertarget{class_agent_aa4084d813b256e8aad45c30644358e4f}\label{class_agent_aa4084d813b256e8aad45c30644358e4f}} 
 \index{Agent@{Agent}!getPosition@{getPosition}}
 \index{getPosition@{getPosition}!Agent@{Agent}}
 \doxysubsubsection{\texorpdfstring{getPosition()}{getPosition()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{class_coordinate}{Coordinate}} $\ast$ Agent\+::get\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_coordinate}{Coordinate}} Agent\+::get\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
@@ -149,14 +148,20 @@ Getter function for the position of the agent. Returns the current position of t
 \begin{DoxyReturn}{Returns}
 the position of the agent as a \mbox{\hyperlink{class_coordinate}{Coordinate}} 
 \end{DoxyReturn}
-Here is the caller graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=321pt]{class_agent_a26ff3593969a6a82afd5c58ca70b45f8_icgraph}
-\end{center}
-\end{figure}
+\mbox{\Hypertarget{class_agent_a985c0d381d13b99d6bba3fe123f0fbd3}\label{class_agent_a985c0d381d13b99d6bba3fe123f0fbd3}} 
+\index{Agent@{Agent}!isAdult@{isAdult}}
+\index{isAdult@{isAdult}!Agent@{Agent}}
+\doxysubsubsection{\texorpdfstring{isAdult()}{isAdult()}}
+{\footnotesize\ttfamily bool Agent\+::is\+Adult (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+is\+Adult ~\newline
+Returns whether or not this agent is an adult. An agent is considered an adult if they are 18 years of age. 
+
+\begin{DoxyReturn}{Returns}
+whether the agent is an adult 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_agent_ae7d5fb049a75e161f284b4270cdd3e1d}\label{class_agent_ae7d5fb049a75e161f284b4270cdd3e1d}} 
 \index{Agent@{Agent}!setDestination@{setDestination}}
 \index{setDestination@{setDestination}!Agent@{Agent}}
@@ -173,14 +178,6 @@ Sets the destination of this \mbox{\hyperlink{class_agent}{Agent}} to the new \m
 {\em new\+Location} & a pointer to the new \mbox{\hyperlink{class_location}{Location}} to set the agents destination toward \\
 \hline
 \end{DoxyParams}
-Here is the call graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=334pt]{class_agent_ae7d5fb049a75e161f284b4270cdd3e1d_cgraph}
-\end{center}
-\end{figure}
 \mbox{\Hypertarget{class_agent_a5472778409b1dde7892acdc2e70b452a}\label{class_agent_a5472778409b1dde7892acdc2e70b452a}} 
 \index{Agent@{Agent}!setLocation@{setLocation}}
 \index{setLocation@{setLocation}!Agent@{Agent}}
@@ -199,22 +196,6 @@ Function to set the value of an Agents assigned location to a new value
 {\em which} & specifies which of the \mbox{\hyperlink{class_agent}{Agent}}\textquotesingle{}s locations to overwrite (Home, School, Leisure, Work) \\
 \hline
 \end{DoxyParams}
-Here is the call graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=322pt]{class_agent_a5472778409b1dde7892acdc2e70b452a_cgraph}
-\end{center}
-\end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{class_agent_a5472778409b1dde7892acdc2e70b452a_icgraph}
-\end{center}
-\end{figure}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

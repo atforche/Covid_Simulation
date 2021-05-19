@@ -4,13 +4,13 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    // Setup the UI for the mainWindow
+    // Setup the main UI components for the mainWindow
     ui->setupUi(this);
     QGraphicsView* view = ui->mainCanvas;
     QGraphicsScene* scene = new QGraphicsScene(this);
     view->setScene(scene);
 
-    // Changes the maximum agents and locations based on constant values
+    // Sets the maximum agents and locations based on constant values
     ui->numAgents->setMaximum(MAX_AGENTS);
     ui->numAgentsLabel->setMaximum(MAX_AGENTS);
     ui->numLocations->setMaximum(MAX_LOCATIONS);
@@ -36,11 +36,13 @@ MainWindow::MainWindow(QWidget *parent)
     enableUI();
 
     // Print any needed debug information
-    qDebug() << ui->simulationType->currentText();
+    //qDebug() << ui->simulationType->currentText();
 }
 
 
 void MainWindow::disableUI() {
+
+    // Disable all buttons that modify the state of the simulation
     ui->simulationType->setEnabled(false);
     ui->runSimulation->setEnabled(false);
     ui->numLocations->setEnabled(false);
@@ -49,6 +51,7 @@ void MainWindow::disableUI() {
     ui->numAgentsLabel->setEnabled(false);
     ui->agentBehaviors->setEnabled(false);
 
+    // Enable all buttons that control the flow of the simulation
     ui->resetSimulation->setEnabled(true);
     ui->slowSim->setEnabled(true);
     ui->pauseSim->setEnabled(true);
@@ -57,6 +60,8 @@ void MainWindow::disableUI() {
 
 
 void MainWindow::enableUI() {
+
+    // Enable all buttons that modify the state of the simulation
     ui->simulationType->setEnabled(true);
     ui->runSimulation->setEnabled(true);
     ui->numLocations->setEnabled(true);
@@ -65,11 +70,13 @@ void MainWindow::enableUI() {
     ui->numAgentsLabel->setEnabled(true);
     ui->agentBehaviors->setEnabled(true);
 
+    // Disable all buttons that modify the flow of the simulation
     ui->resetSimulation->setEnabled(false);
     ui->slowSim->setEnabled(false);
     ui->pauseSim->setEnabled(false);
     ui->fastSim->setEnabled(false);
 
+    // Reset all the dynamic text in the simulation
     ui->year->setText("0");
     ui->day->setText("0");
     ui->hour->setText("0");
@@ -78,6 +85,7 @@ void MainWindow::enableUI() {
 
 
 std::map<std::string, bool> MainWindow::checkDebugInfo() {
+    // Create map containing all debug fields
     std::map<std::string, bool> debug;
     debug["visualize behaviors"] = (ui->agentBehaviors->checkState() ==
                                     Qt::CheckState::Checked);
@@ -95,9 +103,11 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_runSimulation_clicked()
 {
+    // Disable the UI and reset the simulation
     disableUI();
     sim->reset();
 
+    // Delete and reinitialize the simulation so the changes take effect
     delete sim;
     sim = new SimpleSimulation(ui->numAgents->value(), ui, checkDebugInfo());
     sim->init();
@@ -105,6 +115,8 @@ void MainWindow::on_runSimulation_clicked()
     // Create a SimulationController and connect it to the Simulation
     SimulationController* control = new SimulationController(this->sim,
                                                              SimulationWorker::NORMAL);
+
+    // Connect the controller to the window and start the simulation
     this->paused = false;
     this->controller = control;
     this->controller->startSimulation();
@@ -113,11 +125,16 @@ void MainWindow::on_runSimulation_clicked()
 
 void MainWindow::on_resetSimulation_clicked()
 {
-    this->controller->pauseSimulation(); // Call to simulation controller to end execution
+    // Have the controller stop the simulation
+    this->controller->pauseSimulation();
+
+    // Update the UI as needed
     ui->mainCanvas->scene()->clear();
     enableUI();
     ui->pauseSim->setIcon(style()->standardIcon(QStyle::SP_MediaPause));
     sim->reset();
+
+    // Update the current speed of the simulation
     currentSpeed = "Normal";
 }
 
@@ -149,6 +166,7 @@ void MainWindow::on_numAgentsLabel_valueChanged(int arg1)
 
 void MainWindow::on_slowSim_clicked()
 {
+    // Slow down the simulation based on the current state
     if(currentSpeed == "Unlimited") {
         this->controller->changeSpeed(SimulationWorker::FAST);
         this->currentSpeed = "Fast";
@@ -167,6 +185,7 @@ void MainWindow::on_slowSim_clicked()
 void MainWindow::on_pauseSim_clicked()
 {
     if (this->paused) {
+        // Restart the simulation and update the UI
         this->controller->startSimulation();
         ui->pauseSim->setIcon(style()->standardIcon(QStyle::SP_MediaPause));
         ui->speed->setText(currentSpeed);
@@ -176,6 +195,7 @@ void MainWindow::on_pauseSim_clicked()
         ui->slowSim->setEnabled(currentSpeed != "Slow");
         ui->fastSim->setEnabled(currentSpeed != "Unlimited");
     } else {
+        // Stop the simulation and update the UI
         this->controller->pauseSimulation();
         ui->pauseSim->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
         ui->speed->setText("Paused");
@@ -189,6 +209,7 @@ void MainWindow::on_pauseSim_clicked()
 
 void MainWindow::on_fastSim_clicked()
 {
+    // Speed up the simulation based on the current state
     if (currentSpeed == "Slow") {
         this->controller->changeSpeed(SimulationWorker::NORMAL);
         this->currentSpeed = "Normal";

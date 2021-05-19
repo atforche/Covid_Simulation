@@ -84,6 +84,7 @@ $(document).ready(function(){initNavTree('class_coordinate.html',''); initResiza
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="class_coordinate-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Coordinate Class Reference</div>  </div>
@@ -105,6 +106,10 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:aac6f323a685fc1e88fbea9c86f1e600d"><td class="memItemLeft" align="right" valign="top"><a id="aac6f323a685fc1e88fbea9c86f1e600d"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_coordinate.html#aac6f323a685fc1e88fbea9c86f1e600d">Coordinate</a> ()</td></tr>
+<tr class="memdesc:aac6f323a685fc1e88fbea9c86f1e600d"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_coordinate.html" title="The Coordinate class  A Class that represents positiions within the simulation. Also supports calcula...">Coordinate</a> Default constructor for the <a class="el" href="class_coordinate.html" title="The Coordinate class  A Class that represents positiions within the simulation. Also supports calcula...">Coordinate</a> class. Creates a <a class="el" href="class_coordinate.html" title="The Coordinate class  A Class that represents positiions within the simulation. Also supports calcula...">Coordinate</a> located at (0,0) <br /></td></tr>
+<tr class="separator:aac6f323a685fc1e88fbea9c86f1e600d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a06991f42b26d92d1c771c198f2a01103"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_coordinate.html#a06991f42b26d92d1c771c198f2a01103">Coordinate</a> (double x, double y)</td></tr>
 <tr class="memdesc:a06991f42b26d92d1c771c198f2a01103"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_coordinate.html" title="The Coordinate class  A Class that represents positiions within the simulation. Also supports calcula...">Coordinate</a> <br  />
 Constructor for the <a class="el" href="class_coordinate.html" title="The Coordinate class  A Class that represents positiions within the simulation. Also supports calcula...">Coordinate</a> Class. A <a class="el" href="class_coordinate.html" title="The Coordinate class  A Class that represents positiions within the simulation. Also supports calcula...">Coordinate</a> is an object that has an X and Y position and can represent a position in the <a class="el" href="class_simulation.html" title="The Simulation class  The Abstract Simulation class from which all other simulations will be derived....">Simulation</a> space.  <a href="class_coordinate.html#a06991f42b26d92d1c771c198f2a01103">More...</a><br /></td></tr>
@@ -117,14 +122,21 @@ Function to return one of the <a class="el" href="class_coordinate.html" title="
 <tr class="memdesc:a29c9b456c706ee8bcc37b71f07952d5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">setCoord <br  />
 Function to set one of the <a class="el" href="class_coordinate.html" title="The Coordinate class  A Class that represents positiions within the simulation. Also supports calcula...">Coordinate</a> values stored within the <a class="el" href="class_coordinate.html" title="The Coordinate class  A Class that represents positiions within the simulation. Also supports calcula...">Coordinate</a> class to a new value  <a href="class_coordinate.html#a29c9b456c706ee8bcc37b71f07952d5c">More...</a><br /></td></tr>
 <tr class="separator:a29c9b456c706ee8bcc37b71f07952d5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96c55e5aeb105efb691e08e224d92831"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_coordinate.html#a96c55e5aeb105efb691e08e224d92831">distBetween</a> (<a class="el" href="class_coordinate.html">Coordinate</a> *other)</td></tr>
-<tr class="memdesc:a96c55e5aeb105efb691e08e224d92831"><td class="mdescLeft">&#160;</td><td class="mdescRight">distBetween <br  />
-Function to calculate the distance between two coordinates. Calculates the Euclidean distance between this <a class="el" href="class_coordinate.html" title="The Coordinate class  A Class that represents positiions within the simulation. Also supports calcula...">Coordinate</a> and another <a class="el" href="class_coordinate.html" title="The Coordinate class  A Class that represents positiions within the simulation. Also supports calcula...">Coordinate</a>  <a href="class_coordinate.html#a96c55e5aeb105efb691e08e224d92831">More...</a><br /></td></tr>
-<tr class="separator:a96c55e5aeb105efb691e08e224d92831"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb89fc7199af0ccedf154612b6f1cdad"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_coordinate.html">Coordinate</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_coordinate.html#adb89fc7199af0ccedf154612b6f1cdad">headingBetween</a> (<a class="el" href="class_coordinate.html">Coordinate</a> *other)</td></tr>
-<tr class="memdesc:adb89fc7199af0ccedf154612b6f1cdad"><td class="mdescLeft">&#160;</td><td class="mdescRight">headingBetween <br  />
-Function to calculate the heading vector that connects the current point to the point other. The heading vector is a straight line unit vector that connects the two points in as little distance as possible.  <a href="class_coordinate.html#adb89fc7199af0ccedf154612b6f1cdad">More...</a><br /></td></tr>
-<tr class="separator:adb89fc7199af0ccedf154612b6f1cdad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95b4e8e42ad25a74e9e3d70623acb1b5"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_coordinate.html#a95b4e8e42ad25a74e9e3d70623acb1b5">distBetween</a> (<a class="el" href="class_coordinate.html">Coordinate</a> &amp;other)</td></tr>
+<tr class="memdesc:a95b4e8e42ad25a74e9e3d70623acb1b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">distBetween <br  />
+Function to calculate the distance between two coordinates. Calculates the Euclidean distance between this <a class="el" href="class_coordinate.html" title="The Coordinate class  A Class that represents positiions within the simulation. Also supports calcula...">Coordinate</a> and another <a class="el" href="class_coordinate.html" title="The Coordinate class  A Class that represents positiions within the simulation. Also supports calcula...">Coordinate</a>  <a href="class_coordinate.html#a95b4e8e42ad25a74e9e3d70623acb1b5">More...</a><br /></td></tr>
+<tr class="separator:a95b4e8e42ad25a74e9e3d70623acb1b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0cbc4e80333d2da210ce44377a7908f1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_coordinate.html">Coordinate</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_coordinate.html#a0cbc4e80333d2da210ce44377a7908f1">headingBetween</a> (<a class="el" href="class_coordinate.html">Coordinate</a> &amp;other)</td></tr>
+<tr class="memdesc:a0cbc4e80333d2da210ce44377a7908f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">headingBetween <br  />
+Function to calculate the heading vector that connects the current point to the point other. The heading vector is a straight line unit vector that connects the two points in as little distance as possible.  <a href="class_coordinate.html#a0cbc4e80333d2da210ce44377a7908f1">More...</a><br /></td></tr>
+<tr class="separator:a0cbc4e80333d2da210ce44377a7908f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a838d40d68570f04bcd2847af0061f66b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_coordinate.html#a838d40d68570f04bcd2847af0061f66b">operator==</a> (const <a class="el" href="class_coordinate.html">Coordinate</a> &amp;lhs, const <a class="el" href="class_coordinate.html">Coordinate</a> &amp;rhs)</td></tr>
+<tr class="memdesc:a838d40d68570f04bcd2847af0061f66b"><td class="mdescLeft">&#160;</td><td class="mdescRight">operator == <br  />
+Overloaded equality operator for the <a class="el" href="class_coordinate.html" title="The Coordinate class  A Class that represents positiions within the simulation. Also supports calcula...">Coordinate</a> Class. Enables Coordinates to be compared using "==". Returns true of the Coordinates X and Y members are equal  <a href="class_coordinate.html#a838d40d68570f04bcd2847af0061f66b">More...</a><br /></td></tr>
+<tr class="separator:a838d40d68570f04bcd2847af0061f66b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="class_coordinate.html" title="The Coordinate class  A Class that represents positiions within the simulation. Also supports calcula...">Coordinate</a> class <br  />
@@ -181,22 +193,12 @@ Constructor for the <a class="el" href="class_coordinate.html" title="The Coordi
   </table>
   </dd>
 </dl>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_coordinate_a06991f42b26d92d1c771c198f2a01103_icgraph.png" border="0" usemap="#aclass_coordinate_a06991f42b26d92d1c771c198f2a01103_icgraph" alt=""/></div>
-<map name="class_coordinate_a06991f42b26d92d1c771c198f2a01103_icgraph" id="aclass_coordinate_a06991f42b26d92d1c771c198f2a01103_icgraph">
-<area shape="rect" title="Coordinate &#160;Constructor for the Coordinate Class. A Coordinate is an object that has an X and Y posit..." alt="" coords="432,5,587,32"/>
-<area shape="rect" href="class_coordinate.html#adb89fc7199af0ccedf154612b6f1cdad" title="headingBetween &#160;Function to calculate the heading vector that connects the current point to the point..." alt="" coords="197,5,384,32"/>
-<area shape="rect" href="class_agent.html#a36dd1016e9aa1509ef3eb74c5b7b2528" title="takeTimeStep &#160;Function that causes the agent to take a step forward in time. Currently,..." alt="" coords="5,5,149,32"/>
-</map>
-</div>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a96c55e5aeb105efb691e08e224d92831"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a96c55e5aeb105efb691e08e224d92831">&#9670;&nbsp;</a></span>distBetween()</h2>
+<a id="a95b4e8e42ad25a74e9e3d70623acb1b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95b4e8e42ad25a74e9e3d70623acb1b5">&#9670;&nbsp;</a></span>distBetween()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -204,7 +206,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">double Coordinate::distBetween </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_coordinate.html">Coordinate</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="class_coordinate.html">Coordinate</a> &amp;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>
@@ -220,15 +222,6 @@ Function to calculate the distance between two coordinates. Calculates the Eucli
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the distance between the two coordinates as a double </dd></dl>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_coordinate_a96c55e5aeb105efb691e08e224d92831_cgraph.png" border="0" usemap="#aclass_coordinate_a96c55e5aeb105efb691e08e224d92831_cgraph" alt=""/></div>
-<map name="class_coordinate_a96c55e5aeb105efb691e08e224d92831_cgraph" id="aclass_coordinate_a96c55e5aeb105efb691e08e224d92831_cgraph">
-<area shape="rect" title="distBetween &#160;Function to calculate the distance between two coordinates. Calculates the Euclidean dis..." alt="" coords="5,5,168,32"/>
-<area shape="rect" href="class_coordinate.html#a41666a7112689a21fceae113e1e59e3e" title="getCoord &#160;Function to return one of the Coordinate values stored within the Coordinate Class" alt="" coords="216,5,360,32"/>
-</map>
-</div>
 
 </div>
 </div>
@@ -257,38 +250,19 @@ Function to return one of the <a class="el" href="class_coordinate.html" title="
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the specified coordinate value as a double </dd></dl>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_coordinate_a41666a7112689a21fceae113e1e59e3e_icgraph.png" border="0" usemap="#aclass_coordinate_a41666a7112689a21fceae113e1e59e3e_icgraph" alt=""/></div>
-<map name="class_coordinate_a41666a7112689a21fceae113e1e59e3e_icgraph" id="aclass_coordinate_a41666a7112689a21fceae113e1e59e3e_icgraph">
-<area shape="rect" title="getCoord &#160;Function to return one of the Coordinate values stored within the Coordinate Class" alt="" coords="501,245,645,272"/>
-<area shape="rect" href="class_agent.html#abe2d36afb900ba6a22d71252b0fa15f0" title="Agent &#160;Constructor for the Agent Class. Constructs an Agent object with a certain age and position." alt="" coords="297,5,395,32"/>
-<area shape="rect" href="class_coordinate.html#a96c55e5aeb105efb691e08e224d92831" title="distBetween &#160;Function to calculate the distance between two coordinates. Calculates the Euclidean dis..." alt="" coords="265,56,427,83"/>
-<area shape="rect" href="class_simple_simulation.html#afaf1cf90f5056c66525ad2ccb290dabe" title="generateAgents &#160;Function to generate agents and assign them to behaviors and locations...." alt="" coords="255,107,437,149"/>
-<area shape="rect" href="class_square_region.html#a11f67456aa7432bdb266cbc7cfdd19ed" title="getGraphicsObject &#160;Function that returns a QGraphicsRectItem* used to render the region on the QGraph..." alt="" coords="255,173,437,214"/>
-<area shape="rect" href="class_square_region.html#a3d494004f346b84d99570bdb3283075e" title="getNameGraphicsObject &#160;Function to render the text name of the region onto the canvas...." alt="" coords="239,238,453,279"/>
-<area shape="rect" href="class_coordinate.html#adb89fc7199af0ccedf154612b6f1cdad" title="headingBetween &#160;Function to calculate the heading vector that connects the current point to the point..." alt="" coords="253,304,439,331"/>
-<area shape="rect" href="class_agent.html#a36dd1016e9aa1509ef3eb74c5b7b2528" title="takeTimeStep &#160;Function that causes the agent to take a step forward in time. Currently,..." alt="" coords="26,329,170,356"/>
-<area shape="rect" href="class_location.html#a16f296df02f800d987865b74d392fe76" title="Location &#160;Constructor for the Location class. Each Location contains a position and a vector of agent..." alt="" coords="282,405,410,432"/>
-<area shape="rect" href="class_agent.html#a7746a9133132cff44195bcf88a362654" title="updateGraphicsObject &#160;Function that updates the position of the QGraphics object that represents the ..." alt="" coords="249,456,443,483"/>
-<area shape="rect" href="class_simple_simulation.html#a53d5c24654dd7fb8c6733e2435f525a1" title="init &#160;Function to initialize the simulation. Initializes the Regions and Locations...." alt="" coords="24,115,172,141"/>
-<area shape="rect" href="class_square_region.html#a3d46c9d8bea9b9b219b88c3f03b164a8" title="renderLocations &#160;Function to render the randomly generated locations to the screen...." alt="" coords="5,173,191,214"/>
-</map>
-</div>
 
 </div>
 </div>
-<a id="adb89fc7199af0ccedf154612b6f1cdad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adb89fc7199af0ccedf154612b6f1cdad">&#9670;&nbsp;</a></span>headingBetween()</h2>
+<a id="a0cbc4e80333d2da210ce44377a7908f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0cbc4e80333d2da210ce44377a7908f1">&#9670;&nbsp;</a></span>headingBetween()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_coordinate.html">Coordinate</a> * Coordinate::headingBetween </td>
+          <td class="memname"><a class="el" href="class_coordinate.html">Coordinate</a> Coordinate::headingBetween </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_coordinate.html">Coordinate</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="class_coordinate.html">Coordinate</a> &amp;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>
@@ -304,25 +278,6 @@ Function to calculate the heading vector that connects the current point to the 
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>a <a class="el" href="class_coordinate.html" title="The Coordinate class  A Class that represents positiions within the simulation. Also supports calcula...">Coordinate</a> corresponding to the shortest 2D vector between the two points </dd></dl>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_coordinate_adb89fc7199af0ccedf154612b6f1cdad_cgraph.png" border="0" usemap="#aclass_coordinate_adb89fc7199af0ccedf154612b6f1cdad_cgraph" alt=""/></div>
-<map name="class_coordinate_adb89fc7199af0ccedf154612b6f1cdad_cgraph" id="aclass_coordinate_adb89fc7199af0ccedf154612b6f1cdad_cgraph">
-<area shape="rect" title="headingBetween &#160;Function to calculate the heading vector that connects the current point to the point..." alt="" coords="5,31,192,57"/>
-<area shape="rect" href="class_coordinate.html#a06991f42b26d92d1c771c198f2a01103" title="Coordinate &#160;Constructor for the Coordinate Class. A Coordinate is an object that has an X and Y posit..." alt="" coords="240,5,395,32"/>
-<area shape="rect" href="class_coordinate.html#a41666a7112689a21fceae113e1e59e3e" title="getCoord &#160;Function to return one of the Coordinate values stored within the Coordinate Class" alt="" coords="245,56,389,83"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_coordinate_adb89fc7199af0ccedf154612b6f1cdad_icgraph.png" border="0" usemap="#aclass_coordinate_adb89fc7199af0ccedf154612b6f1cdad_icgraph" alt=""/></div>
-<map name="class_coordinate_adb89fc7199af0ccedf154612b6f1cdad_icgraph" id="aclass_coordinate_adb89fc7199af0ccedf154612b6f1cdad_icgraph">
-<area shape="rect" title="headingBetween &#160;Function to calculate the heading vector that connects the current point to the point..." alt="" coords="197,5,384,32"/>
-<area shape="rect" href="class_agent.html#a36dd1016e9aa1509ef3eb74c5b7b2528" title="takeTimeStep &#160;Function that causes the agent to take a step forward in time. Currently,..." alt="" coords="5,5,149,32"/>
-</map>
-</div>
 
 </div>
 </div>
@@ -361,15 +316,54 @@ Function to set one of the <a class="el" href="class_coordinate.html" title="The
   </table>
   </dd>
 </dl>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_coordinate_a29c9b456c706ee8bcc37b71f07952d5c_icgraph.png" border="0" usemap="#aclass_coordinate_a29c9b456c706ee8bcc37b71f07952d5c_icgraph" alt=""/></div>
-<map name="class_coordinate_a29c9b456c706ee8bcc37b71f07952d5c_icgraph" id="aclass_coordinate_a29c9b456c706ee8bcc37b71f07952d5c_icgraph">
-<area shape="rect" title="setCoord &#160;Function to set one of the Coordinate values stored within the Coordinate class to a new va..." alt="" coords="197,5,341,32"/>
-<area shape="rect" href="class_agent.html#a36dd1016e9aa1509ef3eb74c5b7b2528" title="takeTimeStep &#160;Function that causes the agent to take a step forward in time. Currently,..." alt="" coords="5,5,149,32"/>
-</map>
+
 </div>
+</div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="a838d40d68570f04bcd2847af0061f66b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a838d40d68570f04bcd2847af0061f66b">&#9670;&nbsp;</a></span>operator==</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_coordinate.html">Coordinate</a> &amp;&#160;</td>
+          <td class="paramname"><em>lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_coordinate.html">Coordinate</a> &amp;&#160;</td>
+          <td class="paramname"><em>rhs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>operator == <br  />
+Overloaded equality operator for the <a class="el" href="class_coordinate.html" title="The Coordinate class  A Class that represents positiions within the simulation. Also supports calcula...">Coordinate</a> Class. Enables Coordinates to be compared using "==". Returns true of the Coordinates X and Y members are equal </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lhs</td><td>first <a class="el" href="class_coordinate.html" title="The Coordinate class  A Class that represents positiions within the simulation. Also supports calcula...">Coordinate</a> to compare </td></tr>
+    <tr><td class="paramname">rhs</td><td>second <a class="el" href="class_coordinate.html" title="The Coordinate class  A Class that represents positiions within the simulation. Also supports calcula...">Coordinate</a> to compare </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>whether the two Coordinates are equivalent </dd></dl>
 
 </div>
 </div>

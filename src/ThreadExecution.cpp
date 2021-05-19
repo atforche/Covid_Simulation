@@ -9,11 +9,18 @@ SimulationWorker::SimulationWorker(Simulation* sim, Speed frameRate) {
 
 
 void SimulationWorker::startThread(const QString &) {
-    delete executeLoop; // ensure old timer is deleted to prevent two timers running
+    // Ensure old timer is deleted to prevent two timers running
+    delete executeLoop;
+
+    // Allow the simulation to continue executing
+    continueSimulation = true;
+
+    // Create a new timer and connect it to the executeSimTimestep function
     executeLoop = new QTimer();
-    continueSimulation = true; // Ensure the simulation is able to continue
     connect(executeLoop, &QTimer::timeout, this,
             &SimulationWorker::executeSimTimestep);
+
+    // Set the timeout milliseconds based on the simulation speed
     if (this->frameRate == UNLIMITED) {
         executeLoop->start(1); //Unlimited FPS
     } else if (this->frameRate == FAST) {
@@ -27,10 +34,12 @@ void SimulationWorker::startThread(const QString &) {
 
 
 void SimulationWorker::executeSimTimestep() {
+    // Execute timesetp and inform screen to update rendering
     if (continueSimulation) {
         sim->execute();
         emit timestepComplete("Done");
     } else {
+        // Otherwise stop the timer and wait
         executeLoop->stop();
         delete executeLoop;
         executeLoop = nullptr;
@@ -39,48 +48,60 @@ void SimulationWorker::executeSimTimestep() {
 
 
 void SimulationWorker::pauseSimulation() {
-    // Stops the timer from executing which prevents the further calling
-    // of the Simulation::execute() function
+    // Prevents the timer triggering from causing any effect
     continueSimulation = false;
 }
 
 
 void SimulationWorker::changeSpeed(Speed speedIn) {
+    // Enables realtime changing of the timer timeout
     this->frameRate = speedIn;
 }
 
 
 SimulationController::SimulationController(Simulation* sim,
                                            SimulationWorker::Speed frameRate) {
-    worker = new SimulationWorker(sim, frameRate);
 
+    // Create a new simulation worker
+    worker = new SimulationWorker(sim, frameRate);
     this->sim = sim;
+
+    // Move the worker object onto a second thread
     worker->moveToThread(&workerThread);
+
+    // Connect the QThread::finished signal to the necessary functions
     connect(&workerThread, &QThread::finished, sim, &Simulation::renderAgentUpdate);
     connect(&workerThread, &QThread::finished, worker, &QObject::deleteLater);
+
+    // Connect the SimulationController::operator signal to the worker's
+    // SimulationWorker::startThread function
     connect(this, &SimulationController::operate, worker,
             &SimulationWorker::startThread);
+
+    // Connect the timestepComplete signal to the updateScreen function
     connect(worker, &SimulationWorker::timestepComplete, this,
             &SimulationController::updateScreen);
+
+    // Start the worker thread, will wait
     workerThread.start();
 }
 
 
 void SimulationController::startSimulation() {
+    // Emits a signal that will be picked up by the SimulationWorker
     emit this->operate("Begin");
 }
 
 
 void SimulationController::pauseSimulation() {
-    // This is allowable because it operates more quickly than the signal
-    // mechanism. Although the SimulationWorker lives on another thread, its
-    // own memory is not being modified by that thread
+    // May cause a slight race condition
     this->worker->pauseSimulation();
 }
 
 
 void SimulationController::changeSpeed(SimulationWorker::Speed newSpeed) {
-    pauseSimulation(); //Pause the simulation
+    // Pause the sim, change the speed, and restart the sim
+    pauseSimulation();
     this->worker->changeSpeed(newSpeed);
     startSimulation();
 }

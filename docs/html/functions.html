@@ -95,13 +95,10 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 : <a class="el" href="class_simulation.html#a09a1b2085074e6fb4de3d62b360bef72">Simulation</a>
 </li>
 <li>Agent()
-: <a class="el" href="class_agent.html#abe2d36afb900ba6a22d71252b0fa15f0">Agent</a>
+: <a class="el" href="class_agent.html#a3cc7c1727eed39b426d61779c92ded74">Agent</a>
 </li>
 <li>AgentController()
-: <a class="el" href="class_agent_controller.html#a8bf24f1a9f3904b915fdd27adadf2dc3">AgentController</a>
-</li>
-<li>assignAgentDestinations()
-: <a class="el" href="class_agent_controller.html#a1574fc5722eaf00126c55281f1a2cb92">AgentController</a>
+: <a class="el" href="class_agent_controller.html#a7e51ef48183b7bb9ed30b79d98895780">AgentController</a>
 </li>
 </ul>
 
@@ -111,6 +108,12 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 : <a class="el" href="class_simulation_controller.html#ac3140b4ff061bf96a0b604f7fdb37073">SimulationController</a>
 , <a class="el" href="class_simulation_worker.html#a8d5565a41a7cdf636e262723cbb6005b">SimulationWorker</a>
 </li>
+<li>checkDebug()
+: <a class="el" href="class_simulation.html#a51dacc3695f3cf7b35b98cd1bcb4ee02">Simulation</a>
+</li>
+<li>checkDebugInfo()
+: <a class="el" href="class_main_window.html#a02e533c825c69b768e39f3ffc6db6155">MainWindow</a>
+</li>
 <li>clearAgents()
 : <a class="el" href="class_simulation.html#ac730e7d1564578fbadeba0ce32c58cca">Simulation</a>
 </li>
@@ -118,7 +121,7 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 : <a class="el" href="class_simulation.html#a963e4f60e07f29bd854b67d9a5a006a2">Simulation</a>
 </li>
 <li>Coordinate()
-: <a class="el" href="class_coordinate.html#a06991f42b26d92d1c771c198f2a01103">Coordinate</a>
+: <a class="el" href="class_coordinate.html#aac6f323a685fc1e88fbea9c86f1e600d">Coordinate</a>
 </li>
 <li>COORDINATES
 : <a class="el" href="class_coordinate.html#ac308d9529cd564e3556e761ee26f9257">Coordinate</a>
@@ -131,7 +134,7 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 : <a class="el" href="class_main_window.html#aa723299753b520d39ddf3a0cc8f66ebf">MainWindow</a>
 </li>
 <li>distBetween()
-: <a class="el" href="class_coordinate.html#a96c55e5aeb105efb691e08e224d92831">Coordinate</a>
+: <a class="el" href="class_coordinate.html#a95b4e8e42ad25a74e9e3d70623acb1b5">Coordinate</a>
 </li>
 </ul>
 
@@ -140,12 +143,18 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 <li>enableUI()
 : <a class="el" href="class_main_window.html#a98b4b0619a6464a3986137f27e2b33fc">MainWindow</a>
 </li>
+<li>evaluateDestinationProbabilities()
+: <a class="el" href="class_agent_controller.html#ac66ea2eba7326c59d9183991ea52bcd1">AgentController</a>
+</li>
 <li>execute()
 : <a class="el" href="class_simple_simulation.html#aed5adff71da8e1700c9059dac85ffbc6">SimpleSimulation</a>
 , <a class="el" href="class_simulation.html#a7600fcd885ba7f84cfe19f55fad95404">Simulation</a>
 </li>
 <li>executeSimTimestep()
 : <a class="el" href="class_simulation_worker.html#ad796f3e651719642b53fac3641fecc0e">SimulationWorker</a>
+</li>
+<li>extractDestinationAssignment()
+: <a class="el" href="class_agent_controller.html#ae73117bcb773698e70ed732c5c70ff05">AgentController</a>
 </li>
 </ul>
 
@@ -167,11 +176,17 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 <li>getColor()
 : <a class="el" href="class_region.html#a7afe91a845ead6ab45f5908383c56ecc">Region</a>
 </li>
+<li>getController()
+: <a class="el" href="class_simulation.html#a409ca0d5f3912f95d3958ad8c2eab3f7">Simulation</a>
+</li>
 <li>getCoord()
 : <a class="el" href="class_coordinate.html#a41666a7112689a21fceae113e1e59e3e">Coordinate</a>
 </li>
 <li>getDay()
 : <a class="el" href="class_simulation.html#aef28d4ac97f24e41ea7ed079b2716548">Simulation</a>
+</li>
+<li>getDestinationAssignment()
+: <a class="el" href="class_agent_controller.html#acbe670ec2ed2581ffc5f64a7707e5ed0">AgentController</a>
 </li>
 <li>getGraphicsObject()
 : <a class="el" href="class_agent.html#ad39f0e4b928e14460c5fd08319135e7d">Agent</a>
@@ -202,18 +217,21 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 : <a class="el" href="class_region.html#a7475a567b0806b64b45085740712f5cc">Region</a>
 , <a class="el" href="class_square_region.html#a3d494004f346b84d99570bdb3283075e">SquareRegion</a>
 </li>
+<li>getNumAdultBehaviors()
+: <a class="el" href="class_agent_controller.html#af9abb95ce567f65cb68fa25342f8b5ec">AgentController</a>
+</li>
 <li>getNumAgents()
 : <a class="el" href="class_simulation.html#adb0496dab2348e930cfa9bce3610c4fd">Simulation</a>
 </li>
-<li>getNumBehaviors()
-: <a class="el" href="class_agent_controller.html#a03f6aef058a830ab9a496a1b89291e38">AgentController</a>
+<li>getNumChildBehaviors()
+: <a class="el" href="class_agent_controller.html#a9949edc3068aab2b0fcc334fdf31e937">AgentController</a>
 </li>
 <li>getNumLocations()
 : <a class="el" href="class_region.html#ada82a5f675586ca4072713941f7c7c39">Region</a>
 </li>
 <li>getPosition()
-: <a class="el" href="class_agent.html#a26ff3593969a6a82afd5c58ca70b45f8">Agent</a>
-, <a class="el" href="class_location.html#a99c757de01579796729f81bdfd84ab27">Location</a>
+: <a class="el" href="class_agent.html#aa4084d813b256e8aad45c30644358e4f">Agent</a>
+, <a class="el" href="class_location.html#a82f611f114fad22c2ec9b85924ab49e5">Location</a>
 </li>
 <li>getSimHeight()
 : <a class="el" href="class_simulation.html#ac2dc3a986efb0fe35518fd1dbdb4e9ce">Simulation</a>
@@ -224,6 +242,9 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 <li>getStartingCoordinate()
 : <a class="el" href="class_square_region.html#a4e20fae9bd0048a178f214428faf76b8">SquareRegion</a>
 </li>
+<li>getStartingDestination()
+: <a class="el" href="class_agent_controller.html#a02d22757dce690853747d3b406f7d164">AgentController</a>
+</li>
 <li>getYear()
 : <a class="el" href="class_simulation.html#a930797907136599651cfe84145e57973">Simulation</a>
 </li>
@@ -232,7 +253,7 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 
 <h3><a id="index_h"></a>- h -</h3><ul>
 <li>headingBetween()
-: <a class="el" href="class_coordinate.html#adb89fc7199af0ccedf154612b6f1cdad">Coordinate</a>
+: <a class="el" href="class_coordinate.html#a0cbc4e80333d2da210ce44377a7908f1">Coordinate</a>
 </li>
 </ul>
 
@@ -241,6 +262,9 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 <li>init()
 : <a class="el" href="class_simple_simulation.html#a53d5c24654dd7fb8c6733e2435f525a1">SimpleSimulation</a>
 , <a class="el" href="class_simulation.html#ab4d7fe11a5098550766a4f51c0af8409">Simulation</a>
+</li>
+<li>isAdult()
+: <a class="el" href="class_agent.html#a985c0d381d13b99d6bba3fe123f0fbd3">Agent</a>
 </li>
 </ul>
 
@@ -265,6 +289,9 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 <h3><a id="index_o"></a>- o -</h3><ul>
 <li>operate()
 : <a class="el" href="class_simulation_controller.html#a58104fc04f41630770d141c4b27f35ac">SimulationController</a>
+</li>
+<li>operator==
+: <a class="el" href="class_coordinate.html#a838d40d68570f04bcd2847af0061f66b">Coordinate</a>
 </li>
 </ul>
 
@@ -308,10 +335,10 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 : <a class="el" href="class_region.html#a7d3db569b8569b891de84e577760890d">Region</a>
 </li>
 <li>SimpleSimulation()
-: <a class="el" href="class_simple_simulation.html#ad16a2131994b9688b750210e8d1a5929">SimpleSimulation</a>
+: <a class="el" href="class_simple_simulation.html#ae1d980db6926153876935af0d135dc2f">SimpleSimulation</a>
 </li>
 <li>Simulation()
-: <a class="el" href="class_simulation.html#a7b8b152c3232ab7f6d15eca28cd29132">Simulation</a>
+: <a class="el" href="class_simulation.html#a17598f7260e97396b2dc118fd7b9400d">Simulation</a>
 </li>
 <li>SimulationController()
 : <a class="el" href="class_simulation_controller.html#a98959daaa79ec23a6f5f1704d0d0d33b">SimulationController</a>
@@ -349,6 +376,9 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 
 
 <h3><a id="index_u"></a>- u -</h3><ul>
+<li>updateAgentDestination()
+: <a class="el" href="class_agent_controller.html#a52ef1e68c38d265174d0290e5bd6618d">AgentController</a>
+</li>
 <li>updateGraphicsObject()
 : <a class="el" href="class_agent.html#a7746a9133132cff44195bcf88a362654">Agent</a>
 </li>

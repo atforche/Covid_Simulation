@@ -3,7 +3,8 @@ var indexSectionsWithContent =
   0: "acdeghilmoprstu~",
   1: "aclmrs",
   2: "acdeghilmoprstu~",
-  3: "cls"
+  3: "cls",
+  4: "o"
 };
 
 var indexSectionNames =
@@ -11,7 +12,8 @@ var indexSectionNames =
   0: "all",
   1: "classes",
   2: "functions",
-  3: "enums"
+  3: "enums",
+  4: "related"
 };
 
 var indexSectionLabels =
@@ -19,6 +21,7 @@ var indexSectionLabels =
   0: "All",
   1: "Classes",
   2: "Functions",
-  3: "Enumerations"
+  3: "Enumerations",
+  4: "Friends"
 };
 

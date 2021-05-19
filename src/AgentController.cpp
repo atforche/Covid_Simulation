@@ -1,6 +1,7 @@
 #include "Headers/AgentController.h"
 
 AgentController::AgentController() {
+
     // Read in the behaviors from the bin and filter into adult and child behaviors
     QDir directory(":/bin/behaviors");
     QStringList behaviors = directory.entryList();
@@ -14,25 +15,35 @@ AgentController::AgentController() {
     // Read in the JSON for each adult behavior
     QFile file;
     for (int i = 0; i < adult.size(); ++i) {
+
+        // Select a behavior file from the directory
         file.setFileName(QString::fromStdString(":/bin/behaviors/") +=
                 adult.at(i));
+
+        // Open the file, read in the contents, and close the file
         file.open(QIODevice::ReadOnly | QIODevice::Text);
         QString val = file.readAll();
         file.close();
-        QJsonDocument doc = QJsonDocument::fromJson(val.toUtf8());
 
+        // Populate the vector with the JSON object from the file
+        QJsonDocument doc = QJsonDocument::fromJson(val.toUtf8());
         adultBehaviors[i] = doc.object();
     }
 
     // Read in the JSON for each child behavior
     for (int i = 0; i < child.size(); ++i) {
+
+        // Select a behavior file from the directory
         file.setFileName(QString::fromStdString(":/bin/behaviors/") +=
                 child.at(i));
+
+        // Open the file, read in the contents, and close the file
         file.open(QIODevice::ReadOnly | QIODevice::Text);
         QString val = file.readAll();
         file.close();
-        QJsonDocument doc = QJsonDocument::fromJson(val.toUtf8());
 
+        // Populate the vector with the JSON object from the file
+        QJsonDocument doc = QJsonDocument::fromJson(val.toUtf8());
         childBehaviors[i] = doc.object();
     }
 }
@@ -48,7 +59,10 @@ int AgentController::getNumChildBehaviors() {
 }
 
 void AgentController::updateAgentDestination(std::vector<Agent *> agents, int hour) {
+
+    // Loop through every agent
     for (size_t i = 0; i < agents.size(); ++i) {
+
         // Determine to where the agent will be assigned
         QString destinationString = getDestinationAssignment(agents[i], hour);
 
@@ -73,9 +87,14 @@ void AgentController::updateAgentDestination(std::vector<Agent *> agents, int ho
 
 QString AgentController::getStartingDestination(int behaviorChart,
                                                bool isAdult) {
+    // Generate an arbitrary age depending on whether the agent is an adult
     int age = isAdult ? 50 : 10;
+
+    // Create a dummy agent with the specified behavior chart
     Location temp2(0,0);
     Agent temp(age, &temp2, behaviorChart);
+
+    // Return the destination assignment of the agent, which is its starting location
     return getDestinationAssignment(&temp, 0);
 }
 
@@ -105,13 +124,16 @@ QString AgentController::evaluateDestinationProbabilities(QStringList &keys,
 
 QJsonValue AgentController::extractDestinationAssignment(int behavior,
                                                      int hour, bool adult) {
+    // Initialize local variables
     QJsonValue destination;
     QJsonObject::iterator key;
+
     if (adult) {
-        // Check if current hour exists in adult chart. If it does,
-        // store the QJsonValue. Else, store a default QJsonValue
+        // Check if current hour exists in the specific adult chart
         key = adultBehaviors[behavior].find(
                     QString::number(hour));
+
+        // If it does, update the agent's destination to the new location
         if (key != adultBehaviors[behavior].end()) {
             destination = key.value();
         } else {
@@ -119,10 +141,11 @@ QJsonValue AgentController::extractDestinationAssignment(int behavior,
         }
 
     } else {
-        // Check if current hour exists in adult chart. If it does,
-        // store the QJsonValue. Else, store a default QJsonValue
+        // Check if current hour exists in the specific child chart
         key = childBehaviors[behavior].find(
                     QString::number(hour));
+
+        // If it does, update the agent's destination to the new location
         if (key != childBehaviors[behavior].end()) {
             destination = key.value();
         } else {
@@ -130,11 +153,16 @@ QJsonValue AgentController::extractDestinationAssignment(int behavior,
         }
     }
 
+    // Return the updated destination for the agent
     return destination;
 }
 
 
 QString AgentController::getDestinationAssignment(Agent *agent, int hour) {
+
+    // Initialize local variables
+    QString destinationString;
+
     // Get the agents behavior assignment and whether they are an adult
     int behavior = agent->getBehavior();
     bool adult = agent->isAdult();
@@ -142,21 +170,26 @@ QString AgentController::getDestinationAssignment(Agent *agent, int hour) {
     // Pull the Agent's destination from the appriopriate behavior chart
     QJsonValue destination = extractDestinationAssignment(behavior, hour,
                                                           adult);
-    QString destinationString;
-    // Destination will either be a JSON string or object. Check which it is
-    // and process it accordingly
+
+    // Destination can either be a JSON string or object
     if (destination.isString()) {
+        // A JSON string just contains the destination in text
         destinationString = destination.toString();
     } else {
+        // A JSON object has set of locations and probabilities. Grab the locations
+        // and their probabilities
         QJsonObject object = destination.toObject();
         QStringList keys = object.keys();
         std::vector<double> probabilities(keys.size());
         for (int i = 0; i < keys.size(); ++i) {
             probabilities[i] = object.value(keys[i]).toDouble();
         }
+
+        // Use weighted select to pick the next destination
         destinationString = evaluateDestinationProbabilities(keys,
                                                              probabilities);
     }
 
+    // Return the new destination
     return destinationString;
 }

@@ -9,6 +9,8 @@ SquareRegion::SquareRegion(int numLocations, Coordinate start, int height,
 
 
 QGraphicsItem* SquareRegion::getGraphicsObject() {
+
+    // REFACTOR (add to constructor and store pointer)
     QColor color = getColor();
     QPen pen = QPen(color);
     QBrush brush = QBrush(QColor(color.red(), color.green(), color.blue(), 10));
@@ -24,6 +26,8 @@ QGraphicsItem* SquareRegion::getGraphicsObject() {
 
 
 QGraphicsItem* SquareRegion::getNameGraphicsObject() {
+
+    // REFACTOR (add to constructor and store pointer)
     QGraphicsTextItem* text = new QGraphicsTextItem(QString::fromStdString(getName()));
     text->setPos(start.getCoord(Coordinate::X), start.getCoord(Coordinate::Y));
     text->setScale(1.2);

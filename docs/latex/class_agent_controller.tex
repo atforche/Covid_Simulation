@@ -13,50 +13,161 @@ Class that sits within the \mbox{\hyperlink{class_simulation}{Simulation}} and d
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{class_agent_controller_a8bf24f1a9f3904b915fdd27adadf2dc3}{Agent\+Controller}} (int num\+Behaviors)
+\mbox{\Hypertarget{class_agent_controller_a7e51ef48183b7bb9ed30b79d98895780}\label{class_agent_controller_a7e51ef48183b7bb9ed30b79d98895780}} 
+\mbox{\hyperlink{class_agent_controller_a7e51ef48183b7bb9ed30b79d98895780}{Agent\+Controller}} ()
 \begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_agent_controller}{Agent\+Controller}} ~\newline
-Initial constructor for the \mbox{\hyperlink{class_agent}{Agent}} Controller class. Has controller read in each of the behaviors from the J\+S\+ON resource files and store them as Q\+Json\+Objects in a vector. \end{DoxyCompactList}\item 
-int \mbox{\hyperlink{class_agent_controller_a03f6aef058a830ab9a496a1b89291e38}{get\+Num\+Behaviors}} ()
-\begin{DoxyCompactList}\small\item\em get\+Num\+Behaviors ~\newline
-Getter function for the number of unique behaviors that the \mbox{\hyperlink{class_agent}{Agent}} controller is currently supporting \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{class_agent_controller_a1574fc5722eaf00126c55281f1a2cb92}{assign\+Agent\+Destinations}} (std\+::vector$<$ \mbox{\hyperlink{class_agent}{Agent}} $\ast$ $>$ agents, int hour)
-\begin{DoxyCompactList}\small\item\em assign\+Agent\+Destinations ~\newline
-Function that goes through each of the agents and assigns them to their correct destinations. Should be called from \mbox{\hyperlink{class_simulation_a09a1b2085074e6fb4de3d62b360bef72}{Simulation\+::advance\+Time()}} at an hourly interval to save computations \end{DoxyCompactList}\end{DoxyCompactItemize}
+Initial constructor for the \mbox{\hyperlink{class_agent}{Agent}} Controller class. Has controller read in each of the behaviors from the J\+S\+ON resource files and store them as Q\+Json\+Objects in a vector. Dynamically determines the number of adult and child behaviors by reading the entries in the bin/behaviors directory. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_agent_controller_af9abb95ce567f65cb68fa25342f8b5ec}{get\+Num\+Adult\+Behaviors}} ()
+\begin{DoxyCompactList}\small\item\em get\+Num\+Adult\+Behaviors ~\newline
+Getter function for the number of unique adult behaviors that an adult agent could possibly have \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_agent_controller_a9949edc3068aab2b0fcc334fdf31e937}{get\+Num\+Child\+Behaviors}} ()
+\begin{DoxyCompactList}\small\item\em num\+Child\+Behaviors ~\newline
+Getter function for the number of unique child behaviors that a child agent could possibly have \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_agent_controller_a52ef1e68c38d265174d0290e5bd6618d}{update\+Agent\+Destination}} (std\+::vector$<$ \mbox{\hyperlink{class_agent}{Agent}} $\ast$ $>$ agents, int hour)
+\begin{DoxyCompactList}\small\item\em update\+Agent\+Destinations ~\newline
+Function that goes through each of the agents and assigns them to their correct destinations. Should be called from \mbox{\hyperlink{class_simulation_a09a1b2085074e6fb4de3d62b360bef72}{Simulation\+::advance\+Time()}} at an hourly interval to save computations \end{DoxyCompactList}\item 
+Q\+String \mbox{\hyperlink{class_agent_controller_a02d22757dce690853747d3b406f7d164}{get\+Starting\+Destination}} (int behavior\+Chart, bool is\+Adult)
+\begin{DoxyCompactList}\small\item\em get\+Starting\+Destination ~\newline
+Function that returns the specific destination assignment for a specific behavior chart at th start of the simulation (hour 0) \end{DoxyCompactList}\item 
+Q\+String \mbox{\hyperlink{class_agent_controller_ac66ea2eba7326c59d9183991ea52bcd1}{evaluate\+Destination\+Probabilities}} (Q\+String\+List \&keys, std\+::vector$<$ double $>$ \&probabilities)
+\begin{DoxyCompactList}\small\item\em evaluate\+Destination\+Probabilities ~\newline
+Evaluates the different possible locations and their probabilities. Randomly selects a single location with weighted probability. \end{DoxyCompactList}\item 
+Q\+Json\+Value \mbox{\hyperlink{class_agent_controller_ae73117bcb773698e70ed732c5c70ff05}{extract\+Destination\+Assignment}} (int behavior\+Chart, int hour, bool is\+Adult)
+\begin{DoxyCompactList}\small\item\em extract\+Destination\+Assignment ~\newline
+Returns the destination assignment for the given behavior\+Chart at the given hour as a Q\+Json\+Value. Returns a J\+S\+ON string if single destination is specified. Returns a J\+S\+ON object is multiple destinations are possible. Returns a J\+S\+ON string of \char`\"{}\+No Change\char`\"{} if hour is not specified \end{DoxyCompactList}\item 
+Q\+String \mbox{\hyperlink{class_agent_controller_acbe670ec2ed2581ffc5f64a7707e5ed0}{get\+Destination\+Assignment}} (\mbox{\hyperlink{class_agent}{Agent}} $\ast$agent, int hour)
+\begin{DoxyCompactList}\small\item\em get\+Destination\+Assignment ~\newline
+Determines what location the agent should be assign to. Reads the behavior chart to determine the possible locations. Samples which location should be assigned according to the probabilities. Returns the Q\+String corresponding to the selected location \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 The \mbox{\hyperlink{class_agent_controller}{Agent\+Controller}} class ~\newline
 Class that sits within the \mbox{\hyperlink{class_simulation}{Simulation}} and dynamically determines each agents destination based on its assigned behavior plan. Reads in each of the behavior plans from their J\+S\+ON resources files, which specify the destination of the agent at every hour of the day. 
 
-\doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{class_agent_controller_a8bf24f1a9f3904b915fdd27adadf2dc3}\label{class_agent_controller_a8bf24f1a9f3904b915fdd27adadf2dc3}} 
-\index{AgentController@{AgentController}!AgentController@{AgentController}}
-\index{AgentController@{AgentController}!AgentController@{AgentController}}
-\doxysubsubsection{\texorpdfstring{AgentController()}{AgentController()}}
-{\footnotesize\ttfamily Agent\+Controller\+::\+Agent\+Controller (\begin{DoxyParamCaption}\item[{int}]{num\+Behaviors }\end{DoxyParamCaption})}
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_agent_controller_ac66ea2eba7326c59d9183991ea52bcd1}\label{class_agent_controller_ac66ea2eba7326c59d9183991ea52bcd1}} 
+\index{AgentController@{AgentController}!evaluateDestinationProbabilities@{evaluateDestinationProbabilities}}
+\index{evaluateDestinationProbabilities@{evaluateDestinationProbabilities}!AgentController@{AgentController}}
+\doxysubsubsection{\texorpdfstring{evaluateDestinationProbabilities()}{evaluateDestinationProbabilities()}}
+{\footnotesize\ttfamily Q\+String Agent\+Controller\+::evaluate\+Destination\+Probabilities (\begin{DoxyParamCaption}\item[{Q\+String\+List \&}]{keys,  }\item[{std\+::vector$<$ double $>$ \&}]{probabilities }\end{DoxyParamCaption})}
 
 
 
-\mbox{\hyperlink{class_agent_controller}{Agent\+Controller}} ~\newline
-Initial constructor for the \mbox{\hyperlink{class_agent}{Agent}} Controller class. Has controller read in each of the behaviors from the J\+S\+ON resource files and store them as Q\+Json\+Objects in a vector. 
+evaluate\+Destination\+Probabilities ~\newline
+Evaluates the different possible locations and their probabilities. Randomly selects a single location with weighted probability. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em num\+Behaviors} & int that specifies the number of unique behaviors to read in \\
+{\em keys} & different locations to select from \\
+\hline
+{\em probabilities} & unique weighted probability for each location \\
 \hline
 \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the selected location 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_agent_controller_ae73117bcb773698e70ed732c5c70ff05}\label{class_agent_controller_ae73117bcb773698e70ed732c5c70ff05}} 
+\index{AgentController@{AgentController}!extractDestinationAssignment@{extractDestinationAssignment}}
+\index{extractDestinationAssignment@{extractDestinationAssignment}!AgentController@{AgentController}}
+\doxysubsubsection{\texorpdfstring{extractDestinationAssignment()}{extractDestinationAssignment()}}
+{\footnotesize\ttfamily Q\+Json\+Value Agent\+Controller\+::extract\+Destination\+Assignment (\begin{DoxyParamCaption}\item[{int}]{behavior\+Chart,  }\item[{int}]{hour,  }\item[{bool}]{is\+Adult }\end{DoxyParamCaption})}
 
 
-\doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{class_agent_controller_a1574fc5722eaf00126c55281f1a2cb92}\label{class_agent_controller_a1574fc5722eaf00126c55281f1a2cb92}} 
-\index{AgentController@{AgentController}!assignAgentDestinations@{assignAgentDestinations}}
-\index{assignAgentDestinations@{assignAgentDestinations}!AgentController@{AgentController}}
-\doxysubsubsection{\texorpdfstring{assignAgentDestinations()}{assignAgentDestinations()}}
-{\footnotesize\ttfamily void Agent\+Controller\+::assign\+Agent\+Destinations (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{class_agent}{Agent}} $\ast$ $>$}]{agents,  }\item[{int}]{hour }\end{DoxyParamCaption})}
+
+extract\+Destination\+Assignment ~\newline
+Returns the destination assignment for the given behavior\+Chart at the given hour as a Q\+Json\+Value. Returns a J\+S\+ON string if single destination is specified. Returns a J\+S\+ON object is multiple destinations are possible. Returns a J\+S\+ON string of \char`\"{}\+No Change\char`\"{} if hour is not specified 
+
+
+\begin{DoxyParams}{Parameters}
+{\em behavior\+Chart} & behavior chart assigned to agent \\
+\hline
+{\em hour} & hour for which to search the chart \\
+\hline
+{\em is\+Adult} & whether the agent is an adult \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the destination assignment for the given hour 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_agent_controller_acbe670ec2ed2581ffc5f64a7707e5ed0}\label{class_agent_controller_acbe670ec2ed2581ffc5f64a7707e5ed0}} 
+\index{AgentController@{AgentController}!getDestinationAssignment@{getDestinationAssignment}}
+\index{getDestinationAssignment@{getDestinationAssignment}!AgentController@{AgentController}}
+\doxysubsubsection{\texorpdfstring{getDestinationAssignment()}{getDestinationAssignment()}}
+{\footnotesize\ttfamily Q\+String Agent\+Controller\+::get\+Destination\+Assignment (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_agent}{Agent}} $\ast$}]{agent,  }\item[{int}]{hour }\end{DoxyParamCaption})}
 
 
 
-assign\+Agent\+Destinations ~\newline
+get\+Destination\+Assignment ~\newline
+Determines what location the agent should be assign to. Reads the behavior chart to determine the possible locations. Samples which location should be assigned according to the probabilities. Returns the Q\+String corresponding to the selected location 
+
+
+\begin{DoxyParams}{Parameters}
+{\em agent} & the agent who will be assigned \\
+\hline
+{\em hour} & the current hour in the simulation \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+which location the agent will be assigned to 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_agent_controller_af9abb95ce567f65cb68fa25342f8b5ec}\label{class_agent_controller_af9abb95ce567f65cb68fa25342f8b5ec}} 
+\index{AgentController@{AgentController}!getNumAdultBehaviors@{getNumAdultBehaviors}}
+\index{getNumAdultBehaviors@{getNumAdultBehaviors}!AgentController@{AgentController}}
+\doxysubsubsection{\texorpdfstring{getNumAdultBehaviors()}{getNumAdultBehaviors()}}
+{\footnotesize\ttfamily int Agent\+Controller\+::get\+Num\+Adult\+Behaviors (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+get\+Num\+Adult\+Behaviors ~\newline
+Getter function for the number of unique adult behaviors that an adult agent could possibly have 
+
+\begin{DoxyReturn}{Returns}
+the number of unique behaviors as an integer 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_agent_controller_a9949edc3068aab2b0fcc334fdf31e937}\label{class_agent_controller_a9949edc3068aab2b0fcc334fdf31e937}} 
+\index{AgentController@{AgentController}!getNumChildBehaviors@{getNumChildBehaviors}}
+\index{getNumChildBehaviors@{getNumChildBehaviors}!AgentController@{AgentController}}
+\doxysubsubsection{\texorpdfstring{getNumChildBehaviors()}{getNumChildBehaviors()}}
+{\footnotesize\ttfamily int Agent\+Controller\+::get\+Num\+Child\+Behaviors (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+num\+Child\+Behaviors ~\newline
+Getter function for the number of unique child behaviors that a child agent could possibly have 
+
+\begin{DoxyReturn}{Returns}
+the number of child behaviors 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_agent_controller_a02d22757dce690853747d3b406f7d164}\label{class_agent_controller_a02d22757dce690853747d3b406f7d164}} 
+\index{AgentController@{AgentController}!getStartingDestination@{getStartingDestination}}
+\index{getStartingDestination@{getStartingDestination}!AgentController@{AgentController}}
+\doxysubsubsection{\texorpdfstring{getStartingDestination()}{getStartingDestination()}}
+{\footnotesize\ttfamily Q\+String Agent\+Controller\+::get\+Starting\+Destination (\begin{DoxyParamCaption}\item[{int}]{behavior\+Chart,  }\item[{bool}]{is\+Adult }\end{DoxyParamCaption})}
+
+
+
+get\+Starting\+Destination ~\newline
+Function that returns the specific destination assignment for a specific behavior chart at th start of the simulation (hour 0) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em behavior\+Chart} & the behavior chart to query \\
+\hline
+{\em is\+Adult} & determines whether to check the adult beahavior or the child behavior chart \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_agent_controller_a52ef1e68c38d265174d0290e5bd6618d}\label{class_agent_controller_a52ef1e68c38d265174d0290e5bd6618d}} 
+\index{AgentController@{AgentController}!updateAgentDestination@{updateAgentDestination}}
+\index{updateAgentDestination@{updateAgentDestination}!AgentController@{AgentController}}
+\doxysubsubsection{\texorpdfstring{updateAgentDestination()}{updateAgentDestination()}}
+{\footnotesize\ttfamily void Agent\+Controller\+::update\+Agent\+Destination (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{class_agent}{Agent}} $\ast$ $>$}]{agents,  }\item[{int}]{hour }\end{DoxyParamCaption})}
+
+
+
+update\+Agent\+Destinations ~\newline
 Function that goes through each of the agents and assigns them to their correct destinations. Should be called from \mbox{\hyperlink{class_simulation_a09a1b2085074e6fb4de3d62b360bef72}{Simulation\+::advance\+Time()}} at an hourly interval to save computations 
 
 
@@ -66,28 +177,6 @@ Function that goes through each of the agents and assigns them to their correct 
 {\em hour} & the current hour of the simulation \\
 \hline
 \end{DoxyParams}
-Here is the caller graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{class_agent_controller_a1574fc5722eaf00126c55281f1a2cb92_icgraph}
-\end{center}
-\end{figure}
-\mbox{\Hypertarget{class_agent_controller_a03f6aef058a830ab9a496a1b89291e38}\label{class_agent_controller_a03f6aef058a830ab9a496a1b89291e38}} 
-\index{AgentController@{AgentController}!getNumBehaviors@{getNumBehaviors}}
-\index{getNumBehaviors@{getNumBehaviors}!AgentController@{AgentController}}
-\doxysubsubsection{\texorpdfstring{getNumBehaviors()}{getNumBehaviors()}}
-{\footnotesize\ttfamily int Agent\+Controller\+::get\+Num\+Behaviors (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
-
-
-
-get\+Num\+Behaviors ~\newline
-Getter function for the number of unique behaviors that the \mbox{\hyperlink{class_agent}{Agent}} controller is currently supporting 
-
-\begin{DoxyReturn}{Returns}
-the number of unique behaviors as an integer 
-\end{DoxyReturn}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

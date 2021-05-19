@@ -97,59 +97,257 @@ Class that sits within the <a class="el" href="class_simulation.html" title="The
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a8bf24f1a9f3904b915fdd27adadf2dc3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_agent_controller.html#a8bf24f1a9f3904b915fdd27adadf2dc3">AgentController</a> (int numBehaviors)</td></tr>
-<tr class="memdesc:a8bf24f1a9f3904b915fdd27adadf2dc3"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_agent_controller.html" title="The AgentController class  Class that sits within the Simulation and dynamically determines each agen...">AgentController</a> <br  />
-Initial constructor for the <a class="el" href="class_agent.html" title="The Agent Class  Class that specifies the functionality of the Agents in the simulation Contains all ...">Agent</a> Controller class. Has controller read in each of the behaviors from the JSON resource files and store them as QJsonObjects in a vector.  <a href="class_agent_controller.html#a8bf24f1a9f3904b915fdd27adadf2dc3">More...</a><br /></td></tr>
-<tr class="separator:a8bf24f1a9f3904b915fdd27adadf2dc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03f6aef058a830ab9a496a1b89291e38"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_agent_controller.html#a03f6aef058a830ab9a496a1b89291e38">getNumBehaviors</a> ()</td></tr>
-<tr class="memdesc:a03f6aef058a830ab9a496a1b89291e38"><td class="mdescLeft">&#160;</td><td class="mdescRight">getNumBehaviors <br  />
-Getter function for the number of unique behaviors that the <a class="el" href="class_agent.html" title="The Agent Class  Class that specifies the functionality of the Agents in the simulation Contains all ...">Agent</a> controller is currently supporting  <a href="class_agent_controller.html#a03f6aef058a830ab9a496a1b89291e38">More...</a><br /></td></tr>
-<tr class="separator:a03f6aef058a830ab9a496a1b89291e38"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1574fc5722eaf00126c55281f1a2cb92"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_agent_controller.html#a1574fc5722eaf00126c55281f1a2cb92">assignAgentDestinations</a> (std::vector&lt; <a class="el" href="class_agent.html">Agent</a> * &gt; agents, int hour)</td></tr>
-<tr class="memdesc:a1574fc5722eaf00126c55281f1a2cb92"><td class="mdescLeft">&#160;</td><td class="mdescRight">assignAgentDestinations <br  />
-Function that goes through each of the agents and assigns them to their correct destinations. Should be called from <a class="el" href="class_simulation.html#a09a1b2085074e6fb4de3d62b360bef72" title="advanceTime  Function that should be called on every call to Simulation::execute()....">Simulation::advanceTime()</a> at an hourly interval to save computations  <a href="class_agent_controller.html#a1574fc5722eaf00126c55281f1a2cb92">More...</a><br /></td></tr>
-<tr class="separator:a1574fc5722eaf00126c55281f1a2cb92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e51ef48183b7bb9ed30b79d98895780"><td class="memItemLeft" align="right" valign="top"><a id="a7e51ef48183b7bb9ed30b79d98895780"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_agent_controller.html#a7e51ef48183b7bb9ed30b79d98895780">AgentController</a> ()</td></tr>
+<tr class="memdesc:a7e51ef48183b7bb9ed30b79d98895780"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_agent_controller.html" title="The AgentController class  Class that sits within the Simulation and dynamically determines each agen...">AgentController</a> <br  />
+Initial constructor for the <a class="el" href="class_agent.html" title="The Agent Class  Class that specifies the functionality of the Agents in the simulation Contains all ...">Agent</a> Controller class. Has controller read in each of the behaviors from the JSON resource files and store them as QJsonObjects in a vector. Dynamically determines the number of adult and child behaviors by reading the entries in the bin/behaviors directory. <br /></td></tr>
+<tr class="separator:a7e51ef48183b7bb9ed30b79d98895780"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9abb95ce567f65cb68fa25342f8b5ec"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_agent_controller.html#af9abb95ce567f65cb68fa25342f8b5ec">getNumAdultBehaviors</a> ()</td></tr>
+<tr class="memdesc:af9abb95ce567f65cb68fa25342f8b5ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">getNumAdultBehaviors <br  />
+Getter function for the number of unique adult behaviors that an adult agent could possibly have  <a href="class_agent_controller.html#af9abb95ce567f65cb68fa25342f8b5ec">More...</a><br /></td></tr>
+<tr class="separator:af9abb95ce567f65cb68fa25342f8b5ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9949edc3068aab2b0fcc334fdf31e937"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_agent_controller.html#a9949edc3068aab2b0fcc334fdf31e937">getNumChildBehaviors</a> ()</td></tr>
+<tr class="memdesc:a9949edc3068aab2b0fcc334fdf31e937"><td class="mdescLeft">&#160;</td><td class="mdescRight">numChildBehaviors <br  />
+Getter function for the number of unique child behaviors that a child agent could possibly have  <a href="class_agent_controller.html#a9949edc3068aab2b0fcc334fdf31e937">More...</a><br /></td></tr>
+<tr class="separator:a9949edc3068aab2b0fcc334fdf31e937"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52ef1e68c38d265174d0290e5bd6618d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_agent_controller.html#a52ef1e68c38d265174d0290e5bd6618d">updateAgentDestination</a> (std::vector&lt; <a class="el" href="class_agent.html">Agent</a> * &gt; agents, int hour)</td></tr>
+<tr class="memdesc:a52ef1e68c38d265174d0290e5bd6618d"><td class="mdescLeft">&#160;</td><td class="mdescRight">updateAgentDestinations <br  />
+Function that goes through each of the agents and assigns them to their correct destinations. Should be called from <a class="el" href="class_simulation.html#a09a1b2085074e6fb4de3d62b360bef72" title="advanceTime  Function that should be called on every call to Simulation::execute()....">Simulation::advanceTime()</a> at an hourly interval to save computations  <a href="class_agent_controller.html#a52ef1e68c38d265174d0290e5bd6618d">More...</a><br /></td></tr>
+<tr class="separator:a52ef1e68c38d265174d0290e5bd6618d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02d22757dce690853747d3b406f7d164"><td class="memItemLeft" align="right" valign="top">QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_agent_controller.html#a02d22757dce690853747d3b406f7d164">getStartingDestination</a> (int behaviorChart, bool isAdult)</td></tr>
+<tr class="memdesc:a02d22757dce690853747d3b406f7d164"><td class="mdescLeft">&#160;</td><td class="mdescRight">getStartingDestination <br  />
+Function that returns the specific destination assignment for a specific behavior chart at th start of the simulation (hour 0)  <a href="class_agent_controller.html#a02d22757dce690853747d3b406f7d164">More...</a><br /></td></tr>
+<tr class="separator:a02d22757dce690853747d3b406f7d164"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac66ea2eba7326c59d9183991ea52bcd1"><td class="memItemLeft" align="right" valign="top">QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_agent_controller.html#ac66ea2eba7326c59d9183991ea52bcd1">evaluateDestinationProbabilities</a> (QStringList &amp;keys, std::vector&lt; double &gt; &amp;probabilities)</td></tr>
+<tr class="memdesc:ac66ea2eba7326c59d9183991ea52bcd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">evaluateDestinationProbabilities <br  />
+Evaluates the different possible locations and their probabilities. Randomly selects a single location with weighted probability.  <a href="class_agent_controller.html#ac66ea2eba7326c59d9183991ea52bcd1">More...</a><br /></td></tr>
+<tr class="separator:ac66ea2eba7326c59d9183991ea52bcd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae73117bcb773698e70ed732c5c70ff05"><td class="memItemLeft" align="right" valign="top">QJsonValue&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_agent_controller.html#ae73117bcb773698e70ed732c5c70ff05">extractDestinationAssignment</a> (int behaviorChart, int hour, bool isAdult)</td></tr>
+<tr class="memdesc:ae73117bcb773698e70ed732c5c70ff05"><td class="mdescLeft">&#160;</td><td class="mdescRight">extractDestinationAssignment <br  />
+Returns the destination assignment for the given behaviorChart at the given hour as a QJsonValue. Returns a JSON string if single destination is specified. Returns a JSON object is multiple destinations are possible. Returns a JSON string of "No Change" if hour is not specified  <a href="class_agent_controller.html#ae73117bcb773698e70ed732c5c70ff05">More...</a><br /></td></tr>
+<tr class="separator:ae73117bcb773698e70ed732c5c70ff05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbe670ec2ed2581ffc5f64a7707e5ed0"><td class="memItemLeft" align="right" valign="top">QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_agent_controller.html#acbe670ec2ed2581ffc5f64a7707e5ed0">getDestinationAssignment</a> (<a class="el" href="class_agent.html">Agent</a> *agent, int hour)</td></tr>
+<tr class="memdesc:acbe670ec2ed2581ffc5f64a7707e5ed0"><td class="mdescLeft">&#160;</td><td class="mdescRight">getDestinationAssignment <br  />
+Determines what location the agent should be assign to. Reads the behavior chart to determine the possible locations. Samples which location should be assigned according to the probabilities. Returns the QString corresponding to the selected location  <a href="class_agent_controller.html#acbe670ec2ed2581ffc5f64a7707e5ed0">More...</a><br /></td></tr>
+<tr class="separator:acbe670ec2ed2581ffc5f64a7707e5ed0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="class_agent_controller.html" title="The AgentController class  Class that sits within the Simulation and dynamically determines each agen...">AgentController</a> class <br  />
 Class that sits within the <a class="el" href="class_simulation.html" title="The Simulation class  The Abstract Simulation class from which all other simulations will be derived....">Simulation</a> and dynamically determines each agents destination based on its assigned behavior plan. Reads in each of the behavior plans from their JSON resources files, which specify the destination of the agent at every hour of the day. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a8bf24f1a9f3904b915fdd27adadf2dc3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8bf24f1a9f3904b915fdd27adadf2dc3">&#9670;&nbsp;</a></span>AgentController()</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="ac66ea2eba7326c59d9183991ea52bcd1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac66ea2eba7326c59d9183991ea52bcd1">&#9670;&nbsp;</a></span>evaluateDestinationProbabilities()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">AgentController::AgentController </td>
+          <td class="memname">QString AgentController::evaluateDestinationProbabilities </td>
+          <td>(</td>
+          <td class="paramtype">QStringList &amp;&#160;</td>
+          <td class="paramname"><em>keys</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; double &gt; &amp;&#160;</td>
+          <td class="paramname"><em>probabilities</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>evaluateDestinationProbabilities <br  />
+Evaluates the different possible locations and their probabilities. Randomly selects a single location with weighted probability. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">keys</td><td>different locations to select from </td></tr>
+    <tr><td class="paramname">probabilities</td><td>unique weighted probability for each location </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the selected location </dd></dl>
+
+</div>
+</div>
+<a id="ae73117bcb773698e70ed732c5c70ff05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae73117bcb773698e70ed732c5c70ff05">&#9670;&nbsp;</a></span>extractDestinationAssignment()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QJsonValue AgentController::extractDestinationAssignment </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>numBehaviors</em></td><td>)</td>
+          <td class="paramname"><em>behaviorChart</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>hour</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>isAdult</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>extractDestinationAssignment <br  />
+Returns the destination assignment for the given behaviorChart at the given hour as a QJsonValue. Returns a JSON string if single destination is specified. Returns a JSON object is multiple destinations are possible. Returns a JSON string of "No Change" if hour is not specified </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">behaviorChart</td><td>behavior chart assigned to agent </td></tr>
+    <tr><td class="paramname">hour</td><td>hour for which to search the chart </td></tr>
+    <tr><td class="paramname">isAdult</td><td>whether the agent is an adult </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the destination assignment for the given hour </dd></dl>
+
+</div>
+</div>
+<a id="acbe670ec2ed2581ffc5f64a7707e5ed0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbe670ec2ed2581ffc5f64a7707e5ed0">&#9670;&nbsp;</a></span>getDestinationAssignment()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString AgentController::getDestinationAssignment </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_agent.html">Agent</a> *&#160;</td>
+          <td class="paramname"><em>agent</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>hour</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>getDestinationAssignment <br  />
+Determines what location the agent should be assign to. Reads the behavior chart to determine the possible locations. Samples which location should be assigned according to the probabilities. Returns the QString corresponding to the selected location </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">agent</td><td>the agent who will be assigned </td></tr>
+    <tr><td class="paramname">hour</td><td>the current hour in the simulation </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>which location the agent will be assigned to </dd></dl>
+
+</div>
+</div>
+<a id="af9abb95ce567f65cb68fa25342f8b5ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9abb95ce567f65cb68fa25342f8b5ec">&#9670;&nbsp;</a></span>getNumAdultBehaviors()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int AgentController::getNumAdultBehaviors </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="class_agent_controller.html" title="The AgentController class  Class that sits within the Simulation and dynamically determines each agen...">AgentController</a> <br  />
-Initial constructor for the <a class="el" href="class_agent.html" title="The Agent Class  Class that specifies the functionality of the Agents in the simulation Contains all ...">Agent</a> Controller class. Has controller read in each of the behaviors from the JSON resource files and store them as QJsonObjects in a vector. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">numBehaviors</td><td>int that specifies the number of unique behaviors to read in </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>getNumAdultBehaviors <br  />
+Getter function for the number of unique adult behaviors that an adult agent could possibly have </p>
+<dl class="section return"><dt>Returns</dt><dd>the number of unique behaviors as an integer </dd></dl>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a1574fc5722eaf00126c55281f1a2cb92"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1574fc5722eaf00126c55281f1a2cb92">&#9670;&nbsp;</a></span>assignAgentDestinations()</h2>
+<a id="a9949edc3068aab2b0fcc334fdf31e937"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9949edc3068aab2b0fcc334fdf31e937">&#9670;&nbsp;</a></span>getNumChildBehaviors()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void AgentController::assignAgentDestinations </td>
+          <td class="memname">int AgentController::getNumChildBehaviors </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>numChildBehaviors <br  />
+Getter function for the number of unique child behaviors that a child agent could possibly have </p>
+<dl class="section return"><dt>Returns</dt><dd>the number of child behaviors </dd></dl>
+
+</div>
+</div>
+<a id="a02d22757dce690853747d3b406f7d164"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02d22757dce690853747d3b406f7d164">&#9670;&nbsp;</a></span>getStartingDestination()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString AgentController::getStartingDestination </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>behaviorChart</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>isAdult</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>getStartingDestination <br  />
+Function that returns the specific destination assignment for a specific behavior chart at th start of the simulation (hour 0) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">behaviorChart</td><td>the behavior chart to query </td></tr>
+    <tr><td class="paramname">isAdult</td><td>determines whether to check the adult beahavior or the child behavior chart </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+</div>
+</div>
+<a id="a52ef1e68c38d265174d0290e5bd6618d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52ef1e68c38d265174d0290e5bd6618d">&#9670;&nbsp;</a></span>updateAgentDestination()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void AgentController::updateAgentDestination </td>
           <td>(</td>
           <td class="paramtype">std::vector&lt; <a class="el" href="class_agent.html">Agent</a> * &gt;&#160;</td>
           <td class="paramname"><em>agents</em>, </td>
@@ -168,7 +366,7 @@ Initial constructor for the <a class="el" href="class_agent.html" title="The Age
       </table>
 </div><div class="memdoc">
 
-<p>assignAgentDestinations <br  />
+<p>updateAgentDestinations <br  />
 Function that goes through each of the agents and assigns them to their correct destinations. Should be called from <a class="el" href="class_simulation.html#a09a1b2085074e6fb4de3d62b360bef72" title="advanceTime  Function that should be called on every call to Simulation::execute()....">Simulation::advanceTime()</a> at an hourly interval to save computations </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -177,37 +375,6 @@ Function that goes through each of the agents and assigns them to their correct 
   </table>
   </dd>
 </dl>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_agent_controller_a1574fc5722eaf00126c55281f1a2cb92_icgraph.png" border="0" usemap="#aclass_agent_controller_a1574fc5722eaf00126c55281f1a2cb92_icgraph" alt=""/></div>
-<map name="class_agent_controller_a1574fc5722eaf00126c55281f1a2cb92_icgraph" id="aclass_agent_controller_a1574fc5722eaf00126c55281f1a2cb92_icgraph">
-<area shape="rect" title="assignAgentDestinations &#160;Function that goes through each of the agents and assigns them to their corr..." alt="" coords="445,5,636,47"/>
-<area shape="rect" href="class_simulation.html#a09a1b2085074e6fb4de3d62b360bef72" title="advanceTime &#160;Function that should be called on every call to Simulation::execute()...." alt="" coords="231,13,397,39"/>
-<area shape="rect" href="class_simple_simulation.html#aed5adff71da8e1700c9059dac85ffbc6" title="execute &#160;Function to execute a simple timestep of the simulation. Loops through every agent in the si..." alt="" coords="5,13,183,39"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a03f6aef058a830ab9a496a1b89291e38"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a03f6aef058a830ab9a496a1b89291e38">&#9670;&nbsp;</a></span>getNumBehaviors()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int AgentController::getNumBehaviors </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>getNumBehaviors <br  />
-Getter function for the number of unique behaviors that the <a class="el" href="class_agent.html" title="The Agent Class  Class that specifies the functionality of the Agents in the simulation Contains all ...">Agent</a> controller is currently supporting </p>
-<dl class="section return"><dt>Returns</dt><dd>the number of unique behaviors as an integer </dd></dl>
 
 </div>
 </div>
