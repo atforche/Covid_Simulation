@@ -24,9 +24,15 @@ Agent::Agent(int age, Location* startingLocation, int behavior) {
 }
 
 
+//******************************************************************************
+
+
 QGraphicsRectItem* Agent::getGraphicsObject() {
     return rect;
 }
+
+
+//******************************************************************************
 
 
 void Agent::updateGraphicsObject() {
@@ -36,25 +42,7 @@ void Agent::updateGraphicsObject() {
 }
 
 
-void Agent::setDestination(Location *newLocation) {
-
-    // Update the destination of the agent
-    this->destination = newLocation->getPosition();
-
-    // Ensure the agent arrives in no more than 30 frames
-    double dist = this->position.distBetween(this->destination);
-    this->speed = std::max(static_cast<double>(BASE_SPEED), dist/30);
-}
-
-
-void Agent::setLocation(Location *location, LOCATIONS which) {
-    this->locations[static_cast<int>(which)] = location;
-}
-
-
-Location* Agent::getLocation(LOCATIONS which) {
-    return this->locations[static_cast<int>(which)];
-}
+//******************************************************************************
 
 
 void Agent::takeTimeStep() {
@@ -83,9 +71,42 @@ void Agent::takeTimeStep() {
 }
 
 
+//******************************************************************************
+
+
+void Agent::setDestination(Location *newLocation) {
+
+    // Update the destination of the agent
+    this->destination = newLocation->getPosition();
+
+    // Ensure the agent arrives in no more than 30 frames
+    double dist = this->position.distBetween(this->destination);
+    this->speed = std::max(static_cast<double>(BASE_SPEED), dist/30);
+}
+
+
+//******************************************************************************
+
+
+void Agent::setLocation(Location *location, LOCATIONS which) {
+    this->locations[static_cast<int>(which)] = location;
+}
+
+
+//******************************************************************************
+
+
+Location* Agent::getLocation(LOCATIONS which) {
+    return this->locations[static_cast<int>(which)];
+}
+
+
 Coordinate Agent::getPosition() {
     return this->position;
 }
+
+
+//******************************************************************************
 
 
 int Agent::getBehavior() {
@@ -93,12 +114,42 @@ int Agent::getBehavior() {
 }
 
 
+//******************************************************************************
+
+
+void Agent::setBehavior(int newBehavior) {
+    this->behavior = newBehavior;
+}
+
+
+//******************************************************************************
+
+
 bool Agent::isAdult() {
     return (this->age >= 18);
 }
 
 
+//******************************************************************************
+
+
+int Agent::getAge() {
+    return this->age;
+}
+
+
+//******************************************************************************
+
+
+int Agent::incrementAge() {
+    this->age++;
+    return this->age;
+}
+
+
+//******************************************************************************
+
+
 Agent::~Agent() {
-    delete this->rect;
     this->rect = nullptr;
 }

@@ -14,16 +14,25 @@ Location::Location(double x, double y) {
 }
 
 
+//******************************************************************************
+
+
 void Location::addAgent(Agent *agent) {
     agents.insert(agent);
 }
 
 
-void Location::removeAgent(Agent &agent) {
-    if(agents.find(&agent) != agents.end()) {
-        agents.erase(&agent);
+//******************************************************************************
+
+
+void Location::removeAgent(Agent* agent) {
+    if(agents.find(agent) != agents.end()) {
+        agents.erase(agent);
     }
 }
+
+
+//******************************************************************************
 
 
 QGraphicsEllipseItem* Location::getGraphicsObject() {
@@ -31,9 +40,15 @@ QGraphicsEllipseItem* Location::getGraphicsObject() {
 }
 
 
+//******************************************************************************
+
+
 Coordinate Location::getPosition() {
     return this->position;
 }
+
+
+//******************************************************************************
 
 
 Location::~Location() {

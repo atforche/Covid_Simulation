@@ -1,15 +1,18 @@
 \doxysection{Class List}
 Here are the classes, structs, unions and interfaces with brief descriptions\+:\begin{DoxyCompactList}
+\item\contentsline{section}{\mbox{\hyperlink{class_age_chart_helper}{Age\+Chart\+Helper}} \\*The \mbox{\hyperlink{class_age_chart_helper}{Age\+Chart\+Helper}} class Helper class that handles dynamic memory for the Age Distribution Graph View. Offers a singleton abstraction for all dynamically allocated components of the graph, in order to prevent memory leaks }{\pageref{class_age_chart_helper}}{}
 \item\contentsline{section}{\mbox{\hyperlink{class_agent}{Agent}} \\*The \mbox{\hyperlink{class_agent}{Agent}} Class ~\newline
 Class that specifies the functionality of the Agents in the simulation Contains all information required for the agent to act in the environment }{\pageref{class_agent}}{}
 \item\contentsline{section}{\mbox{\hyperlink{class_agent_controller}{Agent\+Controller}} \\*~\newline
 Class that sits within the \mbox{\hyperlink{class_simulation}{Simulation}} and dynamically determines each agents destination based on its assigned behavior plan. Reads in each of the behavior plans from their J\+S\+ON resources files, which specify the destination of the agent at every hour of the day }{\pageref{class_agent_controller}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_behavior_chart_helper}{Behavior\+Chart\+Helper}} \\*The \mbox{\hyperlink{class_behavior_chart_helper}{Behavior\+Chart\+Helper}} class Helper class that handles dynamic memory for the Behavior Distribution Graph View. Offers a singleton abstraction for all dynamically allocated components of the graph, in order to prevent memory leaks }{\pageref{class_behavior_chart_helper}}{}
 \item\contentsline{section}{\mbox{\hyperlink{class_coordinate}{Coordinate}} \\*~\newline
 A Class that represents positiions within the simulation. Also supports calculations between Coordinates }{\pageref{class_coordinate}}{}
-\item\contentsline{section}{\mbox{\hyperlink{class_location}{Location}} }{\pageref{class_location}}{}
-\item\contentsline{section}{\mbox{\hyperlink{class_main_window}{Main\+Window}} }{\pageref{class_main_window}}{}
-\item\contentsline{section}{\mbox{\hyperlink{class_region}{Region}} }{\pageref{class_region}}{}
-\item\contentsline{section}{\mbox{\hyperlink{class_simple_simulation}{Simple\+Simulation}} }{\pageref{class_simple_simulation}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_location}{Location}} \\*~\newline
+A base class that defines functionality of unique locations within the \mbox{\hyperlink{class_simulation}{Simulation}} }{\pageref{class_location}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_main_window}{Main\+Window}} \\*The \mbox{\hyperlink{class_main_window}{Main\+Window}} class Main Window that drives the simulation. Contains all Slots that connect to user inputs. Passes user input on to the \mbox{\hyperlink{class_simulation}{Simulation}}. Contains a \mbox{\hyperlink{class_simulation_controller}{Simulation\+Controller}} that manages the runtime speed of the \mbox{\hyperlink{class_simulation}{Simulation}} }{\pageref{class_main_window}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_region}{Region}} \\*The \mbox{\hyperlink{class_region}{Region}} class Base class that contains a list of Locations within the region, used to manage assigning Agents to Locations }{\pageref{class_region}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_simple_simulation}{Simple\+Simulation}} \\*The \mbox{\hyperlink{class_simple_simulation}{Simple\+Simulation}} class Class that manages the progression of the Simple \mbox{\hyperlink{class_simulation}{Simulation}} type }{\pageref{class_simple_simulation}}{}
 \item\contentsline{section}{\mbox{\hyperlink{class_simulation}{Simulation}} \\*~\newline
 The Abstract \mbox{\hyperlink{class_simulation}{Simulation}} class from which all other simulations will be derived. Provides a common interface through which each simulation can be executed in the same screen space with the same driver }{\pageref{class_simulation}}{}
 \item\contentsline{section}{\mbox{\hyperlink{class_simulation_controller}{Simulation\+Controller}} \\*~\newline

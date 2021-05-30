@@ -1,12 +1,14 @@
 #ifndef AGENTCONTROLLER_H
 #define AGENTCONTROLLER_H
 
+#include <vector>
+
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QFile>
 #include <QString>
 #include <QDir>
-#include <vector>
+
 #include "Agent.h"
 
 /**
@@ -23,56 +25,20 @@ private:
     /** Vector containing the QJsonObjects that specify different behaviors*/
     std::vector<QJsonObject> adultBehaviors;
 
+    /** Vector containing the weighted sums for each adult behavior */
+    std::vector<int> adultProbabilities;
+
+    /** Total weight sum for adult behaviors */
+    int adultWeightedSum;
+
     /** Vector of QJsonObjects specifying different child behaviors*/
     std::vector<QJsonObject> childBehaviors;
 
-public:
-    /**
-     * @brief AgentController \n
-     * Initial constructor for the Agent Controller class. Has controller
-     * read in each of the behaviors from the JSON resource files and store
-     * them as QJsonObjects in a vector. Dynamically determines the number of
-     * adult and child behaviors by reading the entries in the bin/behaviors
-     * directory
-     */
-    AgentController();
+    /** Vector containing the weighted sums for each adult behavior */
+    std::vector<int> childProbabilities;
 
-    /**
-     * @brief getNumAdultBehaviors \n
-     * Getter function for the number of unique adult behaviors that an adult
-     * agent could possibly have
-     * @return the number of unique behaviors as an integer
-     */
-    int getNumAdultBehaviors();
-
-    /**
-     * @brief numChildBehaviors \n
-     * Getter function for the number of unique child behaviors that a child
-     * agent could possibly have
-     * @return the number of child behaviors
-     */
-    int getNumChildBehaviors();
-
-    /**
-     * @brief updateAgentDestinations \n
-     * Function that goes through each of the agents and assigns them to their
-     * correct destinations. Should be called from Simulation::advanceTime() at
-     * an hourly interval to save computations
-     * @param agents: a vector of Agent* pointing to each agent in the Simulation
-     * @param hour: the current hour of the simulation
-     */
-    void updateAgentDestination(std::vector<Agent*> agents, int hour);
-
-    /**
-     * @brief getStartingDestination \n
-     * Function that returns the specific destination assignment for a specific
-     * behavior chart at th start of the simulation (hour 0)
-     * @param behaviorChart: the behavior chart to query
-     * @param isAdult: determines whether to check the adult beahavior or the
-     *        child behavior chart
-     * @return
-     */
-    QString getStartingDestination(int behaviorChart, bool isAdult);
+    /** Total weight sum for adult behaviors */
+    int childWeightedSum;
 
     /**
      * @brief evaluateDestinationProbabilities \n
@@ -96,12 +62,12 @@ public:
      * @param isAdult: whether the agent is an adult
      * @return the destination assignment for the given hour
      */
-    QJsonValue extractDestinationAssignment(int behaviorChart, int hour,
+    QJsonValue readAssignmentFromJSON(int behaviorChart, int hour,
                                             bool isAdult);
 
     /**
-     * @brief getDestinationAssignment \n
-     * Determines what location the agent should be assign to. Reads the
+     * @brief getAgentDestination \n
+     * Determines what location the agent should be assigned to. Reads the
      * behavior chart to determine the possible locations. Samples which
      * location should be assigned according to the probabilities. Returns
      * the QString corresponding to the selected location
@@ -109,7 +75,80 @@ public:
      * @param hour: the current hour in the simulation
      * @return which location the agent will be assigned to
      */
-    QString getDestinationAssignment(Agent* agent, int hour);
+    QString getAgentDestination(Agent* agent, int hour);
+
+public:
+    /**
+     * @brief AgentController \n
+     * Initial constructor for the Agent Controller class. Has controller
+     * read in each of the behaviors from the JSON resource files and store
+     * them as QJsonObjects in a vector. Dynamically determines the number of
+     * adult and child behaviors by reading the entries in the bin/behaviors
+     * directory
+     */
+    AgentController();
+
+    /**
+     * @brief getNumAdultBehaviors \n
+     * Getter function for the number of unique adult behaviors that an adult
+     * agent could possibly have
+     * @return the number of unique behaviors as an integer
+     */
+    int getNumAdultBehaviors();
+
+    /**
+     * @brief getAdultBehavior \n
+     * Getter function for a random adult behavior. Selects one of the adult
+     * behavior charts according to the probabilities included in the JSON.
+     * @return integer index of the behavior chart
+     */
+    int getAdultBehavior();
+
+    /**
+     * @brief numChildBehaviors \n
+     * Getter function for the number of unique child behaviors that a child
+     * agent could possibly have
+     * @return the number of child behaviors
+     */
+    int getNumChildBehaviors();
+
+    /**
+     * @brief getChildBehavior \n
+     * Getter function for a random child behavior. Selects one of the child
+     * behavior charts according to the probabilities included in the JSON.
+     * @return integer index of the behavior chart
+     */
+    int getChildBehavior();
+
+    /**
+     * @brief updateAgentDestinations \n
+     * Function that goes through each of the agents and assigns them to their
+     * correct destinations. Should be called from Simulation::advanceTime() at
+     * an hourly interval to save computations
+     * @param agents: a vector of Agent* pointing to each agent in the Simulation
+     * @param hour: the current hour of the simulation
+     */
+    void updateAgentDestinations(std::vector<Agent*> &agents, int hour);
+
+    /**
+     * @brief getStartingDestination \n
+     * Function that returns the specific destination assignment for a specific
+     * behavior chart at th start of the simulation (hour 0)
+     * @param behaviorChart: the behavior chart to query
+     * @param isAdult: determines whether to check the adult beahavior or the
+     *        child behavior chart
+     * @return QString representing the starting destination of the Agent
+     */
+    QString getStartingDestination(int behaviorChart, bool isAdult);
+
+    /**
+     * @brief sampleAgentAge \n
+     * Generates a new random age for an agent that is sampled from the standard
+     * age distribution of the United States.
+     * @return the randomly sampled age as an integer
+     */
+    static int sampleAgentAge();
+
 
 };
 

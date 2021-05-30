@@ -12,6 +12,7 @@ var class_simulation =
     [ "generateAgents", "class_simulation.html#a660be863fc2ae95c333fc97d4acbf7a3", null ],
     [ "generateLocations", "class_simulation.html#a37329fde91a2d8c771a2d8c42e799c99", null ],
     [ "getAgents", "class_simulation.html#a8ae30e90c1666e86caf97329c5f26ec8", null ],
+    [ "getChartView", "class_simulation.html#a3bc139032d04c350872a02d9c1240b0d", null ],
     [ "getController", "class_simulation.html#a409ca0d5f3912f95d3958ad8c2eab3f7", null ],
     [ "getDay", "class_simulation.html#aef28d4ac97f24e41ea7ed079b2716548", null ],
     [ "getHour", "class_simulation.html#a7b4094d997d1d63f15c9eaa2c157b4be", null ],
@@ -20,7 +21,12 @@ var class_simulation =
     [ "getSimWidth", "class_simulation.html#a688115850cca6f68f19a5ad6b66ed9fb", null ],
     [ "getYear", "class_simulation.html#a930797907136599651cfe84145e57973", null ],
     [ "init", "class_simulation.html#ab4d7fe11a5098550766a4f51c0af8409", null ],
+    [ "mapChartViews", "class_simulation.html#ab7097dc735731346f643ec09242c3d15", null ],
+    [ "renderAgeChart", "class_simulation.html#a8ad4ff8991c47245d7ad81474f3d745c", null ],
     [ "renderAgentUpdate", "class_simulation.html#a2987cc476da3d7fa312d02e00b17f4d8", null ],
+    [ "renderBehaviorChart", "class_simulation.html#a0813a36201a8161715b29e17adb3b783", null ],
+    [ "renderCharts", "class_simulation.html#a65fc57a1eefda8539d24309e5e1acf69", null ],
     [ "reset", "class_simulation.html#a8987b06b08f85c2dbc40800a1d05c985", null ],
-    [ "test", "class_simulation.html#affbbe939694dfa935a0fce528f1ef0ea", null ]
+    [ "test", "class_simulation.html#affbbe939694dfa935a0fce528f1ef0ea", null ],
+    [ "updateChart", "class_simulation.html#a22e2c15a3617729e5ac2cbd33744ccde", null ]
 ];

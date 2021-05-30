@@ -7,9 +7,15 @@ Region::Region(int numLocations, QColor color, std::string name) {
 }
 
 
+//******************************************************************************
+
+
 std::vector<Location*>& Region::getLocations() {
     return this->locations;
 }
+
+
+//******************************************************************************
 
 
 void Region::setLocations(std::vector<Location *> &locations) {
@@ -17,14 +23,23 @@ void Region::setLocations(std::vector<Location *> &locations) {
 }
 
 
+//******************************************************************************
+
+
 int Region::getNumLocations() {
     return this->numLocations;
 }
 
 
+//******************************************************************************
+
+
 QColor Region::getColor() {
     return this->color;
 }
+
+
+//******************************************************************************
 
 
 std::string Region::getName() {

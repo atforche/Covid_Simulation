@@ -8,6 +8,15 @@ SquareRegion::SquareRegion(int numLocations, Coordinate start, int height,
 }
 
 
+//******************************************************************************
+
+
+SquareRegion::~SquareRegion() {}
+
+
+//******************************************************************************
+
+
 QGraphicsItem* SquareRegion::getGraphicsObject() {
 
     // REFACTOR (add to constructor and store pointer)
@@ -25,6 +34,9 @@ QGraphicsItem* SquareRegion::getGraphicsObject() {
 }
 
 
+//******************************************************************************
+
+
 QGraphicsItem* SquareRegion::getNameGraphicsObject() {
 
     // REFACTOR (add to constructor and store pointer)
@@ -35,14 +47,23 @@ QGraphicsItem* SquareRegion::getNameGraphicsObject() {
 }
 
 
+//******************************************************************************
+
+
 Coordinate* SquareRegion::getStartingCoordinate() {
     return &this->start;
 }
 
 
+//******************************************************************************
+
+
 int SquareRegion::getHeight() {
     return this->height;
 }
+
+
+//******************************************************************************
 
 
 std::vector<QGraphicsItem*> SquareRegion::getLocationsGraphicsObject() {
@@ -54,10 +75,4 @@ std::vector<QGraphicsItem*> SquareRegion::getLocationsGraphicsObject() {
     }
     return *rendered;
 }
-
-
-SquareRegion::~SquareRegion() {
-
-}
-
 

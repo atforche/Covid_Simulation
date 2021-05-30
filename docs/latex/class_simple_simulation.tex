@@ -2,7 +2,17 @@
 \label{class_simple_simulation}\index{SimpleSimulation@{SimpleSimulation}}
 
 
-Inheritance diagram for Simple\+Simulation\+:\nopagebreak
+The \mbox{\hyperlink{class_simple_simulation}{Simple\+Simulation}} class Class that manages the progression of the Simple \mbox{\hyperlink{class_simulation}{Simulation}} type.  
+
+
+
+
+{\ttfamily \#include $<$Simple\+Simulation.\+h$>$}
+
+
+
+Inheritance diagram for Simple\+Simulation\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -11,19 +21,30 @@ Inheritance diagram for Simple\+Simulation\+:\nopagebreak
 \end{figure}
 
 
-Collaboration diagram for Simple\+Simulation\+:\nopagebreak
+Collaboration diagram for Simple\+Simulation\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=172pt]{class_simple_simulation__coll__graph}
 \end{center}
 \end{figure}
+\doxysubsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{class_simple_simulation_af5943f0a7aa95c4b2e090a88c2f870d7}{render\+Charts}} (const Q\+String \&which, bool new\+Chart\+View) override
+\begin{DoxyCompactList}\small\item\em render\+Charts ~\newline
+Renders each of the appriopriate graph types to the screen in their designated chart\+Views \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{class_simple_simulation_ae1d980db6926153876935af0d135dc2f}{Simple\+Simulation}} (int num\+Agents, Ui\+::\+Main\+Window $\ast$ui, std\+::map$<$ std\+::string, bool $>$ debug)
 \begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_simple_simulation}{Simple\+Simulation}} ~\newline
 The constructor for the \mbox{\hyperlink{class_simple_simulation}{Simple\+Simulation}} Class, sets up all controls necessary for the running of this simulation type. Simple \mbox{\hyperlink{class_simulation}{Simulation}} is comprised of four Square\+Regions that are home, work, school, and leisure. It will implement agent assignment, motion, and behavior charts, however it will lack any more advanced features like infectivity or economy. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simple_simulation_a356ab8bcf216a925c4cd9d29bc14686e}\label{class_simple_simulation_a356ab8bcf216a925c4cd9d29bc14686e}} 
+virtual \mbox{\hyperlink{class_simple_simulation_a356ab8bcf216a925c4cd9d29bc14686e}{$\sim$\+Simple\+Simulation}} () override
+\begin{DoxyCompactList}\small\item\em $\sim$\+Simple\+Simulation ~\newline
+Destructor function for the Simple \mbox{\hyperlink{class_simulation}{Simulation}} Class. Clears all dynamic memory used within the \mbox{\hyperlink{class_simulation}{Simulation}} by clearing the scene (which clears all memory used by the scene) \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_simple_simulation_a53d5c24654dd7fb8c6733e2435f525a1}\label{class_simple_simulation_a53d5c24654dd7fb8c6733e2435f525a1}} 
 virtual void \mbox{\hyperlink{class_simple_simulation_a53d5c24654dd7fb8c6733e2435f525a1}{init}} () override
 \begin{DoxyCompactList}\small\item\em init ~\newline
@@ -43,13 +64,12 @@ Test Function that allows for functionalities of the simulation to be tested. Fu
 \mbox{\Hypertarget{class_simple_simulation_afaf1cf90f5056c66525ad2ccb290dabe}\label{class_simple_simulation_afaf1cf90f5056c66525ad2ccb290dabe}} 
 virtual void \mbox{\hyperlink{class_simple_simulation_afaf1cf90f5056c66525ad2ccb290dabe}{generate\+Agents}} () override
 \begin{DoxyCompactList}\small\item\em generate\+Agents ~\newline
-Function to generate agents and assign them to behaviors and locations. Currently, randomly assign agents with ages, behaviors, and locations. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_simple_simulation_a356ab8bcf216a925c4cd9d29bc14686e}\label{class_simple_simulation_a356ab8bcf216a925c4cd9d29bc14686e}} 
-virtual \mbox{\hyperlink{class_simple_simulation_a356ab8bcf216a925c4cd9d29bc14686e}{$\sim$\+Simple\+Simulation}} () override
-\begin{DoxyCompactList}\small\item\em $\sim$\+Simple\+Simulation ~\newline
-Destructor function for the Simple \mbox{\hyperlink{class_simulation}{Simulation}} Class. Clears all dynamic memory used within the \mbox{\hyperlink{class_simulation}{Simulation}} by clearing the scene (which clears all memory used by the scene) \end{DoxyCompactList}\end{DoxyCompactItemize}
+Function to generate agents and assign them to behaviors and locations. Currently, randomly assign agents with ages, behaviors, and locations. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{class_simple_simulation}{Simple\+Simulation}} class Class that manages the progression of the Simple \mbox{\hyperlink{class_simulation}{Simulation}} type. 
 
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{class_simple_simulation_ae1d980db6926153876935af0d135dc2f}\label{class_simple_simulation_ae1d980db6926153876935af0d135dc2f}} 
@@ -66,6 +86,27 @@ The constructor for the \mbox{\hyperlink{class_simple_simulation}{Simple\+Simula
 
 \begin{DoxyParams}{Parameters}
 {\em num\+Agents} & the specified number of agents in the simulation \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_simple_simulation_af5943f0a7aa95c4b2e090a88c2f870d7}\label{class_simple_simulation_af5943f0a7aa95c4b2e090a88c2f870d7}} 
+\index{SimpleSimulation@{SimpleSimulation}!renderCharts@{renderCharts}}
+\index{renderCharts@{renderCharts}!SimpleSimulation@{SimpleSimulation}}
+\doxysubsubsection{\texorpdfstring{renderCharts}{renderCharts}}
+{\footnotesize\ttfamily void Simple\+Simulation\+::render\+Charts (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{which,  }\item[{bool}]{new\+Chart\+View }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}, {\ttfamily [slot]}}
+
+
+
+render\+Charts ~\newline
+Renders each of the appriopriate graph types to the screen in their designated chart\+Views 
+
+
+\begin{DoxyParams}{Parameters}
+{\em which} & Q\+String representing which graph type to render \\
+\hline
+{\em new\+Chart\+View} & whether the Chart is being moved to a new view or just updated \\
 \hline
 \end{DoxyParams}
 

@@ -152,6 +152,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a7f8f98617dfb98fd0808824724c4b9e7"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_simulation_worker.html" title="The SimulationWorker class  Class that handles the execution of the Simulation on a Threader....">SimulationWorker</a> <br  />
 Constructor for the <a class="el" href="class_simulation_worker.html" title="The SimulationWorker class  Class that handles the execution of the Simulation on a Threader....">SimulationWorker</a> class. Each simulation worker executes a loop in which the <a class="el" href="class_simulation.html" title="The Simulation class  The Abstract Simulation class from which all other simulations will be derived....">Simulation</a> takes timesteps forward. After each timestep is complete, the Worker signals to the <a class="el" href="class_simulation.html" title="The Simulation class  The Abstract Simulation class from which all other simulations will be derived....">Simulation</a> to render the updates to the GUI because GUI updates must be in the main thread.  <a href="class_simulation_worker.html#a7f8f98617dfb98fd0808824724c4b9e7">More...</a><br /></td></tr>
 <tr class="separator:a7f8f98617dfb98fd0808824724c4b9e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4018fea17ef8c12cd1ba4e3d9c030914"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation_worker.html#a4018fea17ef8c12cd1ba4e3d9c030914">~SimulationWorker</a> ()</td></tr>
+<tr class="separator:a4018fea17ef8c12cd1ba4e3d9c030914"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a989dd176397b244278f09c4114d93b62"><td class="memItemLeft" align="right" valign="top"><a id="a989dd176397b244278f09c4114d93b62"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation_worker.html#a989dd176397b244278f09c4114d93b62">pauseSimulation</a> ()</td></tr>
 <tr class="memdesc:a989dd176397b244278f09c4114d93b62"><td class="mdescLeft">&#160;</td><td class="mdescRight">pauseSimulation <br  />
@@ -165,7 +167,6 @@ Function that changes the interval of the QTimer that specifies the FPS of the s
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="class_simulation_worker.html" title="The SimulationWorker class  Class that handles the execution of the Simulation on a Threader....">SimulationWorker</a> class <br  />
 Class that handles the execution of the <a class="el" href="class_simulation.html" title="The Simulation class  The Abstract Simulation class from which all other simulations will be derived....">Simulation</a> on a Threader. A Worker is dispatched by a controlled. </p>
-<p>File that handles all classes required for multithreaded execution of the the simulation to prevent blocking of the UI </p>
 </div><h2 class="groupheader">Member Enumeration Documentation</h2>
 <a id="a77cfcb049fa15567e8b0b00e2fc28298"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a77cfcb049fa15567e8b0b00e2fc28298">&#9670;&nbsp;</a></span>Speed</h2>
@@ -218,6 +219,24 @@ Constructor for the <a class="el" href="class_simulation_worker.html" title="The
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a4018fea17ef8c12cd1ba4e3d9c030914"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4018fea17ef8c12cd1ba4e3d9c030914">&#9670;&nbsp;</a></span>~SimulationWorker()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SimulationWorker::~SimulationWorker </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Destructor for the <a class="el" href="class_simulation_worker.html" title="The SimulationWorker class  Class that handles the execution of the Simulation on a Threader....">SimulationWorker</a> class </p>
 
 </div>
 </div>

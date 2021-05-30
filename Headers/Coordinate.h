@@ -6,8 +6,6 @@
  * A Class that represents positiions within the simulation. Also
  * supports calculations between Coordinates
  */
-
-
 class Coordinate {
 
 private:

@@ -88,33 +88,42 @@ $(document).ready(function(){initNavTree('class_location.html',''); initResizabl
 <div class="title">Location Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>The <a class="el" href="class_location.html" title="The Location class  A base class that defines functionality of unique locations within the Simulation...">Location</a> class <br  />
+A base class that defines functionality of unique locations within the <a class="el" href="class_simulation.html" title="The Simulation class  The Abstract Simulation class from which all other simulations will be derived....">Simulation</a>.  
+ <a href="class_location.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_location_8h_source.html">Location.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a16f296df02f800d987865b74d392fe76"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_location.html#a16f296df02f800d987865b74d392fe76">Location</a> (double x, double y)</td></tr>
-<tr class="memdesc:a16f296df02f800d987865b74d392fe76"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_location.html">Location</a> <br  />
-Constructor for the <a class="el" href="class_location.html">Location</a> class. Each <a class="el" href="class_location.html">Location</a> contains a position and a vector of agents that are assigned to it. (May be useful to keep track of what type of <a class="el" href="class_location.html">Location</a> it is, problem for future Andy)  <a href="class_location.html#a16f296df02f800d987865b74d392fe76">More...</a><br /></td></tr>
+<tr class="memdesc:a16f296df02f800d987865b74d392fe76"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_location.html" title="The Location class  A base class that defines functionality of unique locations within the Simulation...">Location</a> <br  />
+Constructor for the <a class="el" href="class_location.html" title="The Location class  A base class that defines functionality of unique locations within the Simulation...">Location</a> class. Each <a class="el" href="class_location.html" title="The Location class  A base class that defines functionality of unique locations within the Simulation...">Location</a> contains a position and a vector of agents that are assigned to it. (May be useful to keep track of what type of <a class="el" href="class_location.html" title="The Location class  A base class that defines functionality of unique locations within the Simulation...">Location</a> it is, problem for future Andy)  <a href="class_location.html#a16f296df02f800d987865b74d392fe76">More...</a><br /></td></tr>
 <tr class="separator:a16f296df02f800d987865b74d392fe76"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0ebb13d03ed6110beeba2e568c367022"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_location.html#a0ebb13d03ed6110beeba2e568c367022">addAgent</a> (<a class="el" href="class_agent.html">Agent</a> *agent)</td></tr>
 <tr class="memdesc:a0ebb13d03ed6110beeba2e568c367022"><td class="mdescLeft">&#160;</td><td class="mdescRight">addAgent <br  />
-Function to assign an <a class="el" href="class_agent.html" title="The Agent Class  Class that specifies the functionality of the Agents in the simulation Contains all ...">Agent</a> to this <a class="el" href="class_location.html">Location</a>. Adds the agent to the agents set. Allows location to keep track of its associated agents for quarantining purposes.  <a href="class_location.html#a0ebb13d03ed6110beeba2e568c367022">More...</a><br /></td></tr>
+Function to assign an <a class="el" href="class_agent.html" title="The Agent Class  Class that specifies the functionality of the Agents in the simulation Contains all ...">Agent</a> to this <a class="el" href="class_location.html" title="The Location class  A base class that defines functionality of unique locations within the Simulation...">Location</a>. Adds the agent to the agents set. Allows location to keep track of its associated agents for quarantining purposes.  <a href="class_location.html#a0ebb13d03ed6110beeba2e568c367022">More...</a><br /></td></tr>
 <tr class="separator:a0ebb13d03ed6110beeba2e568c367022"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6755bf5e85cff5d58a2f6974ec78d5ec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_location.html#a6755bf5e85cff5d58a2f6974ec78d5ec">removeAgent</a> (<a class="el" href="class_agent.html">Agent</a> &amp;agent)</td></tr>
-<tr class="memdesc:a6755bf5e85cff5d58a2f6974ec78d5ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">removeAgent <br  />
-Function to remove an <a class="el" href="class_agent.html" title="The Agent Class  Class that specifies the functionality of the Agents in the simulation Contains all ...">Agent</a> from this <a class="el" href="class_location.html">Location</a>. Removes this agent from the agents set. This function will generally only be used in the case of agent death, however it could be possible to introduce agent moving locations  <a href="class_location.html#a6755bf5e85cff5d58a2f6974ec78d5ec">More...</a><br /></td></tr>
-<tr class="separator:a6755bf5e85cff5d58a2f6974ec78d5ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b9e90431d9390b2c2cc8539710db4ec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_location.html#a8b9e90431d9390b2c2cc8539710db4ec">removeAgent</a> (<a class="el" href="class_agent.html">Agent</a> *agent)</td></tr>
+<tr class="memdesc:a8b9e90431d9390b2c2cc8539710db4ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">removeAgent <br  />
+Function to remove an <a class="el" href="class_agent.html" title="The Agent Class  Class that specifies the functionality of the Agents in the simulation Contains all ...">Agent</a> from this <a class="el" href="class_location.html" title="The Location class  A base class that defines functionality of unique locations within the Simulation...">Location</a>. Removes this agent from the agents set. This function will generally only be used in the case of agent death, however it could be possible to introduce agent moving locations  <a href="class_location.html#a8b9e90431d9390b2c2cc8539710db4ec">More...</a><br /></td></tr>
+<tr class="separator:a8b9e90431d9390b2c2cc8539710db4ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad1b3ba99c5c2e6c85ddee13af0f5384a"><td class="memItemLeft" align="right" valign="top">QGraphicsEllipseItem *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_location.html#ad1b3ba99c5c2e6c85ddee13af0f5384a">getGraphicsObject</a> ()</td></tr>
 <tr class="memdesc:ad1b3ba99c5c2e6c85ddee13af0f5384a"><td class="mdescLeft">&#160;</td><td class="mdescRight">getGraphicsObject <br  />
 Function that returns the QGraphicsEllipseItem to visulize this location. The returned ellipse must be added to the simulation for it to appear in the window. Currently, locations cannot be updated or moved once created.  <a href="class_location.html#ad1b3ba99c5c2e6c85ddee13af0f5384a">More...</a><br /></td></tr>
 <tr class="separator:ad1b3ba99c5c2e6c85ddee13af0f5384a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a82f611f114fad22c2ec9b85924ab49e5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_coordinate.html">Coordinate</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_location.html#a82f611f114fad22c2ec9b85924ab49e5">getPosition</a> ()</td></tr>
 <tr class="memdesc:a82f611f114fad22c2ec9b85924ab49e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">getPosition: <br  />
-Getter function for the position of the <a class="el" href="class_location.html">Location</a>. Returns the position of this location as a <a class="el" href="class_coordinate.html" title="The Coordinate class  A Class that represents positiions within the simulation. Also supports calcula...">Coordinate</a>  <a href="class_location.html#a82f611f114fad22c2ec9b85924ab49e5">More...</a><br /></td></tr>
+Getter function for the position of the <a class="el" href="class_location.html" title="The Location class  A base class that defines functionality of unique locations within the Simulation...">Location</a>. Returns the position of this location as a <a class="el" href="class_coordinate.html" title="The Coordinate class  A Class that represents positiions within the simulation. Also supports calcula...">Coordinate</a>  <a href="class_location.html#a82f611f114fad22c2ec9b85924ab49e5">More...</a><br /></td></tr>
 <tr class="separator:a82f611f114fad22c2ec9b85924ab49e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af5be2c6550bbd96137cbb3144ec3c529"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_location.html#af5be2c6550bbd96137cbb3144ec3c529">~Location</a> ()</td></tr>
 <tr class="separator:af5be2c6550bbd96137cbb3144ec3c529"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The <a class="el" href="class_location.html" title="The Location class  A base class that defines functionality of unique locations within the Simulation...">Location</a> class <br  />
+A base class that defines functionality of unique locations within the <a class="el" href="class_simulation.html" title="The Simulation class  The Abstract Simulation class from which all other simulations will be derived....">Simulation</a>. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a16f296df02f800d987865b74d392fe76"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a16f296df02f800d987865b74d392fe76">&#9670;&nbsp;</a></span>Location()</h2>
 
@@ -141,12 +150,12 @@ Getter function for the position of the <a class="el" href="class_location.html"
       </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="class_location.html">Location</a> <br  />
-Constructor for the <a class="el" href="class_location.html">Location</a> class. Each <a class="el" href="class_location.html">Location</a> contains a position and a vector of agents that are assigned to it. (May be useful to keep track of what type of <a class="el" href="class_location.html">Location</a> it is, problem for future Andy) </p>
+<p><a class="el" href="class_location.html" title="The Location class  A base class that defines functionality of unique locations within the Simulation...">Location</a> <br  />
+Constructor for the <a class="el" href="class_location.html" title="The Location class  A base class that defines functionality of unique locations within the Simulation...">Location</a> class. Each <a class="el" href="class_location.html" title="The Location class  A base class that defines functionality of unique locations within the Simulation...">Location</a> contains a position and a vector of agents that are assigned to it. (May be useful to keep track of what type of <a class="el" href="class_location.html" title="The Location class  A base class that defines functionality of unique locations within the Simulation...">Location</a> it is, problem for future Andy) </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>the x position of the <a class="el" href="class_location.html">Location</a> </td></tr>
-    <tr><td class="paramname">y</td><td>the y position of the <a class="el" href="class_location.html">Location</a> </td></tr>
+    <tr><td class="paramname">x</td><td>the x position of the <a class="el" href="class_location.html" title="The Location class  A base class that defines functionality of unique locations within the Simulation...">Location</a> </td></tr>
+    <tr><td class="paramname">y</td><td>the y position of the <a class="el" href="class_location.html" title="The Location class  A base class that defines functionality of unique locations within the Simulation...">Location</a> </td></tr>
   </table>
   </dd>
 </dl>
@@ -189,7 +198,7 @@ Constructor for the <a class="el" href="class_location.html">Location</a> class.
 </div><div class="memdoc">
 
 <p>addAgent <br  />
-Function to assign an <a class="el" href="class_agent.html" title="The Agent Class  Class that specifies the functionality of the Agents in the simulation Contains all ...">Agent</a> to this <a class="el" href="class_location.html">Location</a>. Adds the agent to the agents set. Allows location to keep track of its associated agents for quarantining purposes. </p>
+Function to assign an <a class="el" href="class_agent.html" title="The Agent Class  Class that specifies the functionality of the Agents in the simulation Contains all ...">Agent</a> to this <a class="el" href="class_location.html" title="The Location class  A base class that defines functionality of unique locations within the Simulation...">Location</a>. Adds the agent to the agents set. Allows location to keep track of its associated agents for quarantining purposes. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">agent</td><td>the agent to be assigned to this location </td></tr>
@@ -216,7 +225,7 @@ Function to assign an <a class="el" href="class_agent.html" title="The Agent Cla
 
 <p>getGraphicsObject <br  />
 Function that returns the QGraphicsEllipseItem to visulize this location. The returned ellipse must be added to the simulation for it to appear in the window. Currently, locations cannot be updated or moved once created. </p>
-<dl class="section return"><dt>Returns</dt><dd>a QGraphicsEllipseItem at this <a class="el" href="class_location.html">Location</a> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>a QGraphicsEllipseItem at this <a class="el" href="class_location.html" title="The Location class  A base class that defines functionality of unique locations within the Simulation...">Location</a> </dd></dl>
 
 </div>
 </div>
@@ -236,13 +245,13 @@ Function that returns the QGraphicsEllipseItem to visulize this location. The re
 </div><div class="memdoc">
 
 <p>getPosition: <br  />
-Getter function for the position of the <a class="el" href="class_location.html">Location</a>. Returns the position of this location as a <a class="el" href="class_coordinate.html" title="The Coordinate class  A Class that represents positiions within the simulation. Also supports calcula...">Coordinate</a> </p>
-<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_coordinate.html" title="The Coordinate class  A Class that represents positiions within the simulation. Also supports calcula...">Coordinate</a> position of the <a class="el" href="class_location.html">Location</a> </dd></dl>
+Getter function for the position of the <a class="el" href="class_location.html" title="The Location class  A base class that defines functionality of unique locations within the Simulation...">Location</a>. Returns the position of this location as a <a class="el" href="class_coordinate.html" title="The Coordinate class  A Class that represents positiions within the simulation. Also supports calcula...">Coordinate</a> </p>
+<dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_coordinate.html" title="The Coordinate class  A Class that represents positiions within the simulation. Also supports calcula...">Coordinate</a> position of the <a class="el" href="class_location.html" title="The Location class  A base class that defines functionality of unique locations within the Simulation...">Location</a> </dd></dl>
 
 </div>
 </div>
-<a id="a6755bf5e85cff5d58a2f6974ec78d5ec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6755bf5e85cff5d58a2f6974ec78d5ec">&#9670;&nbsp;</a></span>removeAgent()</h2>
+<a id="a8b9e90431d9390b2c2cc8539710db4ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b9e90431d9390b2c2cc8539710db4ec">&#9670;&nbsp;</a></span>removeAgent()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -250,7 +259,7 @@ Getter function for the position of the <a class="el" href="class_location.html"
         <tr>
           <td class="memname">void Location::removeAgent </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_agent.html">Agent</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="class_agent.html">Agent</a> *&#160;</td>
           <td class="paramname"><em>agent</em></td><td>)</td>
           <td></td>
         </tr>
@@ -258,7 +267,7 @@ Getter function for the position of the <a class="el" href="class_location.html"
 </div><div class="memdoc">
 
 <p>removeAgent <br  />
-Function to remove an <a class="el" href="class_agent.html" title="The Agent Class  Class that specifies the functionality of the Agents in the simulation Contains all ...">Agent</a> from this <a class="el" href="class_location.html">Location</a>. Removes this agent from the agents set. This function will generally only be used in the case of agent death, however it could be possible to introduce agent moving locations </p>
+Function to remove an <a class="el" href="class_agent.html" title="The Agent Class  Class that specifies the functionality of the Agents in the simulation Contains all ...">Agent</a> from this <a class="el" href="class_location.html" title="The Location class  A base class that defines functionality of unique locations within the Simulation...">Location</a>. Removes this agent from the agents set. This function will generally only be used in the case of agent death, however it could be possible to introduce agent moving locations </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">agent</td><td>the agent to be removed from this location </td></tr>

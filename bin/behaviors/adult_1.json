@@ -1,5 +1,6 @@
 {
     "Description": "8-5 Worker",
+    "Probability": 0.5,
     "0": "Home",
     "8": {
         "Work": 0.85,

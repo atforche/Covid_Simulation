@@ -1,17 +1,20 @@
 #ifndef LOCATION_H
 #define LOCATION_H
 
+#include <unordered_set>
+
+#include "QGraphicsEllipseItem"
+
+#include "Headers/Coordinate.h"
+
+// Forward declaration of the Agent Class
+class Agent;
+
 /**
  * @brief The Location class \n
  * A base class that defines functionality of unique locations within the
  * Simulation
  */
-
-#include <unordered_set>
-#include "QGraphicsEllipseItem"
-#include "Headers/Coordinate.h"
-class Agent;
-
 class Location {
 
 private:
@@ -57,7 +60,7 @@ public:
      * locations
      * @param agent: the agent to be removed from this location
      */
-    void removeAgent(Agent &agent);
+    void removeAgent(Agent* agent);
 
     /**
      * @brief getGraphicsObject \n

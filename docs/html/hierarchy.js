@@ -1,7 +1,9 @@
 var hierarchy =
 [
+    [ "AgeChartHelper", "class_age_chart_helper.html", null ],
     [ "Agent", "class_agent.html", null ],
     [ "AgentController", "class_agent_controller.html", null ],
+    [ "BehaviorChartHelper", "class_behavior_chart_helper.html", null ],
     [ "Coordinate", "class_coordinate.html", null ],
     [ "Location", "class_location.html", null ],
     [ "QMainWindow", null, [

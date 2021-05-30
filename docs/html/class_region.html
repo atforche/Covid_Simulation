@@ -88,12 +88,17 @@ $(document).ready(function(){initNavTree('class_region.html',''); initResizable(
 <div class="title">Region Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>The <a class="el" href="class_region.html" title="The Region class Base class that contains a list of Locations within the region, used to manage assig...">Region</a> class Base class that contains a list of Locations within the region, used to manage assigning Agents to Locations.  
+ <a href="class_region.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_region_8h_source.html">Region.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for Region:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_region__inherit__graph.png" border="0" usemap="#a_region_inherit__map" alt="Inheritance graph"/></div>
-<map name="_region_inherit__map" id="_region_inherit__map">
-<area shape="rect" title=" " alt="" coords="25,5,88,32"/>
+<map name="_region_inherit__map" id="a_region_inherit__map">
+<area shape="rect" title="The Region class Base class that contains a list of Locations within the region, used to manage assig..." alt="" coords="25,5,88,32"/>
 <area shape="rect" href="class_square_region.html" title="The SquareRegion class &#160;Class that defined the functionality for a square region. Inherited from the ..." alt="" coords="5,80,108,107"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
@@ -101,20 +106,22 @@ Inheritance diagram for Region:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ab7b579a2caffc452772d17fed68abb62"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_region.html#ab7b579a2caffc452772d17fed68abb62">Region</a> (int numLocations, QColor color, std::string name)</td></tr>
-<tr class="memdesc:ab7b579a2caffc452772d17fed68abb62"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_region.html">Region</a> <br  />
-Constructor for the <a class="el" href="class_region.html">Region</a> Class. A <a class="el" href="class_region.html">Region</a> is a container class that wraps around a set of locations. Locations in different regions are subject to different rules and result in different agent behaviors. Each <a class="el" href="class_region.html">Region</a> has an associated shape that is rendered to the screen. Use a LocationGenerator to generate Locations within the <a class="el" href="class_region.html">Region</a>.  <a href="class_region.html#ab7b579a2caffc452772d17fed68abb62">More...</a><br /></td></tr>
+<tr class="memdesc:ab7b579a2caffc452772d17fed68abb62"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_region.html" title="The Region class Base class that contains a list of Locations within the region, used to manage assig...">Region</a> <br  />
+Constructor for the <a class="el" href="class_region.html" title="The Region class Base class that contains a list of Locations within the region, used to manage assig...">Region</a> Class. A <a class="el" href="class_region.html" title="The Region class Base class that contains a list of Locations within the region, used to manage assig...">Region</a> is a container class that wraps around a set of locations. Locations in different regions are subject to different rules and result in different agent behaviors. Each <a class="el" href="class_region.html" title="The Region class Base class that contains a list of Locations within the region, used to manage assig...">Region</a> has an associated shape that is rendered to the screen. Use a LocationGenerator to generate Locations within the <a class="el" href="class_region.html" title="The Region class Base class that contains a list of Locations within the region, used to manage assig...">Region</a>.  <a href="class_region.html#ab7b579a2caffc452772d17fed68abb62">More...</a><br /></td></tr>
 <tr class="separator:ab7b579a2caffc452772d17fed68abb62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5cde30b344e3a24d9782fe03ffe8dea8"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_region.html#a5cde30b344e3a24d9782fe03ffe8dea8">~Region</a> ()</td></tr>
+<tr class="separator:a5cde30b344e3a24d9782fe03ffe8dea8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a08e13bb97cb5131213df7155050f6007"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_location.html">Location</a> * &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_region.html#a08e13bb97cb5131213df7155050f6007">getLocations</a> ()</td></tr>
 <tr class="memdesc:a08e13bb97cb5131213df7155050f6007"><td class="mdescLeft">&#160;</td><td class="mdescRight">getLocations <br  />
-Getter functions for the vector of Locations within a region. Returns the Locations within the <a class="el" href="class_region.html">Region</a> as a vector  <a href="class_region.html#a08e13bb97cb5131213df7155050f6007">More...</a><br /></td></tr>
+Getter functions for the vector of Locations within a region. Returns the Locations within the <a class="el" href="class_region.html" title="The Region class Base class that contains a list of Locations within the region, used to manage assig...">Region</a> as a vector  <a href="class_region.html#a08e13bb97cb5131213df7155050f6007">More...</a><br /></td></tr>
 <tr class="separator:a08e13bb97cb5131213df7155050f6007"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7d3db569b8569b891de84e577760890d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_region.html#a7d3db569b8569b891de84e577760890d">setLocations</a> (std::vector&lt; <a class="el" href="class_location.html">Location</a> * &gt; &amp;locations)</td></tr>
 <tr class="memdesc:a7d3db569b8569b891de84e577760890d"><td class="mdescLeft">&#160;</td><td class="mdescRight">setLocations <br  />
-Setter function for the vector of Locations within a region. Pass in a vector of Locations to set all Locations in a <a class="el" href="class_region.html">Region</a> at once  <a href="class_region.html#a7d3db569b8569b891de84e577760890d">More...</a><br /></td></tr>
+Setter function for the vector of Locations within a region. Pass in a vector of Locations to set all Locations in a <a class="el" href="class_region.html" title="The Region class Base class that contains a list of Locations within the region, used to manage assig...">Region</a> at once  <a href="class_region.html#a7d3db569b8569b891de84e577760890d">More...</a><br /></td></tr>
 <tr class="separator:a7d3db569b8569b891de84e577760890d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ada82a5f675586ca4072713941f7c7c39"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_region.html#ada82a5f675586ca4072713941f7c7c39">getNumLocations</a> ()</td></tr>
 <tr class="memdesc:ada82a5f675586ca4072713941f7c7c39"><td class="mdescLeft">&#160;</td><td class="mdescRight">getNumLocations <br  />
-Getter function for the number of Locations within a <a class="el" href="class_region.html">Region</a>. Returns the number of Locations in a <a class="el" href="class_region.html">Region</a> as an int  <a href="class_region.html#ada82a5f675586ca4072713941f7c7c39">More...</a><br /></td></tr>
+Getter function for the number of Locations within a <a class="el" href="class_region.html" title="The Region class Base class that contains a list of Locations within the region, used to manage assig...">Region</a>. Returns the number of Locations in a <a class="el" href="class_region.html" title="The Region class Base class that contains a list of Locations within the region, used to manage assig...">Region</a> as an int  <a href="class_region.html#ada82a5f675586ca4072713941f7c7c39">More...</a><br /></td></tr>
 <tr class="separator:ada82a5f675586ca4072713941f7c7c39"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7afe91a845ead6ab45f5908383c56ecc"><td class="memItemLeft" align="right" valign="top">QColor&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_region.html#a7afe91a845ead6ab45f5908383c56ecc">getColor</a> ()</td></tr>
 <tr class="memdesc:a7afe91a845ead6ab45f5908383c56ecc"><td class="mdescLeft">&#160;</td><td class="mdescRight">getColor <br  />
@@ -126,18 +133,20 @@ Getter function for the name assigned to the region. Returns the name as a std::
 <tr class="separator:a122cc5422c5154463ded851f665975c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3f37617fe92c32b4263d3615a8cfc459"><td class="memItemLeft" align="right" valign="top">virtual QGraphicsItem *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_region.html#a3f37617fe92c32b4263d3615a8cfc459">getGraphicsObject</a> ()=0</td></tr>
 <tr class="memdesc:a3f37617fe92c32b4263d3615a8cfc459"><td class="mdescLeft">&#160;</td><td class="mdescRight">getGraphicsObject <br  />
-Function to return a QGraphicsItem* corresponding to the shape of the <a class="el" href="class_region.html">Region</a>. This QGraphicsItem* must be added to a simulation in order for it to appear. <a class="el" href="class_region.html">Region</a> can not be updated or re-rendered once created. Must be overridden by derived classes  <a href="class_region.html#a3f37617fe92c32b4263d3615a8cfc459">More...</a><br /></td></tr>
+Function to return a QGraphicsItem* corresponding to the shape of the <a class="el" href="class_region.html" title="The Region class Base class that contains a list of Locations within the region, used to manage assig...">Region</a>. This QGraphicsItem* must be added to a simulation in order for it to appear. <a class="el" href="class_region.html" title="The Region class Base class that contains a list of Locations within the region, used to manage assig...">Region</a> can not be updated or re-rendered once created. Must be overridden by derived classes  <a href="class_region.html#a3f37617fe92c32b4263d3615a8cfc459">More...</a><br /></td></tr>
 <tr class="separator:a3f37617fe92c32b4263d3615a8cfc459"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7475a567b0806b64b45085740712f5cc"><td class="memItemLeft" align="right" valign="top">virtual QGraphicsItem *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_region.html#a7475a567b0806b64b45085740712f5cc">getNameGraphicsObject</a> ()=0</td></tr>
 <tr class="memdesc:a7475a567b0806b64b45085740712f5cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">getNameGraphicsObject <br  />
-Function to render the name of the region onto the canvas. Exactly rendering mechanism depends on the shape of the <a class="el" href="class_region.html">Region</a>. Must be overridden by derived classes  <a href="class_region.html#a7475a567b0806b64b45085740712f5cc">More...</a><br /></td></tr>
+Function to render the name of the region onto the canvas. Exactly rendering mechanism depends on the shape of the <a class="el" href="class_region.html" title="The Region class Base class that contains a list of Locations within the region, used to manage assig...">Region</a>. Must be overridden by derived classes  <a href="class_region.html#a7475a567b0806b64b45085740712f5cc">More...</a><br /></td></tr>
 <tr class="separator:a7475a567b0806b64b45085740712f5cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae57d91c9f9eae6a0e3c1feb055f2ae09"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; QGraphicsItem * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_region.html#ae57d91c9f9eae6a0e3c1feb055f2ae09">getLocationsGraphicsObject</a> ()=0</td></tr>
 <tr class="memdesc:ae57d91c9f9eae6a0e3c1feb055f2ae09"><td class="mdescLeft">&#160;</td><td class="mdescRight">renderLocations <br  />
-Function to return a vector of QGraphicsItems* corresponding to the Locations within the <a class="el" href="class_region.html">Region</a>. Locations must be added to a <a class="el" href="class_simulation.html" title="The Simulation class  The Abstract Simulation class from which all other simulations will be derived....">Simulation</a> in order to appear  <a href="class_region.html#ae57d91c9f9eae6a0e3c1feb055f2ae09">More...</a><br /></td></tr>
+Function to return a vector of QGraphicsItems* corresponding to the Locations within the <a class="el" href="class_region.html" title="The Region class Base class that contains a list of Locations within the region, used to manage assig...">Region</a>. Locations must be added to a <a class="el" href="class_simulation.html" title="The Simulation class  The Abstract Simulation class from which all other simulations will be derived....">Simulation</a> in order to appear  <a href="class_region.html#ae57d91c9f9eae6a0e3c1feb055f2ae09">More...</a><br /></td></tr>
 <tr class="separator:ae57d91c9f9eae6a0e3c1feb055f2ae09"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The <a class="el" href="class_region.html" title="The Region class Base class that contains a list of Locations within the region, used to manage assig...">Region</a> class Base class that contains a list of Locations within the region, used to manage assigning Agents to Locations. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ab7b579a2caffc452772d17fed68abb62"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab7b579a2caffc452772d17fed68abb62">&#9670;&nbsp;</a></span>Region()</h2>
 
@@ -170,14 +179,40 @@ Function to return a vector of QGraphicsItems* corresponding to the Locations wi
       </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="class_region.html">Region</a> <br  />
-Constructor for the <a class="el" href="class_region.html">Region</a> Class. A <a class="el" href="class_region.html">Region</a> is a container class that wraps around a set of locations. Locations in different regions are subject to different rules and result in different agent behaviors. Each <a class="el" href="class_region.html">Region</a> has an associated shape that is rendered to the screen. Use a LocationGenerator to generate Locations within the <a class="el" href="class_region.html">Region</a>. </p>
+<p><a class="el" href="class_region.html" title="The Region class Base class that contains a list of Locations within the region, used to manage assig...">Region</a> <br  />
+Constructor for the <a class="el" href="class_region.html" title="The Region class Base class that contains a list of Locations within the region, used to manage assig...">Region</a> Class. A <a class="el" href="class_region.html" title="The Region class Base class that contains a list of Locations within the region, used to manage assig...">Region</a> is a container class that wraps around a set of locations. Locations in different regions are subject to different rules and result in different agent behaviors. Each <a class="el" href="class_region.html" title="The Region class Base class that contains a list of Locations within the region, used to manage assig...">Region</a> has an associated shape that is rendered to the screen. Use a LocationGenerator to generate Locations within the <a class="el" href="class_region.html" title="The Region class Base class that contains a list of Locations within the region, used to manage assig...">Region</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">numLocations</td><td>the number of Locations within this <a class="el" href="class_region.html">Region</a> </td></tr>
+    <tr><td class="paramname">numLocations</td><td>the number of Locations within this <a class="el" href="class_region.html" title="The Region class Base class that contains a list of Locations within the region, used to manage assig...">Region</a> </td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a5cde30b344e3a24d9782fe03ffe8dea8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5cde30b344e3a24d9782fe03ffe8dea8">&#9670;&nbsp;</a></span>~Region()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual Region::~Region </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Virtual destructor for the <a class="el" href="class_region.html" title="The Region class Base class that contains a list of Locations within the region, used to manage assig...">Region</a> Class </p>
 
 </div>
 </div>
@@ -227,7 +262,7 @@ Getter function for the color assigned to the region. Returns the color as a QCo
 </div><div class="memdoc">
 
 <p>getGraphicsObject <br  />
-Function to return a QGraphicsItem* corresponding to the shape of the <a class="el" href="class_region.html">Region</a>. This QGraphicsItem* must be added to a simulation in order for it to appear. <a class="el" href="class_region.html">Region</a> can not be updated or re-rendered once created. Must be overridden by derived classes </p>
+Function to return a QGraphicsItem* corresponding to the shape of the <a class="el" href="class_region.html" title="The Region class Base class that contains a list of Locations within the region, used to manage assig...">Region</a>. This QGraphicsItem* must be added to a simulation in order for it to appear. <a class="el" href="class_region.html" title="The Region class Base class that contains a list of Locations within the region, used to manage assig...">Region</a> can not be updated or re-rendered once created. Must be overridden by derived classes </p>
 <dl class="section return"><dt>Returns</dt><dd>a QGraphicsItem* representing the shape of the region </dd></dl>
 
 <p>Implemented in <a class="el" href="class_square_region.html#a11f67456aa7432bdb266cbc7cfdd19ed">SquareRegion</a>.</p>
@@ -250,8 +285,8 @@ Function to return a QGraphicsItem* corresponding to the shape of the <a class="
 </div><div class="memdoc">
 
 <p>getLocations <br  />
-Getter functions for the vector of Locations within a region. Returns the Locations within the <a class="el" href="class_region.html">Region</a> as a vector </p>
-<dl class="section return"><dt>Returns</dt><dd>a vector&lt;Location*&gt; contains all the Locations within the <a class="el" href="class_region.html">Region</a> </dd></dl>
+Getter functions for the vector of Locations within a region. Returns the Locations within the <a class="el" href="class_region.html" title="The Region class Base class that contains a list of Locations within the region, used to manage assig...">Region</a> as a vector </p>
+<dl class="section return"><dt>Returns</dt><dd>a vector&lt;Location*&gt; contains all the Locations within the <a class="el" href="class_region.html" title="The Region class Base class that contains a list of Locations within the region, used to manage assig...">Region</a> </dd></dl>
 
 </div>
 </div>
@@ -279,7 +314,7 @@ Getter functions for the vector of Locations within a region. Returns the Locati
 </div><div class="memdoc">
 
 <p>renderLocations <br  />
-Function to return a vector of QGraphicsItems* corresponding to the Locations within the <a class="el" href="class_region.html">Region</a>. Locations must be added to a <a class="el" href="class_simulation.html" title="The Simulation class  The Abstract Simulation class from which all other simulations will be derived....">Simulation</a> in order to appear </p>
+Function to return a vector of QGraphicsItems* corresponding to the Locations within the <a class="el" href="class_region.html" title="The Region class Base class that contains a list of Locations within the region, used to manage assig...">Region</a>. Locations must be added to a <a class="el" href="class_simulation.html" title="The Simulation class  The Abstract Simulation class from which all other simulations will be derived....">Simulation</a> in order to appear </p>
 <dl class="section return"><dt>Returns</dt><dd>a vector of QGraphicsItem* that render all the locations </dd></dl>
 
 <p>Implemented in <a class="el" href="class_square_region.html#a3d46c9d8bea9b9b219b88c3f03b164a8">SquareRegion</a>.</p>
@@ -331,7 +366,7 @@ Getter function for the name assigned to the region. Returns the name as a std::
 </div><div class="memdoc">
 
 <p>getNameGraphicsObject <br  />
-Function to render the name of the region onto the canvas. Exactly rendering mechanism depends on the shape of the <a class="el" href="class_region.html">Region</a>. Must be overridden by derived classes </p>
+Function to render the name of the region onto the canvas. Exactly rendering mechanism depends on the shape of the <a class="el" href="class_region.html" title="The Region class Base class that contains a list of Locations within the region, used to manage assig...">Region</a>. Must be overridden by derived classes </p>
 <dl class="section return"><dt>Returns</dt><dd>a QGraphicsItem* containing the name of the region </dd></dl>
 
 <p>Implemented in <a class="el" href="class_square_region.html#a3d494004f346b84d99570bdb3283075e">SquareRegion</a>.</p>
@@ -354,7 +389,7 @@ Function to render the name of the region onto the canvas. Exactly rendering mec
 </div><div class="memdoc">
 
 <p>getNumLocations <br  />
-Getter function for the number of Locations within a <a class="el" href="class_region.html">Region</a>. Returns the number of Locations in a <a class="el" href="class_region.html">Region</a> as an int </p>
+Getter function for the number of Locations within a <a class="el" href="class_region.html" title="The Region class Base class that contains a list of Locations within the region, used to manage assig...">Region</a>. Returns the number of Locations in a <a class="el" href="class_region.html" title="The Region class Base class that contains a list of Locations within the region, used to manage assig...">Region</a> as an int </p>
 <dl class="section return"><dt>Returns</dt><dd>the number of locations in the region as an int </dd></dl>
 
 </div>
@@ -376,7 +411,7 @@ Getter function for the number of Locations within a <a class="el" href="class_r
 </div><div class="memdoc">
 
 <p>setLocations <br  />
-Setter function for the vector of Locations within a region. Pass in a vector of Locations to set all Locations in a <a class="el" href="class_region.html">Region</a> at once </p>
+Setter function for the vector of Locations within a region. Pass in a vector of Locations to set all Locations in a <a class="el" href="class_region.html" title="The Region class Base class that contains a list of Locations within the region, used to manage assig...">Region</a> at once </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">locations</td><td>the vector of generated locations for the region </td></tr>

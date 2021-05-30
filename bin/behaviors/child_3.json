@@ -1,5 +1,6 @@
 {
     "Description": "Homeschooled",
+    "Probability": 0.1,
     "0": "Home",
     "8": {
         "Home": 0.85,

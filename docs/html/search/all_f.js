@@ -1,10 +1,9 @@
 var searchData=
 [
-  ['_7eagent_77',['~Agent',['../class_agent.html#ab8dd8d152605cf1339fed595376e83cb',1,'Agent']]],
-  ['_7elocation_78',['~Location',['../class_location.html#af5be2c6550bbd96137cbb3144ec3c529',1,'Location']]],
-  ['_7emainwindow_79',['~MainWindow',['../class_main_window.html#ae98d00a93bc118200eeef9f9bba1dba7',1,'MainWindow']]],
-  ['_7esimplesimulation_80',['~SimpleSimulation',['../class_simple_simulation.html#a356ab8bcf216a925c4cd9d29bc14686e',1,'SimpleSimulation']]],
-  ['_7esimulation_81',['~Simulation',['../class_simulation.html#a80fad3f57dfaf195a36f7bc49bc88279',1,'Simulation']]],
-  ['_7esimulationcontroller_82',['~SimulationController',['../class_simulation_controller.html#a43133924e74a5714bbcd1ca5e4de1b18',1,'SimulationController']]],
-  ['_7esquareregion_83',['~SquareRegion',['../class_square_region.html#a6181932e47152576b64e4a8abb4361cc',1,'SquareRegion']]]
+  ['updateagechart_87',['updateAgeChart',['../class_age_chart_helper.html#a9e83a2ac88163780782e637a18f4649b',1,'AgeChartHelper']]],
+  ['updateagentdestinations_88',['updateAgentDestinations',['../class_agent_controller.html#a1caf542ca309940152ed3305960f8f34',1,'AgentController']]],
+  ['updatebehaviorchart_89',['updateBehaviorChart',['../class_behavior_chart_helper.html#a4bd81ef5a7100e477e1bdd1864ffc086',1,'BehaviorChartHelper']]],
+  ['updatechart_90',['updateChart',['../class_simulation.html#a22e2c15a3617729e5ac2cbd33744ccde',1,'Simulation']]],
+  ['updategraphicsobject_91',['updateGraphicsObject',['../class_agent.html#a7746a9133132cff44195bcf88a362654',1,'Agent']]],
+  ['updatescreen_92',['updateScreen',['../class_simulation_controller.html#a7d8130bbec8690f946da73101cffbd67',1,'SimulationController']]]
 ];

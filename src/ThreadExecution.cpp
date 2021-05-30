@@ -1,11 +1,39 @@
 #include "Headers/ThreadExecution.h"
 
-
 SimulationWorker::SimulationWorker(Simulation* sim, Speed frameRate) {
     this->sim = sim;
     this->frameRate = frameRate;
     executeLoop = nullptr;
 }
+
+
+//******************************************************************************
+
+
+SimulationWorker::~SimulationWorker() {
+    delete executeLoop;
+}
+
+
+//******************************************************************************
+
+
+void SimulationWorker::pauseSimulation() {
+    // Prevents the timer triggering from causing any effect
+    continueSimulation = false;
+}
+
+
+//******************************************************************************
+
+
+void SimulationWorker::changeSpeed(Speed speedIn) {
+    // Enables realtime changing of the timer timeout
+    this->frameRate = speedIn;
+}
+
+
+//******************************************************************************
 
 
 void SimulationWorker::startThread(const QString &) {
@@ -33,6 +61,9 @@ void SimulationWorker::startThread(const QString &) {
 }
 
 
+//******************************************************************************
+
+
 void SimulationWorker::executeSimTimestep() {
     // Execute timesetp and inform screen to update rendering
     if (continueSimulation) {
@@ -47,16 +78,7 @@ void SimulationWorker::executeSimTimestep() {
 }
 
 
-void SimulationWorker::pauseSimulation() {
-    // Prevents the timer triggering from causing any effect
-    continueSimulation = false;
-}
-
-
-void SimulationWorker::changeSpeed(Speed speedIn) {
-    // Enables realtime changing of the timer timeout
-    this->frameRate = speedIn;
-}
+//******************************************************************************
 
 
 SimulationController::SimulationController(Simulation* sim,
@@ -75,28 +97,50 @@ SimulationController::SimulationController(Simulation* sim,
 
     // Connect the SimulationController::operator signal to the worker's
     // SimulationWorker::startThread function
-    connect(this, &SimulationController::operate, worker,
+    connect(this, &SimulationController::beginSim, worker,
             &SimulationWorker::startThread);
 
     // Connect the timestepComplete signal to the updateScreen function
     connect(worker, &SimulationWorker::timestepComplete, this,
             &SimulationController::updateScreen);
 
+    // Connect the updateAgeChart signal from the simulation to the renderCharts
+    // member function to enable dynamic chart updating
+    connect(sim, &Simulation::updateChart, sim, &Simulation::renderCharts);
+
     // Start the worker thread, will wait
     workerThread.start();
 }
 
 
+//******************************************************************************
+
+
+SimulationController::~SimulationController() {
+    workerThread.quit();
+    workerThread.wait();
+}
+
+
+//******************************************************************************
+
+
 void SimulationController::startSimulation() {
     // Emits a signal that will be picked up by the SimulationWorker
-    emit this->operate("Begin");
+    emit this->beginSim("Begin");
 }
+
+
+//******************************************************************************
 
 
 void SimulationController::pauseSimulation() {
     // May cause a slight race condition
     this->worker->pauseSimulation();
 }
+
+
+//******************************************************************************
 
 
 void SimulationController::changeSpeed(SimulationWorker::Speed newSpeed) {
@@ -107,13 +151,12 @@ void SimulationController::changeSpeed(SimulationWorker::Speed newSpeed) {
 }
 
 
-SimulationController::~SimulationController() {
-    workerThread.quit();
-    workerThread.wait();
-}
+//******************************************************************************
 
 
 void SimulationController::updateScreen(const QString &) {
-    sim->renderAgentUpdate();
+    if (!sim->checkDebug("headless mode")) {
+        sim->renderAgentUpdate();
+    }
     return;
 }

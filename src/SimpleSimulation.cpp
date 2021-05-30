@@ -42,6 +42,21 @@ SimpleSimulation::SimpleSimulation(int numAgents, Ui::MainWindow* ui,
 }
 
 
+//******************************************************************************
+
+
+SimpleSimulation::~SimpleSimulation() {
+    clearScreen();
+    delete this->homeRegion;
+    delete this->schoolRegion;
+    delete this->workRegion;
+    delete this->leisureRegion;
+}
+
+
+//******************************************************************************
+
+
 void SimpleSimulation::init() {
     // Generate locations within the HomeRegion and add them to the screen
     generateLocations(homeRegion, homeRegion->getNumLocations());
@@ -73,8 +88,10 @@ void SimpleSimulation::init() {
 
     // Generate a set of agents for the simulation
     generateAgents();
-
 }
+
+
+//******************************************************************************
 
 
 void SimpleSimulation::execute() {
@@ -87,6 +104,9 @@ void SimpleSimulation::execute() {
         agents[i]->takeTimeStep();
     }
 }
+
+
+//******************************************************************************
 
 
 void SimpleSimulation::reset() {
@@ -109,10 +129,16 @@ void SimpleSimulation::reset() {
 }
 
 
+//******************************************************************************
+
+
 void SimpleSimulation::test() {
     std::vector<Agent*> agents = getAgents();
     agents[0]->takeTimeStep();
 }
+
+
+//******************************************************************************
 
 
 void SimpleSimulation::generateAgents() {
@@ -140,14 +166,14 @@ void SimpleSimulation::generateAgents() {
         int leisureIndex = rand() % leisureLocations.size();
 
         // Randomly sample an age assignment for the agent (update later)
-        int ageAssignment = rand() % 99;
+        int ageAssignment = AgentController::sampleAgentAge();
 
         // Randomly sample a behavior assignment of the agent based on its age
         int behaviorAssignment;
         if (ageAssignment >= 18) {
-            behaviorAssignment = rand() % getController()->getNumAdultBehaviors();
+            behaviorAssignment = getController()->getAdultBehavior();
         } else {
-            behaviorAssignment = rand() % getController()->getNumChildBehaviors();
+            behaviorAssignment = getController()->getChildBehavior();
         }
 
         // Determine the starting position of this behavior chart and assign
@@ -200,6 +226,16 @@ void SimpleSimulation::generateAgents() {
 }
 
 
-SimpleSimulation::~SimpleSimulation() {
-    clearScreen();
+//******************************************************************************
+
+
+void SimpleSimulation::renderCharts(const QString &which, bool newChartView) {
+    if (which == "ALL") {
+        renderAgeChart(newChartView);
+        renderBehaviorChart(newChartView);
+    } else if (which == "AGE") {
+        renderAgeChart(newChartView);
+    } else if (which == "BEHAVIOR") {
+        renderBehaviorChart(newChartView);
+    }
 }

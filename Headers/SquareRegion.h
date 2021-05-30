@@ -1,15 +1,17 @@
 #ifndef SQUAREREGION_H
 #define SQUAREREGION_H
 
-#include "Headers/Region.h"
-#include "Headers/Coordinate.h"
-#include "Headers/Location.h"
+#include <string>
+#include <random>
+
 #include "QGraphicsRectItem"
 #include "QColor"
 #include "QPen"
 #include "QBrush"
-#include <string>
-#include <random>
+
+#include "Headers/Region.h"
+#include "Headers/Coordinate.h"
+#include "Headers/Location.h"
 
 /**
  * @brief The SquareRegion class \n
@@ -40,6 +42,9 @@ public:
      */
     SquareRegion(int numLocations, Coordinate start, int height,
                  QColor color, std::string name);
+
+    /** Destructor for the SquareRegion Class*/
+    ~SquareRegion();
 
     /**
      * @brief getGraphicsObject \n
@@ -85,8 +90,6 @@ public:
      */
     std::vector<QGraphicsItem*> getLocationsGraphicsObject() override;
 
-    /** Destructor for the SquareRegion Class*/
-    ~SquareRegion();
 };
 
 #endif // SQUAREREGION_H

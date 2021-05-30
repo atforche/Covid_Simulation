@@ -2,7 +2,17 @@
 \label{class_main_window}\index{MainWindow@{MainWindow}}
 
 
-Inheritance diagram for Main\+Window\+:\nopagebreak
+The \mbox{\hyperlink{class_main_window}{Main\+Window}} class Main Window that drives the simulation. Contains all Slots that connect to user inputs. Passes user input on to the \mbox{\hyperlink{class_simulation}{Simulation}}. Contains a \mbox{\hyperlink{class_simulation_controller}{Simulation\+Controller}} that manages the runtime speed of the \mbox{\hyperlink{class_simulation}{Simulation}}.  
+
+
+
+
+{\ttfamily \#include $<$mainwindow.\+h$>$}
+
+
+
+Inheritance diagram for Main\+Window\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -11,7 +21,8 @@ Inheritance diagram for Main\+Window\+:\nopagebreak
 \end{figure}
 
 
-Collaboration diagram for Main\+Window\+:\nopagebreak
+Collaboration diagram for Main\+Window\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -24,6 +35,8 @@ Collaboration diagram for Main\+Window\+:\nopagebreak
 \mbox{\hyperlink{class_main_window_a996c5a2b6f77944776856f08ec30858d}{Main\+Window}} (Q\+Widget $\ast$parent=nullptr)
 \begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_main_window}{Main\+Window}} ~\newline
 Creates the UI design for the main window. Initializes the drawing scene and all individual UI elements. Primarily handled by Qt. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_main_window_ae98d00a93bc118200eeef9f9bba1dba7}{$\sim$\+Main\+Window}} ()
+\item 
 \mbox{\Hypertarget{class_main_window_aa723299753b520d39ddf3a0cc8f66ebf}\label{class_main_window_aa723299753b520d39ddf3a0cc8f66ebf}} 
 void \mbox{\hyperlink{class_main_window_aa723299753b520d39ddf3a0cc8f66ebf}{disable\+UI}} ()
 \begin{DoxyCompactList}\small\item\em disable\+UI ~\newline
@@ -32,12 +45,17 @@ Function that disables all necessary UI elements when the \mbox{\hyperlink{class
 void \mbox{\hyperlink{class_main_window_a98b4b0619a6464a3986137f27e2b33fc}{enable\+UI}} ()
 \begin{DoxyCompactList}\small\item\em enable\+UI ~\newline
 Function that enables all the necessary UI elements when the \mbox{\hyperlink{class_simulation}{Simulation}} is ended. Allows the user to be able to change constant values in between \mbox{\hyperlink{class_simulation}{Simulation}} executions \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_main_window_a51bbb15ca9a97a124e73f79b2434f946}\label{class_main_window_a51bbb15ca9a97a124e73f79b2434f946}} 
+void \mbox{\hyperlink{class_main_window_a51bbb15ca9a97a124e73f79b2434f946}{initialize\+Combo\+Boxes}} ()
+\begin{DoxyCompactList}\small\item\em initialize\+Combo\+Boxes ~\newline
+Initialize each of the Combo Boxes with their initial values and list of possible values. \end{DoxyCompactList}\item 
 std\+::map$<$ std\+::string, bool $>$ \mbox{\hyperlink{class_main_window_a02e533c825c69b768e39f3ffc6db6155}{check\+Debug\+Info}} ()
 \begin{DoxyCompactList}\small\item\em check\+Debug\+Info ~\newline
-Function that checks the state of various UI components that specify debug states and info. Returns a std\+::map that makes these pieces of debug info to their respective truth value. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{class_main_window_ae98d00a93bc118200eeef9f9bba1dba7}{$\sim$\+Main\+Window}} ()
-\end{DoxyCompactItemize}
+Function that checks the state of various UI components that specify debug states and info. Returns a std\+::map that makes these pieces of debug info to their respective truth value. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{class_main_window}{Main\+Window}} class Main Window that drives the simulation. Contains all Slots that connect to user inputs. Passes user input on to the \mbox{\hyperlink{class_simulation}{Simulation}}. Contains a \mbox{\hyperlink{class_simulation_controller}{Simulation\+Controller}} that manages the runtime speed of the \mbox{\hyperlink{class_simulation}{Simulation}}. 
 
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{class_main_window_a996c5a2b6f77944776856f08ec30858d}\label{class_main_window_a996c5a2b6f77944776856f08ec30858d}} 

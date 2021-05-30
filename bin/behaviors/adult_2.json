@@ -1,5 +1,6 @@
 {
     "Description": "Second Shift Worker",
+    "Probability": 0.25,
     "0": "Home",
     "8": {
         "Home": 0.5,

@@ -61,6 +61,8 @@ void \mbox{\hyperlink{class_simulation_worker_a6b40b53c9368783cfbb927724d8b3406}
 \mbox{\hyperlink{class_simulation_worker_a7f8f98617dfb98fd0808824724c4b9e7}{Simulation\+Worker}} (\mbox{\hyperlink{class_simulation}{Simulation}} $\ast$sim, \mbox{\hyperlink{class_simulation_worker_a77cfcb049fa15567e8b0b00e2fc28298}{Speed}} frame\+Rate)
 \begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_simulation_worker}{Simulation\+Worker}} ~\newline
 Constructor for the \mbox{\hyperlink{class_simulation_worker}{Simulation\+Worker}} class. Each simulation worker executes a loop in which the \mbox{\hyperlink{class_simulation}{Simulation}} takes timesteps forward. After each timestep is complete, the Worker signals to the \mbox{\hyperlink{class_simulation}{Simulation}} to render the updates to the G\+UI because G\+UI updates must be in the main thread. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_simulation_worker_a4018fea17ef8c12cd1ba4e3d9c030914}{$\sim$\+Simulation\+Worker}} ()
+\item 
 \mbox{\Hypertarget{class_simulation_worker_a989dd176397b244278f09c4114d93b62}\label{class_simulation_worker_a989dd176397b244278f09c4114d93b62}} 
 void \mbox{\hyperlink{class_simulation_worker_a989dd176397b244278f09c4114d93b62}{pause\+Simulation}} ()
 \begin{DoxyCompactList}\small\item\em pause\+Simulation ~\newline
@@ -73,8 +75,6 @@ Function that changes the interval of the Q\+Timer that specifies the F\+PS of t
 \doxysubsection{Detailed Description}
 The \mbox{\hyperlink{class_simulation_worker}{Simulation\+Worker}} class ~\newline
 Class that handles the execution of the \mbox{\hyperlink{class_simulation}{Simulation}} on a Threader. A Worker is dispatched by a controlled. 
-
-File that handles all classes required for multithreaded execution of the the simulation to prevent blocking of the UI 
 
 \doxysubsection{Member Enumeration Documentation}
 \mbox{\Hypertarget{class_simulation_worker_a77cfcb049fa15567e8b0b00e2fc28298}\label{class_simulation_worker_a77cfcb049fa15567e8b0b00e2fc28298}} 
@@ -104,7 +104,13 @@ Constructor for the \mbox{\hyperlink{class_simulation_worker}{Simulation\+Worker
 {\em frame\+Rate} & speed enum to define how long between sim executions \\
 \hline
 \end{DoxyParams}
+\mbox{\Hypertarget{class_simulation_worker_a4018fea17ef8c12cd1ba4e3d9c030914}\label{class_simulation_worker_a4018fea17ef8c12cd1ba4e3d9c030914}} 
+\index{SimulationWorker@{SimulationWorker}!````~SimulationWorker@{$\sim$SimulationWorker}}
+\index{````~SimulationWorker@{$\sim$SimulationWorker}!SimulationWorker@{SimulationWorker}}
+\doxysubsubsection{\texorpdfstring{$\sim$SimulationWorker()}{~SimulationWorker()}}
+{\footnotesize\ttfamily Simulation\+Worker\+::$\sim$\+Simulation\+Worker (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+Destructor for the \mbox{\hyperlink{class_simulation_worker}{Simulation\+Worker}} class 
 
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{class_simulation_worker_a8d5565a41a7cdf636e262723cbb6005b}\label{class_simulation_worker_a8d5565a41a7cdf636e262723cbb6005b}} 

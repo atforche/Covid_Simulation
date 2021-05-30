@@ -83,6 +83,7 @@ $(document).ready(function(){initNavTree('class_simulation.html',''); initResiza
 <div class="header">
   <div class="summary">
 <a href="#pub-slots">Public Slots</a> &#124;
+<a href="#signals">Signals</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="class_simulation-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -99,9 +100,9 @@ The Abstract <a class="el" href="class_simulation.html" title="The Simulation cl
 Inheritance diagram for Simulation:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_simulation__inherit__graph.png" border="0" usemap="#a_simulation_inherit__map" alt="Inheritance graph"/></div>
-<map name="_simulation_inherit__map" id="_simulation_inherit__map">
+<map name="_simulation_inherit__map" id="a_simulation_inherit__map">
 <area shape="rect" title="The Simulation class &#160;The Abstract Simulation class from which all other simulations will be derived...." alt="" coords="25,80,108,107"/>
-<area shape="rect" href="class_simple_simulation.html" title=" " alt="" coords="5,155,128,181"/>
+<area shape="rect" href="class_simple_simulation.html" title="The SimpleSimulation class Class that manages the progression of the Simple Simulation type." alt="" coords="5,155,128,181"/>
 <area shape="rect" title=" " alt="" coords="31,5,102,32"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
@@ -122,6 +123,18 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memdesc:a2987cc476da3d7fa312d02e00b17f4d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">renderAgentUpdate <br  />
 Function to render the agents in their new positions following an update. Called by the <a class="el" href="class_simulation_controller.html" title="The SimulationController class  Class that controls the simulation and delegates it to a thread....">SimulationController</a> when the <a class="el" href="class_simulation_worker.html" title="The SimulationWorker class  Class that handles the execution of the Simulation on a Threader....">SimulationWorker</a> has completed an iteration of the <a class="el" href="class_simulation.html" title="The Simulation class  The Abstract Simulation class from which all other simulations will be derived....">Simulation</a>'s execution <br /></td></tr>
 <tr class="separator:a2987cc476da3d7fa312d02e00b17f4d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65fc57a1eefda8539d24309e5e1acf69"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a65fc57a1eefda8539d24309e5e1acf69">renderCharts</a> (const QString &amp;which, bool newChartView)=0</td></tr>
+<tr class="memdesc:a65fc57a1eefda8539d24309e5e1acf69"><td class="mdescLeft">&#160;</td><td class="mdescRight">renderCharts <br  />
+Renders each of the relevant chart to the screen  <a href="class_simulation.html#a65fc57a1eefda8539d24309e5e1acf69">More...</a><br /></td></tr>
+<tr class="separator:a65fc57a1eefda8539d24309e5e1acf69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="signals"></a>
+Signals</h2></td></tr>
+<tr class="memitem:a22e2c15a3617729e5ac2cbd33744ccde"><td class="memItemLeft" align="right" valign="top"><a id="a22e2c15a3617729e5ac2cbd33744ccde"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a22e2c15a3617729e5ac2cbd33744ccde">updateChart</a> (const QString &amp;which, bool newChartView)</td></tr>
+<tr class="memdesc:a22e2c15a3617729e5ac2cbd33744ccde"><td class="mdescLeft">&#160;</td><td class="mdescRight">updateChart <br  />
+SignaL emitted by the simulation when one of the charts needs to be updated. Enables any of the charts to be updated dynamically. <br /></td></tr>
+<tr class="separator:a22e2c15a3617729e5ac2cbd33744ccde"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -129,6 +142,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a17598f7260e97396b2dc118fd7b9400d"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_simulation.html" title="The Simulation class  The Abstract Simulation class from which all other simulations will be derived....">Simulation</a>: <br  />
 Constructor for the Base <a class="el" href="class_simulation.html" title="The Simulation class  The Abstract Simulation class from which all other simulations will be derived....">Simulation</a> Object. Takes in all parameters that are universal to all simulation types.  <a href="class_simulation.html#a17598f7260e97396b2dc118fd7b9400d">More...</a><br /></td></tr>
 <tr class="separator:a17598f7260e97396b2dc118fd7b9400d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80fad3f57dfaf195a36f7bc49bc88279"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a80fad3f57dfaf195a36f7bc49bc88279">~Simulation</a> ()</td></tr>
+<tr class="separator:a80fad3f57dfaf195a36f7bc49bc88279"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab4d7fe11a5098550766a4f51c0af8409"><td class="memItemLeft" align="right" valign="top"><a id="ab4d7fe11a5098550766a4f51c0af8409"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#ab4d7fe11a5098550766a4f51c0af8409">init</a> ()=0</td></tr>
 <tr class="memdesc:ab4d7fe11a5098550766a4f51c0af8409"><td class="mdescLeft">&#160;</td><td class="mdescRight">init <br  />
@@ -169,7 +184,7 @@ Function to add a QGraphicsItem to the scene on which the simulation is being dr
 <tr class="memitem:a09a1b2085074e6fb4de3d62b360bef72"><td class="memItemLeft" align="right" valign="top"><a id="a09a1b2085074e6fb4de3d62b360bef72"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a09a1b2085074e6fb4de3d62b360bef72">advanceTime</a> ()</td></tr>
 <tr class="memdesc:a09a1b2085074e6fb4de3d62b360bef72"><td class="mdescLeft">&#160;</td><td class="mdescRight">advanceTime <br  />
-Function that should be called on every call to <a class="el" href="class_simulation.html#a7600fcd885ba7f84cfe19f55fad95404" title="execute  Function to execute a single timestep in the simulation. Function should be called in a loop...">Simulation::execute()</a>. Advances the time in the simulation. Advances the hours after FRAMES_PER_HOUR number of functions calls. Advances the days after 24 hours have occurred. Advanced the year after 365 years have occurred. <br /></td></tr>
+Function that should be called on every call to <a class="el" href="class_simulation.html#a7600fcd885ba7f84cfe19f55fad95404" title="execute  Function to execute a single timestep in the simulation. Function should be called in a loop...">Simulation::execute()</a>. Advances the time in the simulation. Advances the hours after FRAMES_PER_HOUR number of functions calls. Advances the days after 24 hours have occurred. Advanced the year after 365 years have occurred. Additionally, updates each agent's behavior chart after an hour has passed <br /></td></tr>
 <tr class="separator:a09a1b2085074e6fb4de3d62b360bef72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a963e4f60e07f29bd854b67d9a5a006a2"><td class="memItemLeft" align="right" valign="top"><a id="a963e4f60e07f29bd854b67d9a5a006a2"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a963e4f60e07f29bd854b67d9a5a006a2">clearScreen</a> ()</td></tr>
@@ -183,7 +198,7 @@ Calls clear() on the std::vector of Agents to eliminate all of the agents from t
 <tr class="separator:ac730e7d1564578fbadeba0ce32c58cca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a37329fde91a2d8c771a2d8c42e799c99"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a37329fde91a2d8c771a2d8c42e799c99">generateLocations</a> (<a class="el" href="class_region.html">Region</a> *region, int num)</td></tr>
 <tr class="memdesc:a37329fde91a2d8c771a2d8c42e799c99"><td class="mdescLeft">&#160;</td><td class="mdescRight">generateLocations <br  />
-Function that generates a set of Locations within the specified <a class="el" href="class_region.html">Region</a>. Generates the number of locations specified in the UI. Ensures all locations generated sit within the bounds of the <a class="el" href="class_region.html">Region</a>. Generated Locations will be automatically added into the <a class="el" href="class_region.html">Region</a>  <a href="class_simulation.html#a37329fde91a2d8c771a2d8c42e799c99">More...</a><br /></td></tr>
+Function that generates a set of Locations within the specified <a class="el" href="class_region.html" title="The Region class Base class that contains a list of Locations within the region, used to manage assig...">Region</a>. Generates the number of locations specified in the UI. Ensures all locations generated sit within the bounds of the <a class="el" href="class_region.html" title="The Region class Base class that contains a list of Locations within the region, used to manage assig...">Region</a>. Generated Locations will be automatically added into the <a class="el" href="class_region.html" title="The Region class Base class that contains a list of Locations within the region, used to manage assig...">Region</a>  <a href="class_simulation.html#a37329fde91a2d8c771a2d8c42e799c99">More...</a><br /></td></tr>
 <tr class="separator:a37329fde91a2d8c771a2d8c42e799c99"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac2dc3a986efb0fe35518fd1dbdb4e9ce"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#ac2dc3a986efb0fe35518fd1dbdb4e9ce">getSimHeight</a> ()</td></tr>
 <tr class="memdesc:ac2dc3a986efb0fe35518fd1dbdb4e9ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">getSimHeight <br  />
@@ -217,8 +232,23 @@ Getter function for the <a class="el" href="class_agent_controller.html" title="
 <tr class="memdesc:a51dacc3695f3cf7b35b98cd1bcb4ee02"><td class="mdescLeft">&#160;</td><td class="mdescRight">checkDebug <br  />
 Checks the debug dict passed into the <a class="el" href="class_simulation.html" title="The Simulation class  The Abstract Simulation class from which all other simulations will be derived....">Simulation</a> for the truth value of the specified string. If the value is true, return true. If the value is false or does not appear, return false.  <a href="class_simulation.html#a51dacc3695f3cf7b35b98cd1bcb4ee02">More...</a><br /></td></tr>
 <tr class="separator:a51dacc3695f3cf7b35b98cd1bcb4ee02"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80fad3f57dfaf195a36f7bc49bc88279"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a80fad3f57dfaf195a36f7bc49bc88279">~Simulation</a> ()</td></tr>
-<tr class="separator:a80fad3f57dfaf195a36f7bc49bc88279"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7097dc735731346f643ec09242c3d15"><td class="memItemLeft" align="right" valign="top"><a id="ab7097dc735731346f643ec09242c3d15"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#ab7097dc735731346f643ec09242c3d15">mapChartViews</a> ()</td></tr>
+<tr class="memdesc:ab7097dc735731346f643ec09242c3d15"><td class="mdescLeft">&#160;</td><td class="mdescRight">getChartView <br  />
+Determines which graph types should appear in each chartView according to the Combox Boxes on the <a class="el" href="class_main_window.html" title="The MainWindow class Main Window that drives the simulation. Contains all Slots that connect to user ...">MainWindow</a>. Populates these mappings in the Simulation::chartViews map. <br /></td></tr>
+<tr class="separator:ab7097dc735731346f643ec09242c3d15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3bc139032d04c350872a02d9c1240b0d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a3bc139032d04c350872a02d9c1240b0d">getChartView</a> (QString type)</td></tr>
+<tr class="memdesc:a3bc139032d04c350872a02d9c1240b0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">getChartView <br  />
+Returns the chartView number that the specified graph type will appear in on the <a class="el" href="class_main_window.html" title="The MainWindow class Main Window that drives the simulation. Contains all Slots that connect to user ...">MainWindow</a>. If the specified graph type will not appear, returns -1  <a href="class_simulation.html#a3bc139032d04c350872a02d9c1240b0d">More...</a><br /></td></tr>
+<tr class="separator:a3bc139032d04c350872a02d9c1240b0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ad4ff8991c47245d7ad81474f3d745c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a8ad4ff8991c47245d7ad81474f3d745c">renderAgeChart</a> (bool newChartView)</td></tr>
+<tr class="memdesc:a8ad4ff8991c47245d7ad81474f3d745c"><td class="mdescLeft">&#160;</td><td class="mdescRight">renderAgeChart <br  />
+Renders the Age Distribution chart to the screen with the current age distribution of the agents in the simulation  <a href="class_simulation.html#a8ad4ff8991c47245d7ad81474f3d745c">More...</a><br /></td></tr>
+<tr class="separator:a8ad4ff8991c47245d7ad81474f3d745c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0813a36201a8161715b29e17adb3b783"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_simulation.html#a0813a36201a8161715b29e17adb3b783">renderBehaviorChart</a> (bool newChartView)</td></tr>
+<tr class="memdesc:a0813a36201a8161715b29e17adb3b783"><td class="mdescLeft">&#160;</td><td class="mdescRight">renderBehaviorChart <br  />
+Renders the Behavior Chart visualization to the screen with the current behavior assignments of the Agents.  <a href="class_simulation.html#a0813a36201a8161715b29e17adb3b783">More...</a><br /></td></tr>
+<tr class="separator:a0813a36201a8161715b29e17adb3b783"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="class_simulation.html" title="The Simulation class  The Abstract Simulation class from which all other simulations will be derived....">Simulation</a> class <br  />
@@ -405,7 +435,7 @@ Checks the debug dict passed into the <a class="el" href="class_simulation.html"
 </div><div class="memdoc">
 
 <p>generateLocations <br  />
-Function that generates a set of Locations within the specified <a class="el" href="class_region.html">Region</a>. Generates the number of locations specified in the UI. Ensures all locations generated sit within the bounds of the <a class="el" href="class_region.html">Region</a>. Generated Locations will be automatically added into the <a class="el" href="class_region.html">Region</a> </p>
+Function that generates a set of Locations within the specified <a class="el" href="class_region.html" title="The Region class Base class that contains a list of Locations within the region, used to manage assig...">Region</a>. Generates the number of locations specified in the UI. Ensures all locations generated sit within the bounds of the <a class="el" href="class_region.html" title="The Region class Base class that contains a list of Locations within the region, used to manage assig...">Region</a>. Generated Locations will be automatically added into the <a class="el" href="class_region.html" title="The Region class Base class that contains a list of Locations within the region, used to manage assig...">Region</a> </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">region</td><td>the region to generate Locations for </td></tr>
@@ -433,6 +463,34 @@ Function that generates a set of Locations within the specified <a class="el" hr
 <p>getAgents <br  />
 Getter function for the vector of all agents in the simulation. Returns a vector of all Agents </p>
 <dl class="section return"><dt>Returns</dt><dd>a std::vector containing pointers to every agent in the simulation </dd></dl>
+
+</div>
+</div>
+<a id="a3bc139032d04c350872a02d9c1240b0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3bc139032d04c350872a02d9c1240b0d">&#9670;&nbsp;</a></span>getChartView()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Simulation::getChartView </td>
+          <td>(</td>
+          <td class="paramtype">QString&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>getChartView <br  />
+Returns the chartView number that the specified graph type will appear in on the <a class="el" href="class_main_window.html" title="The MainWindow class Main Window that drives the simulation. Contains all Slots that connect to user ...">MainWindow</a>. If the specified graph type will not appear, returns -1 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>the specific graph type to display </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>an integer representing with chartView that graph type appears in </dd></dl>
 
 </div>
 </div>
@@ -580,6 +638,105 @@ Getter function for the width of the QGraphicsScene window. Returns the width as
 <p>getYear <br  />
 Getter function for the current year in the Sim </p>
 <dl class="section return"><dt>Returns</dt><dd>the year as an int </dd></dl>
+
+</div>
+</div>
+<a id="a8ad4ff8991c47245d7ad81474f3d745c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ad4ff8991c47245d7ad81474f3d745c">&#9670;&nbsp;</a></span>renderAgeChart()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Simulation::renderAgeChart </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>newChartView</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>renderAgeChart <br  />
+Renders the Age Distribution chart to the screen with the current age distribution of the agents in the simulation </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">newChartView</td><td>whether the Chart is being moved to a new view </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a0813a36201a8161715b29e17adb3b783"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0813a36201a8161715b29e17adb3b783">&#9670;&nbsp;</a></span>renderBehaviorChart()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Simulation::renderBehaviorChart </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>newChartView</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>renderBehaviorChart <br  />
+Renders the Behavior Chart visualization to the screen with the current behavior assignments of the Agents. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">newChartView</td><td>whether the Chart is being moved to a new view </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a65fc57a1eefda8539d24309e5e1acf69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65fc57a1eefda8539d24309e5e1acf69">&#9670;&nbsp;</a></span>renderCharts</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void Simulation::renderCharts </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;&#160;</td>
+          <td class="paramname"><em>which</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>newChartView</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>renderCharts <br  />
+Renders each of the relevant chart to the screen </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">which</td><td>QString that specifies which of the charts should be rendered </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

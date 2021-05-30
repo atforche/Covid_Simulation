@@ -12,7 +12,8 @@ The Abstract \mbox{\hyperlink{class_simulation}{Simulation}} class from which al
 
 
 
-Inheritance diagram for Simulation\+:\nopagebreak
+Inheritance diagram for Simulation\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -34,13 +35,25 @@ Collaboration diagram for Simulation\+:\nopagebreak
 \mbox{\Hypertarget{class_simulation_a2987cc476da3d7fa312d02e00b17f4d8}\label{class_simulation_a2987cc476da3d7fa312d02e00b17f4d8}} 
 void \mbox{\hyperlink{class_simulation_a2987cc476da3d7fa312d02e00b17f4d8}{render\+Agent\+Update}} ()
 \begin{DoxyCompactList}\small\item\em render\+Agent\+Update ~\newline
-Function to render the agents in their new positions following an update. Called by the \mbox{\hyperlink{class_simulation_controller}{Simulation\+Controller}} when the \mbox{\hyperlink{class_simulation_worker}{Simulation\+Worker}} has completed an iteration of the \mbox{\hyperlink{class_simulation}{Simulation}}\textquotesingle{}s execution \end{DoxyCompactList}\end{DoxyCompactItemize}
+Function to render the agents in their new positions following an update. Called by the \mbox{\hyperlink{class_simulation_controller}{Simulation\+Controller}} when the \mbox{\hyperlink{class_simulation_worker}{Simulation\+Worker}} has completed an iteration of the \mbox{\hyperlink{class_simulation}{Simulation}}\textquotesingle{}s execution \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_simulation_a65fc57a1eefda8539d24309e5e1acf69}{render\+Charts}} (const Q\+String \&which, bool new\+Chart\+View)=0
+\begin{DoxyCompactList}\small\item\em render\+Charts ~\newline
+Renders each of the relevant chart to the screen \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_simulation_a22e2c15a3617729e5ac2cbd33744ccde}\label{class_simulation_a22e2c15a3617729e5ac2cbd33744ccde}} 
+void \mbox{\hyperlink{class_simulation_a22e2c15a3617729e5ac2cbd33744ccde}{update\+Chart}} (const Q\+String \&which, bool new\+Chart\+View)
+\begin{DoxyCompactList}\small\item\em update\+Chart ~\newline
+SignaL emitted by the simulation when one of the charts needs to be updated. Enables any of the charts to be updated dynamically. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{class_simulation_a17598f7260e97396b2dc118fd7b9400d}{Simulation}} (int num\+Agents, Ui\+::\+Main\+Window $\ast$ui, std\+::map$<$ std\+::string, bool $>$ debug)
 \begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_simulation}{Simulation}}\+: ~\newline
 Constructor for the Base \mbox{\hyperlink{class_simulation}{Simulation}} Object. Takes in all parameters that are universal to all simulation types. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{class_simulation_a80fad3f57dfaf195a36f7bc49bc88279}{$\sim$\+Simulation}} ()
+\item 
 \mbox{\Hypertarget{class_simulation_ab4d7fe11a5098550766a4f51c0af8409}\label{class_simulation_ab4d7fe11a5098550766a4f51c0af8409}} 
 virtual void \mbox{\hyperlink{class_simulation_ab4d7fe11a5098550766a4f51c0af8409}{init}} ()=0
 \begin{DoxyCompactList}\small\item\em init ~\newline
@@ -73,7 +86,7 @@ Function to add a Q\+Graphics\+Item to the scene on which the simulation is bein
 \mbox{\Hypertarget{class_simulation_a09a1b2085074e6fb4de3d62b360bef72}\label{class_simulation_a09a1b2085074e6fb4de3d62b360bef72}} 
 void \mbox{\hyperlink{class_simulation_a09a1b2085074e6fb4de3d62b360bef72}{advance\+Time}} ()
 \begin{DoxyCompactList}\small\item\em advance\+Time ~\newline
-Function that should be called on every call to \mbox{\hyperlink{class_simulation_a7600fcd885ba7f84cfe19f55fad95404}{Simulation\+::execute()}}. Advances the time in the simulation. Advances the hours after F\+R\+A\+M\+E\+S\+\_\+\+P\+E\+R\+\_\+\+H\+O\+UR number of functions calls. Advances the days after 24 hours have occurred. Advanced the year after 365 years have occurred. \end{DoxyCompactList}\item 
+Function that should be called on every call to \mbox{\hyperlink{class_simulation_a7600fcd885ba7f84cfe19f55fad95404}{Simulation\+::execute()}}. Advances the time in the simulation. Advances the hours after F\+R\+A\+M\+E\+S\+\_\+\+P\+E\+R\+\_\+\+H\+O\+UR number of functions calls. Advances the days after 24 hours have occurred. Advanced the year after 365 years have occurred. Additionally, updates each agent\textquotesingle{}s behavior chart after an hour has passed \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_simulation_a963e4f60e07f29bd854b67d9a5a006a2}\label{class_simulation_a963e4f60e07f29bd854b67d9a5a006a2}} 
 void \mbox{\hyperlink{class_simulation_a963e4f60e07f29bd854b67d9a5a006a2}{clear\+Screen}} ()
 \begin{DoxyCompactList}\small\item\em clear\+Screen ~\newline
@@ -109,8 +122,19 @@ Getter function for the \mbox{\hyperlink{class_agent_controller}{Agent\+Controll
 bool \mbox{\hyperlink{class_simulation_a51dacc3695f3cf7b35b98cd1bcb4ee02}{check\+Debug}} (std\+::string val)
 \begin{DoxyCompactList}\small\item\em check\+Debug ~\newline
 Checks the debug dict passed into the \mbox{\hyperlink{class_simulation}{Simulation}} for the truth value of the specified string. If the value is true, return true. If the value is false or does not appear, return false. \end{DoxyCompactList}\item 
-virtual \mbox{\hyperlink{class_simulation_a80fad3f57dfaf195a36f7bc49bc88279}{$\sim$\+Simulation}} ()
-\end{DoxyCompactItemize}
+\mbox{\Hypertarget{class_simulation_ab7097dc735731346f643ec09242c3d15}\label{class_simulation_ab7097dc735731346f643ec09242c3d15}} 
+void \mbox{\hyperlink{class_simulation_ab7097dc735731346f643ec09242c3d15}{map\+Chart\+Views}} ()
+\begin{DoxyCompactList}\small\item\em get\+Chart\+View ~\newline
+Determines which graph types should appear in each chart\+View according to the Combox Boxes on the \mbox{\hyperlink{class_main_window}{Main\+Window}}. Populates these mappings in the Simulation\+::chart\+Views map. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_simulation_a3bc139032d04c350872a02d9c1240b0d}{get\+Chart\+View}} (Q\+String type)
+\begin{DoxyCompactList}\small\item\em get\+Chart\+View ~\newline
+Returns the chart\+View number that the specified graph type will appear in on the \mbox{\hyperlink{class_main_window}{Main\+Window}}. If the specified graph type will not appear, returns -\/1 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simulation_a8ad4ff8991c47245d7ad81474f3d745c}{render\+Age\+Chart}} (bool new\+Chart\+View)
+\begin{DoxyCompactList}\small\item\em render\+Age\+Chart ~\newline
+Renders the Age Distribution chart to the screen with the current age distribution of the agents in the simulation \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simulation_a0813a36201a8161715b29e17adb3b783}{render\+Behavior\+Chart}} (bool new\+Chart\+View)
+\begin{DoxyCompactList}\small\item\em render\+Behavior\+Chart ~\newline
+Renders the Behavior Chart visualization to the screen with the current behavior assignments of the Agents. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -228,6 +252,25 @@ Getter function for the vector of all agents in the simulation. Returns a vector
 \begin{DoxyReturn}{Returns}
 a std\+::vector containing pointers to every agent in the simulation 
 \end{DoxyReturn}
+\mbox{\Hypertarget{class_simulation_a3bc139032d04c350872a02d9c1240b0d}\label{class_simulation_a3bc139032d04c350872a02d9c1240b0d}} 
+\index{Simulation@{Simulation}!getChartView@{getChartView}}
+\index{getChartView@{getChartView}!Simulation@{Simulation}}
+\doxysubsubsection{\texorpdfstring{getChartView()}{getChartView()}}
+{\footnotesize\ttfamily int Simulation\+::get\+Chart\+View (\begin{DoxyParamCaption}\item[{Q\+String}]{type }\end{DoxyParamCaption})}
+
+
+
+get\+Chart\+View ~\newline
+Returns the chart\+View number that the specified graph type will appear in on the \mbox{\hyperlink{class_main_window}{Main\+Window}}. If the specified graph type will not appear, returns -\/1 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & the specific graph type to display \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+an integer representing with chart\+View that graph type appears in 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_simulation_a409ca0d5f3912f95d3958ad8c2eab3f7}\label{class_simulation_a409ca0d5f3912f95d3958ad8c2eab3f7}} 
 \index{Simulation@{Simulation}!getController@{getController}}
 \index{getController@{getController}!Simulation@{Simulation}}
@@ -326,6 +369,54 @@ Getter function for the current year in the Sim
 \begin{DoxyReturn}{Returns}
 the year as an int 
 \end{DoxyReturn}
+\mbox{\Hypertarget{class_simulation_a8ad4ff8991c47245d7ad81474f3d745c}\label{class_simulation_a8ad4ff8991c47245d7ad81474f3d745c}} 
+\index{Simulation@{Simulation}!renderAgeChart@{renderAgeChart}}
+\index{renderAgeChart@{renderAgeChart}!Simulation@{Simulation}}
+\doxysubsubsection{\texorpdfstring{renderAgeChart()}{renderAgeChart()}}
+{\footnotesize\ttfamily void Simulation\+::render\+Age\+Chart (\begin{DoxyParamCaption}\item[{bool}]{new\+Chart\+View }\end{DoxyParamCaption})}
+
+
+
+render\+Age\+Chart ~\newline
+Renders the Age Distribution chart to the screen with the current age distribution of the agents in the simulation 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Chart\+View} & whether the Chart is being moved to a new view \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_simulation_a0813a36201a8161715b29e17adb3b783}\label{class_simulation_a0813a36201a8161715b29e17adb3b783}} 
+\index{Simulation@{Simulation}!renderBehaviorChart@{renderBehaviorChart}}
+\index{renderBehaviorChart@{renderBehaviorChart}!Simulation@{Simulation}}
+\doxysubsubsection{\texorpdfstring{renderBehaviorChart()}{renderBehaviorChart()}}
+{\footnotesize\ttfamily void Simulation\+::render\+Behavior\+Chart (\begin{DoxyParamCaption}\item[{bool}]{new\+Chart\+View }\end{DoxyParamCaption})}
+
+
+
+render\+Behavior\+Chart ~\newline
+Renders the Behavior Chart visualization to the screen with the current behavior assignments of the Agents. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Chart\+View} & whether the Chart is being moved to a new view \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_simulation_a65fc57a1eefda8539d24309e5e1acf69}\label{class_simulation_a65fc57a1eefda8539d24309e5e1acf69}} 
+\index{Simulation@{Simulation}!renderCharts@{renderCharts}}
+\index{renderCharts@{renderCharts}!Simulation@{Simulation}}
+\doxysubsubsection{\texorpdfstring{renderCharts}{renderCharts}}
+{\footnotesize\ttfamily virtual void Simulation\+::render\+Charts (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{which,  }\item[{bool}]{new\+Chart\+View }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}, {\ttfamily [slot]}}
+
+
+
+render\+Charts ~\newline
+Renders each of the relevant chart to the screen 
+
+
+\begin{DoxyParams}{Parameters}
+{\em which} & Q\+String that specifies which of the charts should be rendered \\
+\hline
+\end{DoxyParams}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

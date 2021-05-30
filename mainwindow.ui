@@ -346,6 +346,85 @@
      <string>Debug Features</string>
     </property>
    </widget>
+   <widget class="QChartView" name="graphView1">
+    <property name="geometry">
+     <rect>
+      <x>1310</x>
+      <y>30</y>
+      <width>571</width>
+      <height>251</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QChartView" name="graphView2">
+    <property name="geometry">
+     <rect>
+      <x>1310</x>
+      <y>300</y>
+      <width>571</width>
+      <height>251</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="graph1Selection">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>280</y>
+      <width>261</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="graph1ViewLabel">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>260</y>
+      <width>261</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Graph 1:</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="graph2Selection">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>330</y>
+      <width>261</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="graph2ViewLabel">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>310</y>
+      <width>261</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Graph 2:</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="headlessMode">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>240</y>
+      <width>211</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Disable Agent Rendering</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -359,6 +438,13 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QChartView</class>
+   <extends>QGraphicsView</extends>
+   <header>QtCharts</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

@@ -1,13 +1,19 @@
 #ifndef SIMULATION_H
 #define SIMULATION_H
 
+#include "QObject"
+
 #include <vector>
 #include <random>
 #include <map>
+#include <unordered_map>
+
 #include "ui_mainwindow.h"
 #include "AgentController.h"
 #include "Location.h"
 #include "Region.h"
+#include "ChartHelpers.h"
+
 
 /**
  * @brief The Simulation class \n
@@ -16,6 +22,7 @@
  * executed in the same screen space with the same driver.
  */
 class Simulation : public QObject {
+    Q_OBJECT
 
 private:
     /** a vector of every agent in the simulation */
@@ -27,11 +34,11 @@ private:
     /** AgentController to dynamically control agent behavior */
     AgentController* agentController;
 
-    /** Integer containing the specified number of agents in the simulation */
-    int numAgents;
-
     /** ui element that allows simulation to inferface with the screen */
     Ui::MainWindow* ui;
+
+    /** Integer containing the specified number of agents in the simulation */
+    int numAgents;
 
     /** Integer that stores the width of the Sims canvas*/
     int simWidth;
@@ -53,6 +60,33 @@ private:
     /** Number of frames that occur before a new hour begins */
     static const int FRAMES_PER_HOUR = 60;
 
+    /** Maps each distribution type to the Chart View(s) it appears in */
+    std::unordered_map<QString, int>* chartViews;
+
+    // Default QGraphs to populate the QChartViews
+    static QtCharts::QChart* default1;
+
+    /** Classes of all dynamic memory components for each graph */
+    AgeChartHelper* ageHelper;
+    BehaviorChartHelper* behaviorHelper;
+
+    /**
+     * @brief ageAgents \n
+     * Increments the age of each agent in the Simulation by one. If the
+     * agent has become an adult, select an Adult behavior chart for the
+     * agent and update it.
+     */
+    void ageAgents();
+
+    /**
+     * @brief addChartToView \n
+     * Takes the chart provided as input and updates the Chart for
+     * the designated chartView in the UI to the provided chart
+     * @param chart: the chart that should be visualized
+     * @param num: the ID of the chartView to update with the new chart
+     */
+    void addChartToView(QChart* chart, int num);
+
 public:
 
     /**
@@ -65,6 +99,9 @@ public:
      *               values;
      */
     Simulation(int numAgents, Ui::MainWindow* ui, std::map<std::string, bool> debug);
+
+    /** Destructor for the Simulation Class*/
+    virtual ~Simulation();
 
     /**
      * @brief init \n
@@ -105,6 +142,7 @@ public:
      */
     virtual void generateAgents() = 0;
 
+
     /**
      * @brief addAgent \n
      * Function to add a new agent to the simulation. Will not
@@ -138,6 +176,7 @@ public:
      * Advances the time in the simulation. Advances the hours after
      * FRAMES_PER_HOUR number of functions calls. Advances the days after
      * 24 hours have occurred. Advanced the year after 365 years have occurred.
+     * Additionally, updates each agent's behavior chart after an hour has passed
      */
     void advanceTime();
 
@@ -227,8 +266,41 @@ public:
      */
     bool checkDebug(std::string val);
 
-    /** Destructor for the Simulation Class*/
-    virtual ~Simulation();
+    /**
+     * @brief getChartView \n
+     * Determines which graph types should appear in each chartView according
+     * to the Combox Boxes on the MainWindow. Populates these mappings in the
+     * Simulation::chartViews map.
+     */
+    void mapChartViews();
+
+    /**
+     * @brief getChartView \n
+     * Returns the chartView number that the specified graph type will appear
+     * in on the MainWindow. If the specified graph type will not appear,
+     * returns -1
+     * @param type: the specific graph type to display
+     * @return an integer representing with chartView that graph type appears in
+     */
+    int getChartView(QString type);
+
+    /**
+     * @brief renderAgeChart \n
+     * Renders the Age Distribution chart to the screen with the current
+     * age distribution of the agents in the simulation
+     * @param newChartView: whether the Chart is being moved to a new view
+     */
+    void renderAgeChart(bool newChartView);
+
+    /**
+     * @brief renderBehaviorChart \n
+     * Renders the Behavior Chart visualization to the screen with the current
+     * behavior assignments of the Agents.
+     * @param newChartView: whether the Chart is being moved to a new view
+     */
+    void renderBehaviorChart(bool newChartView);
+
+
 
 public slots:
     /**
@@ -238,6 +310,24 @@ public slots:
      * completed an iteration of the Simulation's execution
      */
     void renderAgentUpdate();
+
+    /**
+     * @brief renderCharts \n
+     * Renders each of the relevant chart to the screen
+     * @param which: QString that specifies which of the charts should be rendered
+     */
+    virtual void renderCharts(const QString &which, bool newChartView) = 0;
+
+
+signals:
+
+    /**
+     * @brief updateChart \n
+     * SignaL emitted by the simulation when one of the charts needs to be updated.
+     * Enables any of the charts to be updated dynamically.
+     */
+    void updateChart(const QString &which, bool newChartView);
+
 
 };
 

@@ -1,9 +1,5 @@
 var searchData=
 [
-  ['changespeed_100',['changeSpeed',['../class_simulation_worker.html#a8d5565a41a7cdf636e262723cbb6005b',1,'SimulationWorker::changeSpeed()'],['../class_simulation_controller.html#ac3140b4ff061bf96a0b604f7fdb37073',1,'SimulationController::changeSpeed()']]],
-  ['checkdebug_101',['checkDebug',['../class_simulation.html#a51dacc3695f3cf7b35b98cd1bcb4ee02',1,'Simulation']]],
-  ['checkdebuginfo_102',['checkDebugInfo',['../class_main_window.html#a02e533c825c69b768e39f3ffc6db6155',1,'MainWindow']]],
-  ['clearagents_103',['clearAgents',['../class_simulation.html#ac730e7d1564578fbadeba0ce32c58cca',1,'Simulation']]],
-  ['clearscreen_104',['clearScreen',['../class_simulation.html#a963e4f60e07f29bd854b67d9a5a006a2',1,'Simulation']]],
-  ['coordinate_105',['Coordinate',['../class_coordinate.html#aac6f323a685fc1e88fbea9c86f1e600d',1,'Coordinate::Coordinate()'],['../class_coordinate.html#a06991f42b26d92d1c771c198f2a01103',1,'Coordinate::Coordinate(double x, double y)']]]
+  ['beginsim_123',['beginSim',['../class_simulation_controller.html#a6df9e1704319e86034fd6f51830cc1f3',1,'SimulationController']]],
+  ['behaviorcharthelper_124',['BehaviorChartHelper',['../class_behavior_chart_helper.html#a637a86bf66723e9276784f958d0e4fe3',1,'BehaviorChartHelper']]]
 ];

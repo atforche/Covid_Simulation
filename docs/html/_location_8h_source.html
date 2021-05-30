@@ -88,51 +88,55 @@ $(document).ready(function(){initNavTree('_location_8h_source.html',''); initRes
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef LOCATION_H</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define LOCATION_H</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;unordered_set&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;QGraphicsEllipseItem&quot;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;Headers/Coordinate.h&quot;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">class </span><a class="code" href="class_agent.html">Agent</a>;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="class_location.html">   15</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_location.html">Location</a> {</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <a class="code" href="class_coordinate.html">Coordinate</a> position;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;unordered_set&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;QGraphicsEllipseItem&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;Headers/Coordinate.h&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">// Forward declaration of the Agent Class</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">class </span><a class="code" href="class_agent.html">Agent</a>;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="class_location.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_location.html">Location</a> {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">private</span>:</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    std::unordered_set&lt;Agent*&gt; agents;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <a class="code" href="class_coordinate.html">Coordinate</a> position;</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> LOCATION_WIDTH = 10;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    std::unordered_set&lt;Agent*&gt; agents;</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    QGraphicsEllipseItem* ellipse;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> LOCATION_WIDTH = 10;</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <a class="code" href="class_location.html#a16f296df02f800d987865b74d392fe76">Location</a>(<span class="keywordtype">double</span> x, <span class="keywordtype">double</span> y);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_location.html#a0ebb13d03ed6110beeba2e568c367022">addAgent</a>(<a class="code" href="class_agent.html">Agent</a> *agent);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_location.html#a6755bf5e85cff5d58a2f6974ec78d5ec">removeAgent</a>(<a class="code" href="class_agent.html">Agent</a> &amp;agent);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    QGraphicsEllipseItem* <a class="code" href="class_location.html#ad1b3ba99c5c2e6c85ddee13af0f5384a">getGraphicsObject</a>();</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <a class="code" href="class_coordinate.html">Coordinate</a> <a class="code" href="class_location.html#a82f611f114fad22c2ec9b85924ab49e5">getPosition</a>();</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <a class="code" href="class_location.html#af5be2c6550bbd96137cbb3144ec3c529">~Location</a>();</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    QGraphicsEllipseItem* ellipse;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <a class="code" href="class_location.html#a16f296df02f800d987865b74d392fe76">Location</a>(<span class="keywordtype">double</span> x, <span class="keywordtype">double</span> y);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_location.html#a0ebb13d03ed6110beeba2e568c367022">addAgent</a>(<a class="code" href="class_agent.html">Agent</a> *agent);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_location.html#a8b9e90431d9390b2c2cc8539710db4ec">removeAgent</a>(<a class="code" href="class_agent.html">Agent</a>* agent);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    QGraphicsEllipseItem* <a class="code" href="class_location.html#ad1b3ba99c5c2e6c85ddee13af0f5384a">getGraphicsObject</a>();</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <a class="code" href="class_coordinate.html">Coordinate</a> <a class="code" href="class_location.html#a82f611f114fad22c2ec9b85924ab49e5">getPosition</a>();</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;};</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor">#endif // LOCATION_H</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <a class="code" href="class_location.html#af5be2c6550bbd96137cbb3144ec3c529">~Location</a>();</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;};</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="preprocessor">#endif // LOCATION_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclass_location_html_a6755bf5e85cff5d58a2f6974ec78d5ec"><div class="ttname"><a href="class_location.html#a6755bf5e85cff5d58a2f6974ec78d5ec">Location::removeAgent</a></div><div class="ttdeci">void removeAgent(Agent &amp;agent)</div><div class="ttdoc">removeAgent  Function to remove an Agent from this Location. Removes this agent from the agents set....</div><div class="ttdef"><b>Definition:</b> Location.cpp:22</div></div>
-<div class="ttc" id="aclass_location_html_ad1b3ba99c5c2e6c85ddee13af0f5384a"><div class="ttname"><a href="class_location.html#ad1b3ba99c5c2e6c85ddee13af0f5384a">Location::getGraphicsObject</a></div><div class="ttdeci">QGraphicsEllipseItem * getGraphicsObject()</div><div class="ttdoc">getGraphicsObject  Function that returns the QGraphicsEllipseItem to visulize this location....</div><div class="ttdef"><b>Definition:</b> Location.cpp:29</div></div>
-<div class="ttc" id="aclass_location_html_a82f611f114fad22c2ec9b85924ab49e5"><div class="ttname"><a href="class_location.html#a82f611f114fad22c2ec9b85924ab49e5">Location::getPosition</a></div><div class="ttdeci">Coordinate getPosition()</div><div class="ttdoc">getPosition:  Getter function for the position of the Location. Returns the position of this location...</div><div class="ttdef"><b>Definition:</b> Location.cpp:34</div></div>
-<div class="ttc" id="aclass_agent_html"><div class="ttname"><a href="class_agent.html">Agent</a></div><div class="ttdoc">The Agent Class  Class that specifies the functionality of the Agents in the simulation Contains all ...</div><div class="ttdef"><b>Definition:</b> Agent.h:14</div></div>
+<div class="ttc" id="aclass_location_html_ad1b3ba99c5c2e6c85ddee13af0f5384a"><div class="ttname"><a href="class_location.html#ad1b3ba99c5c2e6c85ddee13af0f5384a">Location::getGraphicsObject</a></div><div class="ttdeci">QGraphicsEllipseItem * getGraphicsObject()</div><div class="ttdoc">getGraphicsObject  Function that returns the QGraphicsEllipseItem to visulize this location....</div><div class="ttdef"><b>Definition:</b> Location.cpp:38</div></div>
+<div class="ttc" id="aclass_location_html_a8b9e90431d9390b2c2cc8539710db4ec"><div class="ttname"><a href="class_location.html#a8b9e90431d9390b2c2cc8539710db4ec">Location::removeAgent</a></div><div class="ttdeci">void removeAgent(Agent *agent)</div><div class="ttdoc">removeAgent  Function to remove an Agent from this Location. Removes this agent from the agents set....</div><div class="ttdef"><b>Definition:</b> Location.cpp:28</div></div>
+<div class="ttc" id="aclass_location_html_a82f611f114fad22c2ec9b85924ab49e5"><div class="ttname"><a href="class_location.html#a82f611f114fad22c2ec9b85924ab49e5">Location::getPosition</a></div><div class="ttdeci">Coordinate getPosition()</div><div class="ttdoc">getPosition:  Getter function for the position of the Location. Returns the position of this location...</div><div class="ttdef"><b>Definition:</b> Location.cpp:46</div></div>
+<div class="ttc" id="aclass_agent_html"><div class="ttname"><a href="class_agent.html">Agent</a></div><div class="ttdoc">The Agent Class  Class that specifies the functionality of the Agents in the simulation Contains all ...</div><div class="ttdef"><b>Definition:</b> Agent.h:15</div></div>
 <div class="ttc" id="aclass_location_html_a16f296df02f800d987865b74d392fe76"><div class="ttname"><a href="class_location.html#a16f296df02f800d987865b74d392fe76">Location::Location</a></div><div class="ttdeci">Location(double x, double y)</div><div class="ttdoc">Location  Constructor for the Location class. Each Location contains a position and a vector of agent...</div><div class="ttdef"><b>Definition:</b> Location.cpp:3</div></div>
-<div class="ttc" id="aclass_location_html_af5be2c6550bbd96137cbb3144ec3c529"><div class="ttname"><a href="class_location.html#af5be2c6550bbd96137cbb3144ec3c529">Location::~Location</a></div><div class="ttdeci">~Location()</div><div class="ttdef"><b>Definition:</b> Location.cpp:39</div></div>
-<div class="ttc" id="aclass_coordinate_html"><div class="ttname"><a href="class_coordinate.html">Coordinate</a></div><div class="ttdoc">The Coordinate class  A Class that represents positiions within the simulation. Also supports calcula...</div><div class="ttdef"><b>Definition:</b> Coordinate.h:11</div></div>
-<div class="ttc" id="aclass_location_html"><div class="ttname"><a href="class_location.html">Location</a></div><div class="ttdef"><b>Definition:</b> Location.h:15</div></div>
-<div class="ttc" id="aclass_location_html_a0ebb13d03ed6110beeba2e568c367022"><div class="ttname"><a href="class_location.html#a0ebb13d03ed6110beeba2e568c367022">Location::addAgent</a></div><div class="ttdeci">void addAgent(Agent *agent)</div><div class="ttdoc">addAgent  Function to assign an Agent to this Location. Adds the agent to the agents set....</div><div class="ttdef"><b>Definition:</b> Location.cpp:17</div></div>
+<div class="ttc" id="aclass_location_html_af5be2c6550bbd96137cbb3144ec3c529"><div class="ttname"><a href="class_location.html#af5be2c6550bbd96137cbb3144ec3c529">Location::~Location</a></div><div class="ttdeci">~Location()</div><div class="ttdef"><b>Definition:</b> Location.cpp:54</div></div>
+<div class="ttc" id="aclass_coordinate_html"><div class="ttname"><a href="class_coordinate.html">Coordinate</a></div><div class="ttdoc">The Coordinate class  A Class that represents positiions within the simulation. Also supports calcula...</div><div class="ttdef"><b>Definition:</b> Coordinate.h:9</div></div>
+<div class="ttc" id="aclass_location_html"><div class="ttname"><a href="class_location.html">Location</a></div><div class="ttdoc">The Location class  A base class that defines functionality of unique locations within the Simulation...</div><div class="ttdef"><b>Definition:</b> Location.h:18</div></div>
+<div class="ttc" id="aclass_location_html_a0ebb13d03ed6110beeba2e568c367022"><div class="ttname"><a href="class_location.html#a0ebb13d03ed6110beeba2e568c367022">Location::addAgent</a></div><div class="ttdeci">void addAgent(Agent *agent)</div><div class="ttdoc">addAgent  Function to assign an Agent to this Location. Adds the agent to the agents set....</div><div class="ttdef"><b>Definition:</b> Location.cpp:20</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

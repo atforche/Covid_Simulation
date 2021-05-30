@@ -1,4 +1,5 @@
 QT       += core gui
+QT       += charts
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -10,6 +11,7 @@ CONFIG += c++11
 
 SOURCES += \
     src/AgentController.cpp \
+    src/ChartHelpers.cpp \
     src/mainwindow.cpp \
     src/Agent.cpp \
     src/Coordinate.cpp \
@@ -32,6 +34,7 @@ HEADERS += \
     Headers/Simulation.h \
     Headers/SquareRegion.h \
     Headers/ThreadExecution.h \
+    Headers/ChartHelpers.h
 
 
 FORMS += \

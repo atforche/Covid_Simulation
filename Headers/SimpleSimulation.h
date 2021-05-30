@@ -1,22 +1,25 @@
 #ifndef SIMPLESIMULATION_H
 #define SIMPLESIMULATION_H
+
+#include <vector>
+
+#include <ui_mainwindow.h>
+#include <QGraphicsRectItem>
+#include <QtTest/QTest>
+
+#include <Headers/Agent.h>
+#include <Headers/SquareRegion.h>
+#include <Headers/mainwindow.h>
+#include <Headers/Simulation.h>
+
+// Forward declaration of the Region Class
+class Region;
+
+
 /**
  * @brief The SimpleSimulation class
  * Class that manages the progression of the Simple Simulation type
  */
-
-#include <vector>
-#include <Headers/mainwindow.h>
-#include <ui_mainwindow.h>
-#include <Headers/Simulation.h>
-#include <QGraphicsRectItem>
-#include <Headers/Agent.h>
-#include <Headers/SquareRegion.h>
-#include "QtTest/QTest"
-
-class Region;
-
-
 class SimpleSimulation : public Simulation {
 
 private:
@@ -40,6 +43,14 @@ public:
      */
     SimpleSimulation(int numAgents, Ui::MainWindow* ui,
                      std::map<std::string, bool> debug);
+
+    /**
+     * @brief ~SimpleSimulation \n
+     * Destructor function for the Simple Simulation Class. Clears all dynamic
+     * memory used within the Simulation by clearing the scene (which clears
+     * all memory used by the scene)
+     */
+    virtual ~SimpleSimulation() override;
 
     /**
      * @brief init \n
@@ -82,13 +93,16 @@ public:
      */
     virtual void generateAgents() override;
 
+public slots:
+
     /**
-     * @brief ~SimpleSimulation \n
-     * Destructor function for the Simple Simulation Class. Clears all dynamic
-     * memory used within the Simulation by clearing the scene (which clears
-     * all memory used by the scene)
+     * @brief renderCharts \n
+     * Renders each of the appriopriate graph types to the screen in their
+     * designated chartViews
+     * @param which: QString representing which graph type to render
+     * @param newChartView: whether the Chart is being moved to a new view or just updated
      */
-    virtual ~SimpleSimulation() override;
+    virtual void renderCharts(const QString &which, bool newChartView) override;
 
 };
 

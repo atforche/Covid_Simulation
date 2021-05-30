@@ -88,56 +88,73 @@ $(document).ready(function(){initNavTree('_agent_controller_8h_source.html','');
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef AGENTCONTROLLER_H</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define AGENTCONTROLLER_H</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;QJsonDocument&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;QJsonObject&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;QFile&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;QString&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;QDir&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;Agent.h&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;QJsonDocument&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;QJsonObject&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;QFile&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;QString&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;QDir&gt;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="class_agent_controller.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_agent_controller.html">AgentController</a> {</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;Agent.h&quot;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="class_agent_controller.html">   21</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_agent_controller.html">AgentController</a> {</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    std::vector&lt;QJsonObject&gt; adultBehaviors;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    std::vector&lt;QJsonObject&gt; childBehaviors;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="class_agent_controller.html#a7e51ef48183b7bb9ed30b79d98895780">AgentController</a>();</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    std::vector&lt;QJsonObject&gt; adultBehaviors;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    std::vector&lt;int&gt; adultProbabilities;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">int</span> adultWeightedSum;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    std::vector&lt;QJsonObject&gt; childBehaviors;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    std::vector&lt;int&gt; childProbabilities;</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_agent_controller.html#af9abb95ce567f65cb68fa25342f8b5ec">getNumAdultBehaviors</a>();</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_agent_controller.html#a9949edc3068aab2b0fcc334fdf31e937">getNumChildBehaviors</a>();</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_agent_controller.html#a52ef1e68c38d265174d0290e5bd6618d">updateAgentDestination</a>(std::vector&lt;Agent*&gt; agents, <span class="keywordtype">int</span> hour);</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    QString <a class="code" href="class_agent_controller.html#a02d22757dce690853747d3b406f7d164">getStartingDestination</a>(<span class="keywordtype">int</span> behaviorChart, <span class="keywordtype">bool</span> isAdult);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    QString <a class="code" href="class_agent_controller.html#ac66ea2eba7326c59d9183991ea52bcd1">evaluateDestinationProbabilities</a>(QStringList &amp;keys,</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                                             std::vector&lt;double&gt; &amp;probabilities);</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    QJsonValue <a class="code" href="class_agent_controller.html#ae73117bcb773698e70ed732c5c70ff05">extractDestinationAssignment</a>(<span class="keywordtype">int</span> behaviorChart, <span class="keywordtype">int</span> hour,</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                                            <span class="keywordtype">bool</span> isAdult);</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    QString <a class="code" href="class_agent_controller.html#acbe670ec2ed2581ffc5f64a7707e5ed0">getDestinationAssignment</a>(<a class="code" href="class_agent.html">Agent</a>* agent, <span class="keywordtype">int</span> hour);</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;};</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="preprocessor">#endif // AGENTCONTROLLER_H</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">int</span> childWeightedSum;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    QString evaluateDestinationProbabilities(QStringList &amp;keys,</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                                             std::vector&lt;double&gt; &amp;probabilities);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    QJsonValue readAssignmentFromJSON(<span class="keywordtype">int</span> behaviorChart, <span class="keywordtype">int</span> hour,</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                                            <span class="keywordtype">bool</span> isAdult);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    QString getAgentDestination(<a class="code" href="class_agent.html">Agent</a>* agent, <span class="keywordtype">int</span> hour);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <a class="code" href="class_agent_controller.html#a7e51ef48183b7bb9ed30b79d98895780">AgentController</a>();</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_agent_controller.html#af9abb95ce567f65cb68fa25342f8b5ec">getNumAdultBehaviors</a>();</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_agent_controller.html#a433599d197d3725d7ae8b2f6824711f2">getAdultBehavior</a>();</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_agent_controller.html#a9949edc3068aab2b0fcc334fdf31e937">getNumChildBehaviors</a>();</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_agent_controller.html#aea99330963f2e2299ad5b15c4c69159f">getChildBehavior</a>();</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_agent_controller.html#a1caf542ca309940152ed3305960f8f34">updateAgentDestinations</a>(std::vector&lt;Agent*&gt; &amp;agents, <span class="keywordtype">int</span> hour);</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    QString <a class="code" href="class_agent_controller.html#a02d22757dce690853747d3b406f7d164">getStartingDestination</a>(<span class="keywordtype">int</span> behaviorChart, <span class="keywordtype">bool</span> isAdult);</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="class_agent_controller.html#ae42db75f3ee25a9e9fa8f42ef065fcd5">sampleAgentAge</a>();</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160; </div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160; </div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;};</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160; </div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="preprocessor">#endif // AGENTCONTROLLER_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclass_agent_controller_html_a7e51ef48183b7bb9ed30b79d98895780"><div class="ttname"><a href="class_agent_controller.html#a7e51ef48183b7bb9ed30b79d98895780">AgentController::AgentController</a></div><div class="ttdeci">AgentController()</div><div class="ttdoc">AgentController  Initial constructor for the Agent Controller class. Has controller read in each of t...</div><div class="ttdef"><b>Definition:</b> AgentController.cpp:3</div></div>
-<div class="ttc" id="aclass_agent_controller_html_a02d22757dce690853747d3b406f7d164"><div class="ttname"><a href="class_agent_controller.html#a02d22757dce690853747d3b406f7d164">AgentController::getStartingDestination</a></div><div class="ttdeci">QString getStartingDestination(int behaviorChart, bool isAdult)</div><div class="ttdoc">getStartingDestination  Function that returns the specific destination assignment for a specific beha...</div><div class="ttdef"><b>Definition:</b> AgentController.cpp:88</div></div>
-<div class="ttc" id="aclass_agent_controller_html_af9abb95ce567f65cb68fa25342f8b5ec"><div class="ttname"><a href="class_agent_controller.html#af9abb95ce567f65cb68fa25342f8b5ec">AgentController::getNumAdultBehaviors</a></div><div class="ttdeci">int getNumAdultBehaviors()</div><div class="ttdoc">getNumAdultBehaviors  Getter function for the number of unique adult behaviors that an adult agent co...</div><div class="ttdef"><b>Definition:</b> AgentController.cpp:52</div></div>
-<div class="ttc" id="aclass_agent_controller_html_a52ef1e68c38d265174d0290e5bd6618d"><div class="ttname"><a href="class_agent_controller.html#a52ef1e68c38d265174d0290e5bd6618d">AgentController::updateAgentDestination</a></div><div class="ttdeci">void updateAgentDestination(std::vector&lt; Agent * &gt; agents, int hour)</div><div class="ttdoc">updateAgentDestinations  Function that goes through each of the agents and assigns them to their corr...</div><div class="ttdef"><b>Definition:</b> AgentController.cpp:61</div></div>
-<div class="ttc" id="aclass_agent_controller_html"><div class="ttname"><a href="class_agent_controller.html">AgentController</a></div><div class="ttdoc">The AgentController class  Class that sits within the Simulation and dynamically determines each agen...</div><div class="ttdef"><b>Definition:</b> AgentController.h:19</div></div>
-<div class="ttc" id="aclass_agent_controller_html_a9949edc3068aab2b0fcc334fdf31e937"><div class="ttname"><a href="class_agent_controller.html#a9949edc3068aab2b0fcc334fdf31e937">AgentController::getNumChildBehaviors</a></div><div class="ttdeci">int getNumChildBehaviors()</div><div class="ttdoc">numChildBehaviors  Getter function for the number of unique child behaviors that a child agent could ...</div><div class="ttdef"><b>Definition:</b> AgentController.cpp:57</div></div>
-<div class="ttc" id="aclass_agent_controller_html_ae73117bcb773698e70ed732c5c70ff05"><div class="ttname"><a href="class_agent_controller.html#ae73117bcb773698e70ed732c5c70ff05">AgentController::extractDestinationAssignment</a></div><div class="ttdeci">QJsonValue extractDestinationAssignment(int behaviorChart, int hour, bool isAdult)</div><div class="ttdoc">extractDestinationAssignment  Returns the destination assignment for the given behaviorChart at the g...</div><div class="ttdef"><b>Definition:</b> AgentController.cpp:125</div></div>
-<div class="ttc" id="aclass_agent_html"><div class="ttname"><a href="class_agent.html">Agent</a></div><div class="ttdoc">The Agent Class  Class that specifies the functionality of the Agents in the simulation Contains all ...</div><div class="ttdef"><b>Definition:</b> Agent.h:14</div></div>
-<div class="ttc" id="aclass_agent_controller_html_acbe670ec2ed2581ffc5f64a7707e5ed0"><div class="ttname"><a href="class_agent_controller.html#acbe670ec2ed2581ffc5f64a7707e5ed0">AgentController::getDestinationAssignment</a></div><div class="ttdeci">QString getDestinationAssignment(Agent *agent, int hour)</div><div class="ttdoc">getDestinationAssignment  Determines what location the agent should be assign to. Reads the behavior ...</div><div class="ttdef"><b>Definition:</b> AgentController.cpp:161</div></div>
-<div class="ttc" id="aclass_agent_controller_html_ac66ea2eba7326c59d9183991ea52bcd1"><div class="ttname"><a href="class_agent_controller.html#ac66ea2eba7326c59d9183991ea52bcd1">AgentController::evaluateDestinationProbabilities</a></div><div class="ttdeci">QString evaluateDestinationProbabilities(QStringList &amp;keys, std::vector&lt; double &gt; &amp;probabilities)</div><div class="ttdoc">evaluateDestinationProbabilities  Evaluates the different possible locations and their probabilities....</div><div class="ttdef"><b>Definition:</b> AgentController.cpp:102</div></div>
+<div class="ttc" id="aclass_agent_controller_html_a7e51ef48183b7bb9ed30b79d98895780"><div class="ttname"><a href="class_agent_controller.html#a7e51ef48183b7bb9ed30b79d98895780">AgentController::AgentController</a></div><div class="ttdeci">AgentController()</div><div class="ttdoc">AgentController  Initial constructor for the Agent Controller class. Has controller read in each of t...</div><div class="ttdef"><b>Definition:</b> AgentController.cpp:108</div></div>
+<div class="ttc" id="aclass_agent_controller_html_a02d22757dce690853747d3b406f7d164"><div class="ttname"><a href="class_agent_controller.html#a02d22757dce690853747d3b406f7d164">AgentController::getStartingDestination</a></div><div class="ttdeci">QString getStartingDestination(int behaviorChart, bool isAdult)</div><div class="ttdoc">getStartingDestination  Function that returns the specific destination assignment for a specific beha...</div><div class="ttdef"><b>Definition:</b> AgentController.cpp:257</div></div>
+<div class="ttc" id="aclass_agent_controller_html_af9abb95ce567f65cb68fa25342f8b5ec"><div class="ttname"><a href="class_agent_controller.html#af9abb95ce567f65cb68fa25342f8b5ec">AgentController::getNumAdultBehaviors</a></div><div class="ttdeci">int getNumAdultBehaviors()</div><div class="ttdoc">getNumAdultBehaviors  Getter function for the number of unique adult behaviors that an adult agent co...</div><div class="ttdef"><b>Definition:</b> AgentController.cpp:177</div></div>
+<div class="ttc" id="aclass_agent_controller_html"><div class="ttname"><a href="class_agent_controller.html">AgentController</a></div><div class="ttdoc">The AgentController class  Class that sits within the Simulation and dynamically determines each agen...</div><div class="ttdef"><b>Definition:</b> AgentController.h:21</div></div>
+<div class="ttc" id="aclass_agent_controller_html_a9949edc3068aab2b0fcc334fdf31e937"><div class="ttname"><a href="class_agent_controller.html#a9949edc3068aab2b0fcc334fdf31e937">AgentController::getNumChildBehaviors</a></div><div class="ttdeci">int getNumChildBehaviors()</div><div class="ttdoc">numChildBehaviors  Getter function for the number of unique child behaviors that a child agent could ...</div><div class="ttdef"><b>Definition:</b> AgentController.cpp:202</div></div>
+<div class="ttc" id="aclass_agent_controller_html_a1caf542ca309940152ed3305960f8f34"><div class="ttname"><a href="class_agent_controller.html#a1caf542ca309940152ed3305960f8f34">AgentController::updateAgentDestinations</a></div><div class="ttdeci">void updateAgentDestinations(std::vector&lt; Agent * &gt; &amp;agents, int hour)</div><div class="ttdoc">updateAgentDestinations  Function that goes through each of the agents and assigns them to their corr...</div><div class="ttdef"><b>Definition:</b> AgentController.cpp:227</div></div>
+<div class="ttc" id="aclass_agent_html"><div class="ttname"><a href="class_agent.html">Agent</a></div><div class="ttdoc">The Agent Class  Class that specifies the functionality of the Agents in the simulation Contains all ...</div><div class="ttdef"><b>Definition:</b> Agent.h:15</div></div>
+<div class="ttc" id="aclass_agent_controller_html_aea99330963f2e2299ad5b15c4c69159f"><div class="ttname"><a href="class_agent_controller.html#aea99330963f2e2299ad5b15c4c69159f">AgentController::getChildBehavior</a></div><div class="ttdeci">int getChildBehavior()</div><div class="ttdoc">getChildBehavior  Getter function for a random child behavior. Selects one of the child behavior char...</div><div class="ttdef"><b>Definition:</b> AgentController.cpp:210</div></div>
+<div class="ttc" id="aclass_agent_controller_html_ae42db75f3ee25a9e9fa8f42ef065fcd5"><div class="ttname"><a href="class_agent_controller.html#ae42db75f3ee25a9e9fa8f42ef065fcd5">AgentController::sampleAgentAge</a></div><div class="ttdeci">static int sampleAgentAge()</div><div class="ttdoc">sampleAgentAge  Generates a new random age for an agent that is sampled from the standard age distrib...</div><div class="ttdef"><b>Definition:</b> AgentController.cpp:274</div></div>
+<div class="ttc" id="aclass_agent_controller_html_a433599d197d3725d7ae8b2f6824711f2"><div class="ttname"><a href="class_agent_controller.html#a433599d197d3725d7ae8b2f6824711f2">AgentController::getAdultBehavior</a></div><div class="ttdeci">int getAdultBehavior()</div><div class="ttdoc">getAdultBehavior  Getter function for a random adult behavior. Selects one of the adult behavior char...</div><div class="ttdef"><b>Definition:</b> AgentController.cpp:185</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

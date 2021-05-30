@@ -2,8 +2,8 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
-{
+    , ui(new Ui::MainWindow) {
+
     // Setup the main UI components for the mainWindow
     ui->setupUi(this);
     QGraphicsView* view = ui->mainCanvas;
@@ -25,31 +25,46 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Create a SimpleSimulation and connect it to the UI
     SimpleSimulation* simulation = new SimpleSimulation(50, ui, checkDebugInfo());
+    controller = nullptr;
     this->sim = simulation;
 
-    // Define the values for the simulationTypes dropdown
-    QStringList simulationTypes;
-    simulationTypes.append("Simple Simulation");
-    ui->simulationType->addItems(simulationTypes);
+    // Initialize each of the Main Window's Combo Boxes
+    initializeComboBoxes();
 
     // Disable the UI buttons that should be disabled to begin
     enableUI();
-
-    // Print any needed debug information
-    //qDebug() << ui->simulationType->currentText();
 }
+
+
+//******************************************************************************
+
+
+MainWindow::~MainWindow() {
+    controller->pauseSimulation();
+    delete sim;
+    delete ui->graphView1->chart();
+    delete ui->graphView2->chart();
+    delete controller;
+    delete ui;
+}
+
+
+//******************************************************************************
 
 
 void MainWindow::disableUI() {
 
     // Disable all buttons that modify the state of the simulation
     ui->simulationType->setEnabled(false);
+    ui->graph1Selection->setEnabled(false);
+    ui->graph2Selection->setEnabled(false);
     ui->runSimulation->setEnabled(false);
     ui->numLocations->setEnabled(false);
     ui->numLocationsLabel->setEnabled(false);
     ui->numAgents->setEnabled(false);
     ui->numAgentsLabel->setEnabled(false);
     ui->agentBehaviors->setEnabled(false);
+    ui->headlessMode->setEnabled(false);
 
     // Enable all buttons that control the flow of the simulation
     ui->resetSimulation->setEnabled(true);
@@ -59,16 +74,22 @@ void MainWindow::disableUI() {
 }
 
 
+//******************************************************************************
+
+
 void MainWindow::enableUI() {
 
     // Enable all buttons that modify the state of the simulation
     ui->simulationType->setEnabled(true);
+    ui->graph1Selection->setEnabled(true);
+    ui->graph2Selection->setEnabled(true);
     ui->runSimulation->setEnabled(true);
     ui->numLocations->setEnabled(true);
     ui->numLocationsLabel->setEnabled(true);
     ui->numAgents->setEnabled(true);
     ui->numAgentsLabel->setEnabled(true);
     ui->agentBehaviors->setEnabled(true);
+    ui->headlessMode->setEnabled(true);
 
     // Disable all buttons that modify the flow of the simulation
     ui->resetSimulation->setEnabled(false);
@@ -84,25 +105,58 @@ void MainWindow::enableUI() {
 }
 
 
+//******************************************************************************
+
+
+void MainWindow::initializeComboBoxes() {
+
+    // Define the values for the simulationTypes dropdown
+    QStringList simulationTypes;
+    simulationTypes.append("Simple Simulation");
+    ui->simulationType->addItems(simulationTypes);
+
+    // Define the values for the Graph1Selection dropdowns
+    QStringList chartTypes;
+    chartTypes.append("Age Distribution");
+    chartTypes.append("Behavior Chart Distribution");
+
+    // Block the combo boxes from firing signal while they're being initialized
+    ui->graph1Selection->blockSignals(true);
+    ui->graph2Selection->blockSignals(true);
+
+    ui->graph1Selection->addItems(chartTypes);
+
+    ui->graph2Selection->addItems(chartTypes);
+    ui->graph2Selection->setCurrentIndex(1);
+
+    // Renable signals from the combo boxes
+    ui->graph1Selection->blockSignals(false);
+    ui->graph2Selection->blockSignals(false);
+
+    // Disable the current selections in the other dropdowns
+    ui->graph1Selection->setItemData(1, false, Qt::UserRole - 1);
+    ui->graph2Selection->setItemData(0, false, Qt::UserRole - 1);
+}
+
+
+//******************************************************************************
+
+
 std::map<std::string, bool> MainWindow::checkDebugInfo() {
     // Create map containing all debug fields
     std::map<std::string, bool> debug;
     debug["visualize behaviors"] = (ui->agentBehaviors->checkState() ==
                                     Qt::CheckState::Checked);
+    debug["headless mode"] = (ui->headlessMode->checkState() ==
+                              Qt::CheckState::Checked);
     return debug;
 }
 
 
-MainWindow::~MainWindow()
-{
-    delete sim;
-    delete ui;
-}
+//******************************************************************************
 
 
-
-void MainWindow::on_runSimulation_clicked()
-{
+void MainWindow::on_runSimulation_clicked() {
     // Disable the UI and reset the simulation
     disableUI();
     sim->reset();
@@ -111,6 +165,10 @@ void MainWindow::on_runSimulation_clicked()
     delete sim;
     sim = new SimpleSimulation(ui->numAgents->value(), ui, checkDebugInfo());
     sim->init();
+
+    // Update the charts on the main window (non-dynamic for now)
+    sim->mapChartViews();
+    sim->renderCharts("ALL", true);
 
     // Create a SimulationController and connect it to the Simulation
     SimulationController* control = new SimulationController(this->sim,
@@ -123,8 +181,10 @@ void MainWindow::on_runSimulation_clicked()
 }
 
 
-void MainWindow::on_resetSimulation_clicked()
-{
+//******************************************************************************
+
+
+void MainWindow::on_resetSimulation_clicked() {
     // Have the controller stop the simulation
     this->controller->pauseSimulation();
 
@@ -139,33 +199,42 @@ void MainWindow::on_resetSimulation_clicked()
 }
 
 
-void MainWindow::on_numLocations_valueChanged(int value)
-{
+//******************************************************************************
+
+
+void MainWindow::on_numLocations_valueChanged(int value) {
     ui->numLocationsLabel->setValue(value);
 }
 
 
-void MainWindow::on_numAgents_valueChanged(int value)
-{
+//******************************************************************************
+
+
+void MainWindow::on_numAgents_valueChanged(int value) {
     ui->numAgentsLabel->setValue(value);
 }
 
 
-void MainWindow::on_numLocationsLabel_valueChanged(int arg1)
-{
+//******************************************************************************
+
+
+void MainWindow::on_numLocationsLabel_valueChanged(int arg1) {
     ui->numLocations->setValue(arg1);
 }
 
 
+//******************************************************************************
 
-void MainWindow::on_numAgentsLabel_valueChanged(int arg1)
-{
+
+void MainWindow::on_numAgentsLabel_valueChanged(int arg1) {
     ui->numAgents->setValue(arg1);
 }
 
 
-void MainWindow::on_slowSim_clicked()
-{
+//******************************************************************************
+
+
+void MainWindow::on_slowSim_clicked() {
     // Slow down the simulation based on the current state
     if(currentSpeed == "Unlimited") {
         this->controller->changeSpeed(SimulationWorker::FAST);
@@ -182,8 +251,11 @@ void MainWindow::on_slowSim_clicked()
     ui->speed->setText(currentSpeed);
 }
 
-void MainWindow::on_pauseSim_clicked()
-{
+
+//******************************************************************************
+
+
+void MainWindow::on_pauseSim_clicked() {
     if (this->paused) {
         // Restart the simulation and update the UI
         this->controller->startSimulation();
@@ -207,8 +279,11 @@ void MainWindow::on_pauseSim_clicked()
     }
 }
 
-void MainWindow::on_fastSim_clicked()
-{
+
+//******************************************************************************
+
+
+void MainWindow::on_fastSim_clicked() {
     // Speed up the simulation based on the current state
     if (currentSpeed == "Slow") {
         this->controller->changeSpeed(SimulationWorker::NORMAL);
@@ -223,4 +298,26 @@ void MainWindow::on_fastSim_clicked()
         ui->fastSim->setEnabled(false);
     }
     ui->speed->setText(currentSpeed);
+}
+
+
+//******************************************************************************
+
+
+void MainWindow::on_graph1Selection_currentTextChanged(const QString &) {
+    sim->mapChartViews();
+    sim->renderCharts("ALL", true);
+
+    // TODO: update this to update enabled options when selection changes
+}
+
+
+//******************************************************************************
+
+
+void MainWindow::on_graph2Selection_currentTextChanged(const QString &) {
+    sim->mapChartViews();
+    sim->renderCharts("ALL", true);
+
+    // TODO: update this to update enabled options when selection changes
 }

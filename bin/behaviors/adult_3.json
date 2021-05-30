@@ -1,5 +1,6 @@
 {
     "Description": "Third Shift Worker",
+    "Probability": 0.1,
     "0": {
         "Work": 0.85,
         "Home": 0.15

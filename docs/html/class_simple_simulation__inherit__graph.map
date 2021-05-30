@@ -1,5 +1,5 @@
 <map id="SimpleSimulation" name="SimpleSimulation">
-<area shape="rect" id="node1" title=" " alt="" coords="5,155,128,181"/>
+<area shape="rect" id="node1" title="The SimpleSimulation class Class that manages the progression of the Simple Simulation type." alt="" coords="5,155,128,181"/>
 <area shape="rect" id="node2" href="$class_simulation.html" title="The Simulation class &#160;The Abstract Simulation class from which all other simulations will be derived...." alt="" coords="25,80,108,107"/>
 <area shape="rect" id="node3" title=" " alt="" coords="31,5,102,32"/>
 </map>

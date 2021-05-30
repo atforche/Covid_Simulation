@@ -1,5 +1,15 @@
 \hypertarget{class_location}{}\doxysection{Location Class Reference}
 \label{class_location}\index{Location@{Location}}
+
+
+The \mbox{\hyperlink{class_location}{Location}} class ~\newline
+A base class that defines functionality of unique locations within the \mbox{\hyperlink{class_simulation}{Simulation}}.  
+
+
+
+
+{\ttfamily \#include $<$Location.\+h$>$}
+
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -9,7 +19,7 @@ Constructor for the \mbox{\hyperlink{class_location}{Location}} class. Each \mbo
 void \mbox{\hyperlink{class_location_a0ebb13d03ed6110beeba2e568c367022}{add\+Agent}} (\mbox{\hyperlink{class_agent}{Agent}} $\ast$agent)
 \begin{DoxyCompactList}\small\item\em add\+Agent ~\newline
 Function to assign an \mbox{\hyperlink{class_agent}{Agent}} to this \mbox{\hyperlink{class_location}{Location}}. Adds the agent to the agents set. Allows location to keep track of its associated agents for quarantining purposes. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{class_location_a6755bf5e85cff5d58a2f6974ec78d5ec}{remove\+Agent}} (\mbox{\hyperlink{class_agent}{Agent}} \&agent)
+void \mbox{\hyperlink{class_location_a8b9e90431d9390b2c2cc8539710db4ec}{remove\+Agent}} (\mbox{\hyperlink{class_agent}{Agent}} $\ast$agent)
 \begin{DoxyCompactList}\small\item\em remove\+Agent ~\newline
 Function to remove an \mbox{\hyperlink{class_agent}{Agent}} from this \mbox{\hyperlink{class_location}{Location}}. Removes this agent from the agents set. This function will generally only be used in the case of agent death, however it could be possible to introduce agent moving locations \end{DoxyCompactList}\item 
 Q\+Graphics\+Ellipse\+Item $\ast$ \mbox{\hyperlink{class_location_ad1b3ba99c5c2e6c85ddee13af0f5384a}{get\+Graphics\+Object}} ()
@@ -21,6 +31,10 @@ Getter function for the position of the \mbox{\hyperlink{class_location}{Locatio
 \mbox{\hyperlink{class_location_af5be2c6550bbd96137cbb3144ec3c529}{$\sim$\+Location}} ()
 \end{DoxyCompactItemize}
 
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{class_location}{Location}} class ~\newline
+A base class that defines functionality of unique locations within the \mbox{\hyperlink{class_simulation}{Simulation}}. 
 
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{class_location_a16f296df02f800d987865b74d392fe76}\label{class_location_a16f296df02f800d987865b74d392fe76}} 
@@ -94,11 +108,11 @@ Getter function for the position of the \mbox{\hyperlink{class_location}{Locatio
 \begin{DoxyReturn}{Returns}
 the \mbox{\hyperlink{class_coordinate}{Coordinate}} position of the \mbox{\hyperlink{class_location}{Location}} 
 \end{DoxyReturn}
-\mbox{\Hypertarget{class_location_a6755bf5e85cff5d58a2f6974ec78d5ec}\label{class_location_a6755bf5e85cff5d58a2f6974ec78d5ec}} 
+\mbox{\Hypertarget{class_location_a8b9e90431d9390b2c2cc8539710db4ec}\label{class_location_a8b9e90431d9390b2c2cc8539710db4ec}} 
 \index{Location@{Location}!removeAgent@{removeAgent}}
 \index{removeAgent@{removeAgent}!Location@{Location}}
 \doxysubsubsection{\texorpdfstring{removeAgent()}{removeAgent()}}
-{\footnotesize\ttfamily void Location\+::remove\+Agent (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_agent}{Agent}} \&}]{agent }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void Location\+::remove\+Agent (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_agent}{Agent}} $\ast$}]{agent }\end{DoxyParamCaption})}
 
 
 

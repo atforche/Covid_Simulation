@@ -2,7 +2,17 @@
 \label{class_region}\index{Region@{Region}}
 
 
-Inheritance diagram for Region\+:\nopagebreak
+The \mbox{\hyperlink{class_region}{Region}} class Base class that contains a list of Locations within the region, used to manage assigning Agents to Locations.  
+
+
+
+
+{\ttfamily \#include $<$Region.\+h$>$}
+
+
+
+Inheritance diagram for Region\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -15,6 +25,8 @@ Inheritance diagram for Region\+:\nopagebreak
 \mbox{\hyperlink{class_region_ab7b579a2caffc452772d17fed68abb62}{Region}} (int num\+Locations, Q\+Color color, std\+::string name)
 \begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_region}{Region}} ~\newline
 Constructor for the \mbox{\hyperlink{class_region}{Region}} Class. A \mbox{\hyperlink{class_region}{Region}} is a container class that wraps around a set of locations. Locations in different regions are subject to different rules and result in different agent behaviors. Each \mbox{\hyperlink{class_region}{Region}} has an associated shape that is rendered to the screen. Use a Location\+Generator to generate Locations within the \mbox{\hyperlink{class_region}{Region}}. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{class_region_a5cde30b344e3a24d9782fe03ffe8dea8}{$\sim$\+Region}} ()
+\item 
 std\+::vector$<$ \mbox{\hyperlink{class_location}{Location}} $\ast$ $>$ \& \mbox{\hyperlink{class_region_a08e13bb97cb5131213df7155050f6007}{get\+Locations}} ()
 \begin{DoxyCompactList}\small\item\em get\+Locations ~\newline
 Getter functions for the vector of Locations within a region. Returns the Locations within the \mbox{\hyperlink{class_region}{Region}} as a vector \end{DoxyCompactList}\item 
@@ -41,6 +53,9 @@ virtual std\+::vector$<$ Q\+Graphics\+Item $\ast$ $>$ \mbox{\hyperlink{class_reg
 Function to return a vector of Q\+Graphics\+Items$\ast$ corresponding to the Locations within the \mbox{\hyperlink{class_region}{Region}}. Locations must be added to a \mbox{\hyperlink{class_simulation}{Simulation}} in order to appear \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{class_region}{Region}} class Base class that contains a list of Locations within the region, used to manage assigning Agents to Locations. 
+
 \doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{class_region_ab7b579a2caffc452772d17fed68abb62}\label{class_region_ab7b579a2caffc452772d17fed68abb62}} 
 \index{Region@{Region}!Region@{Region}}
@@ -58,7 +73,13 @@ Constructor for the \mbox{\hyperlink{class_region}{Region}} Class. A \mbox{\hype
 {\em num\+Locations} & the number of Locations within this \mbox{\hyperlink{class_region}{Region}} \\
 \hline
 \end{DoxyParams}
+\mbox{\Hypertarget{class_region_a5cde30b344e3a24d9782fe03ffe8dea8}\label{class_region_a5cde30b344e3a24d9782fe03ffe8dea8}} 
+\index{Region@{Region}!````~Region@{$\sim$Region}}
+\index{````~Region@{$\sim$Region}!Region@{Region}}
+\doxysubsubsection{\texorpdfstring{$\sim$Region()}{~Region()}}
+{\footnotesize\ttfamily virtual Region\+::$\sim$\+Region (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
 
+Virtual destructor for the \mbox{\hyperlink{class_region}{Region}} Class 
 
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{class_region_a7afe91a845ead6ab45f5908383c56ecc}\label{class_region_a7afe91a845ead6ab45f5908383c56ecc}} 

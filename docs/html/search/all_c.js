@@ -1,15 +1,10 @@
 var searchData=
 [
-  ['setcoord_59',['setCoord',['../class_coordinate.html#a29c9b456c706ee8bcc37b71f07952d5c',1,'Coordinate']]],
-  ['setdestination_60',['setDestination',['../class_agent.html#ae7d5fb049a75e161f284b4270cdd3e1d',1,'Agent']]],
-  ['setlocation_61',['setLocation',['../class_agent.html#a5472778409b1dde7892acdc2e70b452a',1,'Agent']]],
-  ['setlocations_62',['setLocations',['../class_region.html#a7d3db569b8569b891de84e577760890d',1,'Region']]],
-  ['simplesimulation_63',['SimpleSimulation',['../class_simple_simulation.html',1,'SimpleSimulation'],['../class_simple_simulation.html#ae1d980db6926153876935af0d135dc2f',1,'SimpleSimulation::SimpleSimulation()']]],
-  ['simulation_64',['Simulation',['../class_simulation.html',1,'Simulation'],['../class_simulation.html#a17598f7260e97396b2dc118fd7b9400d',1,'Simulation::Simulation()']]],
-  ['simulationcontroller_65',['SimulationController',['../class_simulation_controller.html',1,'SimulationController'],['../class_simulation_controller.html#a98959daaa79ec23a6f5f1704d0d0d33b',1,'SimulationController::SimulationController()']]],
-  ['simulationworker_66',['SimulationWorker',['../class_simulation_worker.html',1,'SimulationWorker'],['../class_simulation_worker.html#a7f8f98617dfb98fd0808824724c4b9e7',1,'SimulationWorker::SimulationWorker()']]],
-  ['speed_67',['Speed',['../class_simulation_worker.html#a77cfcb049fa15567e8b0b00e2fc28298',1,'SimulationWorker']]],
-  ['squareregion_68',['SquareRegion',['../class_square_region.html',1,'SquareRegion'],['../class_square_region.html#a1f9180219cee2ed7930c64e4a05b538b',1,'SquareRegion::SquareRegion()']]],
-  ['startsimulation_69',['startSimulation',['../class_simulation_controller.html#a884224ae701a70aba2001215039ff070',1,'SimulationController']]],
-  ['startthread_70',['startThread',['../class_simulation_worker.html#ac9905ae951eb189007c28167297fd35f',1,'SimulationWorker']]]
+  ['region_63',['Region',['../class_region.html',1,'Region'],['../class_region.html#ab7b579a2caffc452772d17fed68abb62',1,'Region::Region()']]],
+  ['removeagent_64',['removeAgent',['../class_location.html#a8b9e90431d9390b2c2cc8539710db4ec',1,'Location']]],
+  ['renderagechart_65',['renderAgeChart',['../class_simulation.html#a8ad4ff8991c47245d7ad81474f3d745c',1,'Simulation']]],
+  ['renderagentupdate_66',['renderAgentUpdate',['../class_simulation.html#a2987cc476da3d7fa312d02e00b17f4d8',1,'Simulation']]],
+  ['renderbehaviorchart_67',['renderBehaviorChart',['../class_simulation.html#a0813a36201a8161715b29e17adb3b783',1,'Simulation']]],
+  ['rendercharts_68',['renderCharts',['../class_simple_simulation.html#af5943f0a7aa95c4b2e090a88c2f870d7',1,'SimpleSimulation::renderCharts()'],['../class_simulation.html#a65fc57a1eefda8539d24309e5e1acf69',1,'Simulation::renderCharts()']]],
+  ['reset_69',['reset',['../class_simple_simulation.html#a66215e392b5eab33e9089b255c830417',1,'SimpleSimulation::reset()'],['../class_simulation.html#a8987b06b08f85c2dbc40800a1d05c985',1,'Simulation::reset()']]]
 ];

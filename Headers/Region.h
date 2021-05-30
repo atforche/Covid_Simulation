@@ -1,18 +1,20 @@
 #ifndef REGION_H
 #define REGION_H
 
+#include <vector>
+#include <string>
+
+#include "QColor"
+#include "QGraphicsItem"
+
+// Forward declaration of the Location Class
+class Location;
+
 /**
  * @brief The Region class
  * Base class that contains a list of Locations within the region, used to
  * manage assigning Agents to Locations
  */
-
-#include <vector>
-#include <string>
-#include "QColor"
-#include "QGraphicsItem"
-class Location;
-
 class Region {
 
 private:
@@ -42,6 +44,9 @@ public:
      * @param numLocations: the number of Locations within this Region
      */
     Region(int numLocations, QColor color, std::string name);
+
+    /** Virtual destructor for the Region Class */
+    virtual ~Region() {};
 
     /**
      * @brief getLocations \n
@@ -82,7 +87,6 @@ public:
      * @return the name of the region
      */
     std::string getName();
-
 
     /**
      * @brief getGraphicsObject \n

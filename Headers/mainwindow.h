@@ -1,25 +1,59 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
-#include <Headers/Simulation.h>
+#include <vector>
+#include <string>
+#include <iostream>
+#include <unordered_map>
+
+#include "QMainWindow"
 #include "ui_mainwindow.h"
 #include "QGraphicsRectItem"
 #include "QtTest/QTest"
 #include "QJsonDocument"
 #include "QJsonObject"
-#include <vector>
-#include <string>
-#include <Headers/SimpleSimulation.h>
+
+#include "Headers/SimpleSimulation.h"
 #include "Headers/ThreadExecution.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
+
+/**
+ * @brief The MainWindow class
+ * Main Window that drives the simulation. Contains all Slots that connect
+ * to user inputs. Passes user input on to the Simulation. Contains a
+ * SimulationController that manages the runtime speed of the Simulation.
+ */
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
+
+private:
+    /** Pointer to store and access the ui components of the window*/
+    Ui::MainWindow *ui;
+
+    /** Pointer to store and access the Simulation that is running*/
+    Simulation* sim;
+
+    /** Controller that executes the Simulation in a separate thread */
+    SimulationController* controller;
+
+    /** Maximum numbers for agents and locations */
+    static const int MAX_AGENTS = 1000;
+    static const int MAX_LOCATIONS = 50;
+
+    /** String specifying the current speed of the simualation */
+    QString currentSpeed;
+
+    /** Bool specifying if the simulation is paused */
+    bool paused;
+
+    /** List of possible graph views */
+    std::vector<QString> graphViews = {"Age Distribution",
+                                       "Behavior Chart Distribution"};
 
 public:
     /**
@@ -29,6 +63,9 @@ public:
      * @param parent: the parent widget to which this window belongs
      */
     MainWindow(QWidget *parent = nullptr);
+
+    /** Destructor for the MainWindow object, clears all memory*/
+    ~MainWindow();
 
     /**
      * @brief disableUI \n
@@ -47,6 +84,13 @@ public:
     void enableUI();
 
     /**
+     * @brief initializeComboBoxes \n
+     * Initialize each of the Combo Boxes with their initial values and
+     * list of possible values.
+     */
+    void initializeComboBoxes();
+
+    /**
      * @brief checkDebugInfo \n
      * Function that checks the state of various UI components that specify
      * debug states and info. Returns a std::map that makes these pieces of
@@ -54,9 +98,6 @@ public:
      * @return
      */
     std::map<std::string, bool> checkDebugInfo();
-
-    /** Destructor for the MainWindow object, clears all memory*/
-    ~MainWindow();
 
 private slots:
     /**
@@ -136,24 +177,23 @@ private slots:
      */
     void on_fastSim_clicked();
 
-private:
-    /** Pointer to store and access the ui components of the window*/
-    Ui::MainWindow *ui;
+    /**
+     * @brief on_graph1Selection_currentTextChanged \n
+     * Event handler for when the current selection on the Graph1Selection
+     * Combo Box is changed. Updates the mapping of Graphs to Chart Views and
+     * re-renders the graphs so they update.
+     * @param arg1: the new selected value
+     */
+    void on_graph1Selection_currentTextChanged(const QString &arg1);
 
-    /** Pointer to store and access the Simulation that is running*/
-    Simulation* sim;
+    /**
+     * @brief on_graph2Selection_currentTextChanged \n
+     * Event handler for when the current selection on the Graph2Selection
+     * Combo Box is changed. Updates the mapping of Graphs to Chart Views and
+     * re-renders the graphs so they update.
+     * @param arg1: the new selected value
+     */
+    void on_graph2Selection_currentTextChanged(const QString &arg1);
 
-    /** Controller that executes the Simulation in a separate thread */
-    SimulationController* controller;
-
-    /** Maximum numbers for agents and locations */
-    static const int MAX_AGENTS = 1000;
-    static const int MAX_LOCATIONS = 50;
-
-    /** String specifying the current speed of the simualation */
-    QString currentSpeed;
-
-    /** Bool specifying if the simulation is paused */
-    bool paused;
 };
 #endif // MAINWINDOW_H

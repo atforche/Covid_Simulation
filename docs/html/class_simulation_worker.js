@@ -8,6 +8,7 @@ var class_simulation_worker =
       [ "UNLIMITED", "class_simulation_worker.html#a77cfcb049fa15567e8b0b00e2fc28298a317079ab64b5184ea921e11f9d64e9c6", null ]
     ] ],
     [ "SimulationWorker", "class_simulation_worker.html#a7f8f98617dfb98fd0808824724c4b9e7", null ],
+    [ "~SimulationWorker", "class_simulation_worker.html#a4018fea17ef8c12cd1ba4e3d9c030914", null ],
     [ "changeSpeed", "class_simulation_worker.html#a8d5565a41a7cdf636e262723cbb6005b", null ],
     [ "executeSimTimestep", "class_simulation_worker.html#ad796f3e651719642b53fac3641fecc0e", null ],
     [ "pauseSimulation", "class_simulation_worker.html#a989dd176397b244278f09c4114d93b62", null ],

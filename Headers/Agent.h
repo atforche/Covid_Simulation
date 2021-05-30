@@ -1,17 +1,53 @@
 #ifndef AGENT_H
 #define AGENT_H
 
+#include <QPen>
+#include <QGraphicsRectItem>
+
+#include "Headers/Coordinate.h"
+#include "Headers/Location.h"
+
 /**
  * @brief The Agent Class \n
  * Class that specifies the functionality of the Agents in the simulation
  * Contains all information required for the agent to act in the environment
  */
-#include <Headers/Coordinate.h>
-#include <QPen>
-#include <QGraphicsRectItem>
-#include "Headers/Location.h"
-
 class Agent {
+
+private:
+
+    /** The current location of the Agent as a Coordinate*/
+    Coordinate position;
+
+    /** The current age of the Agent as an Integer */
+    int age;
+
+    /** Current speed of the agent. Can differ from the base speed.*/
+    double speed;
+
+    /** Int representing the current behavioral plan of the agent*/
+    int behavior;
+
+    /** Rectangle corresponding to this rendered agent */
+    QGraphicsRectItem* rect;
+
+    /** Vector to hold the Locations the agent is assigned to. The index
+    of each location corresponds to its location in the LOCATIONS enum */
+    std::vector<Location*> locations;
+
+    /** Coordinate that determines where the agent is trying to head. A
+    Coordinate of (-1,-1) indicates no destination*/
+    Coordinate destination;
+
+    /** Int representing how wide the agents should be rendered as */
+    static const int AGENT_WIDTH = 2;
+
+    /** Int representing how far an agent is allowed to "creep" away
+    from its current location through it's random movements */
+    static const int MAX_CREEP = 7;
+
+    /** Int representing the speed constant of the agent*/
+    static const int BASE_SPEED = 5;
 
 public:
 
@@ -21,7 +57,7 @@ public:
     /**
      * @brief Agent \n
      * Constructor for the Agent Class. Constructs an Agent object with a
-     * certain age and position
+     * certain age, position, and behavior chart.
      * @param age: the current age of the Agent
      * @param startingLocation: the initial location to create this agent at
      * @param behavior: the behavior assignment of this agent
@@ -95,6 +131,13 @@ public:
     int getBehavior();
 
     /**
+     * @brief setBehavior \n
+     * Updates the behaviorChart of the agent to a new behavior.
+     * @param newBehavior: the new behavior chart for the agent
+     */
+    void setBehavior(int newBehavior);
+
+    /**
      * @brief isAdult \n
      * Returns whether or not this agent is an adult. An agent is considered
      * an adult if they are 18 years of age.
@@ -103,45 +146,24 @@ public:
     bool isAdult();
 
     /**
+     * @brief getAge \n
+     * Getter function for the Age of the agent
+     * @return the age of the agent as an int
+     */
+    int getAge();
+
+    /**
+     * @brief incrementAge
+     * Increases the age of the agent by one,
+     * @return the new agent of the agent after the increment
+     */
+    int incrementAge();
+
+    /**
      * @brief ~Agent \n
      * Destructor to free memory from the Agent class
      */
     ~Agent();
-
-private:
-
-    /** The current location of the Agent as a Coordinate*/
-    Coordinate position;
-
-    /** The current age of the Agent as an Integer */
-    int age;
-
-    /** Int representing how wide the agents should be rendered as */
-    static const int AGENT_WIDTH = 2;
-
-    /** Int representing how far an agent is allowed to "creep" away
-    from its current location through it's random movements */
-    static const int MAX_CREEP = 7;
-
-    /** Int representing the speed constant of the agent*/
-    static const int BASE_SPEED = 5;
-
-    /** Current speed of the agent. Can differ from the base speed.*/
-    double speed;
-
-    /** Int representing the current behavioral plan of the agent*/
-    int behavior;
-
-    /** Rectangle corresponding to this rendered agent */
-    QGraphicsRectItem* rect;
-
-    /** Vector to hold the Locations the agent is assigned to. The index
-    of each location corresponds to its location in the LOCATIONS enum */
-    std::vector<Location*> locations;
-
-    /** Coordinate that determines where the agent is trying to head. A
-    Coordinate of (-1,-1) indicates no destination*/
-    Coordinate destination;
 
 };
 

@@ -1,5 +1,6 @@
 {
     "Description": "Regular Student",
+    "Probability": 0.80,
     "0": "Home",
     "8": {
         "School": 0.9,

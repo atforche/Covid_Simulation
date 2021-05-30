@@ -1,15 +1,13 @@
 #ifndef THREADEXECUTION_H
 #define THREADEXECUTION_H
 
+#include "windows.h"
 #include "QObject"
 #include "QThread"
 #include "QTimer"
-#include "windows.h"
+
 #include "Simulation.h"
 
-/** File that handles all classes required for multithreaded execution of the
- * the simulation to prevent blocking of the UI
-*/
 
 /**
  * @brief The SimulationWorker class \n
@@ -35,6 +33,9 @@ public:
      * @param frameRate: speed enum to define how long between sim executions
      */
     SimulationWorker(Simulation* sim, Speed frameRate);
+
+    /** Destructor for the SimulationWorker class */
+    ~SimulationWorker();
 
     /**
      * @brief pauseSimulation \n
@@ -121,6 +122,9 @@ public:
      */
     SimulationController(Simulation* sim, SimulationWorker::Speed frameRate);
 
+    /** Destructor for the Simulation Controller class */
+    ~SimulationController();
+
     /**
      * @brief startSimulation \n
      * Function to emit a signal to the SimulationWorker thread to begin
@@ -145,9 +149,6 @@ public:
      */
     void changeSpeed(SimulationWorker::Speed newSpeed);
 
-    /** Destructor for the Simulation Controller class */
-    ~SimulationController();
-
 public slots:
 
     /**
@@ -161,10 +162,10 @@ public slots:
 signals:
 
     /**
-     * @brief operate \n
+     * @brief beginSim \n
      * Signal that enables the SimulationWorker to begin performing work
      */
-    void operate(const QString &);
+    void beginSim(const QString &);
 
 };
 

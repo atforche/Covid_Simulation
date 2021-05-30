@@ -27,7 +27,7 @@ enum \mbox{\hyperlink{class_agent_a58a4e791b29ab746f5d023facaa55046}{L\+O\+C\+A\
 \item 
 \mbox{\hyperlink{class_agent_a3cc7c1727eed39b426d61779c92ded74}{Agent}} (int age, \mbox{\hyperlink{class_location}{Location}} $\ast$starting\+Location, int behavior)
 \begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_agent}{Agent}} ~\newline
-Constructor for the \mbox{\hyperlink{class_agent}{Agent}} Class. Constructs an \mbox{\hyperlink{class_agent}{Agent}} object with a certain age and position. \end{DoxyCompactList}\item 
+Constructor for the \mbox{\hyperlink{class_agent}{Agent}} Class. Constructs an \mbox{\hyperlink{class_agent}{Agent}} object with a certain age, position, and behavior chart. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_agent_ad39f0e4b928e14460c5fd08319135e7d}\label{class_agent_ad39f0e4b928e14460c5fd08319135e7d}} 
 Q\+Graphics\+Rect\+Item $\ast$ \mbox{\hyperlink{class_agent_ad39f0e4b928e14460c5fd08319135e7d}{get\+Graphics\+Object}} ()
 \begin{DoxyCompactList}\small\item\em get\+Graphics\+Object ~\newline
@@ -55,9 +55,17 @@ Getter function for the position of the agent. Returns the current position of t
 int \mbox{\hyperlink{class_agent_afbc63491e7abb852c83bcce7b6c89346}{get\+Behavior}} ()
 \begin{DoxyCompactList}\small\item\em get\+Behavior ~\newline
 Getter function for the behavior assignment of this agent. Returns the behavior assignment as an integer \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_agent_ab6260d758d999f3fac6918936f06ffa2}{set\+Behavior}} (int new\+Behavior)
+\begin{DoxyCompactList}\small\item\em set\+Behavior ~\newline
+Updates the behavior\+Chart of the agent to a new behavior. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{class_agent_a985c0d381d13b99d6bba3fe123f0fbd3}{is\+Adult}} ()
 \begin{DoxyCompactList}\small\item\em is\+Adult ~\newline
 Returns whether or not this agent is an adult. An agent is considered an adult if they are 18 years of age. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_agent_ac9171f2b14bee286651a71d206ea7772}{get\+Age}} ()
+\begin{DoxyCompactList}\small\item\em get\+Age ~\newline
+Getter function for the Age of the agent \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_agent_a9e16d8b68bc877e82d4e3f1706a38933}{increment\+Age}} ()
+\begin{DoxyCompactList}\small\item\em increment\+Age Increases the age of the agent by one, \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_agent_ab8dd8d152605cf1339fed595376e83cb}\label{class_agent_ab8dd8d152605cf1339fed595376e83cb}} 
 \mbox{\hyperlink{class_agent_ab8dd8d152605cf1339fed595376e83cb}{$\sim$\+Agent}} ()
 \begin{DoxyCompactList}\small\item\em $\sim$\+Agent ~\newline
@@ -87,7 +95,7 @@ Enum that specifies the possible locations for the \mbox{\hyperlink{class_agent}
 
 
 \mbox{\hyperlink{class_agent}{Agent}} ~\newline
-Constructor for the \mbox{\hyperlink{class_agent}{Agent}} Class. Constructs an \mbox{\hyperlink{class_agent}{Agent}} object with a certain age and position. 
+Constructor for the \mbox{\hyperlink{class_agent}{Agent}} Class. Constructs an \mbox{\hyperlink{class_agent}{Agent}} object with a certain age, position, and behavior chart. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -101,6 +109,20 @@ Constructor for the \mbox{\hyperlink{class_agent}{Agent}} Class. Constructs an \
 
 
 \doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_agent_ac9171f2b14bee286651a71d206ea7772}\label{class_agent_ac9171f2b14bee286651a71d206ea7772}} 
+\index{Agent@{Agent}!getAge@{getAge}}
+\index{getAge@{getAge}!Agent@{Agent}}
+\doxysubsubsection{\texorpdfstring{getAge()}{getAge()}}
+{\footnotesize\ttfamily int Agent\+::get\+Age (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+get\+Age ~\newline
+Getter function for the Age of the agent 
+
+\begin{DoxyReturn}{Returns}
+the age of the agent as an int 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_agent_afbc63491e7abb852c83bcce7b6c89346}\label{class_agent_afbc63491e7abb852c83bcce7b6c89346}} 
 \index{Agent@{Agent}!getBehavior@{getBehavior}}
 \index{getBehavior@{getBehavior}!Agent@{Agent}}
@@ -148,6 +170,19 @@ Getter function for the position of the agent. Returns the current position of t
 \begin{DoxyReturn}{Returns}
 the position of the agent as a \mbox{\hyperlink{class_coordinate}{Coordinate}} 
 \end{DoxyReturn}
+\mbox{\Hypertarget{class_agent_a9e16d8b68bc877e82d4e3f1706a38933}\label{class_agent_a9e16d8b68bc877e82d4e3f1706a38933}} 
+\index{Agent@{Agent}!incrementAge@{incrementAge}}
+\index{incrementAge@{incrementAge}!Agent@{Agent}}
+\doxysubsubsection{\texorpdfstring{incrementAge()}{incrementAge()}}
+{\footnotesize\ttfamily int Agent\+::increment\+Age (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+increment\+Age Increases the age of the agent by one, 
+
+\begin{DoxyReturn}{Returns}
+the new agent of the agent after the increment 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_agent_a985c0d381d13b99d6bba3fe123f0fbd3}\label{class_agent_a985c0d381d13b99d6bba3fe123f0fbd3}} 
 \index{Agent@{Agent}!isAdult@{isAdult}}
 \index{isAdult@{isAdult}!Agent@{Agent}}
@@ -162,6 +197,22 @@ Returns whether or not this agent is an adult. An agent is considered an adult i
 \begin{DoxyReturn}{Returns}
 whether the agent is an adult 
 \end{DoxyReturn}
+\mbox{\Hypertarget{class_agent_ab6260d758d999f3fac6918936f06ffa2}\label{class_agent_ab6260d758d999f3fac6918936f06ffa2}} 
+\index{Agent@{Agent}!setBehavior@{setBehavior}}
+\index{setBehavior@{setBehavior}!Agent@{Agent}}
+\doxysubsubsection{\texorpdfstring{setBehavior()}{setBehavior()}}
+{\footnotesize\ttfamily void Agent\+::set\+Behavior (\begin{DoxyParamCaption}\item[{int}]{new\+Behavior }\end{DoxyParamCaption})}
+
+
+
+set\+Behavior ~\newline
+Updates the behavior\+Chart of the agent to a new behavior. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Behavior} & the new behavior chart for the agent \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{class_agent_ae7d5fb049a75e161f284b4270cdd3e1d}\label{class_agent_ae7d5fb049a75e161f284b4270cdd3e1d}} 
 \index{Agent@{Agent}!setDestination@{setDestination}}
 \index{setDestination@{setDestination}!Agent@{Agent}}

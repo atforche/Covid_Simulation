@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['mainwindow_144',['MainWindow',['../class_main_window.html#a996c5a2b6f77944776856f08ec30858d',1,'MainWindow']]]
+  ['location_173',['Location',['../class_location.html#a16f296df02f800d987865b74d392fe76',1,'Location']]]
 ];

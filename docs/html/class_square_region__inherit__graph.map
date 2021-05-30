@@ -1,4 +1,4 @@
 <map id="SquareRegion" name="SquareRegion">
 <area shape="rect" id="node1" title="The SquareRegion class &#160;Class that defined the functionality for a square region. Inherited from the ..." alt="" coords="5,80,108,107"/>
-<area shape="rect" id="node2" href="$class_region.html" title=" " alt="" coords="25,5,88,32"/>
+<area shape="rect" id="node2" href="$class_region.html" title="The Region class Base class that contains a list of Locations within the region, used to manage assig..." alt="" coords="25,5,88,32"/>
 </map>

@@ -88,55 +88,58 @@ $(document).ready(function(){initNavTree('_square_region_8h_source.html',''); in
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef SQUAREREGION_H</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define SQUAREREGION_H</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;Headers/Region.h&quot;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;Headers/Coordinate.h&quot;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;Headers/Location.h&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;random&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;QGraphicsRectItem&quot;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;QColor&quot;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;QPen&quot;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;QBrush&quot;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;random&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="class_square_region.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_square_region.html">SquareRegion</a> : <span class="keyword">public</span> <a class="code" href="class_region.html">Region</a> {</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;Headers/Region.h&quot;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;Headers/Coordinate.h&quot;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;Headers/Location.h&quot;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="class_square_region.html">   21</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_square_region.html">SquareRegion</a> : <span class="keyword">public</span> <a class="code" href="class_region.html">Region</a> {</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="class_coordinate.html">Coordinate</a> start;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordtype">int</span> height;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="class_coordinate.html">Coordinate</a> start;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordtype">int</span> height;</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <a class="code" href="class_square_region.html#a1f9180219cee2ed7930c64e4a05b538b">SquareRegion</a>(<span class="keywordtype">int</span> numLocations, <a class="code" href="class_coordinate.html">Coordinate</a> start, <span class="keywordtype">int</span> height,</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                 QColor color, std::string name);</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">virtual</span> QGraphicsItem* <a class="code" href="class_square_region.html#a11f67456aa7432bdb266cbc7cfdd19ed">getGraphicsObject</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">virtual</span> QGraphicsItem* <a class="code" href="class_square_region.html#a3d494004f346b84d99570bdb3283075e">getNameGraphicsObject</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <a class="code" href="class_coordinate.html">Coordinate</a>* <a class="code" href="class_square_region.html#a4e20fae9bd0048a178f214428faf76b8">getStartingCoordinate</a>();</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_square_region.html#a6bef136f28625f03f20932b2ffbd5ca6">getHeight</a>();</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    std::vector&lt;QGraphicsItem*&gt; <a class="code" href="class_square_region.html#a3d46c9d8bea9b9b219b88c3f03b164a8">getLocationsGraphicsObject</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <a class="code" href="class_square_region.html#a6181932e47152576b64e4a8abb4361cc">~SquareRegion</a>();</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;};</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="preprocessor">#endif // SQUAREREGION_H</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="class_square_region.html#a1f9180219cee2ed7930c64e4a05b538b">SquareRegion</a>(<span class="keywordtype">int</span> numLocations, <a class="code" href="class_coordinate.html">Coordinate</a> start, <span class="keywordtype">int</span> height,</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                 QColor color, std::string name);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="class_square_region.html#a6181932e47152576b64e4a8abb4361cc">~SquareRegion</a>();</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">virtual</span> QGraphicsItem* <a class="code" href="class_square_region.html#a11f67456aa7432bdb266cbc7cfdd19ed">getGraphicsObject</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keyword">virtual</span> QGraphicsItem* <a class="code" href="class_square_region.html#a3d494004f346b84d99570bdb3283075e">getNameGraphicsObject</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="class_coordinate.html">Coordinate</a>* <a class="code" href="class_square_region.html#a4e20fae9bd0048a178f214428faf76b8">getStartingCoordinate</a>();</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_square_region.html#a6bef136f28625f03f20932b2ffbd5ca6">getHeight</a>();</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    std::vector&lt;QGraphicsItem*&gt; <a class="code" href="class_square_region.html#a3d46c9d8bea9b9b219b88c3f03b164a8">getLocationsGraphicsObject</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;};</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="preprocessor">#endif // SQUAREREGION_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclass_square_region_html"><div class="ttname"><a href="class_square_region.html">SquareRegion</a></div><div class="ttdoc">The SquareRegion class  Class that defined the functionality for a square region. Inherited from the ...</div><div class="ttdef"><b>Definition:</b> SquareRegion.h:19</div></div>
-<div class="ttc" id="aclass_region_html"><div class="ttname"><a href="class_region.html">Region</a></div><div class="ttdef"><b>Definition:</b> Region.h:16</div></div>
-<div class="ttc" id="aclass_square_region_html_a6bef136f28625f03f20932b2ffbd5ca6"><div class="ttname"><a href="class_square_region.html#a6bef136f28625f03f20932b2ffbd5ca6">SquareRegion::getHeight</a></div><div class="ttdeci">int getHeight()</div><div class="ttdoc">getHeight  Getter function for the height of the region. Returns the height of the Region as an int....</div><div class="ttdef"><b>Definition:</b> SquareRegion.cpp:43</div></div>
+<div class="ttc" id="aclass_square_region_html"><div class="ttname"><a href="class_square_region.html">SquareRegion</a></div><div class="ttdoc">The SquareRegion class  Class that defined the functionality for a square region. Inherited from the ...</div><div class="ttdef"><b>Definition:</b> SquareRegion.h:21</div></div>
+<div class="ttc" id="aclass_region_html"><div class="ttname"><a href="class_region.html">Region</a></div><div class="ttdoc">The Region class Base class that contains a list of Locations within the region, used to manage assig...</div><div class="ttdef"><b>Definition:</b> Region.h:18</div></div>
+<div class="ttc" id="aclass_square_region_html_a6bef136f28625f03f20932b2ffbd5ca6"><div class="ttname"><a href="class_square_region.html#a6bef136f28625f03f20932b2ffbd5ca6">SquareRegion::getHeight</a></div><div class="ttdeci">int getHeight()</div><div class="ttdoc">getHeight  Getter function for the height of the region. Returns the height of the Region as an int....</div><div class="ttdef"><b>Definition:</b> SquareRegion.cpp:61</div></div>
 <div class="ttc" id="aclass_square_region_html_a1f9180219cee2ed7930c64e4a05b538b"><div class="ttname"><a href="class_square_region.html#a1f9180219cee2ed7930c64e4a05b538b">SquareRegion::SquareRegion</a></div><div class="ttdeci">SquareRegion(int numLocations, Coordinate start, int height, QColor color, std::string name)</div><div class="ttdoc">SquareRegion  Constructor for the SquareRegion Class. A Square Region is a derived region that is rep...</div><div class="ttdef"><b>Definition:</b> SquareRegion.cpp:3</div></div>
-<div class="ttc" id="aclass_square_region_html_a4e20fae9bd0048a178f214428faf76b8"><div class="ttname"><a href="class_square_region.html#a4e20fae9bd0048a178f214428faf76b8">SquareRegion::getStartingCoordinate</a></div><div class="ttdeci">Coordinate * getStartingCoordinate()</div><div class="ttdoc">getStartingCoordinate  Getter function for the starting Coordinate of the square region (top left cor...</div><div class="ttdef"><b>Definition:</b> SquareRegion.cpp:38</div></div>
-<div class="ttc" id="aclass_square_region_html_a6181932e47152576b64e4a8abb4361cc"><div class="ttname"><a href="class_square_region.html#a6181932e47152576b64e4a8abb4361cc">SquareRegion::~SquareRegion</a></div><div class="ttdeci">~SquareRegion()</div><div class="ttdef"><b>Definition:</b> SquareRegion.cpp:59</div></div>
-<div class="ttc" id="aclass_square_region_html_a11f67456aa7432bdb266cbc7cfdd19ed"><div class="ttname"><a href="class_square_region.html#a11f67456aa7432bdb266cbc7cfdd19ed">SquareRegion::getGraphicsObject</a></div><div class="ttdeci">virtual QGraphicsItem * getGraphicsObject() override</div><div class="ttdoc">getGraphicsObject  Function that returns a QGraphicsRectItem* used to render the region on the QGraph...</div><div class="ttdef"><b>Definition:</b> SquareRegion.cpp:11</div></div>
-<div class="ttc" id="aclass_square_region_html_a3d494004f346b84d99570bdb3283075e"><div class="ttname"><a href="class_square_region.html#a3d494004f346b84d99570bdb3283075e">SquareRegion::getNameGraphicsObject</a></div><div class="ttdeci">virtual QGraphicsItem * getNameGraphicsObject() override</div><div class="ttdoc">getNameGraphicsObject  Function to render the text name of the region onto the canvas....</div><div class="ttdef"><b>Definition:</b> SquareRegion.cpp:28</div></div>
-<div class="ttc" id="aclass_coordinate_html"><div class="ttname"><a href="class_coordinate.html">Coordinate</a></div><div class="ttdoc">The Coordinate class  A Class that represents positiions within the simulation. Also supports calcula...</div><div class="ttdef"><b>Definition:</b> Coordinate.h:11</div></div>
-<div class="ttc" id="aclass_square_region_html_a3d46c9d8bea9b9b219b88c3f03b164a8"><div class="ttname"><a href="class_square_region.html#a3d46c9d8bea9b9b219b88c3f03b164a8">SquareRegion::getLocationsGraphicsObject</a></div><div class="ttdeci">std::vector&lt; QGraphicsItem * &gt; getLocationsGraphicsObject() override</div><div class="ttdoc">renderLocations  Function to render the randomly generated locations to the screen....</div><div class="ttdef"><b>Definition:</b> SquareRegion.cpp:48</div></div>
+<div class="ttc" id="aclass_square_region_html_a4e20fae9bd0048a178f214428faf76b8"><div class="ttname"><a href="class_square_region.html#a4e20fae9bd0048a178f214428faf76b8">SquareRegion::getStartingCoordinate</a></div><div class="ttdeci">Coordinate * getStartingCoordinate()</div><div class="ttdoc">getStartingCoordinate  Getter function for the starting Coordinate of the square region (top left cor...</div><div class="ttdef"><b>Definition:</b> SquareRegion.cpp:53</div></div>
+<div class="ttc" id="aclass_square_region_html_a6181932e47152576b64e4a8abb4361cc"><div class="ttname"><a href="class_square_region.html#a6181932e47152576b64e4a8abb4361cc">SquareRegion::~SquareRegion</a></div><div class="ttdeci">~SquareRegion()</div><div class="ttdef"><b>Definition:</b> SquareRegion.cpp:14</div></div>
+<div class="ttc" id="aclass_square_region_html_a11f67456aa7432bdb266cbc7cfdd19ed"><div class="ttname"><a href="class_square_region.html#a11f67456aa7432bdb266cbc7cfdd19ed">SquareRegion::getGraphicsObject</a></div><div class="ttdeci">virtual QGraphicsItem * getGraphicsObject() override</div><div class="ttdoc">getGraphicsObject  Function that returns a QGraphicsRectItem* used to render the region on the QGraph...</div><div class="ttdef"><b>Definition:</b> SquareRegion.cpp:20</div></div>
+<div class="ttc" id="aclass_square_region_html_a3d494004f346b84d99570bdb3283075e"><div class="ttname"><a href="class_square_region.html#a3d494004f346b84d99570bdb3283075e">SquareRegion::getNameGraphicsObject</a></div><div class="ttdeci">virtual QGraphicsItem * getNameGraphicsObject() override</div><div class="ttdoc">getNameGraphicsObject  Function to render the text name of the region onto the canvas....</div><div class="ttdef"><b>Definition:</b> SquareRegion.cpp:40</div></div>
+<div class="ttc" id="aclass_coordinate_html"><div class="ttname"><a href="class_coordinate.html">Coordinate</a></div><div class="ttdoc">The Coordinate class  A Class that represents positiions within the simulation. Also supports calcula...</div><div class="ttdef"><b>Definition:</b> Coordinate.h:9</div></div>
+<div class="ttc" id="aclass_square_region_html_a3d46c9d8bea9b9b219b88c3f03b164a8"><div class="ttname"><a href="class_square_region.html#a3d46c9d8bea9b9b219b88c3f03b164a8">SquareRegion::getLocationsGraphicsObject</a></div><div class="ttdeci">std::vector&lt; QGraphicsItem * &gt; getLocationsGraphicsObject() override</div><div class="ttdoc">renderLocations  Function to render the randomly generated locations to the screen....</div><div class="ttdef"><b>Definition:</b> SquareRegion.cpp:69</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
