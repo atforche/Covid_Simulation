@@ -105,12 +105,13 @@ QString AgentController::getAgentDestination(Agent *agent, int hour) {
 //******************************************************************************
 
 
-AgentController::AgentController() {
+AgentController::AgentController(Simulation* sim) {
 
     // Initialize variables
     QJsonObject::iterator probability;
     adultWeightedSum = 0;
     childWeightedSum = 0;
+    this->sim = sim;
 
     // Read in the behaviors from the bin and filter into adult and child behaviors
     QDir directory(":/bin/behaviors");
@@ -226,6 +227,9 @@ int AgentController::getChildBehavior() {
 
 void AgentController::updateAgentDestinations(std::vector<Agent *> &agents, int hour) {
 
+    // Chance for going to a random location
+    static int randomChance = 5;
+
     // Loop through every agent
     for (size_t i = 0; i < agents.size(); ++i) {
 
@@ -236,13 +240,33 @@ void AgentController::updateAgentDestinations(std::vector<Agent *> &agents, int 
         if (destinationString == "No Change") {
             continue;
         } else if (destinationString == "Home") {
-            agents[i]->setDestination(agents[i]->getLocation(Agent::HOME));
+            // Random chance of going to a random Home location
+            if (rand() % 100 < randomChance) {
+                agents[i]->setDestination(sim->getRandomLocation(Agent::HOME), destinationString);
+            } else {
+                agents[i]->setDestination(agents[i]->getLocation(Agent::HOME), destinationString);
+            }
         } else if (destinationString == "School") {
-            agents[i]->setDestination(agents[i]->getLocation(Agent::SCHOOL));
+            // Random chance of going to a random Home location
+            if (rand() % 100 < randomChance) {
+                agents[i]->setDestination(sim->getRandomLocation(Agent::SCHOOL), destinationString);
+            } else {
+                agents[i]->setDestination(agents[i]->getLocation(Agent::SCHOOL), destinationString);
+            }
         } else if (destinationString == "Work") {
-            agents[i]->setDestination(agents[i]->getLocation(Agent::WORK));
+            // Random chance of going to a random Home location
+            if (rand() % 100 < randomChance) {
+                agents[i]->setDestination(sim->getRandomLocation(Agent::WORK), destinationString);
+            } else {
+                agents[i]->setDestination(agents[i]->getLocation(Agent::WORK), destinationString);
+            }
         } else if (destinationString == "Leisure") {
-            agents[i]->setDestination(agents[i]->getLocation(Agent::LEISURE));
+            // Random chance of going to a random Home location
+            if (rand() % 100 < randomChance) {
+                agents[i]->setDestination(sim->getRandomLocation(Agent::LEISURE), destinationString);
+            } else {
+                agents[i]->setDestination(agents[i]->getLocation(Agent::LEISURE), destinationString);
+            }
         } else {
             // Throw an exception if an invalid behavior is loaded
             throw "Invalid Behavior File Loaded";
@@ -261,7 +285,7 @@ QString AgentController::getStartingDestination(int behaviorChart,
 
     // Create a dummy agent with the specified behavior chart
     Location temp2(0,0);
-    Agent temp(age, &temp2, behaviorChart);
+    Agent temp(age, &temp2, "Null", behaviorChart);
 
     // Return the destination assignment of the agent, which is its starting location
     return getAgentDestination(&temp, 0);

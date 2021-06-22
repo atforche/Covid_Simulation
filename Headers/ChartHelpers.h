@@ -1,6 +1,8 @@
 #ifndef CHARTHELPERS_H
 #define CHARTHELPERS_H
 
+#include <unordered_map>
+
 #include "QChart"
 #include "QBarSet"
 #include "QBarSeries"
@@ -147,8 +149,7 @@ public:
      */
     BehaviorChartHelper();
 
-    /** Destructor for BehaviorChartHelper class. Deletes all dynamic memory
-    and gives each ChartView a new default QChart to prevent double deletes */
+    /** Destructor for BehaviorChartHelper class. Deletes all dynamic memory */
     ~BehaviorChartHelper();
 
     /**
@@ -176,6 +177,89 @@ public:
     void updateBehaviorChart(std::vector<Agent*> *agents, int numAdultBehaviors, int numChildBehaviors);
 
 
+};
+
+
+/**
+ * @brief The DestinationChartHelper class
+ * Helper class that handles dynamic memory for the Destionation Distribution Graph View.
+ * Offers a singleton abstraction for all dynamically allocated components of
+ * the graph, in order to prevent memory leaks
+ */
+class DestinationChartHelper {
+
+private:
+
+    /** Pointers to each dynamic object in this graph view*/
+    QtCharts::QBarSet* barSet;
+    QtCharts::QBarSeries* series;
+    QtCharts::QChart* chart;
+    QtCharts::QBarCategoryAxis* xAxis;
+
+    /**
+     * @brief getNewBarSet \n
+     * Creates a new QBarSet if one has not been initialized, otherwise
+     * returns the existing object
+     * @return a pointer to an unused QBarSet
+     */
+    QtCharts::QBarSet* getNewBarSet();
+
+    /**
+     * @brief getNewBarSeries \n
+     * Creates a new QBarSeries if one has not been initialized, otherwise
+     * returns the existing object
+     * @return a pointer to an ununused QBarSeries
+     */
+    QtCharts::QBarSeries* getNewBarSeries();
+
+    /**
+     * @brief getNewChart \n
+     * Creates a new QChart if one has not been initialized, otherwise
+     * returns the existing object
+     * @return a pointer to an unusued QChart
+     */
+    QtCharts::QChart* getNewChart();
+
+    /**
+     * @brief getNewAxis \n
+     * Creates a new QBarCategoryAxis is one has not been initialized, otherwise
+     * returns the existing object
+     * @return a pointer to an initialized QBarCategoryAxis
+     */
+    QtCharts::QBarCategoryAxis* getNewAxis();
+
+
+public:
+
+    /**
+     * @brief DestinationChartHelper \n
+     * Constructor for the DestinationChartHelper class. Initializes each
+     * of the internal pointers to nullptr
+     */
+    DestinationChartHelper();
+
+    /** Destructor for the DestinationChartHelper class. Deletes all of the
+    dynamic memory used */
+    ~DestinationChartHelper();
+
+    /**
+     * @brief getDestinationChart \n
+     * Returns a QChart* pointer to a completed DestinationChart that can
+     * be added to a QChartView. Initializes the Chart if one has not been
+     * initialized, otherwise updates and returns the existing chart
+     * @param agents: the current set of agents in the Simulation
+     * @return
+     */
+    QtCharts::QChart* getDestinationChart(std::vector<Agent*> *agents);
+
+    /**
+     * @brief updateDestinationChart \n
+     * Updates the DestinationChart to reflect the updated state of the Agents
+     * in the Simulation. DestinationChart must be initialized using
+     * getDestinationChart first, before this can be called.
+     * @param agents
+     */
+    void updateDestinationChart(std::vector<Agent*> *agents);
 };
 
 #endif // CHARTHELPERS_H

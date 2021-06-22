@@ -28,6 +28,8 @@ void Location::addAgent(Agent *agent) {
 void Location::removeAgent(Agent* agent) {
     if(agents.find(agent) != agents.end()) {
         agents.erase(agent);
+    } else {
+        qDebug() << "Error removing agent from location";
     }
 }
 

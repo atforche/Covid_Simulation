@@ -304,6 +304,143 @@ void BehaviorChartHelper::updateBehaviorChart(std::vector<Agent *> *agents, int 
 }
 
 
+//******************************************************************************
+
+
+QtCharts::QBarSet* DestinationChartHelper::getNewBarSet() {
+    if (barSet == nullptr) {
+        barSet = new QtCharts::QBarSet("Counts");
+    } else {
+        while (barSet->count() > 0) {
+            barSet->remove(0);
+        }
+    }
+
+    return barSet;
+}
+
+
+//******************************************************************************
+
+
+QtCharts::QBarSeries* DestinationChartHelper::getNewBarSeries() {
+    if (series == nullptr) {
+        series = new QtCharts::QBarSeries();
+        series->append(barSet);
+        series->attachAxis(xAxis);
+    }
+
+    return series;
+}
+
+
+//******************************************************************************
+
+
+QtCharts::QChart* DestinationChartHelper::getNewChart() {
+    if (chart == nullptr) {
+        chart = new QtCharts::QChart();
+        chart->createDefaultAxes();
+        chart->addSeries(series);
+        chart->setTitle("Destination Assignments");
+        chart->addAxis(xAxis, Qt::AlignBottom);
+    }
+
+    return chart;
+}
+
+
+//******************************************************************************
+
+
+QtCharts::QBarCategoryAxis* DestinationChartHelper::getNewAxis() {
+    if (xAxis == nullptr) {
+        xAxis = new QtCharts::QBarCategoryAxis();
+        xAxis->append("Home");
+        xAxis->append("Work");
+        xAxis->append("School");
+        xAxis->append("Leisure");
+    }
+
+    return xAxis;
+}
+
+
+//******************************************************************************
+
+
+DestinationChartHelper::DestinationChartHelper() {
+
+    barSet = nullptr;
+    series = nullptr;
+    chart = nullptr;
+    xAxis = nullptr;
+}
+
+
+//******************************************************************************
+
+
+DestinationChartHelper::~DestinationChartHelper() {
+
+    delete barSet;
+    delete series;
+    delete xAxis;
+    delete chart;
+}
+
+
+//******************************************************************************
+
+
+QtCharts::QChart* DestinationChartHelper::getDestinationChart(std::vector<Agent *> *agents) {
+    // Create an updated BarSet with counts
+    updateDestinationChart(agents);
+
+    // Initialize a QBarSeries to hold a group of QBarSets
+    getNewBarSeries();
+
+    // Create an xAxis that includes each age bucket
+    getNewAxis();
+
+    // Initialize the QChart and give it a series
+    QtCharts::QChart* chart = getNewChart();
+
+    // Create the legend
+    chart->legend()->setVisible(true);
+    chart->legend()->setAlignment(Qt::AlignBottom);
+
+    return chart;
+}
+
+
+//******************************************************************************
+
+
+void DestinationChartHelper::updateDestinationChart(std::vector<Agent *> *agents) {
+
+    // Initialize a map to track the counts for each destination
+    std::unordered_map<QString, int> destinationCounts;
+    destinationCounts["Home"] = 0;
+    destinationCounts["Work"] = 0;
+    destinationCounts["School"] = 0;
+    destinationCounts["Leisure"] = 0;
+
+    // Update the count for each agent
+    for (size_t i = 0; i < agents->size(); ++i) {
+        QString destination = agents->at(i)->getDestinationString();
+        destinationCounts[destination]++;
+    }
+
+    // Update the QBarSet
+    QtCharts::QBarSet* bars = getNewBarSet();
+    bars->append(destinationCounts["Home"]);
+    bars->append(destinationCounts["Work"]);
+    bars->append(destinationCounts["School"]);
+    bars->append(destinationCounts["Leisure"]);
+}
+
+
 
 
 

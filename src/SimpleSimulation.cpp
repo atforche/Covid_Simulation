@@ -5,27 +5,23 @@ SimpleSimulation::SimpleSimulation(int numAgents, Ui::MainWindow* ui,
     Simulation(numAgents, ui, debug) {
 
     // Create four square regions (Home, Work, School, Leisure)
-    this->homeRegion = new SquareRegion(ui->numLocations->value(),
-                                        Coordinate(0, 0),
+    this->homeRegion = new SquareRegion(Coordinate(0, 0),
                                         getSimHeight() / 2,
                                         QColor(3, 11, 252),
                                         "Home");
-    this->workRegion = new SquareRegion(ui->numLocations->value(),
-                                        Coordinate(getSimHeight() / 2, 0),
+    this->workRegion = new SquareRegion(Coordinate(getSimHeight() / 2, 0),
                                         getSimHeight() / 2,
                                         QColor(255, 0, 255),
                                         "Work");
-    this->schoolRegion = new SquareRegion(ui->numLocations->value(),
-                                        Coordinate(0, getSimHeight() / 2),
-                                        getSimHeight() / 2,
-                                        QColor(240, 41, 41),
-                                        "School");
-    this->leisureRegion = new SquareRegion(ui->numLocations->value(),
-                                        Coordinate(getSimHeight() / 2,
+    this->schoolRegion = new SquareRegion(Coordinate(0, getSimHeight() / 2),
+                                            getSimHeight() / 2,
+                                            QColor(240, 41, 41),
+                                            "School");
+    this->leisureRegion = new SquareRegion(Coordinate(getSimHeight() / 2,
                                                    getSimHeight() / 2),
-                                        getSimHeight() / 2,
-                                        QColor(0, 227, 19),
-                                        "Leisure");
+                                            getSimHeight() / 2,
+                                            QColor(0, 227, 19),
+                                            "Leisure");
 
     // Add the region squares and the name labels to the screen
     addToScreen(homeRegion->getGraphicsObject());
@@ -59,35 +55,35 @@ SimpleSimulation::~SimpleSimulation() {
 
 void SimpleSimulation::init() {
     // Generate locations within the HomeRegion and add them to the screen
-    generateLocations(homeRegion, homeRegion->getNumLocations());
+    homeRegion->generateLocations(getNumLocations());
     std::vector<QGraphicsItem*> toRender = homeRegion->getLocationsGraphicsObject();
     for(auto item : toRender) {
         addToScreen(item);
     }
 
     // Generate locations within the WorkRegion and add them to the screen
-    generateLocations(workRegion, workRegion->getNumLocations());
+    workRegion->generateLocations(getNumLocations());
     toRender = workRegion->getLocationsGraphicsObject();
     for(auto item : toRender) {
         addToScreen(item);
     }
 
     // Generate locations within the SchoolRegion and add them to the screen
-    generateLocations(schoolRegion, schoolRegion->getNumLocations());
+    schoolRegion->generateLocations(getNumLocations());
     toRender = schoolRegion->getLocationsGraphicsObject();
     for(auto item : toRender) {
         addToScreen(item);
     }
 
     // Generate locations within the LeisureREgion and add them to the screen
-    generateLocations(leisureRegion, leisureRegion->getNumLocations());
+    leisureRegion->generateLocations(getNumLocations());
     toRender = leisureRegion->getLocationsGraphicsObject();
     for(auto item : toRender) {
         addToScreen(item);
     }
 
     // Generate a set of agents for the simulation
-    generateAgents();
+    generateAgents(getInitialNumAgents());
 }
 
 
@@ -100,7 +96,7 @@ void SimpleSimulation::execute() {
 
     // Advance time for each agent
     std::vector<Agent*> agents = getAgents();
-    for (int i = 0; i < getNumAgents(); ++i) {
+    for (int i = 0; i < getCurrentNumAgents(); ++i) {
         agents[i]->takeTimeStep();
     }
 }
@@ -141,7 +137,7 @@ void SimpleSimulation::test() {
 //******************************************************************************
 
 
-void SimpleSimulation::generateAgents() {
+void SimpleSimulation::generateAgents(int num, bool birth) {
     // Create a random color for each strategy
     std::vector<QColor> agentColors;
     int adultBehaviors = getController()->getNumAdultBehaviors();
@@ -158,7 +154,7 @@ void SimpleSimulation::generateAgents() {
     std::vector<Location*> workLocations = workRegion->getLocations();
     std::vector<Location*> leisureLocations = leisureRegion->getLocations();
 
-    for (int i = 0; i < getNumAgents(); ++i) {
+    for (int i = 0; i < num; ++i) {
         // Randomly sample the four locations of interest for the agent
         int homeIndex = rand() % homeLocations.size();
         int schoolIndex = rand() % schoolLocations.size();
@@ -166,7 +162,10 @@ void SimpleSimulation::generateAgents() {
         int leisureIndex = rand() % leisureLocations.size();
 
         // Randomly sample an age assignment for the agent (update later)
-        int ageAssignment = AgentController::sampleAgentAge();
+        int ageAssignment = 0;
+        if (!birth) {
+            ageAssignment = AgentController::sampleAgentAge();
+        }
 
         // Randomly sample a behavior assignment of the agent based on its age
         int behaviorAssignment;
@@ -198,6 +197,7 @@ void SimpleSimulation::generateAgents() {
         // Create an agent with the determines behavior and location
         Agent* agent = new Agent(ageAssignment,
                                  initialLocation,
+                                 startingLocation,
                                  behaviorAssignment);
 
         // If selected, set a unique color for each behavior
@@ -229,13 +229,37 @@ void SimpleSimulation::generateAgents() {
 //******************************************************************************
 
 
+Location* SimpleSimulation::getRandomLocation(Agent::LOCATIONS which) {
+    if (which == Agent::LOCATIONS::HOME) {
+        std::vector<Location*> locations = homeRegion->getLocations();
+        return locations[rand() % locations.size()];
+    } else if (which == Agent::LOCATIONS::WORK) {
+        std::vector<Location*> locations = workRegion->getLocations();
+        return locations[rand() % locations.size()];
+    } else if (which == Agent::LOCATIONS::SCHOOL) {
+        std::vector<Location*> locations = schoolRegion->getLocations();
+        return locations[rand() % locations.size()];
+    } else if (which == Agent::LOCATIONS::LEISURE) {
+        std::vector<Location*> locations = leisureRegion->getLocations();
+        return locations[rand() % locations.size()];
+    }
+    return nullptr;
+}
+
+
+//******************************************************************************
+
+
 void SimpleSimulation::renderCharts(const QString &which, bool newChartView) {
     if (which == "ALL") {
         renderAgeChart(newChartView);
         renderBehaviorChart(newChartView);
+        renderDestinationChart(newChartView);
     } else if (which == "AGE") {
         renderAgeChart(newChartView);
     } else if (which == "BEHAVIOR") {
         renderBehaviorChart(newChartView);
+    } else if (which == "DESTINATION") {
+        renderDestinationChart(newChartView);
     }
 }

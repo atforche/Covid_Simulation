@@ -4,6 +4,7 @@
 #include <unordered_set>
 
 #include "QGraphicsEllipseItem"
+#include "QDebug"
 
 #include "Headers/Coordinate.h"
 

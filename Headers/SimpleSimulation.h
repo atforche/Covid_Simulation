@@ -90,8 +90,18 @@ public:
      * @brief generateAgents \n
      * Function to generate agents and assign them to behaviors and locations.
      * Currently, randomly assign agents with ages, behaviors, and locations.
+     * @param num: number of agents to generate
      */
-    virtual void generateAgents() override;
+    virtual void generateAgents(int num, bool birth = false) override;
+
+    /**
+     * @brief getRandomLocation \n
+     * Returns a pointer to a random location which type is determines by the
+     * which parameter
+     * @param which: the type of location pointer to return
+     * @return a pointer to a random location
+     */
+    virtual Location* getRandomLocation(Agent::LOCATIONS which) override;
 
 public slots:
 

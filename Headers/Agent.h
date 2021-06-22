@@ -39,6 +39,9 @@ private:
     Coordinate of (-1,-1) indicates no destination*/
     Coordinate destination;
 
+    /** QString that stored the current destination assignment as a string */
+    QString destinationString;
+
     /** Int representing how wide the agents should be rendered as */
     static const int AGENT_WIDTH = 2;
 
@@ -60,9 +63,11 @@ public:
      * certain age, position, and behavior chart.
      * @param age: the current age of the Agent
      * @param startingLocation: the initial location to create this agent at
+     * @param startingLocationString: string that represents the type of starting location
      * @param behavior: the behavior assignment of this agent
      */
-    Agent(int age, Location* startingLocation, int behavior);
+    Agent(int age, Location* startingLocation, QString startingLocationString,
+          int behavior);
 
     /**
      * @brief getGraphicsObject \n
@@ -93,8 +98,17 @@ public:
      * Sets the destination of this Agent to the new Location specified
      * @param newLocation: a pointer to the new Location to set the agents
      *                     destination toward
+     * @param destinationType: QString representing the type of destination
      */
-    void setDestination(Location* newLocation);
+    void setDestination(Location* newLocation, QString destinationType);
+
+    /**
+     * @brief getDestinationString \n
+     * Getter function for the string representation of the current Destination
+     * of the Agent
+     * @return the current Destination of the Agent as a QString
+     */
+    QString getDestinationString();
 
     /**
      * @brief setLocation \n

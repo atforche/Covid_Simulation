@@ -3,11 +3,12 @@
 
 #include <vector>
 #include <string>
+#include <random>
 
 #include "QColor"
 #include "QGraphicsItem"
 
-// Forward declaration of the Location Class
+// Forward declaration of Location class
 class Location;
 
 /**
@@ -41,9 +42,8 @@ public:
      * subject to different rules and result in different agent behaviors. Each
      * Region has an associated shape that is rendered to the screen. Use a
      * LocationGenerator to generate Locations within the Region
-     * @param numLocations: the number of Locations within this Region
      */
-    Region(int numLocations, QColor color, std::string name);
+    Region(QColor color, std::string name);
 
     /** Virtual destructor for the Region Class */
     virtual ~Region() {};
@@ -57,12 +57,14 @@ public:
     std::vector<Location*>& getLocations();
 
     /**
-     * @brief setLocations \n
-     * Setter function for the vector of Locations within a region. Pass in a
-     * vector of Locations to set all Locations in a Region at once
-     * @param locations: the vector of generated locations for the region
+     * @brief generateLocations \n
+     * Generates a fixed number of locations within the bounds of the current
+     * Region. Picks coordinates from a random distribution and ensures they
+     * lie within the bounding rectangle of the region before creating a
+     * location at that coordinate.
+     * @param num
      */
-    void setLocations(std::vector<Location*>& locations);
+    void generateLocations(int num);
 
     /**
      * @brief getNumLocations \n
@@ -117,5 +119,8 @@ public:
     virtual std::vector<QGraphicsItem*> getLocationsGraphicsObject() = 0;
 
 };
+
+// Rear includes to avoid circular dependency
+#include "Location.h"
 
 #endif // REGION_H

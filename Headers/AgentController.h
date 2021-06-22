@@ -11,6 +11,9 @@
 
 #include "Agent.h"
 
+// Forward declaration of the Simulation Class
+class Simulation;
+
 /**
  * @brief The AgentController class \n
  * Class that sits within the Simulation and dynamically determines each
@@ -39,6 +42,8 @@ private:
 
     /** Total weight sum for adult behaviors */
     int childWeightedSum;
+
+    Simulation* sim;
 
     /**
      * @brief evaluateDestinationProbabilities \n
@@ -86,7 +91,7 @@ public:
      * adult and child behaviors by reading the entries in the bin/behaviors
      * directory
      */
-    AgentController();
+    AgentController(Simulation* sim);
 
     /**
      * @brief getNumAdultBehaviors \n
@@ -151,5 +156,8 @@ public:
 
 
 };
+
+// Rear includes to avoid circular dependencies
+#include "Simulation.h"
 
 #endif // AGENTCONTROLLER_H

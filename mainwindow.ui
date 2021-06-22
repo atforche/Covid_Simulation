@@ -106,7 +106,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>140</y>
+      <y>150</y>
       <width>261</width>
       <height>16</height>
      </rect>
@@ -160,7 +160,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>160</y>
+      <y>170</y>
       <width>161</width>
       <height>25</height>
      </rect>
@@ -189,7 +189,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>180</y>
+      <y>200</y>
       <width>261</width>
       <height>16</height>
      </rect>
@@ -324,7 +324,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>220</y>
+      <y>240</y>
       <width>221</width>
       <height>19</height>
      </rect>
@@ -337,7 +337,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>200</y>
+      <y>220</y>
       <width>121</width>
       <height>16</height>
      </rect>
@@ -369,8 +369,8 @@
    <widget class="QComboBox" name="graph1Selection">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>280</y>
+      <x>11</x>
+      <y>361</y>
       <width>261</width>
       <height>22</height>
      </rect>
@@ -379,8 +379,8 @@
    <widget class="QLabel" name="graph1ViewLabel">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>260</y>
+      <x>11</x>
+      <y>341</y>
       <width>261</width>
       <height>16</height>
      </rect>
@@ -392,8 +392,8 @@
    <widget class="QComboBox" name="graph2Selection">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>330</y>
+      <x>11</x>
+      <y>411</y>
       <width>261</width>
       <height>22</height>
      </rect>
@@ -402,8 +402,8 @@
    <widget class="QLabel" name="graph2ViewLabel">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>310</y>
+      <x>11</x>
+      <y>391</y>
       <width>261</width>
       <height>16</height>
      </rect>
@@ -416,13 +416,132 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>240</y>
+      <y>260</y>
       <width>211</width>
       <height>19</height>
      </rect>
     </property>
     <property name="text">
      <string>Disable Agent Rendering</string>
+    </property>
+   </widget>
+   <widget class="QChartView" name="graphView3">
+    <property name="geometry">
+     <rect>
+      <x>1310</x>
+      <y>570</y>
+      <width>571</width>
+      <height>251</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="graph3ViewLabel">
+    <property name="geometry">
+     <rect>
+      <x>11</x>
+      <y>441</y>
+      <width>261</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Graph 3:</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="graph3Selection">
+    <property name="geometry">
+     <rect>
+      <x>11</x>
+      <y>461</y>
+      <width>261</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="currentPopulationLabel">
+    <property name="geometry">
+     <rect>
+      <x>1310</x>
+      <y>830</y>
+      <width>111</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Current Population: </string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="currentPopulation">
+    <property name="geometry">
+     <rect>
+      <x>1410</x>
+      <y>830</y>
+      <width>47</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>0</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="framePerHourLabel">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>290</y>
+      <width>104</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Frames Per Hour:</string>
+    </property>
+   </widget>
+   <widget class="QSlider" name="framesPerHourSlider">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>320</y>
+      <width>261</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
+    <property name="maximum">
+     <number>60</number>
+    </property>
+    <property name="value">
+     <number>30</number>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+    <property name="tickPosition">
+     <enum>QSlider::TicksBelow</enum>
+    </property>
+    <property name="tickInterval">
+     <number>5</number>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="framesPerHour">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>290</y>
+      <width>59</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
+    <property name="maximum">
+     <number>60</number>
+    </property>
+    <property name="value">
+     <number>30</number>
     </property>
    </widget>
   </widget>

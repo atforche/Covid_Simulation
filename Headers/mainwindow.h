@@ -53,7 +53,8 @@ private:
 
     /** List of possible graph views */
     std::vector<QString> graphViews = {"Age Distribution",
-                                       "Behavior Chart Distribution"};
+                                       "Behavior Chart Distribution",
+                                       "Destination Assignments"};
 
 public:
     /**
@@ -89,6 +90,13 @@ public:
      * list of possible values.
      */
     void initializeComboBoxes();
+
+    /**
+     * @brief disableComboBoxOptions \n
+     * Disables and enables different options in the ComboBoxes to ensure that
+     * there are never duplicate options selected
+     */
+    void disableComboBoxOptions();
 
     /**
      * @brief checkDebugInfo \n
@@ -194,6 +202,24 @@ private slots:
      * @param arg1: the new selected value
      */
     void on_graph2Selection_currentTextChanged(const QString &arg1);
+
+    /**
+     * @brief on_framesPerHourSlider_valueChanged \n
+     * Event handler for when the slider value for the framesPerHour slider
+     * changes. Updates the text in the associated SpinBox and updates the speed
+     * of the Simulation
+     * @param value: new value of the slider
+     */
+    void on_framesPerHourSlider_valueChanged(int value);
+
+    /**
+     * @brief on_framesPerHour_valueChanged \n
+     * Event handler for when the SpinBox value for the framesPerHour SpinBox
+     * changes. Updates the text for the associated slider and updates the speed
+     * of the Simulation
+     * @param arg1: new value of the SpinBox
+     */
+    void on_framesPerHour_valueChanged(int arg1);
 
 };
 #endif // MAINWINDOW_H

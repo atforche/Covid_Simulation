@@ -1,9 +1,21 @@
 #include "Headers/Simulation.h"
 
+// Initialize the static members of the Simulation Class
+int Simulation::FRAMES_PER_HOUR = 20;
+
+
+//******************************************************************************
+
+
 void Simulation::ageAgents() {
 
     bool behaviorsUpdated = false;
-    for (size_t i = 0; i < agents.size(); ++i) {
+    bool agentKilled = false;
+
+    // Lock the Agents vector to provide mutual exclusion while deleting agents
+    QMutexLocker agentLock(getAgentsLock());
+
+    for (int i = static_cast<int>(agents.size()) - 1; i >= 0; --i) {
         // Increment the age of the agent
         int newAge = agents[i]->incrementAge();
 
@@ -12,15 +24,22 @@ void Simulation::ageAgents() {
             behaviorsUpdated = true;
             int newBehavior = agentController->getAdultBehavior();
             agents[i]->setBehavior(newBehavior);
+        } else if (newAge == 100) {
+            // Kill the agent and remove it
+            killAgent(agents.at(i), i);
         }
     }
 
-    // Emit the signal allowing the main thread to update the chart
-    emit updateChart("AGE", false);
+    if (agentKilled) {
+        emit updateChart("ALL", false);
+    } else {
+        // Emit the signal allowing the main thread to update the chart
+        emit updateChart("AGE", false);
 
-    // If a behavior has been changed, update the behavior chart also
-    if (behaviorsUpdated) {
-        emit updateChart("BEHAVIOR", false);
+        // If a behavior has been changed, update the behavior chart also
+        if (behaviorsUpdated) {
+            emit updateChart("BEHAVIOR", false);
+        }
     }
 }
 
@@ -30,15 +49,24 @@ void Simulation::ageAgents() {
 
 void Simulation::addChartToView(QChart* chart, int num) {
     if (num == 0) {
-        if (ui->graphView1->chart() != chart) {
-            QtCharts::QChart* victim = ui->graphView1->chart();
-            ui->graphView1->setChart(chart);
+        QString title = ui->graphView1->chart()->title();
+        QtCharts::QChart* victim = ui->graphView1->chart();
+        ui->graphView1->setChart(chart);
+        if (title == "") {
             delete victim;
         }
     } else if (num == 1) {
-        if (ui->graphView2->chart() != chart) {
-            QtCharts::QChart* victim = ui->graphView2->chart();
-            ui->graphView2->setChart(chart);
+        QString title = ui->graphView2->chart()->title();
+        QtCharts::QChart* victim = ui->graphView2->chart();
+        ui->graphView2->setChart(chart);
+        if (title == "") {
+            delete victim;
+        }
+    } else if (num == 2) {
+        QString title = ui->graphView3->chart()->title();
+        QtCharts::QChart* victim = ui->graphView3->chart();
+        ui->graphView3->setChart(chart);
+        if (title == "") {
             delete victim;
         }
     }
@@ -53,7 +81,7 @@ Simulation::Simulation(int numAgents, Ui::MainWindow* ui,
 
     // Initialize main components of the UI
     assert(numAgents >= 0);
-    this->numAgents = numAgents;
+    this->initialNumAgents = numAgents;
     this->agents.reserve(numAgents);
     this->ui = ui;
     this->simHeight = ui->mainCanvas->height();
@@ -68,12 +96,20 @@ Simulation::Simulation(int numAgents, Ui::MainWindow* ui,
     this->hour = 0;
 
     // Create an AgentController for the Simulation
-    this->agentController = new AgentController();
+    this->agentController = new AgentController(this);
     this->chartViews = nullptr;
 
     // Initialize the chartObject vectors
     ageHelper = new AgeChartHelper();
     behaviorHelper = new BehaviorChartHelper();
+    destinationHelper = new DestinationChartHelper();
+
+    // Initialize the locks
+    agentLock = new QMutex();
+    queueLock = new QMutex();
+
+    // Update the population counter
+    ui->currentPopulation->setText(QString::number(initialNumAgents));
 }
 
 
@@ -84,6 +120,7 @@ Simulation::~Simulation() {
     // Remove any memory traces from the chartViews
     ui->graphView1->setChart(new QtCharts::QChart());
     ui->graphView2->setChart(new QtCharts::QChart());
+    ui->graphView3->setChart(new QtCharts::QChart());
 
     while (agents.size() > 0) {
         Agent* victim = agents.back();
@@ -95,6 +132,17 @@ Simulation::~Simulation() {
     delete agentController;
     delete ageHelper;
     delete behaviorHelper;
+    delete destinationHelper;
+
+    delete agentLock;
+}
+
+
+//******************************************************************************
+
+
+int Simulation::getNumLocations() {
+    return ui->numAgents->value();
 }
 
 
@@ -103,9 +151,9 @@ Simulation::~Simulation() {
 
 void Simulation::addAgent(Agent *agent) {
     // Add a new agent to the simulation and add it to the screen
-    if (this->agents.size() < static_cast<size_t>(this->numAgents)) {
+    if (this->agents.size() < static_cast<size_t>(2 * this->initialNumAgents)) {
         this->agents.push_back(agent);
-        addToScreen(agent->getGraphicsObject());
+        addToAddQueue(agent->getGraphicsObject());
     }
 }
 
@@ -133,17 +181,24 @@ void Simulation::advanceTime() {
     // Increment the time by one frame
     static int numFrames = 0;
     numFrames++;
+
     if (numFrames >= FRAMES_PER_HOUR) {
+        // Increment the number of hours
         numFrames = 1;
-        ageAgents();
         this->hour++;
         ui->hour->setText(QString::number(this->hour));
+
         if (this->hour == 24) {
+            // Increment the number of days
             this->hour = 0;
             ui->hour->setText(QString::number(this->hour));
             this->day++;
             ui->day->setText(QString::number(this->day));
+            birthAgent(); // Have a chance to birth agents each day
+            ui->currentPopulation->setText(QString::number(getCurrentNumAgents())); // Update the population counter
+
             if (this->day == 365) {
+                // Increment the number of years
                 this->day = 0;
                 ageAgents(); // Update the age for every agent in the sim
                 ui->day->setText(QString::number(this->day));
@@ -154,6 +209,45 @@ void Simulation::advanceTime() {
 
         // Update each agent's destination assignment each hour
         agentController->updateAgentDestinations(getAgents(), this->hour);
+        emit updateChart("DESTINATION", false);
+    }
+
+    // Update the population counter
+    ui->currentPopulation->setText(QString::number(getCurrentNumAgents()));
+}
+
+
+//******************************************************************************
+
+
+
+void Simulation::killAgent(Agent *victim, int index) {
+
+    // Remove the agent from each Location it belongs to
+    victim->getLocation(Agent::HOME)->removeAgent(victim);
+    victim->getLocation(Agent::WORK)->removeAgent(victim);
+    victim->getLocation(Agent::SCHOOL)->removeAgent(victim);
+    victim->getLocation(Agent::LEISURE)->removeAgent(victim);
+
+    // Remove the Agent from the Screen
+    addToRemoveQueue(victim->getGraphicsObject());
+
+    // Remove the agent from the vector of agents held in the simulation
+    std::iter_swap(agents.begin() + index, agents.begin() + agents.size() - 1);
+    agents.pop_back();
+
+    // Delete the agent
+    delete victim;
+}
+
+
+//******************************************************************************
+
+
+void Simulation::birthAgent() {
+    if (rand() % 2 == 0) {
+        // Birth a random number of agents between 0 and 5% of the total population
+        generateAgents((rand() % ((getCurrentNumAgents() / 20) + 1)) + 1, true);
     }
 }
 
@@ -177,49 +271,6 @@ void Simulation::clearAgents() {
 //******************************************************************************
 
 
-void Simulation::generateLocations(Region *region, int num) {
-
-    // Get the boundary of the region and the GraphicsObject
-    QRectF regionBound = region->getGraphicsObject()->boundingRect();
-    QGraphicsItem* regionGraphics = region->getGraphicsObject();
-
-    // Initialize a vector with enough space for each location
-    std::vector<Location*> locations;
-    locations.reserve(num);
-
-    // Create random distributions in the range [10, regionBound-10)
-    std::uniform_int_distribution<int> xdist(10,
-                                            regionBound.width() - 10);
-    std::uniform_int_distribution<int> ydist(10,
-                                             regionBound.height() - 10);
-    std::random_device rand;
-
-    // Create num locations within the region
-    for (int i = 0; i < num; ++i) {
-
-        // Randomly sample point from the distribution until one is within the
-        // boundaries of the GraphicsObject (Monte Carlo style)
-        while(true) {
-            int randx = xdist(rand);
-            int randy = ydist(rand);
-
-            QPointF check(randx + regionGraphics->boundingRect().topLeft().x(),
-                          randy + regionGraphics->boundingRect().topLeft().y());
-            if (regionGraphics->boundingRect().contains(check)) {
-                locations.push_back(new Location(check.x(), check.y()));
-                break;
-            }
-        }
-    }
-
-    // Give the region its vector of locations
-    region->setLocations(locations);
-}
-
-
-//******************************************************************************
-
-
 int Simulation::getSimHeight() {
     return this->simHeight;
 }
@@ -236,8 +287,16 @@ int Simulation::getSimWidth() {
 //******************************************************************************
 
 
-int Simulation::getNumAgents() {
-    return this->numAgents;
+int Simulation::getInitialNumAgents() {
+    return initialNumAgents;
+}
+
+
+//******************************************************************************
+
+
+int Simulation::getCurrentNumAgents() {
+    return static_cast<int>(agents.size());
 }
 
 
@@ -291,7 +350,8 @@ void Simulation::mapChartViews() {
 
     static std::unordered_map<int, QString> indexMap = {
         {0, "AGE"},
-        {1, "BEHAVIOR"}
+        {1, "BEHAVIOR"},
+        {2, "DESTINATION"}
     };
 
     // Delete the existing map to overwrite it
@@ -301,12 +361,16 @@ void Simulation::mapChartViews() {
     // Initialize vectors for each key
     (*chartViews)["AGE"] = -1;
     (*chartViews)["BEHAVIOR"] = -1;
+    (*chartViews)["DESTINATION"] = -1;
 
     QString graph = indexMap[ui->graph1Selection->currentIndex()];
     (*chartViews)[graph] = 0;
 
     graph = indexMap[ui->graph2Selection->currentIndex()];
     (*chartViews)[graph] = 1;
+
+    graph = indexMap[ui->graph3Selection->currentIndex()];
+    (*chartViews)[graph] = 2;
 }
 
 
@@ -364,7 +428,78 @@ void Simulation::renderBehaviorChart(bool newChartView) {
 //******************************************************************************
 
 
+void Simulation::renderDestinationChart(bool newChartView) {
+
+    // If the graph won't be displayed, don't create it
+    int graphView = (*chartViews)["DESTINATION"];
+    if (graphView == -1) {
+        return;
+    }
+
+    if (newChartView) {
+        QtCharts::QChart* chart = destinationHelper->getDestinationChart(&getAgents());
+        addChartToView(chart, graphView);
+    } else {
+        destinationHelper->updateDestinationChart(&getAgents());
+    }
+}
+
+
+//******************************************************************************
+
+
+QMutex* Simulation::getAgentsLock() {
+    return this->agentLock;
+}
+
+
+//******************************************************************************
+
+
+QMutex* Simulation::getQueueLock() {
+    return this->queueLock;
+}
+
+
+//******************************************************************************
+
+
+void Simulation::addToAddQueue(QGraphicsItem *item) {
+    QMutexLocker lock(getQueueLock());
+    addQueue.push_back(item);
+}
+
+
+//******************************************************************************
+
+
+void Simulation::addToRemoveQueue(QGraphicsItem *item) {
+    QMutexLocker lock(getQueueLock());
+    removeQueue.push_back(item);
+}
+
+
+//******************************************************************************
+
+
 void Simulation::renderAgentUpdate() {
+
+    // Acquire the lock to prevent an Agent from begin Deleted
+    QMutexLocker agentLock(getAgentsLock());
+    QMutexLocker screenLock(getQueueLock());
+
+    // Add each of the new QGraphicsObjects to the Screen
+    while (addQueue.size() > 0) {
+        addToScreen(addQueue.back());
+        addQueue.pop_back();
+    }
+
+    // Remove each of the old QGraphicsObjects from the screen
+    while (removeQueue.size() > 0) {
+        ui->mainCanvas->scene()->removeItem(removeQueue.back());
+        removeQueue.pop_back();
+    }
+
     // Update the GraphicsObject for each agent in the simulation
     std::vector<Agent*> agents = getAgents();
     for (auto i : agents) {

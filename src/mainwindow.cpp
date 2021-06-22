@@ -16,6 +16,10 @@ MainWindow::MainWindow(QWidget *parent)
     ui->numLocations->setMaximum(MAX_LOCATIONS);
     ui->numLocationsLabel->setMaximum(MAX_LOCATIONS);
 
+    // Set up the FRAMES_PER_HOUR slider and spin box
+    ui->framesPerHour->setValue(Simulation::FRAMES_PER_HOUR);
+    ui->framesPerHourSlider->setValue(Simulation::FRAMES_PER_HOUR);
+
     // Set the icons of the speed buttons and set the speed to default
     ui->slowSim->setIcon(style()->standardIcon(QStyle::SP_MediaSeekBackward));
     ui->pauseSim->setIcon(style()->standardIcon(QStyle::SP_MediaPause));
@@ -40,7 +44,9 @@ MainWindow::MainWindow(QWidget *parent)
 
 
 MainWindow::~MainWindow() {
-    controller->pauseSimulation();
+    if (controller) {
+        controller->pauseSimulation();
+    }
     delete sim;
     delete ui->graphView1->chart();
     delete ui->graphView2->chart();
@@ -58,6 +64,7 @@ void MainWindow::disableUI() {
     ui->simulationType->setEnabled(false);
     ui->graph1Selection->setEnabled(false);
     ui->graph2Selection->setEnabled(false);
+    ui->graph3Selection->setEnabled(false);
     ui->runSimulation->setEnabled(false);
     ui->numLocations->setEnabled(false);
     ui->numLocationsLabel->setEnabled(false);
@@ -65,6 +72,8 @@ void MainWindow::disableUI() {
     ui->numAgentsLabel->setEnabled(false);
     ui->agentBehaviors->setEnabled(false);
     ui->headlessMode->setEnabled(false);
+    ui->framesPerHour->setEnabled(false);
+    ui->framesPerHourSlider->setEnabled(false);
 
     // Enable all buttons that control the flow of the simulation
     ui->resetSimulation->setEnabled(true);
@@ -83,6 +92,7 @@ void MainWindow::enableUI() {
     ui->simulationType->setEnabled(true);
     ui->graph1Selection->setEnabled(true);
     ui->graph2Selection->setEnabled(true);
+    ui->graph3Selection->setEnabled(true);
     ui->runSimulation->setEnabled(true);
     ui->numLocations->setEnabled(true);
     ui->numLocationsLabel->setEnabled(true);
@@ -90,6 +100,8 @@ void MainWindow::enableUI() {
     ui->numAgentsLabel->setEnabled(true);
     ui->agentBehaviors->setEnabled(true);
     ui->headlessMode->setEnabled(true);
+    ui->framesPerHour->setEnabled(true);
+    ui->framesPerHourSlider->setEnabled(true);
 
     // Disable all buttons that modify the flow of the simulation
     ui->resetSimulation->setEnabled(false);
@@ -116,26 +128,87 @@ void MainWindow::initializeComboBoxes() {
     ui->simulationType->addItems(simulationTypes);
 
     // Define the values for the Graph1Selection dropdowns
-    QStringList chartTypes;
-    chartTypes.append("Age Distribution");
-    chartTypes.append("Behavior Chart Distribution");
+    QStringList chartTypes(graphViews.begin(), graphViews.end());
 
     // Block the combo boxes from firing signal while they're being initialized
     ui->graph1Selection->blockSignals(true);
     ui->graph2Selection->blockSignals(true);
+    ui->graph3Selection->blockSignals(true);
 
     ui->graph1Selection->addItems(chartTypes);
+    ui->graph1Selection->setCurrentIndex(0);
 
     ui->graph2Selection->addItems(chartTypes);
     ui->graph2Selection->setCurrentIndex(1);
 
+    ui->graph3Selection->addItems(chartTypes);
+    ui->graph3Selection->setCurrentIndex(2);
+
     // Renable signals from the combo boxes
     ui->graph1Selection->blockSignals(false);
     ui->graph2Selection->blockSignals(false);
+    ui->graph3Selection->blockSignals(false);
 
     // Disable the current selections in the other dropdowns
-    ui->graph1Selection->setItemData(1, false, Qt::UserRole - 1);
-    ui->graph2Selection->setItemData(0, false, Qt::UserRole - 1);
+    disableComboBoxOptions();
+}
+
+
+//******************************************************************************
+
+
+void MainWindow::disableComboBoxOptions() {
+
+    // Block signals while modifying the combo boxes
+    ui->graph1Selection->blockSignals(true);
+    ui->graph2Selection->blockSignals(true);
+    ui->graph3Selection->blockSignals(true);
+
+    // Create a model to control the ComboBox options
+    QStandardItemModel* model1 = qobject_cast<QStandardItemModel*>(
+                ui->graph1Selection->model());
+    QStandardItemModel* model2 = qobject_cast<QStandardItemModel*>(
+                ui->graph2Selection->model());
+    QStandardItemModel* model3 = qobject_cast<QStandardItemModel*>(
+                ui->graph3Selection->model());
+
+    // Enable each of the options to begin with
+    for (int i = 0; i < static_cast<int>(graphViews.size()); ++i) {
+        model1->item(i)->setEnabled(true);
+        model1->item(i)->setSelectable(true);
+
+        model2->item(i)->setEnabled(true);
+        model2->item(i)->setSelectable(true);
+
+        model3->item(i)->setEnabled(true);
+        model3->item(i)->setSelectable(true);
+    }
+
+    // Disable the first's index in the remaining lists
+    int currentIndex = ui->graph1Selection->currentIndex();
+    model2->item(currentIndex)->setEnabled(false);
+    model2->item(currentIndex)->setEnabled(false);
+    model3->item(currentIndex)->setEnabled(false);
+    model3->item(currentIndex)->setEnabled(false);
+
+    // Disable the second's index in the remaining lists
+    currentIndex = ui->graph2Selection->currentIndex();
+    model1->item(currentIndex)->setEnabled(false);
+    model1->item(currentIndex)->setSelectable(false);
+    model3->item(currentIndex)->setEnabled(false);
+    model3->item(currentIndex)->setEnabled(false);
+
+    // Disable the third's index in the remaining lists
+    currentIndex = ui->graph3Selection->currentIndex();
+    model1->item(currentIndex)->setEnabled(false);
+    model1->item(currentIndex)->setSelectable(false);
+    model2->item(currentIndex)->setEnabled(false);
+    model2->item(currentIndex)->setEnabled(false);
+
+    // Allow signals once modifications are made
+    ui->graph1Selection->blockSignals(false);
+    ui->graph2Selection->blockSignals(false);
+    ui->graph3Selection->blockSignals(false);
 }
 
 
@@ -306,9 +379,8 @@ void MainWindow::on_fastSim_clicked() {
 
 void MainWindow::on_graph1Selection_currentTextChanged(const QString &) {
     sim->mapChartViews();
+    disableComboBoxOptions();
     sim->renderCharts("ALL", true);
-
-    // TODO: update this to update enabled options when selection changes
 }
 
 
@@ -317,7 +389,24 @@ void MainWindow::on_graph1Selection_currentTextChanged(const QString &) {
 
 void MainWindow::on_graph2Selection_currentTextChanged(const QString &) {
     sim->mapChartViews();
+    disableComboBoxOptions();
     sim->renderCharts("ALL", true);
+}
 
-    // TODO: update this to update enabled options when selection changes
+
+//******************************************************************************
+
+
+void MainWindow::on_framesPerHourSlider_valueChanged(int value) {
+    ui->framesPerHour->setValue(value);
+    Simulation::FRAMES_PER_HOUR = value;
+}
+
+
+//******************************************************************************
+
+
+void MainWindow::on_framesPerHour_valueChanged(int arg1) {
+    ui->framesPerHourSlider->setValue(arg1);
+    Simulation::FRAMES_PER_HOUR = arg1;
 }

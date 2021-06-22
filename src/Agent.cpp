@@ -1,12 +1,13 @@
 #include <Headers/Agent.h>
 
-Agent::Agent(int age, Location* startingLocation, int behavior) {
+Agent::Agent(int age, Location* startingLocation, QString startingLocationString,
+             int behavior) {
     // Initialize the Agent's age
     this->age = age;
 
     // Set the Agent's position and place them at their starting location
     this->position = startingLocation->getPosition();
-    setDestination(startingLocation);
+    setDestination(startingLocation, startingLocationString);
 
     // Initialize a QRect to render the agent
     this->rect = new QGraphicsRectItem(this->position.getCoord(Coordinate::X),
@@ -74,14 +75,23 @@ void Agent::takeTimeStep() {
 //******************************************************************************
 
 
-void Agent::setDestination(Location *newLocation) {
+void Agent::setDestination(Location *newLocation, QString destinationType) {
 
     // Update the destination of the agent
     this->destination = newLocation->getPosition();
+    this->destinationString = destinationType;
 
     // Ensure the agent arrives in no more than 30 frames
     double dist = this->position.distBetween(this->destination);
     this->speed = std::max(static_cast<double>(BASE_SPEED), dist/30);
+}
+
+
+//******************************************************************************
+
+
+QString Agent::getDestinationString() {
+    return destinationString;
 }
 
 
@@ -150,6 +160,4 @@ int Agent::incrementAge() {
 //******************************************************************************
 
 
-Agent::~Agent() {
-    this->rect = nullptr;
-}
+Agent::~Agent() {}

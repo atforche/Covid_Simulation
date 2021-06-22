@@ -34,13 +34,12 @@ public:
      * @brief SquareRegion \n
      * Constructor for the SquareRegion Class. A Square
      * Region is a derived region that is represented by a QGraphicsRectItem.
-     * @param numLocations: the number of locations in the region
      * @param start: the Coordinate of the top-left corner of the region
      * @param height: the side length of the region
      * @param color: the QColor with which the region will be drawn
      * @param name: the name of the region
      */
-    SquareRegion(int numLocations, Coordinate start, int height,
+    SquareRegion(Coordinate start, int height,
                  QColor color, std::string name);
 
     /** Destructor for the SquareRegion Class*/

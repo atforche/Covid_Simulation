@@ -1,12 +1,15 @@
 #ifndef SIMULATION_H
 #define SIMULATION_H
 
-#include "QObject"
-
 #include <vector>
 #include <random>
 #include <map>
 #include <unordered_map>
+#include <algorithm>
+
+#include "QObject"
+#include "QMutexLocker"
+#include "QMutex"
 
 #include "ui_mainwindow.h"
 #include "AgentController.h"
@@ -25,7 +28,7 @@ class Simulation : public QObject {
     Q_OBJECT
 
 private:
-    /** a vector of every agent in the simulation */
+    /** A vector of every agent in the simulation */
     std::vector<Agent*> agents;
 
     /** Map of various debug information to be passed into the Simulation*/
@@ -38,7 +41,7 @@ private:
     Ui::MainWindow* ui;
 
     /** Integer containing the specified number of agents in the simulation */
-    int numAgents;
+    int initialNumAgents;
 
     /** Integer that stores the width of the Sims canvas*/
     int simWidth;
@@ -57,18 +60,24 @@ private:
     current day in the Sim*/
     int hour;
 
-    /** Number of frames that occur before a new hour begins */
-    static const int FRAMES_PER_HOUR = 60;
-
     /** Maps each distribution type to the Chart View(s) it appears in */
     std::unordered_map<QString, int>* chartViews;
-
-    // Default QGraphs to populate the QChartViews
-    static QtCharts::QChart* default1;
 
     /** Classes of all dynamic memory components for each graph */
     AgeChartHelper* ageHelper;
     BehaviorChartHelper* behaviorHelper;
+    DestinationChartHelper* destinationHelper;
+
+    /** Lock to provide mutual exclusion to the Agents Vector */
+    QMutex* agentLock;
+
+    /** Lock to provide mutual exclusion to the addQueue and removeQueue */
+    QMutex* queueLock;
+
+    /** Queue of QGraphicsItems to add or remove from the Screen. Enables
+    all operations on the screen to happen on one thread */
+    QVector<QGraphicsItem*> addQueue;
+    QVector<QGraphicsItem*> removeQueue;
 
     /**
      * @brief ageAgents \n
@@ -88,6 +97,9 @@ private:
     void addChartToView(QChart* chart, int num);
 
 public:
+
+    /** Number of frames that occur before a new hour begins */
+    static int FRAMES_PER_HOUR;
 
     /**
      * @brief Simulation:  \n
@@ -140,8 +152,24 @@ public:
      * Should be overridden by derived classes to customize assignment
      * process to the rules of the Simulation type
      */
-    virtual void generateAgents() = 0;
+    virtual void generateAgents(int num, bool birth = false) = 0;
 
+    /**
+     * @brief getRandomLocation \n
+     * Returns a pointer to a random location which type is determines by the
+     * which parameter
+     * @param which: the type of location pointer to return
+     * @return a pointer to a random location
+     */
+    virtual Location* getRandomLocation(Agent::LOCATIONS which) = 0;
+
+    /**
+     * @brief getNumLocations \n
+     * Getter function for the number of Locations that should reside in each
+     * region
+     * @return the number of locations per region as an int
+     */
+    int getNumLocations();
 
     /**
      * @brief addAgent \n
@@ -181,6 +209,23 @@ public:
     void advanceTime();
 
     /**
+     * @brief killAgent \n
+     * Function that handles killing an agent and deletes it from the
+     * Simulation. Deletes it from the overall Simulation as well as
+     * each underlying Location that the Agent belongs to.
+     * @param victim: the agent to be killed
+     * @param index: the index in the agents vector to kill
+     */
+    void killAgent(Agent* victim, int index);
+
+    /**
+     * @brief birthAgent \n
+     * Generate a single new agent with age zero. Assign it to a random set of
+     * locations, and add it into the simulation
+     */
+    void birthAgent();
+
+    /**
      * @brief clearScreen \n
      * Calls clear() on the drawing scene on which the simulation is being
      * displayed. Deletes the dynamic memory associated with every object
@@ -194,16 +239,6 @@ public:
      * agents from the simulation
      */
     void clearAgents();
-
-    /**
-     * @brief generateLocations \n
-     * Function that generates a set of Locations within the specified Region.
-     * Generates the number of locations specified in the UI. Ensures all
-     * locations generated sit within the bounds of the Region. Generated
-     * Locations will be automatically added into the Region
-     * @param region: the region to generate Locations for
-     */
-    void generateLocations(Region* region, int num);
 
     /**
      * @brief getSimHeight \n
@@ -222,11 +257,18 @@ public:
     int getSimWidth();
 
     /**
-     * @brief getNumAgents \n
-     * Getter function for the number of agents in the sim
+     * @brief getInitialNumAgents \n
+     * Getter function for the initial number of agents in the sim
      * @return the number of agents in the sim
      */
-    int getNumAgents();
+    int getInitialNumAgents();
+
+    /**
+     * @brief getCurrentNumAgents \n
+     * Getter function for the current number of agents in the Simulation
+     * @return the current number of Agents in the Simulation
+     */
+    int getCurrentNumAgents();
 
     /**
      * @brief getYear \n
@@ -300,6 +342,45 @@ public:
      */
     void renderBehaviorChart(bool newChartView);
 
+    /**
+     * @brief renderDesitnationChart \n
+     * Renders the Destination Chart visualization to the screen with the
+     * current Destination assignments of the Agents.
+     * @param newChartView: whether the Chart is being moved to a new view
+     */
+    void renderDestinationChart(bool newChartView);
+
+    /**
+     * @brief getAgentsLock \n
+     * Getter function for the lock that provides mutual exclusion to the
+     * Agents vector
+     * @return pointer to a QMutex
+     */
+    QMutex* getAgentsLock();
+
+    /**
+     * @brief getQueueLock \n
+     * Geter function for the lock that provides mutual exclusion to the
+     * Screen and its elements
+     * @return pointer to a QMutex
+     */
+    QMutex* getQueueLock();
+
+    /**
+     * @brief addToAddQueue \n
+     * Adds a QGraphicsItem* to the quene to be added to the screen. Acquires
+     * the addQueue lock.
+     * @param item: QGraphicsItem* to be added to the screen
+     */
+    void addToAddQueue(QGraphicsItem* item);
+
+    /**
+     * @brief addToRemoveQueue \n
+     * Adds a QGraphicsItem* to the queue to be removed from the screen. Acquires
+     * the removeQueue lock.
+     * @param item: QGrahpicsItem* to be removed from the screen
+     */
+    void addToRemoveQueue(QGraphicsItem* item);
 
 
 public slots:
