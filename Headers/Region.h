@@ -7,6 +7,7 @@
 
 #include "QColor"
 #include "QGraphicsItem"
+#include "Agent.h"
 
 // Forward declaration of Location class
 class Location;
@@ -31,6 +32,9 @@ private:
 
     /** a string representing the name of the region */
     std::string name;
+
+    /** the type of Locations that appear in this region */
+    Agent::LOCATIONS type;
 
 
 public:
@@ -62,9 +66,10 @@ public:
      * Region. Picks coordinates from a random distribution and ensures they
      * lie within the bounding rectangle of the region before creating a
      * location at that coordinate.
-     * @param num
+     * @param num: number of locations to generate
+     * @param type: type of locations to generate, either Simple or Economic
      */
-    void generateLocations(int num);
+    void generateLocations(int num, std::string type = "Simple");
 
     /**
      * @brief getNumLocations \n
@@ -122,5 +127,6 @@ public:
 
 // Rear includes to avoid circular dependency
 #include "Location.h"
+#include "EconomicLocation.h"
 
 #endif // REGION_H

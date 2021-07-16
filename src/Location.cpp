@@ -11,6 +11,12 @@ Location::Location(double x, double y) {
                 position.getCoord(Coordinate::Y) - (LOCATION_WIDTH/2),
                 LOCATION_WIDTH, LOCATION_WIDTH
                 );
+
+    // Update the border of the location
+    QPen temp = QPen(QColor(0,0,0));
+    temp.setWidthF(locationBorderWidth);
+
+    ellipse->setPen(temp);
 }
 
 
@@ -47,6 +53,17 @@ QGraphicsEllipseItem* Location::getGraphicsObject() {
 
 Coordinate Location::getPosition() {
     return this->position;
+}
+
+
+//******************************************************************************
+
+
+void Location::setColor(QColor color) {
+    QPen temp = QPen(color);
+    temp.setWidthF(locationBorderWidth);
+
+    ellipse->setPen(temp);
 }
 
 

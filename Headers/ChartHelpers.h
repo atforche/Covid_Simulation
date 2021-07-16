@@ -9,6 +9,8 @@
 #include "QBarCategoryAxis"
 
 #include "Agent.h"
+#include "Location.h"
+
 
 /**
  * @brief The AgeChartHelper class
@@ -77,7 +79,7 @@ public:
      * @param agents: the current set of agents in the simulation
      * @return a QChart* that points to the current AgeChart
      */
-    QtCharts::QChart* getAgeChart(std::vector<Agent*> *agents);
+    QtCharts::QChart* getChart(std::vector<Agent*> *agents);
 
     /**
      * @brief updateAgeChart \n
@@ -86,9 +88,12 @@ public:
      * this function can be called.
      * @param agents: the current set of agents in the simulation
      */
-    void updateAgeChart(std::vector<Agent*> *agents);
+    void updateChart(std::vector<Agent*> *agents);
 
 };
+
+
+//******************************************************************************
 
 
 /**
@@ -163,7 +168,7 @@ public:
      * @param numChildBehaviors: number of unique Child Behaviors
      * @return
      */
-    QtCharts::QChart* getBehaviorChart(std::vector<Agent*> *agents, int numAdultBehaviors, int numChildBehaviors);
+    QtCharts::QChart* getChart(std::vector<Agent*> *agents, int numAdultBehaviors, int numChildBehaviors);
 
     /**
      * @brief updateBehaviorChart \n
@@ -174,10 +179,13 @@ public:
      * @param numAdultBehaviors: number of unique Adult Behaviors
      * @param numChildBehaviors: number of unique Child Behaviors
      */
-    void updateBehaviorChart(std::vector<Agent*> *agents, int numAdultBehaviors, int numChildBehaviors);
+    void updateChart(std::vector<Agent*> *agents, int numAdultBehaviors, int numChildBehaviors);
 
 
 };
+
+
+//******************************************************************************
 
 
 /**
@@ -250,7 +258,7 @@ public:
      * @param agents: the current set of agents in the Simulation
      * @return
      */
-    QtCharts::QChart* getDestinationChart(std::vector<Agent*> *agents);
+    QtCharts::QChart* getChart(std::vector<Agent*> *agents);
 
     /**
      * @brief updateDestinationChart \n
@@ -259,7 +267,297 @@ public:
      * getDestinationChart first, before this can be called.
      * @param agents
      */
-    void updateDestinationChart(std::vector<Agent*> *agents);
+    void updateChart(std::vector<Agent*> *agents);
 };
+
+
+//******************************************************************************
+
+
+/**
+ * @brief roundToNearestHundred \n
+ * Rounds the provided number to the nearest hundred value
+ * @param n: number to be rounded
+ * @return the rounded number as an integer
+ */
+int roundToNearestHundred(double n);
+
+
+//******************************************************************************
+
+
+/**
+ * @brief The AgentValueChartHelper class
+ * Helper class that handles dynamic memory for the Agent Value Graph View.
+ * Offers a singleton abstraction for all dynamically allocated components of
+ * the graph, in order to prevent memory leaks
+ */
+class AgentValueChartHelper {
+
+private:
+
+    /** Pointers to each dynamic object in this graph view*/
+    QtCharts::QBarSet* barSet;
+    QtCharts::QBarSeries* series;
+    QtCharts::QChart* chart;
+    QtCharts::QBarCategoryAxis* xAxis;
+
+    /**
+     * @brief getNewBarSet \n
+     * Create a new QBarSet if one hasn't been initialized, otherwise reset the
+     * existing object
+     * @return a pointer to an unused QBarSet
+     */
+    QtCharts::QBarSet* getNewBarSet();
+
+    /**
+     * @brief getNewBarSeries \n
+     * Create a new QBarSeries if one hasn't been initialized, otherwise reset
+     * the existing object
+     * @return a pointer to an unused QBarSeries
+     */
+    QtCharts::QBarSeries* getNewBarSeries();
+
+    /**
+     * @brief getNewChart \n
+     * Create a new QChart if one hasn't been initialized, otherwise reset
+     * the existing object
+     * @return a pointer to an unusued QChart
+     */
+    QtCharts::QChart* getNewChart();
+
+    /**
+     * @brief getNewAxis \n
+     * Create a new QBarCategoryAxis if one hasn't been initalized, otherwise
+     * reset the existing object
+     * @return a pointer ot an unused QBarCategoryAxis
+     */
+    QtCharts::QBarCategoryAxis* getNewAxis();
+
+    /** Vector to track the bucket labels */
+    std::vector<QString> labels;
+
+    /** Vector to track the bucket thresholds */
+    std::vector<int> thresholds;
+
+public:
+
+    /**
+     * @brief AgeChartHelper \n
+     * Constructor for the AgeChartHelper class. Sets all pointers to nullptr.
+     * @param initialValue: initial integer value the Simulation starts with
+     */
+    AgentValueChartHelper(int initialValue);
+
+    /** Destructor for the AgeChartHelper Class. Cleans up all dynamic memory */
+    virtual ~AgentValueChartHelper();
+
+    /**
+     * @brief getAgeChart \n
+     * Returns a current pointer to the AgentValueChart. If the chart has not been
+     * created yet, initialize a new one and return it. Utilized to pass
+     * ownership of the chart to a new chartView
+     * @param agents: the current set of agents in the simulation
+     * @return a QChart* that points to the current AgeChart
+     */
+    QtCharts::QChart* getChart(std::vector<Agent*> *agents);
+
+    /**
+     * @brief updateAgeChart \n
+     * Updates the bars in the AgeChart to reflect the new Age Distribution
+     * of the agents. AgeChart must be initialized using getAgeChart() before
+     * this function can be called.
+     * @param agents: the current set of agents in the simulation
+     */
+    void updateChart(std::vector<Agent*> *agents);
+
+    /**
+     * @brief getThresholds \n
+     * Getter function for the different thresholds for the different buckets on
+     * the graph. Enables the simulation to dynamically color agents based on
+     * their economic value.
+     * @return
+     */
+    std::vector<int>& getThresholds();
+
+};
+
+
+//******************************************************************************
+
+
+/**
+ * @brief The WorkValueChartHelper class
+ * Helper class that handles dynamic memory for the Age Distribution Graph View.
+ * Offers a singleton abstraction for all dynamically allocated components of
+ * the graph, in order to prevent memory leaks
+ */
+class WorkValueChartHelper {
+
+private:
+
+    /** Pointers to each dynamic object in this graph view*/
+    QtCharts::QBarSet* barSet;
+    QtCharts::QBarSeries* series;
+    QtCharts::QChart* chart;
+    QtCharts::QBarCategoryAxis* xAxis;
+
+    /**
+     * @brief getNewBarSet \n
+     * Create a new QBarSet if one hasn't been initialized, otherwise reset the
+     * existing object
+     * @return a pointer to an unused QBarSet
+     */
+    QtCharts::QBarSet* getNewBarSet();
+
+    /**
+     * @brief getNewBarSeries \n
+     * Create a new QBarSeries if one hasn't been initialized, otherwise reset
+     * the existing object
+     * @return a pointer to an unused QBarSeries
+     */
+    QtCharts::QBarSeries* getNewBarSeries();
+
+    /**
+     * @brief getNewChart \n
+     * Create a new QChart if one hasn't been initialized, otherwise reset
+     * the existing object
+     * @return a pointer to an unusued QChart
+     */
+    QtCharts::QChart* getNewChart();
+
+    /**
+     * @brief getNewAxis \n
+     * Create a new QBarCategoryAxis if one hasn't been initalized, otherwise
+     * reset the existing object
+     * @return a pointer ot an unused QBarCategoryAxis
+     */
+    QtCharts::QBarCategoryAxis* getNewAxis();
+
+    /** Vector to track the bucket labels */
+    std::vector<QString> labels;
+
+    /** Vector to track the bucket thresholds */
+    std::vector<int> thresholds;
+
+public:
+
+    /**
+     * @brief AgeChartHelper \n
+     * Constructor for the AgeChartHelper class. Sets all pointers to nullptr.
+     * @param initialValue: initial integer value the simulation starts with
+     */
+    WorkValueChartHelper(int initialValue);
+
+    /** Destructor for the AgeChartHelper Class. Cleans up all dynamic memory */
+    virtual ~WorkValueChartHelper();
+
+    /**
+     * @brief getAgeChart \n
+     * Returns a current pointer to the WorkValueChart. If the chart has not been
+     * created yet, initialize a new one and return it. Utilized to pass
+     * ownership of the chart to a new chartView
+     * @param agents: the current set of agents in the simulation
+     * @return a QChart* that points to the current AgeChart
+     */
+    QtCharts::QChart* getChart(std::vector<Location*> *locations);
+
+    /**
+     * @brief updateAgeChart \n
+     * Updates the bars in the WorkValue Chart to reflect the new value
+     * distribution among work locations. Chart must be initialized using
+     * getChart() before this function can be called.
+     * @param locations: the current vector of locations in the simulation
+     */
+    void updateChart(std::vector<Location*> *locations);
+
+    /**
+     * @brief getThresholds \n
+     * Getter function for the different thresholds for the different buckets on
+     * the graph. Enables the simulation to dynamically color locations based on
+     * their economic value.
+     * @return
+     */
+    std::vector<int>& getThresholds();
+
+};
+
+
+//******************************************************************************
+
+
+class TotalValueChartHelper {
+
+private:
+
+    /** Pointers to each dynamic object in this graph view*/
+    QtCharts::QLineSeries* lineSeries;
+    QtCharts::QChart* chart;
+    QtCharts::QValueAxis* xAxis;
+    QtCharts::QValueAxis* yAxis;
+
+    /** Maximum and minimum values of the yAxis */
+    int maximum;
+    int minimum;
+
+    /**
+     * @brief getNewLineSeries \n
+     * Creates a new QLineSeries object if one hasn't been initialized, otherwise
+     * just returns a pointer the existing one.
+     * @return a pointer to a QLineSeries
+     */
+    QtCharts::QLineSeries* getNewLineSeries();
+
+    /**
+     * @brief getNewChart \n
+     * Creates a new QChart object if one hasn't been initialized, otherwise
+     * just returns a pointer to the existing one.
+     * @return a pointer to a QChart
+     */
+    QtCharts::QChart* getNewChart();
+
+    /**
+     * @brief getNewAxis \n
+     * Creates a new QValueAxis object if the specified one hasn't been
+     * initialized, otherwise just returns a pointer to the existing one
+     * @param which: "y" for the yAxis, "x" for the xAxis
+     * @return a pointer to a QValueAxis
+     */
+    QtCharts::QValueAxis* getNewAxis(std::string which);
+
+public:
+
+    /**
+     * @brief TotalValueChartHelper \n
+     * Constructor for the TotalValueChartHelper class. Initializes all pointers
+     * within the class to nullptr.
+     */
+    TotalValueChartHelper();
+
+    /**
+     * @brief getChart \n
+     * Returns a current pointer to the TotalValueChart. If the chart has not been
+     * created yet, initialize a new one and return it. Utilized to pass
+     * ownership of the chart to a new chartView
+     * @param totalValue: the current total value in the simulation
+     * @return a pointer to the Total Value Chart
+     */
+    QtCharts::QChart* getChart(int totalValue);
+
+    /**
+     * @brief updateChart
+     * Updates the bars in the Total Value Chart to reflect the new value
+     * across the entire simulation. Chart must be initialized using
+     * getChart() before this function can be called.
+     * @param totalValue: the current total value in the simulation
+     */
+    void updateChart(int totalValue);
+
+};
+
+// Includes to prevent circular dependencies
+#include "EconomicAgent.h"
+#include "EconomicLocation.h"
+
 
 #endif // CHARTHELPERS_H

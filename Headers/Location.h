@@ -5,6 +5,7 @@
 
 #include "QGraphicsEllipseItem"
 #include "QDebug"
+#include "ui_mainwindow.h"
 
 #include "Headers/Coordinate.h"
 
@@ -31,6 +32,9 @@ private:
 
     /** QGraphicsItem that represents this location on the screen */
     QGraphicsEllipseItem* ellipse;
+
+    /** Constant border width for rendering all locations */
+    const qreal locationBorderWidth = 1.5;
 
 public:
 
@@ -80,8 +84,15 @@ public:
      */
     Coordinate getPosition();
 
+    /**
+     * @brief setColor \n
+     * Update the color of the Location to a new color.
+     * @param color: QColor for the Location to be displayed as
+     */
+    void setColor(QColor color);
+
     /** Destructor for the location class */
-    ~Location();
+    virtual ~Location();
 
 };
 

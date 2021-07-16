@@ -47,35 +47,6 @@ void Simulation::ageAgents() {
 //******************************************************************************
 
 
-void Simulation::addChartToView(QChart* chart, int num) {
-    if (num == 0) {
-        QString title = ui->graphView1->chart()->title();
-        QtCharts::QChart* victim = ui->graphView1->chart();
-        ui->graphView1->setChart(chart);
-        if (title == "") {
-            delete victim;
-        }
-    } else if (num == 1) {
-        QString title = ui->graphView2->chart()->title();
-        QtCharts::QChart* victim = ui->graphView2->chart();
-        ui->graphView2->setChart(chart);
-        if (title == "") {
-            delete victim;
-        }
-    } else if (num == 2) {
-        QString title = ui->graphView3->chart()->title();
-        QtCharts::QChart* victim = ui->graphView3->chart();
-        ui->graphView3->setChart(chart);
-        if (title == "") {
-            delete victim;
-        }
-    }
-}
-
-
-//******************************************************************************
-
-
 Simulation::Simulation(int numAgents, Ui::MainWindow* ui,
                        std::map<std::string, bool> debug) {
 
@@ -142,7 +113,7 @@ Simulation::~Simulation() {
 
 
 int Simulation::getNumLocations() {
-    return ui->numAgents->value();
+    return ui->numLocations->value();
 }
 
 
@@ -351,7 +322,10 @@ void Simulation::mapChartViews() {
     static std::unordered_map<int, QString> indexMap = {
         {0, "AGE"},
         {1, "BEHAVIOR"},
-        {2, "DESTINATION"}
+        {2, "DESTINATION"},
+        {3, "AGENT VALUE"},
+        {4, "BUSINESS VALUE"},
+        {5, "TOTAL VALUE"}
     };
 
     // Delete the existing map to overwrite it
@@ -362,6 +336,9 @@ void Simulation::mapChartViews() {
     (*chartViews)["AGE"] = -1;
     (*chartViews)["BEHAVIOR"] = -1;
     (*chartViews)["DESTINATION"] = -1;
+    (*chartViews)["AGENT VALUE"] = -1;
+    (*chartViews)["BUSINESS VALUE"] = -1;
+    (*chartViews)["TOTAL VALUE"] = -1;
 
     QString graph = indexMap[ui->graph1Selection->currentIndex()];
     (*chartViews)[graph] = 0;
@@ -385,62 +362,37 @@ int Simulation::getChartView(QString type) {
 //******************************************************************************
 
 
-void Simulation::renderAgeChart(bool newChartView) {
-
+void Simulation::renderChartUpdates(QString which, bool newChartView) {
     // If the graph won't be displayed, don't create it
-    int graphView = (*chartViews)["AGE"];
+    int graphView = (*chartViews)[which];
     if (graphView == -1) {
         return;
     }
 
-    if (newChartView) {
-        QtCharts::QChart* chart = ageHelper->getAgeChart(&getAgents());
-        addChartToView(chart, graphView);
-    } else {
-        ageHelper->updateAgeChart(&getAgents());
-    }
-}
+    if (which == "AGE") {
+        if (newChartView) {
+            QtCharts::QChart* chart = ageHelper->getChart(&getAgents());
+            addChartToView(chart, graphView);
+        } else {
+            ageHelper->updateChart(&getAgents());
+        }
+    } else if (which == "BEHAVIOR") {
+        int numAdultBehaviors = getController()->getNumAdultBehaviors();
+        int numChildBehaviors = getController()->getNumChildBehaviors();
 
-
-//******************************************************************************
-
-
-void Simulation::renderBehaviorChart(bool newChartView) {
-
-    // If the graph won't be displayed, don't create it
-    int graphView = (*chartViews)["BEHAVIOR"];
-    if (graphView == -1) {
-        return;
-    }
-
-    int numAdultBehaviors = getController()->getNumAdultBehaviors();
-    int numChildBehaviors = getController()->getNumChildBehaviors();
-
-    if (newChartView) {
-        QtCharts::QChart* chart = behaviorHelper->getBehaviorChart(&getAgents(), numAdultBehaviors, numChildBehaviors);
-        addChartToView(chart, graphView);
-    } else {
-        behaviorHelper->updateBehaviorChart(&getAgents(), numAdultBehaviors, numChildBehaviors);
-    }
-}
-
-
-//******************************************************************************
-
-
-void Simulation::renderDestinationChart(bool newChartView) {
-
-    // If the graph won't be displayed, don't create it
-    int graphView = (*chartViews)["DESTINATION"];
-    if (graphView == -1) {
-        return;
-    }
-
-    if (newChartView) {
-        QtCharts::QChart* chart = destinationHelper->getDestinationChart(&getAgents());
-        addChartToView(chart, graphView);
-    } else {
-        destinationHelper->updateDestinationChart(&getAgents());
+        if (newChartView) {
+            QtCharts::QChart* chart = behaviorHelper->getChart(&getAgents(), numAdultBehaviors, numChildBehaviors);
+            addChartToView(chart, graphView);
+        } else {
+            behaviorHelper->updateChart(&getAgents(), numAdultBehaviors, numChildBehaviors);
+        }
+    } else if (which == "DESTINATION") {
+        if (newChartView) {
+            QtCharts::QChart* chart = destinationHelper->getChart(&getAgents());
+            addChartToView(chart, graphView);
+        } else {
+            destinationHelper->updateChart(&getAgents());
+        }
     }
 }
 
@@ -476,6 +428,43 @@ void Simulation::addToAddQueue(QGraphicsItem *item) {
 void Simulation::addToRemoveQueue(QGraphicsItem *item) {
     QMutexLocker lock(getQueueLock());
     removeQueue.push_back(item);
+}
+
+
+//******************************************************************************
+
+
+Ui::MainWindow* Simulation::getUI() {
+    return ui;
+}
+
+
+//******************************************************************************
+
+
+void Simulation::addChartToView(QChart* chart, int num) {
+    if (num == 0) {
+        QString title = ui->graphView1->chart()->title();
+        QtCharts::QChart* victim = ui->graphView1->chart();
+        ui->graphView1->setChart(chart);
+        if (title == "") {
+            delete victim;
+        }
+    } else if (num == 1) {
+        QString title = ui->graphView2->chart()->title();
+        QtCharts::QChart* victim = ui->graphView2->chart();
+        ui->graphView2->setChart(chart);
+        if (title == "") {
+            delete victim;
+        }
+    } else if (num == 2) {
+        QString title = ui->graphView3->chart()->title();
+        QtCharts::QChart* victim = ui->graphView3->chart();
+        ui->graphView3->setChart(chart);
+        if (title == "") {
+            delete victim;
+        }
+    }
 }
 
 

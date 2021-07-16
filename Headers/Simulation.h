@@ -87,15 +87,6 @@ private:
      */
     void ageAgents();
 
-    /**
-     * @brief addChartToView \n
-     * Takes the chart provided as input and updates the Chart for
-     * the designated chartView in the UI to the provided chart
-     * @param chart: the chart that should be visualized
-     * @param num: the ID of the chartView to update with the new chart
-     */
-    void addChartToView(QChart* chart, int num);
-
 public:
 
     /** Number of frames that occur before a new hour begins */
@@ -119,8 +110,9 @@ public:
      * @brief init \n
      * Function to initialize the simulation and screen components for the
      * specific simulation type. Needs to be overridden by derived classes
+     * @param type: the type of Locations to create, either Simple or Economic
      */
-    virtual void init() = 0;
+    virtual void init(std::string type = "Simple") = 0;
 
     /**
      * @brief execute \n
@@ -152,7 +144,7 @@ public:
      * Should be overridden by derived classes to customize assignment
      * process to the rules of the Simulation type
      */
-    virtual void generateAgents(int num, bool birth = false) = 0;
+    virtual void generateAgents(int num, bool birth = false, std::string type = "Simple") = 0;
 
     /**
      * @brief getRandomLocation \n
@@ -327,28 +319,12 @@ public:
     int getChartView(QString type);
 
     /**
-     * @brief renderAgeChart \n
-     * Renders the Age Distribution chart to the screen with the current
-     * age distribution of the agents in the simulation
-     * @param newChartView: whether the Chart is being moved to a new view
+     * @brief renderChartUpdates \n
+     * Dispatch function to update a specific chart on the UI
+     * @param which: specific chart that needs to be updated
+     * @param newChartView: whether the chart is being moved to a new view
      */
-    void renderAgeChart(bool newChartView);
-
-    /**
-     * @brief renderBehaviorChart \n
-     * Renders the Behavior Chart visualization to the screen with the current
-     * behavior assignments of the Agents.
-     * @param newChartView: whether the Chart is being moved to a new view
-     */
-    void renderBehaviorChart(bool newChartView);
-
-    /**
-     * @brief renderDesitnationChart \n
-     * Renders the Destination Chart visualization to the screen with the
-     * current Destination assignments of the Agents.
-     * @param newChartView: whether the Chart is being moved to a new view
-     */
-    void renderDestinationChart(bool newChartView);
+    virtual void renderChartUpdates(QString which, bool newChartView);
 
     /**
      * @brief getAgentsLock \n
@@ -382,6 +358,32 @@ public:
      */
     void addToRemoveQueue(QGraphicsItem* item);
 
+    /**
+     * @brief getRegion \n
+     * Virtual method for getting a specific region from the Simulation. Must be
+     * overridden by inheriting classes
+     * @param which: which Region to return
+     * @return a pointer to the specified region
+     */
+    virtual Region* getRegion(Agent::LOCATIONS which) = 0;
+
+    /**
+     * @brief getUI \n
+     * Getter function for the UI that the simulation controls. Enables the
+     * simulation to directly manipulate the screen.
+     * @return a pointer to the UI on the screen
+     */
+    Ui::MainWindow* getUI();
+
+    /**
+     * @brief addChartToView \n
+     * Takes the chart provided as input and updates the Chart for
+     * the designated chartView in the UI to the provided chart
+     * @param chart: the chart that should be visualized
+     * @param num: the ID of the chartView to update with the new chart
+     */
+    void addChartToView(QChart* chart, int num);
+
 
 public slots:
     /**
@@ -390,7 +392,7 @@ public slots:
      * Called by the SimulationController when the SimulationWorker has
      * completed an iteration of the Simulation's execution
      */
-    void renderAgentUpdate();
+    virtual void renderAgentUpdate();
 
     /**
      * @brief renderCharts \n
@@ -408,7 +410,6 @@ signals:
      * Enables any of the charts to be updated dynamically.
      */
     void updateChart(const QString &which, bool newChartView);
-
 
 };
 

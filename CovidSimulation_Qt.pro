@@ -12,6 +12,10 @@ CONFIG += c++11
 SOURCES += \
     src/AgentController.cpp \
     src/ChartHelpers.cpp \
+    src/EconomicAgent.cpp \
+    src/EconomicController.cpp \
+    src/EconomicLocation.cpp \
+    src/EconomicSimulation.cpp \
     src/mainwindow.cpp \
     src/Agent.cpp \
     src/Coordinate.cpp \
@@ -25,6 +29,10 @@ SOURCES += \
 
 HEADERS += \
     Headers/AgentController.h \
+    Headers/EconomicAgent.h \
+    Headers/EconomicController.h \
+    Headers/EconomicLocation.h \
+    Headers/EconomicSimulation.h \
     Headers/mainwindow.h \
     Headers/Agent.h \
     Headers/Coordinate.h \

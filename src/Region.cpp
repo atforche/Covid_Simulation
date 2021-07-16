@@ -5,6 +5,16 @@ Region::Region(QColor color, std::string name) {
     locations = std::vector<Location*>();
     this->color = color;
     this->name = name;
+
+    if (name == "Home") {
+        type = Agent::HOME;
+    } else if (name == "Leisure") {
+        type = Agent::LEISURE;
+    } else if (name == "School") {
+        type = Agent::SCHOOL;
+    } else if (name == "Work") {
+        type = Agent::WORK;
+    }
 }
 
 
@@ -19,7 +29,7 @@ std::vector<Location*>& Region::getLocations() {
 //******************************************************************************
 
 
-void Region::generateLocations(int num) {
+void Region::generateLocations(int num, std::string type) {
     // Get the boundary of the region and the GraphicsObject
     QRectF regionBound = getGraphicsObject()->boundingRect();
     QGraphicsItem* regionGraphics = getGraphicsObject();
@@ -49,7 +59,13 @@ void Region::generateLocations(int num) {
             QPointF check(randx + regionGraphics->boundingRect().topLeft().x(),
                           randy + regionGraphics->boundingRect().topLeft().y());
             if (regionGraphics->boundingRect().contains(check)) {
-                locations.push_back(new Location(check.x(), check.y()));
+                if (type == "Simple") {
+                    locations.push_back(new Location(check.x(), check.y()));
+                } else if (type == "Economic") {
+                    locations.push_back(new EconomicLocation(check.x(),
+                                                             check.y(),
+                                                             this->type));
+                }
                 break;
             }
         }
@@ -62,7 +78,7 @@ void Region::generateLocations(int num) {
 
 
 int Region::getNumLocations() {
-    return this->numLocations;
+    return static_cast<int>(locations.size());
 }
 
 

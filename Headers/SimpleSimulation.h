@@ -58,8 +58,9 @@ public:
      * Renders all the Regions and Locations and add all of them to the
      * QGraphicsScene. Also generates the agents in the Sim, assigns each of
      * them to a set of Locations, and renders each of them to the QGraphicsScene
+     * @param type: the type of Location to generate, either Simple or Economic
      */
-    virtual void init() override;
+    virtual void init(std::string type = "Simple") override;
 
     /**
      * @brief execute \n
@@ -91,8 +92,9 @@ public:
      * Function to generate agents and assign them to behaviors and locations.
      * Currently, randomly assign agents with ages, behaviors, and locations.
      * @param num: number of agents to generate
+     * @param type: the type of agent to generate, either "Simple" or "Economic"
      */
-    virtual void generateAgents(int num, bool birth = false) override;
+    virtual void generateAgents(int num, bool birth = false, std::string type = "Simple") override;
 
     /**
      * @brief getRandomLocation \n
@@ -102,6 +104,15 @@ public:
      * @return a pointer to a random location
      */
     virtual Location* getRandomLocation(Agent::LOCATIONS which) override;
+
+    /**
+     * @brief getRegion \n
+     * Virtual method for getting a specific region from the Simulation. Must be
+     * overridden by inheriting classes
+     * @param which: which Region to return
+     * @return a pointer to the specified region
+     */
+    virtual Region* getRegion(Agent::LOCATIONS which) override;
 
 public slots:
 

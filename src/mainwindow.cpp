@@ -1,4 +1,6 @@
 #include "Headers/mainwindow.h"
+#include "Headers/SimpleSimulation.h"
+#include "Headers/EconomicSimulation.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -35,8 +37,10 @@ MainWindow::MainWindow(QWidget *parent)
     // Initialize each of the Main Window's Combo Boxes
     initializeComboBoxes();
 
-    // Disable the UI buttons that should be disabled to begin
+    // Enable the UI buttons that should be enabled to begin
     enableUI();
+    showEconomicOptions(false);
+
 }
 
 
@@ -80,6 +84,11 @@ void MainWindow::disableUI() {
     ui->slowSim->setEnabled(true);
     ui->pauseSim->setEnabled(true);
     ui->fastSim->setEnabled(true);
+
+    // Handle simulation specific options
+    if (ui->simulationType->currentText() == "Economic Simulation") {
+        enableEconomicOptions(false);
+    }
 }
 
 
@@ -114,6 +123,99 @@ void MainWindow::enableUI() {
     ui->day->setText("0");
     ui->hour->setText("0");
     ui->speed->setText("Normal");
+
+    // Handle simulation specific options
+    if (ui->simulationType->currentText() == "Economic Simulation") {
+        enableEconomicOptions(true);
+    }
+}
+
+
+//******************************************************************************
+
+
+void MainWindow::showEconomicOptions(bool show) {
+    enableEconomicOptions(false);
+    ui->economicOptions->setVisible(show);
+    ui->initialValue->setVisible(show);
+    ui->initialValueLabel->setVisible(show);
+    ui->initialValueSlider->setVisible(show);
+    ui->currentValue->setVisible(show);
+    ui->currentValueLabel->setVisible(show);
+}
+
+
+//******************************************************************************
+
+
+void MainWindow::enableEconomicOptions(bool enabled) {
+    ui->economicOptions->setEnabled(enabled);
+    ui->initialValue->setEnabled(enabled);
+    ui->initialValueLabel->setEnabled(enabled);
+    ui->initialValueSlider->setEnabled(enabled);
+}
+
+
+//******************************************************************************
+
+
+void MainWindow::enableEconomicCharts(bool enabled) {
+
+    // Block signals while working on the ComboBoxes
+    ui->graph1Selection->blockSignals(true);
+    ui->graph2Selection->blockSignals(true);
+    ui->graph3Selection->blockSignals(true);
+
+    if (enabled) {
+        // Add the Economic Charts to each Combo Box
+        ui->graph1Selection->addItem("Agent Value");
+        ui->graph1Selection->addItem("Business Value");
+        ui->graph1Selection->addItem("Total Value");
+
+        ui->graph2Selection->addItem("Agent Value");
+        ui->graph2Selection->addItem("Business Value");
+        ui->graph2Selection->addItem("Total Value");
+
+        ui->graph3Selection->addItem("Agent Value");
+        ui->graph3Selection->addItem("Business Value");
+        ui->graph3Selection->addItem("Total Value");
+
+        // Apply the default Chart config for the Economic Simulation
+        ui->graph1Selection->setCurrentIndex(5);
+        ui->graph2Selection->setCurrentIndex(3);
+        ui->graph3Selection->setCurrentIndex(4);
+
+    } else {
+        // Avoid removing items if items don't need to be removed
+        if (ui->graph1Selection->count() == 6) {
+            // Add the Economic Charts to each Combo Box
+            ui->graph1Selection->removeItem(3);
+            ui->graph1Selection->removeItem(4);
+            ui->graph1Selection->removeItem(5);
+
+            ui->graph2Selection->removeItem(3);
+            ui->graph2Selection->removeItem(4);
+            ui->graph1Selection->removeItem(5);
+
+            ui->graph3Selection->removeItem(3);
+            ui->graph3Selection->removeItem(4);
+            ui->graph1Selection->removeItem(5);
+
+            // Apply the default Chart config for the Economic Simulation
+            ui->graph1Selection->setCurrentIndex(0);
+            ui->graph2Selection->setCurrentIndex(1);
+            ui->graph3Selection->setCurrentIndex(2);
+        }
+
+    }
+
+    // Re-enable signals while working on the ComboBoxes
+    ui->graph1Selection->blockSignals(false);
+    ui->graph2Selection->blockSignals(false);
+    ui->graph3Selection->blockSignals(false);
+
+    // Update which options are enabled and disabled
+    disableComboBoxOptions();
 }
 
 
@@ -121,11 +223,6 @@ void MainWindow::enableUI() {
 
 
 void MainWindow::initializeComboBoxes() {
-
-    // Define the values for the simulationTypes dropdown
-    QStringList simulationTypes;
-    simulationTypes.append("Simple Simulation");
-    ui->simulationType->addItems(simulationTypes);
 
     // Define the values for the Graph1Selection dropdowns
     QStringList chartTypes(graphViews.begin(), graphViews.end());
@@ -148,6 +245,12 @@ void MainWindow::initializeComboBoxes() {
     ui->graph1Selection->blockSignals(false);
     ui->graph2Selection->blockSignals(false);
     ui->graph3Selection->blockSignals(false);
+
+    // Define the values for the simulationTypes dropdown
+    QStringList simulationTypes;
+    simulationTypes.append("Simple Simulation");
+    simulationTypes.append("Economic Simulation");
+    ui->simulationType->addItems(simulationTypes);
 
     // Disable the current selections in the other dropdowns
     disableComboBoxOptions();
@@ -236,7 +339,13 @@ void MainWindow::on_runSimulation_clicked() {
 
     // Delete and reinitialize the simulation so the changes take effect
     delete sim;
-    sim = new SimpleSimulation(ui->numAgents->value(), ui, checkDebugInfo());
+    if (ui->simulationType->currentText() == "Simple Simulation") {
+        sim = new SimpleSimulation(ui->numAgents->value(), ui, checkDebugInfo());
+    } else if (ui->simulationType->currentText() == "Economic Simulation") {
+        sim = new EconomicSimulation(ui->initialValueSlider->value(),
+                                     ui->numAgents->value(), ui,
+                                     checkDebugInfo());
+    }
     sim->init();
 
     // Update the charts on the main window (non-dynamic for now)
@@ -259,7 +368,7 @@ void MainWindow::on_runSimulation_clicked() {
 
 void MainWindow::on_resetSimulation_clicked() {
     // Have the controller stop the simulation
-    this->controller->pauseSimulation();
+    this->controller->pauseSimulation(true);
 
     // Update the UI as needed
     ui->mainCanvas->scene()->clear();
@@ -409,4 +518,49 @@ void MainWindow::on_framesPerHourSlider_valueChanged(int value) {
 void MainWindow::on_framesPerHour_valueChanged(int arg1) {
     ui->framesPerHourSlider->setValue(arg1);
     Simulation::FRAMES_PER_HOUR = arg1;
+}
+
+
+//******************************************************************************
+
+
+void MainWindow::on_simulationType_currentTextChanged(const QString &arg1) {
+    if (arg1 == "Simple Simulation") {
+        delete sim;
+        this->sim = new SimpleSimulation(0, ui, std::map<std::string, bool>());
+
+        // Remove the ComboBox options for the Economic charts
+        enableEconomicCharts(false);
+
+        // Disable the economic options from the screen
+        showEconomicOptions(false);
+        enableUI();
+
+    } else if (arg1 == "Economic Simulation") {
+        delete sim;
+        this->sim = new EconomicSimulation(0, 0, ui, std::map<std::string, bool>());
+
+        // Add the ComboBox options for the Economic charts
+        enableEconomicCharts(true);
+
+        // Enable the economic options to the screen
+        showEconomicOptions(true);
+        enableUI();
+    }
+}
+
+
+//******************************************************************************
+
+
+void MainWindow::on_initialValue_valueChanged(int arg1) {
+    ui->initialValueSlider->setValue(arg1);
+}
+
+
+//*****************************************************************************
+
+
+void MainWindow::on_initialValueSlider_valueChanged(int arg1) {
+    ui->initialValue->setValue(arg1);
 }

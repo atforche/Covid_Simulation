@@ -111,6 +111,26 @@ Location* Agent::getLocation(LOCATIONS which) {
 }
 
 
+//******************************************************************************
+
+
+Location* Agent::getCurrentLocation() {
+    if (destinationString == "Home") {
+        return getLocation(Agent::HOME);
+    } else if (destinationString == "Work") {
+        return getLocation(Agent::WORK);
+    } else if (destinationString == "Leisure") {
+        return getLocation(Agent::LEISURE);
+    } else if (destinationString == "School") {
+        return getLocation(Agent::SCHOOL);
+    }
+    return nullptr;
+}
+
+
+//******************************************************************************
+
+
 Coordinate Agent::getPosition() {
     return this->position;
 }
@@ -154,6 +174,14 @@ int Agent::getAge() {
 int Agent::incrementAge() {
     this->age++;
     return this->age;
+}
+
+
+//******************************************************************************
+
+
+void Agent::setColor(QColor color) {
+    rect->setPen(color);
 }
 
 

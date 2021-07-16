@@ -7,14 +7,14 @@
 #include <unordered_map>
 
 #include "QMainWindow"
-#include "ui_mainwindow.h"
 #include "QGraphicsRectItem"
 #include "QtTest/QTest"
 #include "QJsonDocument"
 #include "QJsonObject"
 
-#include "Headers/SimpleSimulation.h"
+#include "ui_mainwindow.h"
 #include "Headers/ThreadExecution.h"
+#include "Headers/SimpleSimulation.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -83,6 +83,36 @@ public:
      * between Simulation executions
      */
     void enableUI();
+
+    /**
+     * @brief showEconomicOptions \n
+     * Function that makes the options relevant to the Economic Simulation type
+     * appear or disappear from the screen. Disables them all immediately after
+     * they are shown or hidden. Options can be enabled with a call to
+     * enableEconomicOptions.
+     * @param show: whether to show or hide the economic options
+     */
+    void showEconomicOptions(bool show);
+
+    /**
+     * @brief enableEconomicOptions \n
+     * Function that enables and disables all of the options relevant to the
+     * Economic Simulation type. Status the options will be set to is determined
+     * by the function parameter.
+     * @param enabled: whether to enable or disable to economic options
+     */
+    void enableEconomicOptions(bool enabled);
+
+    /**
+     * @brief showEconomicCharts \n
+     * Function to enable or disable the economic charts. If the economic charts
+     * are enabled, the options will appear in the ComboBoxes and the default
+     * chart views for the Economic Simulation will be applied. If the economic
+     * charts are disabled, the options will be removed in the Combo Boxes and
+     * the default chart views for the Simple Simulation will be applied
+     * @param enabled: whether to enable or disable to Economic charts
+     */
+    void enableEconomicCharts(bool enabled);
 
     /**
      * @brief initializeComboBoxes \n
@@ -221,5 +251,31 @@ private slots:
      */
     void on_framesPerHour_valueChanged(int arg1);
 
+    /**
+     * @brief on_simulationType_currentTextChanged \n
+     * Event handler for when the ComboBox value for the SimulationType Combobox
+     * changes. Updates the current Simulation Type, creates a new Simulation,
+     * and shows/hides the correct screen options.
+     * @param arg1: the new Simulation Type
+     */
+    void on_simulationType_currentTextChanged(const QString &arg1);
+
+    /**
+     * @brief on_initialValue_valueChanged \n
+     * Event handler for when the SpinBox for the Initial Value changes. Updates
+     * the value in the slider to keep them in sync.
+     * @param arg1: the new value of the SpinBox
+     */
+    void on_initialValue_valueChanged(int arg1);
+
+    /**
+     * @brief on_initialValueSlider_valueChanged \n
+     * Event handler for when the Slider for the Initial Value changes. Updates
+     * the value in the SpinBox to keep them in sync.
+     * @param arg1: the new value of the slider
+     */
+    void on_initialValueSlider_valueChanged(int arg1);
+
 };
+
 #endif // MAINWINDOW_H

@@ -97,10 +97,10 @@ AgeChartHelper::~AgeChartHelper() {
 //******************************************************************************
 
 
-QtCharts::QChart* AgeChartHelper::getAgeChart(std::vector<Agent *> *agents) {
+QtCharts::QChart* AgeChartHelper::getChart(std::vector<Agent*> *agents) {
 
     // Create an updated BarSet with counts
-    updateAgeChart(agents);
+    updateChart(agents);
 
     // Initialize a QBarSeries to hold a group of QBarSets
     getNewBarSeries();
@@ -122,7 +122,7 @@ QtCharts::QChart* AgeChartHelper::getAgeChart(std::vector<Agent *> *agents) {
 //******************************************************************************
 
 
-void AgeChartHelper::updateAgeChart(std::vector<Agent *> *agents) {
+void AgeChartHelper::updateChart(std::vector<Agent *> *agents) {
     // Iniailize a vector to store the count in each bucket
     std::vector<int> counts(10, 0);
 
@@ -245,10 +245,10 @@ BehaviorChartHelper::~BehaviorChartHelper() {
 //******************************************************************************
 
 
-QtCharts::QChart* BehaviorChartHelper::getBehaviorChart(std::vector<Agent *> *agents, int numAdultBehaviors, int numChildBehaviors) {
+QtCharts::QChart* BehaviorChartHelper::getChart(std::vector<Agent *> *agents, int numAdultBehaviors, int numChildBehaviors) {
 
     // Create a new vector of QBarSets with the counts
-    updateBehaviorChart(agents, numAdultBehaviors, numChildBehaviors);
+    updateChart(agents, numAdultBehaviors, numChildBehaviors);
 
     // Create a QBarSeries to group the bars together
     getNewBarSeries();
@@ -270,7 +270,7 @@ QtCharts::QChart* BehaviorChartHelper::getBehaviorChart(std::vector<Agent *> *ag
 //******************************************************************************
 
 
-void BehaviorChartHelper::updateBehaviorChart(std::vector<Agent *> *agents, int numAdultBehaviors, int numChildBehaviors) {
+void BehaviorChartHelper::updateChart(std::vector<Agent *> *agents, int numAdultBehaviors, int numChildBehaviors) {
     // Initialize vectors to store the count of each behavior
     std::vector<int> adultCounts(numAdultBehaviors, 0);
     std::vector<int> childCounts(numChildBehaviors, 0);
@@ -393,9 +393,9 @@ DestinationChartHelper::~DestinationChartHelper() {
 //******************************************************************************
 
 
-QtCharts::QChart* DestinationChartHelper::getDestinationChart(std::vector<Agent *> *agents) {
+QtCharts::QChart* DestinationChartHelper::getChart(std::vector<Agent *> *agents) {
     // Create an updated BarSet with counts
-    updateDestinationChart(agents);
+    updateChart(agents);
 
     // Initialize a QBarSeries to hold a group of QBarSets
     getNewBarSeries();
@@ -417,7 +417,7 @@ QtCharts::QChart* DestinationChartHelper::getDestinationChart(std::vector<Agent 
 //******************************************************************************
 
 
-void DestinationChartHelper::updateDestinationChart(std::vector<Agent *> *agents) {
+void DestinationChartHelper::updateChart(std::vector<Agent *> *agents) {
 
     // Initialize a map to track the counts for each destination
     std::unordered_map<QString, int> destinationCounts;
@@ -441,6 +441,474 @@ void DestinationChartHelper::updateDestinationChart(std::vector<Agent *> *agents
 }
 
 
+//******************************************************************************
 
 
+int roundToNearestHundred(double n) {
+    return ((n + 50) / 100) * 100;
+}
+
+
+//******************************************************************************
+
+
+QtCharts::QBarSet* AgentValueChartHelper::getNewBarSet() {
+    if (barSet == nullptr) {
+        barSet = new QtCharts::QBarSet("Counts");
+    } else {
+        while (barSet->count() > 0) {
+            barSet->remove(0);
+        }
+    }
+
+    return barSet;
+}
+
+
+//******************************************************************************
+
+
+QtCharts::QBarSeries* AgentValueChartHelper::getNewBarSeries() {
+    if (series == nullptr) {
+        series = new QtCharts::QBarSeries();
+        series->append(barSet);
+        series->attachAxis(xAxis);
+    }
+
+    return series;
+}
+
+
+//******************************************************************************
+
+
+QtCharts::QChart* AgentValueChartHelper::getNewChart() {
+    if (chart == nullptr) {
+        chart = new QtCharts::QChart();
+        chart->createDefaultAxes();
+        chart->addSeries(series);
+        chart->setTitle("Agent Values");
+        chart->addAxis(xAxis, Qt::AlignBottom);
+    }
+
+    return chart;
+}
+
+
+//******************************************************************************
+
+
+QtCharts::QBarCategoryAxis* AgentValueChartHelper::getNewAxis() {
+    if (xAxis == nullptr) {
+        xAxis = new QtCharts::QBarCategoryAxis();
+        xAxis->append(labels[0]);
+        xAxis->append(labels[1]);
+        xAxis->append(labels[2]);
+        xAxis->append(labels[3]);
+        xAxis->append(labels[4]);
+    }
+
+    return xAxis;
+}
+
+
+//******************************************************************************
+
+
+AgentValueChartHelper::AgentValueChartHelper(int initialValue) {
+
+    // Initialze pointers to nullptr
+    barSet = nullptr;
+    series = nullptr;
+    chart = nullptr;
+    xAxis = nullptr;
+
+    // Establish the thresholds for each graph bucket
+    int initialAgentValue = initialValue / 2;
+    thresholds = std::vector<int>();
+    thresholds.push_back(0); // Zero will always be the baseline
+    thresholds.push_back(roundToNearestHundred(initialAgentValue * 0.025)); // 2.5% of initial business value
+    thresholds.push_back(roundToNearestHundred(initialAgentValue * 0.05)); // 5% of initial business value
+    thresholds.push_back(roundToNearestHundred(initialAgentValue * 0.100)); // 10% of initial business value
+
+    // Convert each threshold into a label
+    labels = std::vector<QString>();
+    labels.push_back("$0");
+    for (size_t i = 1; i < thresholds.size(); ++i) {
+        labels.push_back("$" + QString::number(thresholds[i-1]) + "-$" +
+                QString::number(thresholds[i]));
+    }
+    labels.push_back(">$" + QString::number(thresholds.back()));
+}
+
+
+//******************************************************************************
+
+
+AgentValueChartHelper::~AgentValueChartHelper() {
+
+    delete barSet;
+    delete series;
+    delete xAxis;
+    delete chart;
+
+}
+
+
+//******************************************************************************
+
+
+QtCharts::QChart* AgentValueChartHelper::getChart(std::vector<Agent *> *agents) {
+    // Create an updated BarSet with counts
+    updateChart(agents);
+
+    // Initialize a QBarSeries to hold a group of QBarSets
+    getNewBarSeries();
+
+    // Create an xAxis that includes each age bucket
+    getNewAxis();
+
+    // Initialize the QChart and give it a series
+    QtCharts::QChart* chart = getNewChart();
+
+    // Create the legend
+    chart->legend()->setVisible(true);
+    chart->legend()->setAlignment(Qt::AlignBottom);
+
+    return chart;
+}
+
+
+//******************************************************************************
+
+
+void AgentValueChartHelper::updateChart(std::vector<Agent *> *agents) {
+
+    // Initialize a map to track the counts for each destination
+    std::vector<int> valueCounts(5, 0);
+
+    // Update the count for each agent
+    for (size_t i = 0; i < agents->size(); ++i) {
+        EconomicAgent* agent = dynamic_cast<EconomicAgent*>(agents->at(i));
+        int agentValue = agent->getValue();
+
+        if (agentValue  == 0) {
+            valueCounts[0]++;
+        } else if (agentValue < thresholds[1]) {
+            valueCounts[1]++;
+        } else if (agentValue < thresholds[2]) {
+            valueCounts[2]++;
+        } else if (agentValue < thresholds[3]) {
+            valueCounts[3]++;
+        } else {
+            valueCounts[4]++;
+        }
+    }
+
+    // Update the QBarSet
+    QtCharts::QBarSet* bars = getNewBarSet();
+    bars->append(valueCounts[0]);
+    bars->append(valueCounts[1]);
+    bars->append(valueCounts[2]);
+    bars->append(valueCounts[3]);
+    bars->append(valueCounts[4]);
+}
+
+
+//******************************************************************************
+
+
+std::vector<int>& AgentValueChartHelper::getThresholds() {
+    return this->thresholds;
+}
+
+
+//******************************************************************************
+
+
+QtCharts::QBarSet* WorkValueChartHelper::getNewBarSet() {
+    if (barSet == nullptr) {
+        barSet = new QtCharts::QBarSet("Counts");
+    } else {
+        while (barSet->count() > 0) {
+            barSet->remove(0);
+        }
+    }
+
+    return barSet;
+}
+
+
+//******************************************************************************
+
+
+QtCharts::QBarSeries* WorkValueChartHelper::getNewBarSeries() {
+    if (series == nullptr) {
+        series = new QtCharts::QBarSeries();
+        series->append(barSet);
+        series->attachAxis(xAxis);
+    }
+
+    return series;
+}
+
+
+//******************************************************************************
+
+
+QtCharts::QChart* WorkValueChartHelper::getNewChart() {
+    if (chart == nullptr) {
+        chart = new QtCharts::QChart();
+        chart->createDefaultAxes();
+        chart->addSeries(series);
+        chart->setTitle("Business Values");
+        chart->addAxis(xAxis, Qt::AlignBottom);
+    }
+
+    return chart;
+}
+
+
+//******************************************************************************
+
+
+QtCharts::QBarCategoryAxis* WorkValueChartHelper::getNewAxis() {
+    if (xAxis == nullptr) {
+        xAxis = new QtCharts::QBarCategoryAxis();
+        xAxis->append(labels[0]);
+        xAxis->append(labels[1]);
+        xAxis->append(labels[2]);
+        xAxis->append(labels[3]);
+        xAxis->append(labels[4]);
+    }
+
+    return xAxis;
+}
+
+
+//******************************************************************************
+
+
+WorkValueChartHelper::WorkValueChartHelper(int initialValue) {
+
+    // Initialize pointers to nullptr
+    barSet = nullptr;
+    series = nullptr;
+    chart = nullptr;
+    xAxis = nullptr;
+
+    // Establish the thresholds for each graph bucket
+    int initialBusinessValue = initialValue / 2;
+    thresholds = std::vector<int>();
+    thresholds.push_back(0); // Zero will always be the baseline
+    thresholds.push_back(roundToNearestHundred(initialBusinessValue * 0.025)); // 2.5% of initial business value
+    thresholds.push_back(roundToNearestHundred(initialBusinessValue * 0.05)); // 5% of initial business value
+    thresholds.push_back(roundToNearestHundred(initialBusinessValue * 0.100)); // 10% of initial business value
+
+    // Convert each threshold into a label
+    labels = std::vector<QString>();
+    labels.push_back("$0");
+    for (size_t i = 1; i < thresholds.size(); ++i) {
+        labels.push_back("$" + QString::number(thresholds[i-1]) + "-$" +
+                QString::number(thresholds[i]));
+    }
+    labels.push_back(">$" + QString::number(thresholds.back()));
+}
+
+
+//******************************************************************************
+
+
+WorkValueChartHelper::~WorkValueChartHelper() {
+
+    delete barSet;
+    delete series;
+    delete xAxis;
+    delete chart;
+}
+
+
+//******************************************************************************
+
+
+QtCharts::QChart* WorkValueChartHelper::getChart(std::vector<Location*> *locations) {
+    // Create an updated BarSet with counts
+    updateChart(locations);
+
+    // Initialize a QBarSeries to hold a group of QBarSets
+    getNewBarSeries();
+
+    // Create an xAxis that includes each age bucket
+    getNewAxis();
+
+    // Initialize the QChart and give it a series
+    QtCharts::QChart* chart = getNewChart();
+
+    // Create the legend
+    chart->legend()->setVisible(true);
+    chart->legend()->setAlignment(Qt::AlignBottom);
+
+    return chart;
+}
+
+
+//******************************************************************************
+
+
+void WorkValueChartHelper::updateChart(std::vector<Location*> *locations) {
+
+    // Initialize a map to track the counts for each destination
+    std::vector<int> valueCounts(5, 0);
+
+    // Update the count for each agent
+    for (size_t i = 0; i < locations->size(); ++i) {
+        EconomicLocation* location = dynamic_cast<EconomicLocation*>(locations->at(i));
+        int locationValue = location->getValue();
+
+        if (locationValue  == 0) {
+            valueCounts[0]++;
+        } else if (locationValue < thresholds[1]) {
+            valueCounts[1]++;
+        } else if (locationValue < thresholds[2]) {
+            valueCounts[2]++;
+        } else if (locationValue < thresholds[3]) {
+            valueCounts[3]++;
+        } else {
+            valueCounts[4]++;
+        }
+    }
+
+    // Update the QBarSet
+    QtCharts::QBarSet* bars = getNewBarSet();
+    bars->append(valueCounts[0]);
+    bars->append(valueCounts[1]);
+    bars->append(valueCounts[2]);
+    bars->append(valueCounts[3]);
+    bars->append(valueCounts[4]);
+}
+
+
+//******************************************************************************
+
+
+std::vector<int>& WorkValueChartHelper::getThresholds() {
+    return this->thresholds;
+}
+
+
+//******************************************************************************
+
+
+QtCharts::QLineSeries* TotalValueChartHelper::getNewLineSeries() {
+    if (lineSeries == nullptr) {
+        lineSeries = new QLineSeries();
+    }
+    return lineSeries;
+}
+
+
+//******************************************************************************
+
+
+QtCharts::QChart* TotalValueChartHelper::getNewChart() {
+    if (chart == nullptr) {
+        chart = new QtCharts::QChart();
+    }
+
+    chart->addSeries(lineSeries);
+    chart->addAxis(xAxis, Qt::AlignBottom);
+    chart->addAxis(yAxis, Qt::AlignLeft);
+    chart->setTitle("Total Value");
+
+    return chart;
+}
+
+
+//******************************************************************************
+
+
+QtCharts::QValueAxis* TotalValueChartHelper::getNewAxis(std::string which) {
+    if (which == "y") {
+        if (yAxis == nullptr) {
+            yAxis = new QValueAxis();
+        }
+        return yAxis;
+    } else if (which == "x") {
+        if (xAxis == nullptr) {
+            xAxis = new QValueAxis();
+        }
+        return xAxis;
+    }
+    return nullptr;
+}
+
+
+//******************************************************************************
+
+
+TotalValueChartHelper::TotalValueChartHelper() {
+    // Initialize nullptrs for all dynamic memory objects
+    lineSeries = nullptr;
+    chart = nullptr;
+    xAxis = nullptr;
+    yAxis = nullptr;
+
+    // Initialize maximum and minimum values
+    maximum = INT_MIN;
+    minimum = INT_MAX;
+}
+
+
+//******************************************************************************
+
+
+QtCharts::QChart* TotalValueChartHelper::getChart(int totalValue) {
+    // Create an updated BarSet with counts
+    updateChart(totalValue);
+
+    // Initialize a QBarSeries to hold a group of QBarSets
+    getNewLineSeries();
+
+    // Initialize the QChart and give it a series
+    QtCharts::QChart* chart = getNewChart();
+
+    // Create the legend
+    chart->legend()->setVisible(true);
+    chart->legend()->setAlignment(Qt::AlignBottom);
+
+    return chart;
+}
+
+
+//******************************************************************************
+
+
+void TotalValueChartHelper::updateChart(int totalValue) {
+
+    // Add the new point to the Line Series
+    if (lineSeries == nullptr) {
+        getNewLineSeries();
+    }
+    lineSeries->append(lineSeries->count(), totalValue);
+
+    // Update the axes to show the entire graph
+    QValueAxis* y = getNewAxis("y");
+    QValueAxis* x = getNewAxis("x");
+
+    // Update the minimum and maximum values of the Y-axis
+    minimum = std::min(minimum, totalValue);
+    maximum = std::max(maximum, totalValue);
+    y->setRange(minimum - 100, maximum + 100);
+    lineSeries->attachAxis(y);
+
+    // Update the range of the X-axis
+    x->setRange(0, lineSeries->count());
+    lineSeries->attachAxis(x);
+
+    // Add the new series to the chart
+    if (chart != nullptr) {
+        chart->addSeries(lineSeries);
+    }
+
+}
 

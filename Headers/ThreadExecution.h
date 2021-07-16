@@ -7,7 +7,7 @@
 #include "QTimer"
 
 #include "Simulation.h"
-
+//#include "EconomicSimulation.h"
 
 /**
  * @brief The SimulationWorker class \n
@@ -42,8 +42,9 @@ public:
      * Function that instructs SimulationWorker to pause execution of the Simulation
      * Must be called by the Thread Controller, which is signaled by the reset
      * or pause button in the GUI
+     * @param reset: whether the simulation is being reset or not
      */
-    void pauseSimulation();
+    void pauseSimulation(bool reset = false);
 
     /**
      * @brief changeSpeed \n
@@ -137,8 +138,9 @@ public:
      * Function that calls the dropSimulation() function on the Simulation
      * Worker. This prevents the Worker from entering it's next step in
      * execution
+     * @param reset: whether the sim is being reset
      */
-    void pauseSimulation();
+    void pauseSimulation(bool reset = false);
 
     /**
      * @brief changeSpeed \n

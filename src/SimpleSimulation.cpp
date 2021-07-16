@@ -1,4 +1,6 @@
 #include <Headers/SimpleSimulation.h>
+#include "Headers/Agent.h"
+#include "Headers/EconomicAgent.h"
 
 SimpleSimulation::SimpleSimulation(int numAgents, Ui::MainWindow* ui,
                                    std::map<std::string, bool> debug) :
@@ -53,30 +55,30 @@ SimpleSimulation::~SimpleSimulation() {
 //******************************************************************************
 
 
-void SimpleSimulation::init() {
+void SimpleSimulation::init(std::string type) {
     // Generate locations within the HomeRegion and add them to the screen
-    homeRegion->generateLocations(getNumLocations());
+    homeRegion->generateLocations(getNumLocations(), type);
     std::vector<QGraphicsItem*> toRender = homeRegion->getLocationsGraphicsObject();
     for(auto item : toRender) {
         addToScreen(item);
     }
 
     // Generate locations within the WorkRegion and add them to the screen
-    workRegion->generateLocations(getNumLocations());
+    workRegion->generateLocations(getNumLocations(), type);
     toRender = workRegion->getLocationsGraphicsObject();
     for(auto item : toRender) {
         addToScreen(item);
     }
 
     // Generate locations within the SchoolRegion and add them to the screen
-    schoolRegion->generateLocations(getNumLocations());
+    schoolRegion->generateLocations(getNumLocations(), type);
     toRender = schoolRegion->getLocationsGraphicsObject();
     for(auto item : toRender) {
         addToScreen(item);
     }
 
     // Generate locations within the LeisureREgion and add them to the screen
-    leisureRegion->generateLocations(getNumLocations());
+    leisureRegion->generateLocations(getNumLocations(), type);
     toRender = leisureRegion->getLocationsGraphicsObject();
     for(auto item : toRender) {
         addToScreen(item);
@@ -137,7 +139,7 @@ void SimpleSimulation::test() {
 //******************************************************************************
 
 
-void SimpleSimulation::generateAgents(int num, bool birth) {
+void SimpleSimulation::generateAgents(int num, bool birth, std::string type) {
     // Create a random color for each strategy
     std::vector<QColor> agentColors;
     int adultBehaviors = getController()->getNumAdultBehaviors();
@@ -195,10 +197,19 @@ void SimpleSimulation::generateAgents(int num, bool birth) {
         }
 
         // Create an agent with the determines behavior and location
-        Agent* agent = new Agent(ageAssignment,
-                                 initialLocation,
-                                 startingLocation,
-                                 behaviorAssignment);
+        Agent* agent;
+        if (type == "Simple") {
+            agent = new Agent(ageAssignment,
+                              initialLocation,
+                              startingLocation,
+                              behaviorAssignment);
+        } else {
+            agent = new EconomicAgent(0,
+                                      ageAssignment,
+                                      initialLocation,
+                                      startingLocation,
+                                      behaviorAssignment);
+        }
 
         // If selected, set a unique color for each behavior
         if (checkDebug("visualize behaviors")) {
@@ -250,16 +261,30 @@ Location* SimpleSimulation::getRandomLocation(Agent::LOCATIONS which) {
 //******************************************************************************
 
 
+Region* SimpleSimulation::getRegion(Agent::LOCATIONS which) {
+    if (which == Agent::HOME) {
+        return homeRegion;
+    } else if (which == Agent::SCHOOL) {
+        return schoolRegion;
+    } else if (which == Agent::WORK) {
+        return workRegion;
+    } else if (which == Agent::LEISURE) {
+        return leisureRegion;
+    }
+
+    return nullptr;
+}
+
+
+//******************************************************************************
+
+
 void SimpleSimulation::renderCharts(const QString &which, bool newChartView) {
     if (which == "ALL") {
-        renderAgeChart(newChartView);
-        renderBehaviorChart(newChartView);
-        renderDestinationChart(newChartView);
-    } else if (which == "AGE") {
-        renderAgeChart(newChartView);
-    } else if (which == "BEHAVIOR") {
-        renderBehaviorChart(newChartView);
-    } else if (which == "DESTINATION") {
-        renderDestinationChart(newChartView);
+        renderChartUpdates("AGE", newChartView);
+        renderChartUpdates("BEHAVIOR", newChartView);
+        renderChartUpdates("DESTINATION", newChartView);
+    } else {
+        renderChartUpdates(which, newChartView);
     }
 }

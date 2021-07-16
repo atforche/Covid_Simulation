@@ -129,6 +129,13 @@ public:
     Location* getLocation(LOCATIONS which);
 
     /**
+     * @brief getCurrentLocation \n
+     * Getter function for the current location the Agent is assigned to.
+     * @return a pointer to the Agent's current location
+     */
+    Location* getCurrentLocation();
+
+    /**
      * @brief getPosition: \n
      * Getter function for the position of the agent. Returns the current
      * position of the agent as a Coordinate*
@@ -174,10 +181,18 @@ public:
     int incrementAge();
 
     /**
+     * @brief setColor \n
+     * Setter function for the color of the Agent. Updates the color of the Agent
+     * to the provided color.
+     * @param color: the new color for the agent
+     */
+    void setColor(QColor color);
+
+    /**
      * @brief ~Agent \n
      * Destructor to free memory from the Agent class
      */
-    ~Agent();
+    virtual ~Agent();
 
 };
 

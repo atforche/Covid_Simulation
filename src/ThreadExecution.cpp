@@ -1,4 +1,7 @@
 #include "Headers/ThreadExecution.h"
+#include "Headers/Simulation.h"
+#include "Headers/SimpleSimulation.h"
+#include "Headers/EconomicSimulation.h"
 
 SimulationWorker::SimulationWorker(Simulation* sim, Speed frameRate) {
     this->sim = sim;
@@ -18,7 +21,7 @@ SimulationWorker::~SimulationWorker() {
 //******************************************************************************
 
 
-void SimulationWorker::pauseSimulation() {
+void SimulationWorker::pauseSimulation(bool reset) {
     // Prevents the timer triggering from causing any effect
     continueSimulation = false;
 }
@@ -106,7 +109,12 @@ SimulationController::SimulationController(Simulation* sim,
 
     // Connect the updateAgeChart signal from the simulation to the renderCharts
     // member function to enable dynamic chart updating
-    connect(sim, &Simulation::updateChart, sim, &Simulation::renderCharts);
+    EconomicSimulation* simulation = dynamic_cast<EconomicSimulation*>(sim);
+    if (simulation != nullptr) {
+        connect(simulation, &Simulation::updateChart, simulation, &EconomicSimulation::renderCharts);
+    } else {
+        connect(sim, &Simulation::updateChart, sim, &Simulation::renderCharts);
+    }
 
     // Start the worker thread, will wait
     workerThread.start();
@@ -134,9 +142,9 @@ void SimulationController::startSimulation() {
 //******************************************************************************
 
 
-void SimulationController::pauseSimulation() {
+void SimulationController::pauseSimulation(bool reset) {
     // May cause a slight race condition
-    this->worker->pauseSimulation();
+    this->worker->pauseSimulation(reset);
 }
 
 
