@@ -39,7 +39,7 @@ public:
      * @param color: the QColor with which the region will be drawn
      * @param name: the name of the region
      */
-    SquareRegion(Coordinate start, int height,
+    SquareRegion(Simulation* sim, Coordinate start, int height,
                  QColor color, std::string name);
 
     /** Destructor for the SquareRegion Class*/

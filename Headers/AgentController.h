@@ -154,7 +154,6 @@ public:
      */
     static int sampleAgentAge();
 
-
 };
 
 // Rear includes to avoid circular dependencies

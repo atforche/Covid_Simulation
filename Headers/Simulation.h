@@ -71,6 +71,9 @@ private:
     /** Lock to provide mutual exclusion to the Agents Vector */
     QMutex* agentLock;
 
+    /** Lock to provide mutual exclusion to the Locations in each Region */
+    QMutex* locationLock;
+
     /** Lock to provide mutual exclusion to the addQueue and removeQueue */
     QMutex* queueLock;
 
@@ -78,6 +81,10 @@ private:
     all operations on the screen to happen on one thread */
     QVector<QGraphicsItem*> addQueue;
     QVector<QGraphicsItem*> removeQueue;
+
+    /** Bool to indicate whether the simulation has been reset. Helps synchronize
+    between functions on separate threads */
+    bool isReset;
 
     /**
      * @brief ageAgents \n
@@ -330,15 +337,23 @@ public:
      * @brief getAgentsLock \n
      * Getter function for the lock that provides mutual exclusion to the
      * Agents vector
-     * @return pointer to a QMutex
+     * @return a pointer to a QMutex
      */
     QMutex* getAgentsLock();
+
+    /**
+     * @brief getLocationLock \n
+     * Getter function for the lock that provides mutual exclusions to the
+     * Locations in all Regions
+     * @return
+     */
+    QMutex* getLocationLock();
 
     /**
      * @brief getQueueLock \n
      * Geter function for the lock that provides mutual exclusion to the
      * Screen and its elements
-     * @return pointer to a QMutex
+     * @return a pointer to a QMutex
      */
     QMutex* getQueueLock();
 
@@ -383,6 +398,25 @@ public:
      * @param num: the ID of the chartView to update with the new chart
      */
     void addChartToView(QChart* chart, int num);
+
+    /**
+     * @brief wasReset \n
+     * Getter function for whether the Simulation has previously been reset.
+     * Functions that wait on a lock to determine if the Simulation has been
+     * reset before they proceed after getting the lock
+     * @return whether the Simulation has been reset
+     */
+    bool wasReset();
+
+    /**
+     * @brief setReset \n
+     * Setter function for the reset flag within the Simulation. MUST BE CALLED
+     * BY DERIVED CLASS IMPLEMENTATIONS OF RESET. Reset flag enables helper
+     * functions waiting on locks to halt execution if the Sim was reset while
+     * waiting for the lock.
+     * @param resetIn: new value for the reset flag
+     */
+    void setReset(bool resetIn);
 
 
 public slots:

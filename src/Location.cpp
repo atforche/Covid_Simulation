@@ -15,8 +15,14 @@ Location::Location(double x, double y) {
     // Update the border of the location
     QPen temp = QPen(QColor(0,0,0));
     temp.setWidthF(locationBorderWidth);
-
     ellipse->setPen(temp);
+
+    // Initialize the Agent's set
+    agents = std::unordered_set<Agent*>();
+
+    // Initialize the Location's ID
+    static int id_counter = 0;
+    this->id = id_counter++;
 }
 
 
@@ -62,7 +68,6 @@ Coordinate Location::getPosition() {
 void Location::setColor(QColor color) {
     QPen temp = QPen(color);
     temp.setWidthF(locationBorderWidth);
-
     ellipse->setPen(temp);
 }
 
@@ -70,7 +75,38 @@ void Location::setColor(QColor color) {
 //******************************************************************************
 
 
+std::unordered_set<Agent*> Location::getAgents() {
+    return this->agents;
+}
+
+
+//******************************************************************************
+
+
+int Location::getID() {
+    return this->id;
+}
+
+
+//******************************************************************************
+
+
 Location::~Location() {
-    delete ellipse;
-    ellipse = nullptr;
+    return;
+}
+
+
+//******************************************************************************
+
+
+Location_Comparator::Location_Comparator(Location* searchLocation) {
+    this->desiredLocation = searchLocation;
+}
+
+
+//******************************************************************************
+
+
+bool Location_Comparator::operator()(Location *test) {
+    return test->getID() == desiredLocation->getID();
 }

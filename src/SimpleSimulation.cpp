@@ -7,19 +7,23 @@ SimpleSimulation::SimpleSimulation(int numAgents, Ui::MainWindow* ui,
     Simulation(numAgents, ui, debug) {
 
     // Create four square regions (Home, Work, School, Leisure)
-    this->homeRegion = new SquareRegion(Coordinate(0, 0),
+    this->homeRegion = new SquareRegion(this,
+                                        Coordinate(0, 0),
                                         getSimHeight() / 2,
                                         QColor(3, 11, 252),
                                         "Home");
-    this->workRegion = new SquareRegion(Coordinate(getSimHeight() / 2, 0),
+    this->workRegion = new SquareRegion(this,
+                                        Coordinate(getSimHeight() / 2, 0),
                                         getSimHeight() / 2,
                                         QColor(255, 0, 255),
                                         "Work");
-    this->schoolRegion = new SquareRegion(Coordinate(0, getSimHeight() / 2),
-                                            getSimHeight() / 2,
-                                            QColor(240, 41, 41),
-                                            "School");
-    this->leisureRegion = new SquareRegion(Coordinate(getSimHeight() / 2,
+    this->schoolRegion = new SquareRegion(this,
+                                          Coordinate(0, getSimHeight() / 2),
+                                          getSimHeight() / 2,
+                                          QColor(240, 41, 41),
+                                          "School");
+    this->leisureRegion = new SquareRegion(this,
+                                           Coordinate(getSimHeight() / 2,
                                                    getSimHeight() / 2),
                                             getSimHeight() / 2,
                                             QColor(0, 227, 19),
@@ -108,6 +112,10 @@ void SimpleSimulation::execute() {
 
 
 void SimpleSimulation::reset() {
+
+    // Set the reset flag in the base Simulation
+    setReset(true);
+
     // Completely reset the screen and the simulation
     clearScreen();
     clearAgents();
@@ -157,11 +165,26 @@ void SimpleSimulation::generateAgents(int num, bool birth, std::string type) {
     std::vector<Location*> leisureLocations = leisureRegion->getLocations();
 
     for (int i = 0; i < num; ++i) {
+
+        // Set the Location assignments for each agent
+        Location* homeLocation = nullptr;
+        Location* schoolLocation = nullptr;
+        Location* workLocation = nullptr;
+        Location* leisureLocation = nullptr;
+
         // Randomly sample the four locations of interest for the agent
-        int homeIndex = rand() % homeLocations.size();
-        int schoolIndex = rand() % schoolLocations.size();
-        int workIndex = rand() % workLocations.size();
-        int leisureIndex = rand() % leisureLocations.size();
+        if (homeLocations.size() > 0) {
+            homeLocation = homeLocations[rand() % homeLocations.size()];
+        }
+        if (schoolLocations.size() > 0) {
+            schoolLocation = schoolLocations[rand() % schoolLocations.size()];
+        }
+        if (workLocations.size() > 0) {
+            workLocation = workLocations[rand() % workLocations.size()];
+        }
+        if (leisureLocations.size() > 0) {
+            leisureLocation = leisureLocations[rand() % leisureLocations.size()];
+        }
 
         // Randomly sample an age assignment for the agent (update later)
         int ageAssignment = 0;
@@ -183,15 +206,15 @@ void SimpleSimulation::generateAgents(int num, bool birth, std::string type) {
                     behaviorAssignment, ageAssignment >= 18);
 
         // Set the initial location of the agent based on the behavior chart
-        Location* initialLocation;
+        Location* initialLocation = nullptr;
         if (startingLocation == "Home") {
-            initialLocation = homeLocations[homeIndex];
+            initialLocation = homeLocation;
         } else if (startingLocation == "School") {
-            initialLocation = schoolLocations[schoolIndex];
+            initialLocation = schoolLocation;
         } else if (startingLocation == "Work") {
-            initialLocation = workLocations[workIndex];
+            initialLocation = workLocation;
         } else if (startingLocation == "Leisure") {
-            initialLocation = leisureLocations[leisureIndex];
+            initialLocation = leisureLocation;
         } else {
             throw "Invalid Behavior File Loaded";
         }
@@ -219,17 +242,25 @@ void SimpleSimulation::generateAgents(int num, bool birth, std::string type) {
         }
 
         // Set the location for each of the Agents locations
-        agent->setLocation(homeLocations[homeIndex], Agent::HOME);
-        homeLocations[homeIndex]->addAgent(agent);
+        agent->setLocation(homeLocation, Agent::HOME);
+        if (homeLocation != nullptr) {
+            homeLocation->addAgent(agent);
+        }
 
-        agent->setLocation(schoolLocations[schoolIndex], Agent::SCHOOL);
-        schoolLocations[schoolIndex]->addAgent(agent);
+        agent->setLocation(schoolLocation, Agent::SCHOOL);
+        if (schoolLocation != nullptr) {
+            schoolLocation->addAgent(agent);
+        }
 
-        agent->setLocation(workLocations[workIndex], Agent::WORK);
-        workLocations[workIndex]->addAgent(agent);
+        agent->setLocation(workLocation, Agent::WORK);
+        if (workLocation != nullptr) {
+            workLocation->addAgent(agent);
+        }
 
-        agent->setLocation(leisureLocations[leisureIndex], Agent::LEISURE);
-        leisureLocations[leisureIndex]->addAgent(agent);
+        agent->setLocation(leisureLocation, Agent::LEISURE);
+        if (leisureLocation != nullptr) {
+            leisureLocation->addAgent(agent);
+        }
 
         // Add the agent to the simulation
         addAgent(agent);
@@ -242,17 +273,13 @@ void SimpleSimulation::generateAgents(int num, bool birth, std::string type) {
 
 Location* SimpleSimulation::getRandomLocation(Agent::LOCATIONS which) {
     if (which == Agent::LOCATIONS::HOME) {
-        std::vector<Location*> locations = homeRegion->getLocations();
-        return locations[rand() % locations.size()];
+        return homeRegion->getRandomLocation();
     } else if (which == Agent::LOCATIONS::WORK) {
-        std::vector<Location*> locations = workRegion->getLocations();
-        return locations[rand() % locations.size()];
+        return workRegion->getRandomLocation();
     } else if (which == Agent::LOCATIONS::SCHOOL) {
-        std::vector<Location*> locations = schoolRegion->getLocations();
-        return locations[rand() % locations.size()];
+        return schoolRegion->getRandomLocation();
     } else if (which == Agent::LOCATIONS::LEISURE) {
-        std::vector<Location*> locations = leisureRegion->getLocations();
-        return locations[rand() % locations.size()];
+        return leisureRegion->getRandomLocation();
     }
     return nullptr;
 }

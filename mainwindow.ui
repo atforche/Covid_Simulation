@@ -117,6 +117,9 @@
     <property name="maximum">
      <number>100</number>
     </property>
+    <property name="value">
+     <number>15</number>
+    </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
     </property>
@@ -152,6 +155,9 @@
        <property name="maximum">
         <number>100</number>
        </property>
+       <property name="value">
+        <number>15</number>
+       </property>
       </widget>
      </item>
     </layout>
@@ -179,7 +185,10 @@
         <number>1</number>
        </property>
        <property name="maximum">
-        <number>100</number>
+        <number>1000</number>
+       </property>
+       <property name="value">
+        <number>500</number>
        </property>
       </widget>
      </item>
@@ -198,13 +207,19 @@
      <number>1</number>
     </property>
     <property name="maximum">
-     <number>100</number>
+     <number>1000</number>
+    </property>
+    <property name="value">
+     <number>500</number>
     </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
     </property>
     <property name="tickPosition">
      <enum>QSlider::TicksBelow</enum>
+    </property>
+    <property name="tickInterval">
+     <number>100</number>
     </property>
    </widget>
    <widget class="QWidget" name="horizontalLayoutWidget_4">
@@ -513,7 +528,7 @@
      <number>60</number>
     </property>
     <property name="value">
-     <number>30</number>
+     <number>20</number>
     </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
@@ -541,7 +556,7 @@
      <number>60</number>
     </property>
     <property name="value">
-     <number>30</number>
+     <number>20</number>
     </property>
    </widget>
    <widget class="QLabel" name="economicOptions">
@@ -570,10 +585,10 @@
      <number>1</number>
     </property>
     <property name="maximum">
-     <number>100000</number>
+     <number>500000</number>
     </property>
     <property name="value">
-     <number>10000</number>
+     <number>100000</number>
     </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
@@ -598,10 +613,10 @@
      <number>1</number>
     </property>
     <property name="maximum">
-     <number>100000</number>
+     <number>500000</number>
     </property>
     <property name="value">
-     <number>10000</number>
+     <number>100000</number>
     </property>
    </widget>
    <widget class="QLabel" name="initialValueLabel">

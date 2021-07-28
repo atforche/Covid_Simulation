@@ -100,7 +100,7 @@ public:
      *                     destination toward
      * @param destinationType: QString representing the type of destination
      */
-    void setDestination(Location* newLocation, QString destinationType);
+    void setDestination(Location &newLocation, QString destinationType);
 
     /**
      * @brief getDestinationString \n

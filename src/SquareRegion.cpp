@@ -1,8 +1,8 @@
 #include "Headers/SquareRegion.h"
 
-SquareRegion::SquareRegion(Coordinate start, int height,
+SquareRegion::SquareRegion(Simulation* sim, Coordinate start, int height,
                            QColor color_in, std::string name)
-    : Region(color_in, name),
+    : Region(sim, color_in, name),
       start(Coordinate(start.getCoord(Coordinate::X), start.getCoord(Coordinate::Y))) {
     this->height = height;
 }

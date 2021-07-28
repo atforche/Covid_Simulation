@@ -235,41 +235,58 @@ void AgentController::updateAgentDestinations(std::vector<Agent *> &agents, int 
 
         // Determine to where the agent will be assigned
         QString destinationString = getAgentDestination(agents[i], hour);
+        Location* newDestination = nullptr;
+        Coordinate randomPosition;
 
-        // Updates the Agent's destination
+        // Determine the new destination for the Agent
         if (destinationString == "No Change") {
             continue;
         } else if (destinationString == "Home") {
             // Random chance of going to a random Home location
             if (rand() % 100 < randomChance) {
-                agents[i]->setDestination(sim->getRandomLocation(Agent::HOME), destinationString);
+                newDestination = sim->getRandomLocation(Agent::HOME);
             } else {
-                agents[i]->setDestination(agents[i]->getLocation(Agent::HOME), destinationString);
+                newDestination = agents[i]->getLocation(Agent::HOME);
             }
+            randomPosition = sim->getRegion(Agent::HOME)->getRandomCoordinate();
         } else if (destinationString == "School") {
             // Random chance of going to a random Home location
             if (rand() % 100 < randomChance) {
-                agents[i]->setDestination(sim->getRandomLocation(Agent::SCHOOL), destinationString);
+                newDestination = sim->getRandomLocation(Agent::SCHOOL);
             } else {
-                agents[i]->setDestination(agents[i]->getLocation(Agent::SCHOOL), destinationString);
+                newDestination = agents[i]->getLocation(Agent::SCHOOL);
             }
+            randomPosition = sim->getRegion(Agent::SCHOOL)->getRandomCoordinate();
         } else if (destinationString == "Work") {
             // Random chance of going to a random Home location
             if (rand() % 100 < randomChance) {
-                agents[i]->setDestination(sim->getRandomLocation(Agent::WORK), destinationString);
+                newDestination = sim->getRandomLocation(Agent::WORK);
             } else {
-                agents[i]->setDestination(agents[i]->getLocation(Agent::WORK), destinationString);
+                newDestination = agents[i]->getLocation(Agent::WORK);
             }
+            randomPosition = sim->getRegion(Agent::WORK)->getRandomCoordinate();
         } else if (destinationString == "Leisure") {
             // Random chance of going to a random Home location
             if (rand() % 100 < randomChance) {
-                agents[i]->setDestination(sim->getRandomLocation(Agent::LEISURE), destinationString);
+                newDestination = sim->getRandomLocation(Agent::LEISURE);
             } else {
-                agents[i]->setDestination(agents[i]->getLocation(Agent::LEISURE), destinationString);
+                newDestination = agents[i]->getLocation(Agent::LEISURE);
             }
+            randomPosition = sim->getRegion(Agent::LEISURE)->getRandomCoordinate();
         } else {
             // Throw an exception if an invalid behavior is loaded
             throw "Invalid Behavior File Loaded";
+        }
+
+        // If the determined destination is a nullptr, send the agent to a random
+        // spot in their assigned regions
+        if (newDestination == nullptr) {
+            Location newLocation = Location(randomPosition.getCoord(Coordinate::X),
+                                            randomPosition.getCoord(Coordinate::Y));
+            agents[i]->setDestination(newLocation,
+                                      destinationString);
+        } else {
+            agents[i]->setDestination(*newDestination, destinationString);
         }
     }
 }

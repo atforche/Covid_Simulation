@@ -12,6 +12,7 @@ EconomicSimulation::EconomicSimulation(int initialValue, int numAgents,
     agentValueHelper = new AgentValueChartHelper(initialValue);
     workValueHelper = new WorkValueChartHelper(initialValue);
     totalValueHelper = new TotalValueChartHelper();
+    statusHelper = new EconomicStatusChartHelper();
 
     // Create a controller for the economy
     this->economicController = new EconomicController(this);
@@ -27,11 +28,11 @@ void EconomicSimulation::execute() {
     // Static counter to determine if an hour has passed
     static int numFrames = 0;
 
-    // Run the Simple Simulation's execute function
-    SimpleSimulation::execute();
-
     // Run the economic update and grab the total Agent and Business value
     int* totalValues = economicController->executeEconomicUpdate();
+
+    // Run the Simple Simulation's execute function
+    SimpleSimulation::execute();
 
     // Update the overall values
     this->businessEconomicValue = totalValues[1];
@@ -41,21 +42,21 @@ void EconomicSimulation::execute() {
     // Update the current value displayed on the screen
     getUI()->currentValue->setText(QString::number(totalEconomicValue));
 
-    // Update the Frame Counter
-    numFrames++;
+    // Every hour update the Economic Charts
     if (numFrames == FRAMES_PER_HOUR) {
         numFrames = 0;
-
         // Update the economic value in each chart
         updateEconomicCharts();
     }
+    // Update the Frame Counter
+    numFrames++;
 }
 
 
 //******************************************************************************
 
 
-void EconomicSimulation::init(std::string type) {
+void EconomicSimulation::init(std::string) {
     // Run the base init function
     SimpleSimulation::init("Economic");
 
@@ -82,15 +83,17 @@ void EconomicSimulation::init(std::string type) {
     // Initialize the total value for businesses
     businessEconomicValue = businessValue;
 
+    // Update the totalEconomicValue now that the business and agent values
+    // have been calculated
+    this->totalEconomicValue = this->agentEconomicValue + this->businessEconomicValue;
 }
 
 
 //******************************************************************************
 
 
-void EconomicSimulation::generateAgents(int num, bool birth, std::string type) {
+void EconomicSimulation::generateAgents(int num, bool birth, std::string) {
     SimpleSimulation::generateAgents(num, birth, "Economic");
-    qDebug() << "Economic Agents Generated";
 
     // Grab all the agents
     QMutexLocker lock(getAgentsLock());
@@ -101,6 +104,7 @@ void EconomicSimulation::generateAgents(int num, bool birth, std::string type) {
 
         // Agents start with 50% of the total value
         int agentValue = totalEconomicValue / 2;
+        int actualAgentValue = 0;
 
         // Count how many agents fall in each age group
         std::vector<int> ageCounts(7, 0);
@@ -131,21 +135,27 @@ void EconomicSimulation::generateAgents(int num, bool birth, std::string type) {
                 agent->incrementValue(0);
             } else if (age < 35) {
                 agent->incrementValue(agentValue * 0.0137 / ageCounts[1]);
+                actualAgentValue += agentValue * 0.0137 / ageCounts[1];
             } else if (age < 45) {
                 agent->incrementValue(agentValue * 0.0906 / ageCounts[2]);
+                actualAgentValue += agentValue * 0.0906 / ageCounts[2];
             } else if (age < 55) {
                 agent->incrementValue(agentValue * 0.1673 / ageCounts[3]);
+                actualAgentValue += agentValue * 0.1673 / ageCounts[3];
             } else if (age < 65) {
                 agent->incrementValue(agentValue * 0.2109 / ageCounts[4]);
+                actualAgentValue += agentValue * 0.2109 / ageCounts[4];
             } else if (age < 75) {
                 agent->incrementValue(agentValue * 0.2644 / ageCounts[5]);
+                actualAgentValue += agentValue * 0.2644 / ageCounts[5];
             } else {
                 agent->incrementValue(agentValue * 0.2529 / ageCounts[6]);
+                actualAgentValue += agentValue * 0.2529 / ageCounts[6];
             }
         }
 
         // Update the overall Agent value total
-        this->agentEconomicValue = agentValue;
+        this->agentEconomicValue = actualAgentValue;
     }
 
 }
@@ -189,6 +199,17 @@ void EconomicSimulation::renderChartUpdates(QString which, bool newChartView) {
         } else {
             totalValueHelper->updateChart(totalEconomicValue);
         }
+    } else if (which == "ECONOMIC STATUS") {
+        if (newChartView) {
+            QtCharts::QChart* chart = statusHelper->getChart(getNumHomelessAgents(),
+                                                             getNumUnemployedAgents(),
+                                                             static_cast<int>(getAgents().size()));
+            addChartToView(chart, graphView);
+        } else {
+            statusHelper->updateChart(getNumHomelessAgents(),
+                                      getNumUnemployedAgents(),
+                                      static_cast<int>(getAgents().size()));
+        }
     }
 }
 
@@ -200,6 +221,93 @@ void EconomicSimulation::updateEconomicCharts() {
     renderCharts("AGENT VALUE", false);
     renderCharts("BUSINESS VALUE", false);
     renderCharts("TOTAL VALUE", false);
+    renderCharts("ECONOMIC STATUS", false);
+}
+
+
+//******************************************************************************
+
+
+std::vector<int>& EconomicSimulation::getBusinessThresholds() {
+    return workValueHelper->getThresholds();
+}
+
+
+//******************************************************************************
+
+
+int EconomicSimulation::getNumHomelessAgents() {
+
+    std::vector<Agent*> agents = getAgents();
+    double homelessCount = 0;
+
+    // Count each agent that is homeless
+    for (size_t i = 0; i < agents.size(); ++i) {
+        EconomicAgent* agent = dynamic_cast<EconomicAgent*>(agents[i]);
+        if (agent->getStatus() == EconomicAgent::BOTH) {
+            homelessCount++;
+        } else if (agent->getStatus() == EconomicAgent::HOMELESS) {
+            homelessCount++;
+        }
+    }
+
+    return homelessCount;
+}
+
+
+//******************************************************************************
+
+
+std::vector<Agent*> EconomicSimulation::getHomelessAgents() {
+    std::vector<Agent*> retVal;
+    std::vector<Agent*> agents = getAgents();
+    for (size_t i = 0; i < agents.size(); ++i) {
+        EconomicAgent* agent = dynamic_cast<EconomicAgent*>(agents[i]);
+        if (agent->getStatus() == EconomicAgent::BOTH || agent->getStatus() == EconomicAgent::HOMELESS) {
+            retVal.push_back(agent);
+        }
+    }
+
+    return retVal;
+}
+
+
+//******************************************************************************
+
+
+int EconomicSimulation::getNumUnemployedAgents() {
+
+    std::vector<Agent*> agents = getAgents();
+    double unemployedCount = 0;
+
+    // Count each agent that is homeless
+    for (size_t i = 0; i < agents.size(); ++i) {
+        EconomicAgent* agent = dynamic_cast<EconomicAgent*>(agents[i]);
+        if (agent->getStatus() == EconomicAgent::BOTH) {
+            unemployedCount++;
+        } else if (agent->getStatus() == EconomicAgent::UNEMPLOYED) {
+            unemployedCount++;
+        }
+    }
+
+    return unemployedCount;
+}
+
+
+//******************************************************************************
+
+
+std::vector<Agent*> EconomicSimulation::getUnemployedAgents() {
+    std::vector<Agent*> retVal;
+    std::vector<Agent*> agents = getAgents();
+    for (size_t i = 0; i < agents.size(); ++i) {
+        EconomicAgent* agent = dynamic_cast<EconomicAgent*>(agents[i]);
+        if (agent->getStatus() == EconomicAgent::BOTH || agent->getStatus() == EconomicAgent::UNEMPLOYED) {
+            retVal.push_back(agent);
+        }
+    }
+
+    return retVal;
 }
 
 
@@ -225,6 +333,15 @@ EconomicSimulation::~EconomicSimulation() {
 
 void EconomicSimulation::renderAgentUpdate() {
     Simulation::renderAgentUpdate();
+
+    // Lock the screen queue to synchronize with other threads
+    QMutexLocker locationLock(getLocationLock());
+    QMutexLocker screenLock(getQueueLock());
+
+    // Ensure the Simulation wasn't reset while waiting for the Lock
+    if (wasReset()) {
+        return;
+    }
 
     const static std::vector<int> businessThresholds = workValueHelper->getThresholds();
     const static std::vector<int> agentThresholds = agentValueHelper->getThresholds();
@@ -254,6 +371,9 @@ void EconomicSimulation::renderAgentUpdate() {
         workLocation->setColor(color);
         workLocation->getSibling()->setColor(color);
     }
+
+    // Add comment
+    screenLock.unlock();
 
     // Update the colors of the Agents based on their current value
     QMutexLocker lock(getAgentsLock());
@@ -294,6 +414,7 @@ void EconomicSimulation::renderCharts(const QString &which, bool newChartView) {
         renderChartUpdates("AGENT VALUE", newChartView);
         renderChartUpdates("BUSINESS VALUE", newChartView);
         renderChartUpdates("TOTAL VALUE", newChartView);
+        renderChartUpdates("ECONOMIC STATUS", newChartView);
     } else {
         renderChartUpdates(which, newChartView);
     }

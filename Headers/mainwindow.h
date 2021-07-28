@@ -234,6 +234,15 @@ private slots:
     void on_graph2Selection_currentTextChanged(const QString &arg1);
 
     /**
+     * @brief on_graph3Selection_currentTextChanged \n
+     * Event handler for when the current selection on the Graph2Selection
+     * Combo Box is changed. Updates the mapping of Graphs to Chart Views and
+     * re-renders the graphs so they update.
+     * @param arg1: the new selected value
+     */
+    void on_graph3Selection_currentTextChanged(const QString &arg1);
+
+    /**
      * @brief on_framesPerHourSlider_valueChanged \n
      * Event handler for when the slider value for the framesPerHour slider
      * changes. Updates the text in the associated SpinBox and updates the speed

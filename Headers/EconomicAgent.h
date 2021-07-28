@@ -4,12 +4,19 @@
 #include "Agent.h"
 
 
+/**
+ * @brief The EconomicAgent class
+ * Class that inherits from the Agent class. Extends the functionality of a
+ * basic agent with the ability to possess, gain, and lose economic value.
+ * Economic Agents can also have different economic statuses (NORMAL,
+ * UNEMPLOYED, HOMELESS, or BOTH)
+ */
 class EconomicAgent : public Agent {
 
 public:
 
     /** Enum that indicates the current economic status of the agent */
-    enum STATUS {NORMAL, UNEMPLOYED, HOMELESS};
+    enum STATUS {NORMAL, UNEMPLOYED, HOMELESS, BOTH};
 
     /**
      * @brief EconomicAgent \n
@@ -23,12 +30,6 @@ public:
      */
     EconomicAgent(int initialValue, int age, Location* startingLocation,
                   QString startingLocationString, int behavior);
-
-    /**
-     * @brief economicUpdate \n
-     * Temporary testing function to update the economic value of an Agent
-     */
-    void economicUpdate();
 
     /**
      * @brief incrementValue \n
@@ -55,6 +56,21 @@ public:
      * @return the current value of the agent as an int
      */
     int getValue();
+
+    /**
+     * @brief getStatus \n
+     * Get the current economic status of the Agent, either NORMAL, HOMELESS,
+     * UMEMPLOYED, or BOTH
+     * @return the agent's economic status as an ENUM
+     */
+    STATUS getStatus();
+
+    /**
+     * @brief setStatus \n
+     * Set the current economic status of the Agent
+     * @param newStatus: the new economic status of the agent
+     */
+    void setStatus(STATUS newStatus);
 
 
 private:

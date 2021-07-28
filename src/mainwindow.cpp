@@ -169,37 +169,43 @@ void MainWindow::enableEconomicCharts(bool enabled) {
     if (enabled) {
         // Add the Economic Charts to each Combo Box
         ui->graph1Selection->addItem("Agent Value");
+        ui->graph1Selection->addItem("Agent Economic Status");
         ui->graph1Selection->addItem("Business Value");
         ui->graph1Selection->addItem("Total Value");
 
         ui->graph2Selection->addItem("Agent Value");
+        ui->graph2Selection->addItem("Agent Economic Status");
         ui->graph2Selection->addItem("Business Value");
         ui->graph2Selection->addItem("Total Value");
 
         ui->graph3Selection->addItem("Agent Value");
+        ui->graph3Selection->addItem("Agent Economic Status");
         ui->graph3Selection->addItem("Business Value");
         ui->graph3Selection->addItem("Total Value");
 
         // Apply the default Chart config for the Economic Simulation
-        ui->graph1Selection->setCurrentIndex(5);
-        ui->graph2Selection->setCurrentIndex(3);
-        ui->graph3Selection->setCurrentIndex(4);
+        ui->graph1Selection->setCurrentIndex(6);
+        ui->graph2Selection->setCurrentIndex(4);
+        ui->graph3Selection->setCurrentIndex(5);
 
     } else {
         // Avoid removing items if items don't need to be removed
-        if (ui->graph1Selection->count() == 6) {
-            // Add the Economic Charts to each Combo Box
-            ui->graph1Selection->removeItem(3);
+        if (ui->graph1Selection->count() == 7) {
+            // Remove the Economic Charts to each Combo Box
+            ui->graph1Selection->removeItem(6);
+            ui->graph1Selection->removeItem(5);
             ui->graph1Selection->removeItem(4);
-            ui->graph1Selection->removeItem(5);
+            ui->graph1Selection->removeItem(3);
 
-            ui->graph2Selection->removeItem(3);
+            ui->graph2Selection->removeItem(6);
+            ui->graph2Selection->removeItem(5);
             ui->graph2Selection->removeItem(4);
-            ui->graph1Selection->removeItem(5);
+            ui->graph2Selection->removeItem(3);
 
-            ui->graph3Selection->removeItem(3);
+            ui->graph3Selection->removeItem(6);
+            ui->graph3Selection->removeItem(5);
             ui->graph3Selection->removeItem(4);
-            ui->graph1Selection->removeItem(5);
+            ui->graph3Selection->removeItem(3);
 
             // Apply the default Chart config for the Economic Simulation
             ui->graph1Selection->setCurrentIndex(0);
@@ -367,8 +373,12 @@ void MainWindow::on_runSimulation_clicked() {
 
 
 void MainWindow::on_resetSimulation_clicked() {
+
+    // Lock the screen to prevent any rendering updates from happening
+    QMutexLocker lock(sim->getQueueLock());
+
     // Have the controller stop the simulation
-    this->controller->pauseSimulation(true);
+    this->controller->pauseSimulation();
 
     // Update the UI as needed
     ui->mainCanvas->scene()->clear();
@@ -506,6 +516,16 @@ void MainWindow::on_graph2Selection_currentTextChanged(const QString &) {
 //******************************************************************************
 
 
+void MainWindow::on_graph3Selection_currentTextChanged(const QString &) {
+    sim->mapChartViews();
+    disableComboBoxOptions();
+    sim->renderCharts("ALL", true);
+}
+
+
+//******************************************************************************
+
+
 void MainWindow::on_framesPerHourSlider_valueChanged(int value) {
     ui->framesPerHour->setValue(value);
     Simulation::FRAMES_PER_HOUR = value;
@@ -564,3 +584,4 @@ void MainWindow::on_initialValue_valueChanged(int arg1) {
 void MainWindow::on_initialValueSlider_valueChanged(int arg1) {
     ui->initialValue->setValue(arg1);
 }
+

@@ -9,8 +9,9 @@
 #include "QGraphicsItem"
 #include "Agent.h"
 
-// Forward declaration of Location class
+// Forward declarations
 class Location;
+class Simulation;
 
 /**
  * @brief The Region class
@@ -36,6 +37,8 @@ private:
     /** the type of Locations that appear in this region */
     Agent::LOCATIONS type;
 
+    /** Pointer to the enclosing Simulation */
+    Simulation* sim;
 
 public:
 
@@ -47,7 +50,7 @@ public:
      * Region has an associated shape that is rendered to the screen. Use a
      * LocationGenerator to generate Locations within the Region
      */
-    Region(QColor color, std::string name);
+    Region(Simulation* sim, QColor color, std::string name);
 
     /** Virtual destructor for the Region Class */
     virtual ~Region() {};
@@ -94,6 +97,32 @@ public:
      * @return the name of the region
      */
     std::string getName();
+
+    /**
+     * @brief getRandomLocation \n
+     * Getter function for a random location within the Region. Randomly
+     * samples a location from within the region and returns a pointer to it
+     * @return a pointer to a random location within the Region
+     */
+    Location* getRandomLocation();
+
+    /**
+     * @brief getRandomCoordinate \n
+     * Getter function for a random Coordiante that lies within the Region.
+     * Repeatedly samples points within the region's bounding rectangle until
+     * a point is selected that lies within the region.
+     * @return a Coordinate that lies within the region
+     */
+    Coordinate getRandomCoordinate();
+
+    /**
+     * @brief removeLocation \n
+     * Removes a location from the Region. Removes the QGraphicsObject represeting
+     * the location from the screen. Agents assigned to this location should be
+     * reassigned to new locations in a different piece of code, otherwise
+     * segfaults will occur.
+     */
+    virtual void removeLocation(Location* location);
 
     /**
      * @brief getGraphicsObject \n

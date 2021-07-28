@@ -44,7 +44,7 @@ public:
      * or pause button in the GUI
      * @param reset: whether the simulation is being reset or not
      */
-    void pauseSimulation(bool reset = false);
+    void pauseSimulation();
 
     /**
      * @brief changeSpeed \n
@@ -140,7 +140,7 @@ public:
      * execution
      * @param reset: whether the sim is being reset
      */
-    void pauseSimulation(bool reset = false);
+    void pauseSimulation();
 
     /**
      * @brief changeSpeed \n

@@ -4,16 +4,23 @@ EconomicLocation::EconomicLocation(double x, double y, Agent::LOCATIONS type) :
     Location(x, y) {
 
     this->value = 0;
+    this->dailyValueChange = 0;
+    this->yesterdayValueChange = 0;
     this->sibling = nullptr;
     this->type = type;
 
-    // Give the location a random cost associated with it
+    // Home locations have a cost between [1, 3]
     if (type == Agent::HOME) {
-        this->cost = (rand() % 7) + 1;
+        this->cost = (rand() % 3) + 1;
     } else if (type == Agent::SCHOOL) {
+        // School locations have a cost of 1
         this->cost = 1;
+    } else if (type == Agent::WORK) {
+        // Work locations have a cost of [5, 12]
+        this->cost = (rand() % 8) + 5;
     } else {
-        this->cost = (rand() % 15) + 1;
+        // Leisure locations have a cost of [3, 7]
+        this->cost = (rand() % 5) + 3;
     }
 }
 
@@ -30,7 +37,9 @@ int EconomicLocation::getValue() {
 
 
 int EconomicLocation::incrementValue(int amount) {
-    this->value = std::max(this->value + amount, 0);
+    int newValue = std::max(this->value + amount, 0);
+    dailyValueChange += (newValue - this->value);
+    this->value = newValue;
     return this->value;
 }
 
@@ -65,7 +74,37 @@ Agent::LOCATIONS EconomicLocation::getType() {
 //******************************************************************************
 
 
+bool EconomicLocation::makeHire() {
+    if (yesterdayValueChange > 2 * cost) {
+        return true;
+    }
+    return false;
+}
+
+
+//******************************************************************************
+
+
 int EconomicLocation::getCost() {
     return this->cost;
 }
 
+
+//******************************************************************************
+
+
+int EconomicLocation::getYesterdayValueChange() {
+    return yesterdayValueChange;
+}
+
+
+//******************************************************************************
+
+
+void EconomicLocation::startNewDay() {
+    yesterdayValueChange = dailyValueChange;
+    dailyValueChange = 0;
+}
+
+
+//******************************************************************************

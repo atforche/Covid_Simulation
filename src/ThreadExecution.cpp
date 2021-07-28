@@ -21,7 +21,7 @@ SimulationWorker::~SimulationWorker() {
 //******************************************************************************
 
 
-void SimulationWorker::pauseSimulation(bool reset) {
+void SimulationWorker::pauseSimulation() {
     // Prevents the timer triggering from causing any effect
     continueSimulation = false;
 }
@@ -142,9 +142,9 @@ void SimulationController::startSimulation() {
 //******************************************************************************
 
 
-void SimulationController::pauseSimulation(bool reset) {
-    // May cause a slight race condition
-    this->worker->pauseSimulation(reset);
+void SimulationController::pauseSimulation() {
+    // May cause a slight race condition (probably fine tho)
+    this->worker->pauseSimulation();
 }
 
 

@@ -13,14 +13,6 @@ EconomicAgent::EconomicAgent(int initialValue, int age, Location* startingLocati
 //******************************************************************************
 
 
-void EconomicAgent::economicUpdate() {
-    this->decrementValue(100);
-}
-
-
-//******************************************************************************
-
-
 int EconomicAgent::incrementValue(int amount) {
     this->economicValue += amount;
     return economicValue;
@@ -43,3 +35,18 @@ int EconomicAgent::getValue() {
     return this->economicValue;
 }
 
+
+//******************************************************************************
+
+
+EconomicAgent::STATUS EconomicAgent::getStatus() {
+    return this->currentStatus;
+}
+
+
+//******************************************************************************
+
+
+void EconomicAgent::setStatus(STATUS newStatus) {
+    this->currentStatus = newStatus;
+}

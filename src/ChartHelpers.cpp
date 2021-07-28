@@ -862,6 +862,17 @@ TotalValueChartHelper::TotalValueChartHelper() {
 //******************************************************************************
 
 
+TotalValueChartHelper::~TotalValueChartHelper() {
+    delete lineSeries;
+    delete xAxis;
+    delete yAxis;
+    delete chart;
+}
+
+
+//******************************************************************************
+
+
 QtCharts::QChart* TotalValueChartHelper::getChart(int totalValue) {
     // Create an updated BarSet with counts
     updateChart(totalValue);
@@ -908,6 +919,164 @@ void TotalValueChartHelper::updateChart(int totalValue) {
     // Add the new series to the chart
     if (chart != nullptr) {
         chart->addSeries(lineSeries);
+    }
+
+}
+
+
+//******************************************************************************
+
+
+QtCharts::QLineSeries* EconomicStatusChartHelper::getHomelessLineSeries() {
+    if (homelessLineSeries == nullptr) {
+        homelessLineSeries = new QLineSeries();
+    }
+    return homelessLineSeries;
+}
+
+
+//******************************************************************************
+
+
+QtCharts::QLineSeries* EconomicStatusChartHelper::getUnemployedLineSeries() {
+    if (employmentLineSeries == nullptr) {
+        employmentLineSeries = new QLineSeries();
+    }
+    return employmentLineSeries;
+}
+
+
+//******************************************************************************
+
+
+QtCharts::QChart* EconomicStatusChartHelper::getNewChart() {
+    if (chart == nullptr) {
+        chart = new QtCharts::QChart();
+    }
+
+    chart->addSeries(homelessLineSeries);
+    chart->addSeries(employmentLineSeries);
+    chart->addAxis(xAxis, Qt::AlignBottom);
+    chart->addAxis(yAxis, Qt::AlignLeft);
+    chart->setTitle("Agent Economic Status");
+
+    return chart;
+}
+
+
+//******************************************************************************
+
+
+QtCharts::QValueAxis* EconomicStatusChartHelper::getNewAxis(std::string which) {
+    if (which == "y") {
+        if (yAxis == nullptr) {
+            yAxis = new QValueAxis();
+        }
+        return yAxis;
+    } else if (which == "x") {
+        if (xAxis == nullptr) {
+            xAxis = new QValueAxis();
+        }
+        return xAxis;
+    }
+    return nullptr;
+}
+
+
+//******************************************************************************
+
+
+EconomicStatusChartHelper::EconomicStatusChartHelper() {
+    // Initialize nullptrs for all dynamic memory objects
+    homelessLineSeries = nullptr;
+    employmentLineSeries = nullptr;
+    chart = nullptr;
+    xAxis = nullptr;
+    yAxis = nullptr;
+
+    // Initialize maximum and minimum values
+    maximum = INT_MIN;
+    minimum = INT_MAX;
+}
+
+
+//******************************************************************************
+
+
+EconomicStatusChartHelper::~EconomicStatusChartHelper() {
+    delete employmentLineSeries;
+    delete homelessLineSeries;
+    delete xAxis;
+    delete yAxis;
+    delete chart;
+}
+
+
+//******************************************************************************
+
+
+QtCharts::QChart* EconomicStatusChartHelper::getChart(double homelessCount, double unemployedCount, int numAgents) {
+    // Create an updated BarSet with counts
+    updateChart(homelessCount, unemployedCount, numAgents);
+
+    // Initialize a QBarSeries to hold a group of QBarSets
+    getUnemployedLineSeries();
+    getHomelessLineSeries();
+
+    // Initialize the QChart and give it a series
+    QtCharts::QChart* chart = getNewChart();
+
+    // Create the legend
+    chart->legend()->setVisible(true);
+    chart->legend()->setAlignment(Qt::AlignBottom);
+
+    // Add labels to the legend
+    QList<QLegendMarker*> markers = chart->legend()->markers();
+    markers[0]->setLabel("Homelessness Rate");
+    markers[1]->setLabel("Unemployment Rate");
+
+    return chart;
+}
+
+
+//******************************************************************************
+
+
+void EconomicStatusChartHelper::updateChart(double homelessCount, double unemployedCount, int numAgents) {
+
+    // Initialize Line Series if necessary
+    if (homelessLineSeries == nullptr) {
+        getHomelessLineSeries();
+    }
+    if (employmentLineSeries == nullptr) {
+        getUnemployedLineSeries();
+    }
+
+    double homelessProportion = homelessCount / numAgents;
+    double unemployedProportion = unemployedCount / numAgents;
+
+    // Add new values to each line series
+    homelessLineSeries->append(homelessLineSeries->count(), homelessProportion);
+    employmentLineSeries->append(employmentLineSeries->count(), unemployedProportion);
+
+    // Update the axes to show the entire graph
+    QValueAxis* y = getNewAxis("y");
+    QValueAxis* x = getNewAxis("x");
+
+    // Update the range of the Y-axis
+    y->setRange(0, 1);
+    homelessLineSeries->attachAxis(y);
+    employmentLineSeries->attachAxis(y);
+
+    // Update the range of the X-axis
+    x->setRange(0, homelessLineSeries->count());
+    homelessLineSeries->attachAxis(x);
+    employmentLineSeries->attachAxis(x);
+
+    // Add the new series to the chart
+    if (chart != nullptr) {
+        chart->addSeries(homelessLineSeries);
+        chart->addSeries(employmentLineSeries);
     }
 
 }

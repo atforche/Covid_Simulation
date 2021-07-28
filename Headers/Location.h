@@ -36,6 +36,9 @@ private:
     /** Constant border width for rendering all locations */
     const qreal locationBorderWidth = 1.5;
 
+    /** Unique ID associated with each Location */
+    int id;
+
 public:
 
     /**
@@ -91,8 +94,57 @@ public:
      */
     void setColor(QColor color);
 
+    /**
+     * @brief getAgents \n
+     * Getter function for the set of Agents assigned to this location.
+     * @return a pointer to the Agent set
+     */
+    std::unordered_set<Agent*> getAgents();
+
+    /**
+     * @brief getID \n
+     * Getter function for the unique ID associated with this location
+     * @return the ID as an int
+     */
+    int getID();
+
     /** Destructor for the location class */
     virtual ~Location();
+
+};
+
+
+/**
+ * @brief The Location_Comparator class
+ * Class that serves as a Unary comparator between Locations. Compares the
+ * ID of each location to determine if they are the same
+ */
+class Location_Comparator {
+
+private:
+
+    /** Location that this Comparator is searching for */
+    Location* desiredLocation;
+
+public:
+
+    /**
+     * @brief Location_Comparator \n
+     * Constructor for the Location_Comparator class. Initializes the desired
+     * location of the Comparator instance
+     * @param searchLocation: the Location to be found
+     */
+    Location_Comparator(Location* searchLocation);
+
+    /**
+     * @brief operator () \n
+     * Overloaded function call operator for the Location_Comparator class.
+     * Determines if the test location matches the desired location by comparing
+     * their locations
+     * @param test: Location to check
+     * @return whether the test Locattion is the desired Location
+     */
+    bool operator() (Location* test);
 
 };
 

@@ -57,6 +57,7 @@ Simulation::Simulation(int numAgents, Ui::MainWindow* ui,
     this->ui = ui;
     this->simHeight = ui->mainCanvas->height();
     this->simWidth = ui->mainCanvas->width();
+    this->isReset = false;
 
     // Read in the debug information
     this->debug = debug;
@@ -77,6 +78,7 @@ Simulation::Simulation(int numAgents, Ui::MainWindow* ui,
 
     // Initialize the locks
     agentLock = new QMutex();
+    locationLock = new QMutex();
     queueLock = new QMutex();
 
     // Update the population counter
@@ -195,10 +197,18 @@ void Simulation::advanceTime() {
 void Simulation::killAgent(Agent *victim, int index) {
 
     // Remove the agent from each Location it belongs to
-    victim->getLocation(Agent::HOME)->removeAgent(victim);
-    victim->getLocation(Agent::WORK)->removeAgent(victim);
-    victim->getLocation(Agent::SCHOOL)->removeAgent(victim);
-    victim->getLocation(Agent::LEISURE)->removeAgent(victim);
+    if (victim->getLocation(Agent::HOME)) {
+        victim->getLocation(Agent::HOME)->removeAgent(victim);
+    }
+    if (victim->getLocation(Agent::SCHOOL)) {
+        victim->getLocation(Agent::SCHOOL)->removeAgent(victim);
+    }
+    if (victim->getLocation(Agent::WORK)) {
+        victim->getLocation(Agent::WORK)->removeAgent(victim);
+    }
+    if (victim->getLocation(Agent::LEISURE)) {
+        victim->getLocation(Agent::LEISURE)->removeAgent(victim);
+    }
 
     // Remove the Agent from the Screen
     addToRemoveQueue(victim->getGraphicsObject());
@@ -324,8 +334,9 @@ void Simulation::mapChartViews() {
         {1, "BEHAVIOR"},
         {2, "DESTINATION"},
         {3, "AGENT VALUE"},
-        {4, "BUSINESS VALUE"},
-        {5, "TOTAL VALUE"}
+        {4, "ECONOMIC STATUS"},
+        {5, "BUSINESS VALUE"},
+        {6, "TOTAL VALUE"}
     };
 
     // Delete the existing map to overwrite it
@@ -337,6 +348,7 @@ void Simulation::mapChartViews() {
     (*chartViews)["BEHAVIOR"] = -1;
     (*chartViews)["DESTINATION"] = -1;
     (*chartViews)["AGENT VALUE"] = -1;
+    (*chartViews)["ECONOMIC STATUS"] = -1;
     (*chartViews)["BUSINESS VALUE"] = -1;
     (*chartViews)["TOTAL VALUE"] = -1;
 
@@ -408,6 +420,14 @@ QMutex* Simulation::getAgentsLock() {
 //******************************************************************************
 
 
+QMutex* Simulation::getLocationLock() {
+    return this->locationLock;
+}
+
+
+//******************************************************************************
+
+
 QMutex* Simulation::getQueueLock() {
     return this->queueLock;
 }
@@ -465,6 +485,22 @@ void Simulation::addChartToView(QChart* chart, int num) {
             delete victim;
         }
     }
+}
+
+
+//******************************************************************************
+
+
+bool Simulation::wasReset() {
+    return this->isReset;
+}
+
+
+//******************************************************************************
+
+
+void Simulation::setReset(bool resetIn) {
+    this->isReset = resetIn;
 }
 
 

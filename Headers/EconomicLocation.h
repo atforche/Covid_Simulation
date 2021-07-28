@@ -4,12 +4,24 @@
 #include "Location.h"
 #include "Agent.h"
 
+
+/**
+ * @brief The EconomicLocation class
+ * Class that inherits from the Location class. Extends the Location class to
+ * enable Locations to have an associated value and cost.
+ */
 class EconomicLocation : public Location {
 
 private:
 
     /** The current economic value of the Location, only relevant for Work Locations */
     int value;
+
+    /** Track how much the Locations value has changed by today */
+    int dailyValueChange;
+
+    /** Track how much the Locations value changed by yesterday */
+    int yesterdayValueChange;
 
     /** Pointer to this Location's sibling location, only relevant for Work and
     Leisure locations */
@@ -76,12 +88,35 @@ public:
     Agent::LOCATIONS getType();
 
     /**
+     * @brief makeHire \n
+     * Function that determines whether or not a Business location is able
+     * to hire a new agent
+     * @return whether the Business can hire a new agent
+     */
+    bool makeHire();
+
+    /**
      * @brief getCost \n
      * Getter function for the cost of an Economic Location. The cost is how much
      * value an agent gains or loses by spending an hour there.
      * @return the Location's cost as an int
      */
     int getCost();
+
+    /**
+     * @brief getYesterdayValueChange \n
+     * Getter function for the overall value change the Location experienced
+     * Yesterday. Used to gain an estimate of how much economic value the
+     * location is gaining or losing every day.
+     * @return the total value change of this location from yesterday as an int
+     */
+    int getYesterdayValueChange();
+
+    /**
+     * @brief startNewDay \n
+     * Resets the daily value change of the location
+     */
+    void startNewDay();
 
 };
 

@@ -9,6 +9,12 @@
 #include "EconomicController.h"
 
 
+/**
+ * @brief The EconomicSimulation class
+ * Class that inherits from the Simple Simulation class. Extends the Simple
+ * Simulation to include economic rules. Agents are able to gain and lose value.
+ * Locations can gain value, lose value, and go out of business.
+ */
 class EconomicSimulation : public SimpleSimulation {
 
 private:
@@ -33,6 +39,9 @@ private:
 
     /** Pointer to a controller to manage all economic aspects of simulation */
     EconomicController* economicController;
+
+    /** Pointer to a helper for rendering the Economic Status chart*/
+    EconomicStatusChartHelper* statusHelper;
 
 public:
     
@@ -97,6 +106,45 @@ public:
      * all economic information
      */
     void updateEconomicCharts();
+
+    /**
+     * @brief getBusinessThresholds \n
+     * Getter function for the individual value thresholds that Businesses are
+     * measured against. Theses thresholds help determine if the Business is
+     * a Low, Medium, or High value business location.
+     * @return a vector of value thresholds
+     */
+    std::vector<int>& getBusinessThresholds();
+
+    /**
+     * @brief getNumHomelessAgents \n
+     * Getter function for the number of homeless agents that are currently
+     * in the simulation
+     * @return the number of homeless agents as an int
+     */
+    int getNumHomelessAgents();
+
+    /**
+     * @brief getHomelessAgents \n
+     * Getter function for the set of homeless agents in the simulation
+     * @return the homeless agents in the simulation as a vector
+     */
+    std::vector<Agent*> getHomelessAgents();
+
+    /**
+     * @brief getNumUnemployedAgents \n
+     * Getter function for the number of unemployed agents that are currently
+     * in the simulation
+     * @return the number of unemployed agents as an int
+     */
+    int getNumUnemployedAgents();
+
+    /**
+     * @brief getUnemployedAgents \n
+     * Getter function for the set of unemployed agents in the simulation
+     * @return the unemployed agents in the simulation as a vector
+     */
+    std::vector<Agent*> getUnemployedAgents();
 
     /** Destructor for the Economic Simulation class */
     ~EconomicSimulation();
