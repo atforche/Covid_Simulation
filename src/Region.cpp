@@ -1,5 +1,6 @@
 #include "Headers/Region.h"
 #include "Headers/Simulation.h"
+#include "Headers/PandemicLocation.h"
 
 Region::Region(Simulation* sim, QColor color, std::string name) {
     this->numLocations = 0;
@@ -48,6 +49,10 @@ void Region::generateLocations(int num, std::string type) {
                                              coord.getCoord(Coordinate::Y)));
         } else if (type == "Economic") {
             locations.push_back(new EconomicLocation(coord.getCoord(Coordinate::X),
+                                                     coord.getCoord(Coordinate::Y),
+                                                     this->type));
+        } else if (type == "Pandemic") {
+            locations.push_back(new PandemicLocation(coord.getCoord(Coordinate::X),
                                                      coord.getCoord(Coordinate::Y),
                                                      this->type));
         }

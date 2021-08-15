@@ -656,9 +656,188 @@ public:
 };
 
 
+//******************************************************************************
+
+
+/**
+ * @brief The SEIRChartHelper class
+ * Helper class that handles dynamic memory for the SEIR Graph View.
+ * Offers a singleton abstraction for all dynamically allocated components of
+ * the graph, in order to prevent memory leaks
+ */
+class SEIRChartHelper {
+
+private:
+
+    /** Pointers to each dynamic object in this graph view*/
+    QtCharts::QLineSeries* susceptibleLineSeries;
+    QtCharts::QLineSeries* exposedLineSeries;
+    QtCharts::QLineSeries* infectedLineSeries;
+    QtCharts::QLineSeries* recoveredLineSeries;
+
+    QtCharts::QChart* chart;
+    QtCharts::QValueAxis* xAxis;
+    QtCharts::QValueAxis* yAxis;
+
+    /** Maximum and minimum values of the yAxis */
+    int maximum;
+    int minimum;
+
+    /**
+     * @brief getLineSeries \n
+     * Creates a new QLineSeries object if one hasn't been initialized, otherwise
+     * just returns a pointer the existing one.
+     * @param which: string to represent which LineSeries to retrieve
+     * @return a pointer to a QLineSeries
+     */
+    QtCharts::QLineSeries* getLineSeries(QString which);
+
+    /**
+     * @brief getNewChart \n
+     * Creates a new QChart object if one hasn't been initialized, otherwise
+     * just returns a pointer to the existing one.
+     * @return a pointer to a QChart
+     */
+    QtCharts::QChart* getNewChart();
+
+    /**
+     * @brief getNewAxis \n
+     * Creates a new QValueAxis object if the specified one hasn't been
+     * initialized, otherwise just returns a pointer to the existing one
+     * @param which: "y" for the yAxis, "x" for the xAxis
+     * @return a pointer to a QValueAxis
+     */
+    QtCharts::QValueAxis* getNewAxis(std::string which);
+
+public:
+
+    /**
+     * @brief SEIRChartHelper \n
+     * Constructor for the SEIRChartHelper class. Initializes all pointers
+     * within the class to nullptr.
+     */
+    SEIRChartHelper();
+
+    /** Destructor for the SEIRChartHelper class */
+    virtual ~SEIRChartHelper();
+
+    /**
+     * @brief getChart \n
+     * Returns a current pointer to the SEIRChartHelper. If the chart has not been
+     * created yet, initialize a new one and return it. Utilized to pass
+     * ownership of the chart to a new chartView
+     * @param SEIRAgents: vector having the count of each category of agent
+     * @param numAgents: total number of agents in the simulation
+     * @return a pointer to the SEIR Chart
+     */
+    QtCharts::QChart* getChart(std::vector<int> SEIRAgents, int numAgents);
+
+    /**
+     * @brief updateChart
+     * Updates the lines in the SEIRChart to reflect the new pandemic situation
+     * across the entire simulation. Chart must be initialized using
+     * getChart() before this function can be called.
+     * @param SEIRAgents: vector having the count of each category of agent
+     * @param numAgents: total number of agents in the simulation
+     */
+    void updateChart(std::vector<int> SEIRAgents, int numAgents);
+
+};
+
+
+//******************************************************************************
+
+
+/**
+ * @brief The DailyTrackerChartHelper class
+ * Helper class that handles dynamic memory for the Daily Tracker Graph View.
+ * Offers a singleton abstraction for all dynamically allocated components of
+ * the graph, in order to prevent memory leaks
+ */
+class DailyTrackerChartHelper {
+
+private:
+
+    /** Pointers to each dynamic object in this graph view*/
+    QtCharts::QLineSeries* dailyCaseLineSeries;
+    QtCharts::QLineSeries* dailyDeathLineSeries;
+    QtCharts::QChart* chart;
+    QtCharts::QValueAxis* xAxis;
+    QtCharts::QValueAxis* yAxis;
+
+    /** Maximum and minimum values of the yAxis */
+    int maximum;
+    int minimum;
+
+    /**
+     * @brief getLineSeries \n
+     * Creates a new QLineSeries object if one hasn't been initialized, otherwise
+     * just returns a pointer the existing one.
+     * @param which: string representing which LineSeries to grab
+     * @return a pointer to a QLineSeries
+     */
+    QtCharts::QLineSeries* getLineSeries(QString which);
+
+    /**
+     * @brief getNewChart \n
+     * Creates a new QChart object if one hasn't been initialized, otherwise
+     * just returns a pointer to the existing one.
+     * @return a pointer to a QChart
+     */
+    QtCharts::QChart* getNewChart();
+
+    /**
+     * @brief getNewAxis \n
+     * Creates a new QValueAxis object if the specified one hasn't been
+     * initialized, otherwise just returns a pointer to the existing one
+     * @param which: "y" for the yAxis, "x" for the xAxis
+     * @return a pointer to a QValueAxis
+     */
+    QtCharts::QValueAxis* getNewAxis(std::string which);
+
+public:
+
+    /**
+     * @brief DailyTrackerChartHelper \n
+     * Constructor for the DailyTrackerChartHelper class. Initializes all pointers
+     * within the class to nullptr.
+     */
+    DailyTrackerChartHelper();
+
+    /** Destructor for the DailyTrackerChartHelper class */
+    virtual ~DailyTrackerChartHelper();
+
+    /**
+     * @brief getChart \n
+     * Returns a current pointer to the DailyTrackerChartHelper. If the chart has not been
+     * created yet, initialize a new one and return it. Utilized to pass
+     * ownership of the chart to a new chartView
+     * @param newDailyCases: number of new Cases in the past day
+     * @param newDailyDeaths: number of new Deaths in the past day
+     * @return a pointer to the Total Value Chart
+     */
+    QtCharts::QChart* getChart(int newDailyCases, int newDailyDeaths);
+
+    /**
+     * @brief updateChart
+     * Updates the lines in the DailyTrackerChartHelper to reflect the new value
+     * across the entire simulation. Chart must be initialized using
+     * getChart() before this function can be called.
+     * @param newDailyCases: number of new Cases in the past day
+     * @param newDailyDeaths: number of new Deaths in the past day
+     */
+    void updateChart(int newDailyCases, int newDailyDeaths);
+
+};
+
+
+//******************************************************************************
+
+
 // Includes to prevent circular dependencies
 #include "EconomicAgent.h"
 #include "EconomicLocation.h"
+#include "PandemicAgent.h"
 
 
 #endif // CHARTHELPERS_H

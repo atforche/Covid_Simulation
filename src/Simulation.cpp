@@ -153,11 +153,10 @@ void Simulation::addToScreen(QGraphicsItem *item) {
 void Simulation::advanceTime() {
     // Increment the time by one frame
     static int numFrames = 0;
-    numFrames++;
 
-    if (numFrames >= FRAMES_PER_HOUR) {
+    if (numFrames == FRAMES_PER_HOUR) {
         // Increment the number of hours
-        numFrames = 1;
+        numFrames = 0;
         this->hour++;
         ui->hour->setText(QString::number(this->hour));
 
@@ -187,6 +186,9 @@ void Simulation::advanceTime() {
 
     // Update the population counter
     ui->currentPopulation->setText(QString::number(getCurrentNumAgents()));
+
+    // Increment the frame counter
+    numFrames++;
 }
 
 
@@ -329,15 +331,21 @@ bool Simulation::checkDebug(std::string val) {
 
 void Simulation::mapChartViews() {
 
-    static std::unordered_map<int, QString> indexMap = {
+    std::unordered_map<int, QString> indexMap = {
         {0, "AGE"},
         {1, "BEHAVIOR"},
-        {2, "DESTINATION"},
-        {3, "AGENT VALUE"},
-        {4, "ECONOMIC STATUS"},
-        {5, "BUSINESS VALUE"},
-        {6, "TOTAL VALUE"}
+        {2, "DESTINATION"}
     };
+
+    if (ui->simulationType->currentText() == "Economic Simulation") {
+        indexMap[3] = "AGENT VALUE";
+        indexMap[4] = "ECONOMIC STATUS";
+        indexMap[5] = "BUSINESS VALUE";
+        indexMap[6] = "TOTAL VALUE";
+    } else if (ui->simulationType->currentText() == "Pandemic Simulation") {
+        indexMap[3] = "SEIR";
+        indexMap[4] = "DAILY TRACKER";
+    }
 
     // Delete the existing map to overwrite it
     delete this->chartViews;
@@ -351,6 +359,8 @@ void Simulation::mapChartViews() {
     (*chartViews)["ECONOMIC STATUS"] = -1;
     (*chartViews)["BUSINESS VALUE"] = -1;
     (*chartViews)["TOTAL VALUE"] = -1;
+    (*chartViews)["SEIR"] = -1;
+    (*chartViews)["DAILY TRACKER"] = -1;
 
     QString graph = indexMap[ui->graph1Selection->currentIndex()];
     (*chartViews)[graph] = 0;
@@ -531,4 +541,8 @@ void Simulation::renderAgentUpdate() {
         i->updateGraphicsObject();
     }
 }
+
+
+//******************************************************************************
+
 

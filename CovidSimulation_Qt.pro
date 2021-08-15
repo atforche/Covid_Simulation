@@ -16,6 +16,10 @@ SOURCES += \
     src/EconomicController.cpp \
     src/EconomicLocation.cpp \
     src/EconomicSimulation.cpp \
+    src/PandemicAgent.cpp \
+    src/PandemicController.cpp \
+    src/PandemicLocation.cpp \
+    src/PandemicSimulation.cpp \
     src/mainwindow.cpp \
     src/Agent.cpp \
     src/Coordinate.cpp \
@@ -33,6 +37,10 @@ HEADERS += \
     Headers/EconomicController.h \
     Headers/EconomicLocation.h \
     Headers/EconomicSimulation.h \
+    Headers/PandemicAgent.h \
+    Headers/PandemicController.h \
+    Headers/PandemicLocation.h \
+    Headers/PandemicSimulation.h \
     Headers/mainwindow.h \
     Headers/Agent.h \
     Headers/Coordinate.h \

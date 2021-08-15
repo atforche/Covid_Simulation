@@ -115,6 +115,36 @@ public:
     void enableEconomicCharts(bool enabled);
 
     /**
+     * @brief showPandemicOptions \n
+     * Function that makes the options relevant to the Pandemic Simulation type
+     * appear or disappear from the screen. Disables them all immediately after
+     * they are shown or hidden, Options can be enables with a call to
+     * enableEconomicOptions.
+     * @param show: whether to show or hide the economic options
+     */
+    void showPandemicOptions(bool show);
+
+    /**
+     * @brief enablePandemicOptions \n
+     * Function that enables and disables all of the options relevent to the
+     * Pandemic Simualtion type. Status the options will be set to is determined
+     * by the function parameter
+     * @param enabled: whether to enable is disable the Pandemic options
+     */
+    void enablePandemicOptions(bool enabled);
+
+    /**
+     * @brief enablePandemicCharts \n
+     * Function to enable or disable the Pandemic Charts. If the pandemic charts,
+     * are enabled, the options will appear in the ComboBoxes and the default
+     * chart views for the Pandemic Simulation will be applied. If the Pandemic
+     * charts are disabled, the options will be removed in the ComboBoxes and
+     * the default chart views for the Simple Simualtion will be applied.
+     * @param enabled: whether to enable or disable the Pandemic Charts
+     */
+    void enablePandemicCharts(bool enabled);
+
+    /**
      * @brief initializeComboBoxes \n
      * Initialize each of the Combo Boxes with their initial values and
      * list of possible values.
@@ -284,6 +314,54 @@ private slots:
      * @param arg1: the new value of the slider
      */
     void on_initialValueSlider_valueChanged(int arg1);
+
+    /**
+     * @brief on_lagPeriod_valueChanged \n
+     * Event handler for when the SpinBox for the Lag Period changes. Updates
+     * the value in the slider to keep them in sync.
+     * @param arg1: the new value of the SpinBox
+     */
+    void on_lagPeriod_valueChanged(int arg1);
+
+    /**
+     * @brief on_lagPeriodSlider_valueChanged \n
+     * Event handler for when the Slider for the Lag Period changes. Updates
+     * the value of the SpinBox to keep them in sync.
+     * @param value: the new value of the Slider
+     */
+    void on_lagPeriodSlider_valueChanged(int value);
+
+    /**
+     * @brief on_initialInfected_valueChanged \n
+     * Event handler for when the SpinBox for the Initial Infected changes.
+     * Updates the value of the Slider to keep them in sync.
+     * @param arg1: the new value of the SpinBox
+     */
+    void on_initialInfected_valueChanged(int arg1);
+
+    /**
+     * @brief on_initialInfectedSlider_valueChanged \n
+     * Event handler for when the Slider for the Initial Infected changes.
+     * Updates the valueof the SpinBox to keep them in sync.
+     * @param value: the new value of the Slider
+     */
+    void on_initialInfectedSlider_valueChanged(int value);
+
+    /**
+     * @brief on_hospitalCapacity_valueChanged \n
+     * Event handler for when the SpinBox for the Initial Infected changes.
+     * Updates the value of the Slider to keep them in sync.
+     * @param arg1: the new value of the SpinBox
+     */
+    void on_hospitalCapacity_valueChanged(int arg1);
+
+    /**
+     * @brief on_hospitalCapacitySlider_valueChanged \n
+     * Event handler for when the Slider for the Initial Infected changes.
+     * Updates the valueof the SpinBox to keep them in sync.
+     * @param value: the new value of the Slider
+     */
+    void on_hospitalCapacitySlider_valueChanged(int value);
 
 };
 

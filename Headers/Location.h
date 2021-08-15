@@ -108,6 +108,13 @@ public:
      */
     int getID();
 
+    /**
+     * @brief getNumAgents \n
+     * Getter function for the number of Agents assigned to the Location
+     * @return the number of Agents at the Location
+     */
+    int getNumAgents();
+
     /** Destructor for the location class */
     virtual ~Location();
 

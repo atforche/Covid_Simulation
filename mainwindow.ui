@@ -658,6 +658,646 @@
      <string>0</string>
     </property>
    </widget>
+   <widget class="QLabel" name="pandemicOptions">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>590</y>
+      <width>151</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Pandemic Simulation Options</string>
+    </property>
+   </widget>
+   <widget class="QSlider" name="lagPeriodSlider">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>640</y>
+      <width>261</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
+    <property name="maximum">
+     <number>20</number>
+    </property>
+    <property name="value">
+     <number>7</number>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+    <property name="tickPosition">
+     <enum>QSlider::TicksBelow</enum>
+    </property>
+    <property name="tickInterval">
+     <number>5</number>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="lagPeriod">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>610</y>
+      <width>59</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
+    <property name="maximum">
+     <number>20</number>
+    </property>
+    <property name="value">
+     <number>7</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lagPeriodLabel">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>610</y>
+      <width>104</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Lag Period:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="initialInfectedLabel">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>660</y>
+      <width>104</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Initial Infected:</string>
+    </property>
+   </widget>
+   <widget class="QSlider" name="initialInfectedSlider">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>690</y>
+      <width>261</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
+    <property name="maximum">
+     <number>20</number>
+    </property>
+    <property name="value">
+     <number>10</number>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+    <property name="tickPosition">
+     <enum>QSlider::TicksBelow</enum>
+    </property>
+    <property name="tickInterval">
+     <number>100</number>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="initialInfected">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>660</y>
+      <width>59</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
+    <property name="maximum">
+     <number>20</number>
+    </property>
+    <property name="value">
+     <number>10</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="totalCases">
+    <property name="geometry">
+     <rect>
+      <x>1410</x>
+      <y>870</y>
+      <width>47</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>0</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="totalCaseLabel">
+    <property name="geometry">
+     <rect>
+      <x>1310</x>
+      <y>870</y>
+      <width>111</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Total Cases:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="totalDeaths">
+    <property name="geometry">
+     <rect>
+      <x>1410</x>
+      <y>890</y>
+      <width>47</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>0</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="totalDeathsLabel">
+    <property name="geometry">
+     <rect>
+      <x>1310</x>
+      <y>890</y>
+      <width>111</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Total Deaths:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="hospitalCapacityLabel">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>710</y>
+      <width>104</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Hospital Capacity:</string>
+    </property>
+   </widget>
+   <widget class="QSlider" name="hospitalCapacitySlider">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>740</y>
+      <width>261</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
+    <property name="maximum">
+     <number>20</number>
+    </property>
+    <property name="value">
+     <number>10</number>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+    <property name="tickPosition">
+     <enum>QSlider::TicksBelow</enum>
+    </property>
+    <property name="tickInterval">
+     <number>100</number>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="hospitalCapacity">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>710</y>
+      <width>59</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
+    <property name="maximum">
+     <number>20</number>
+    </property>
+    <property name="value">
+     <number>10</number>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>760</y>
+      <width>291</width>
+      <height>211</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Pandemic Options</string>
+    </property>
+    <widget class="QCheckBox" name="quarantineWhenInfected">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>20</y>
+       <width>151</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>Agents will not leave Home when they are Infected</string>
+     </property>
+     <property name="text">
+      <string>Quarantine when Infected</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="contactTracing">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>40</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Contact Tracing:</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="weak">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>60</y>
+       <width>151</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>Agents that share a Location with an Infected agent will not change their behavior</string>
+     </property>
+     <property name="text">
+      <string>Weak</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="moderate">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>80</y>
+       <width>151</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>Agents that share a Location with an Infected agent will avoid Leisure but will still go to Work and School</string>
+     </property>
+     <property name="text">
+      <string>Moderate</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="strong">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>100</y>
+       <width>151</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>Agents that share a Location with an Infected agent will not leave their home</string>
+     </property>
+     <property name="text">
+      <string>Strong</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lockdown">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>40</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Lockdown:</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="strongLockdown">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>100</y>
+       <width>151</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>Locations will lockdown when a small proportion of their agents become Intected</string>
+     </property>
+     <property name="text">
+      <string>Strong</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="moderateLockdown">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>80</y>
+       <width>151</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>Locations will lockdown when a moderate number of their agents become Infected</string>
+     </property>
+     <property name="text">
+      <string>Moderate</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="weakLockdown">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>60</y>
+       <width>151</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>Locations will never lockdown and will always remain open</string>
+     </property>
+     <property name="text">
+      <string>Weak</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="weakCompliance">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>140</y>
+       <width>151</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>A very small proportion of agents will not comply with Pandemic rules</string>
+     </property>
+     <property name="text">
+      <string>Weak</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="nonCompliance">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>120</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Non-Compliance:</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="strongCompliance">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>180</y>
+       <width>151</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A largel proportion of agents will not comply with Pandemic rules&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="text">
+      <string>Strong</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="moderateCompliance">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>160</y>
+       <width>151</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A moderate proportion of agents will not comply with Pandemic rules&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="text">
+      <string>Moderate</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="guidelines">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>120</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Guidelines:</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="weakGuidelines">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>140</y>
+       <width>151</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Weak guidelines are issues around mask use and social distancing. Reduction to virus spread and businesses is minimal&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="text">
+      <string>Weak</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="moderateGuidelines">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>160</y>
+       <width>151</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Moderate guidelines are issues around mask use and social distancing. Reduction to virus spread and businesses is moderate&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="text">
+      <string>Moderate</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="strongGuidelines">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>180</y>
+       <width>151</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Strong guidelines are issues around mask use and social distancing. Reduction to virus spread and businesses is significant&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="text">
+      <string>Strong</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="moderateCommerce">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>160</y>
+       <width>151</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Agents will conduct some of their Work and Leisure from home&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="text">
+      <string>Moderate</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="weakCommerce">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>140</y>
+       <width>151</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Agents will do everything in Person whenever possible&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="text">
+      <string>Weak</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="strongCommerce">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>180</y>
+       <width>151</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Agents will conduct most of the Work and Leisure from Home&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="text">
+      <string>Strong</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="strongAssistance">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>100</y>
+       <width>151</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The Government provides ample financial assistance to agents (Dual Simulation only)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="text">
+      <string>Strong</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="weakAssistance">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>60</y>
+       <width>151</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The Government provides no financial assistance to agents (Dual Simulation only)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="text">
+      <string>Weak</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="moderateAssistance">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>80</y>
+       <width>151</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The Government provides moderate financial assistance to agents (Dual Simulation only)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="text">
+      <string>Moderate</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="guidelines_2">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>120</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>E-Commerce:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="governmentAssistance">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>40</y>
+       <width>121</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Government Assistance:</string>
+     </property>
+    </widget>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

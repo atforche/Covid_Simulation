@@ -80,14 +80,6 @@ public:
     virtual void reset() override;
 
     /**
-     * @brief test \n
-     * Test Function that allows for functionalities of the simulation
-     * to be tested. Function that can be modified as needed to test various
-     * functionalities of the simulation.
-     */
-    virtual void test() override;
-
-    /**
      * @brief generateAgents \n
      * Function to generate agents and assign them to behaviors and locations.
      * Currently, randomly assign agents with ages, behaviors, and locations.
@@ -113,6 +105,14 @@ public:
      * @return a pointer to the specified region
      */
     virtual Region* getRegion(Agent::LOCATIONS which) override;
+
+    /**
+     * @brief getAllLocations \n
+     * Getter function that returns a vector containing all Locations in the
+     * entire Simulation
+     * @return a vector of Location*
+     */
+    std::vector<Location*> getAllLocations();
 
 public slots:
 

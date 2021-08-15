@@ -1081,3 +1081,335 @@ void EconomicStatusChartHelper::updateChart(double homelessCount, double unemplo
 
 }
 
+
+//******************************************************************************
+
+
+QtCharts::QLineSeries* SEIRChartHelper::getLineSeries(QString which) {
+    QLineSeries* series;
+    if (which == "Susceptible") {
+        if (susceptibleLineSeries == nullptr) {
+            susceptibleLineSeries = new QLineSeries();
+        }
+        series = susceptibleLineSeries;
+    } else if (which == "Exposed") {
+        if (exposedLineSeries == nullptr) {
+            exposedLineSeries = new QLineSeries();
+        }
+        series = exposedLineSeries;
+    } else if (which == "Infected") {
+        if (infectedLineSeries == nullptr) {
+            infectedLineSeries = new QLineSeries();
+        }
+        series = infectedLineSeries;
+    } else {
+        if (recoveredLineSeries == nullptr) {
+            recoveredLineSeries = new QLineSeries();
+        }
+        series = recoveredLineSeries;
+    }
+
+    return series;
+}
+
+
+//******************************************************************************
+
+
+QtCharts::QChart* SEIRChartHelper::getNewChart() {
+    if (chart == nullptr) {
+        chart = new QtCharts::QChart();
+    }
+
+    chart->addSeries(susceptibleLineSeries);
+    chart->addSeries(exposedLineSeries);
+    chart->addSeries(infectedLineSeries);
+    chart->addSeries(recoveredLineSeries);
+    chart->addAxis(xAxis, Qt::AlignBottom);
+    chart->addAxis(yAxis, Qt::AlignLeft);
+    chart->setTitle("Agent Pandemic Status");
+
+    return chart;
+}
+
+
+//******************************************************************************
+
+
+QtCharts::QValueAxis* SEIRChartHelper::getNewAxis(std::string which) {
+    if (which == "y") {
+        if (yAxis == nullptr) {
+            yAxis = new QValueAxis();
+        }
+        return yAxis;
+    } else if (which == "x") {
+        if (xAxis == nullptr) {
+            xAxis = new QValueAxis();
+        }
+        return xAxis;
+    }
+    return nullptr;
+}
+
+
+//******************************************************************************
+
+
+SEIRChartHelper::SEIRChartHelper() {
+    // Initialize nullptrs for all dynamic memory objects
+    susceptibleLineSeries = nullptr;
+    exposedLineSeries = nullptr;
+    infectedLineSeries = nullptr;
+    recoveredLineSeries = nullptr;
+    chart = nullptr;
+    xAxis = nullptr;
+    yAxis = nullptr;
+
+    // Initialize maximum and minimum values
+    maximum = INT_MIN;
+    minimum = INT_MAX;
+}
+
+
+//******************************************************************************
+
+
+SEIRChartHelper::~SEIRChartHelper() {
+    delete susceptibleLineSeries;
+    delete exposedLineSeries;
+    delete infectedLineSeries;
+    delete recoveredLineSeries;
+    delete xAxis;
+    delete yAxis;
+    delete chart;
+}
+
+
+//******************************************************************************
+
+
+QtCharts::QChart* SEIRChartHelper::getChart(std::vector<int> SEIRAgents, int numAgents) {
+
+    // Initialize a QBarSeries to hold a group of QBarSets
+    getLineSeries(QString("Susceptible"));
+    getLineSeries(QString("Exposed"));
+    getLineSeries(QString("Infected"));
+    getLineSeries(QString("Recovered"));
+
+    // Create an updated BarSet with counts
+    updateChart(SEIRAgents, numAgents);
+
+    // Initialize the QChart and give it a series
+    QtCharts::QChart* chart = getNewChart();
+
+    // Create the legend
+    chart->legend()->setVisible(true);
+    chart->legend()->setAlignment(Qt::AlignBottom);
+
+    // Add labels to the legend
+    QList<QLegendMarker*> markers = chart->legend()->markers();
+    markers[0]->setLabel("Susceptible");
+    markers[1]->setLabel("Exposed");
+    markers[2]->setLabel("Infected");
+    markers[3]->setLabel("Recovered");
+
+    return chart;
+}
+
+
+//******************************************************************************
+
+
+void SEIRChartHelper::updateChart(std::vector<int> SEIRAgents, int numAgents) {
+
+    // Calculate the proportion of each category in the population
+    double susceptibleProportion = SEIRAgents[PandemicAgent::SUSCEPTIBLE] / static_cast<double>(numAgents);
+    double exposedProportion = SEIRAgents[PandemicAgent::EXPOSED] / static_cast<double>(numAgents);
+    double infectedProportion = SEIRAgents[PandemicAgent::INFECTED] / static_cast<double>(numAgents);
+    double recoveredProportion = SEIRAgents[PandemicAgent::RECOVERED] / static_cast<double>(numAgents);
+
+    // Add new values to each line series
+    susceptibleLineSeries->append(susceptibleLineSeries->count(), susceptibleProportion);
+    exposedLineSeries->append(exposedLineSeries->count(), exposedProportion);
+    infectedLineSeries->append(infectedLineSeries->count(), infectedProportion);
+    recoveredLineSeries->append(recoveredLineSeries->count(), recoveredProportion);
+
+    // Update the axes to show the entire graph
+    QValueAxis* y = getNewAxis("y");
+    QValueAxis* x = getNewAxis("x");
+
+    // Update the range of the Y-axis
+    y->setRange(0, 1);
+    susceptibleLineSeries->attachAxis(y);
+    exposedLineSeries->attachAxis(y);
+    infectedLineSeries->attachAxis(y);
+    recoveredLineSeries->attachAxis(y);
+
+    // Update the range of the X-axis
+    x->setRange(0, susceptibleLineSeries->count());
+    susceptibleLineSeries->attachAxis(x);
+    exposedLineSeries->attachAxis(x);
+    infectedLineSeries->attachAxis(x);
+    recoveredLineSeries->attachAxis(x);
+
+    // Add the new series to the chart
+    if (chart != nullptr) {
+        chart->addSeries(susceptibleLineSeries);
+        chart->addSeries(exposedLineSeries);
+        chart->addSeries(infectedLineSeries);
+        chart->addSeries(recoveredLineSeries);
+    }
+
+}
+
+
+//******************************************************************************
+
+
+QtCharts::QLineSeries* DailyTrackerChartHelper::getLineSeries(QString which) {
+    QLineSeries* series;
+    if (which == "Cases") {
+        if (dailyCaseLineSeries == nullptr) {
+            dailyCaseLineSeries = new QLineSeries();
+        }
+        series = dailyCaseLineSeries;
+    } else {
+        if (dailyDeathLineSeries == nullptr) {
+            dailyDeathLineSeries = new QLineSeries();
+        }
+        series = dailyDeathLineSeries;
+    }
+
+    if (series == nullptr) {
+        series = new QLineSeries();
+    }
+
+    return series;
+}
+
+
+//******************************************************************************
+
+
+QtCharts::QChart* DailyTrackerChartHelper::getNewChart() {
+    if (chart == nullptr) {
+        chart = new QtCharts::QChart();
+    }
+
+    chart->addSeries(dailyCaseLineSeries);
+    chart->addSeries(dailyDeathLineSeries);
+    chart->addAxis(xAxis, Qt::AlignBottom);
+    chart->addAxis(yAxis, Qt::AlignLeft);
+    chart->setTitle("Daily Cases and Deaths");
+
+    return chart;
+}
+
+
+//******************************************************************************
+
+
+QtCharts::QValueAxis* DailyTrackerChartHelper::getNewAxis(std::string which) {
+    if (which == "y") {
+        if (yAxis == nullptr) {
+            yAxis = new QValueAxis();
+        }
+        return yAxis;
+    } else if (which == "x") {
+        if (xAxis == nullptr) {
+            xAxis = new QValueAxis();
+        }
+        return xAxis;
+    }
+    return nullptr;
+}
+
+
+//******************************************************************************
+
+
+DailyTrackerChartHelper::DailyTrackerChartHelper() {
+    // Initialize nullptrs for all dynamic memory objects
+    dailyCaseLineSeries = nullptr;
+    dailyDeathLineSeries = nullptr;
+    chart = nullptr;
+    xAxis = nullptr;
+    yAxis = nullptr;
+
+    // Initialize maximum and minimum values
+    maximum = INT_MIN;
+    minimum = INT_MAX;
+}
+
+
+//******************************************************************************
+
+
+DailyTrackerChartHelper::~DailyTrackerChartHelper() {
+    delete dailyCaseLineSeries;
+    delete dailyDeathLineSeries;
+    delete xAxis;
+    delete yAxis;
+    delete chart;
+}
+
+
+//******************************************************************************
+
+
+QtCharts::QChart* DailyTrackerChartHelper::getChart(int numDailyCases, int numDailyDeaths) {
+
+    // Initialize a QBarSeries to hold a group of QBarSets
+    getLineSeries(QString("Cases"));
+    getLineSeries(QString("Deaths"));
+
+    // Create an updated BarSet with counts
+    updateChart(numDailyCases, numDailyDeaths);
+
+    // Initialize the QChart and give it a series
+    QtCharts::QChart* chart = getNewChart();
+
+    // Create the legend
+    chart->legend()->setVisible(true);
+    chart->legend()->setAlignment(Qt::AlignBottom);
+
+    // Add labels to the legend
+    QList<QLegendMarker*> markers = chart->legend()->markers();
+    markers[0]->setLabel("Cases");
+    markers[1]->setLabel("Deaths");
+
+    return chart;
+}
+
+
+//******************************************************************************
+
+
+void DailyTrackerChartHelper::updateChart(int numDailyCases, int numDailyDeaths) {
+
+    // Add new values to each line series
+    dailyCaseLineSeries->append(dailyCaseLineSeries->count(), numDailyCases);
+    dailyDeathLineSeries->append(dailyDeathLineSeries->count(), numDailyDeaths);
+
+    // Update the axes to show the entire graph
+    QValueAxis* y = getNewAxis("y");
+    QValueAxis* x = getNewAxis("x");
+
+    // Update the range of the Y-axis
+    maximum = std::max(maximum, std::max(numDailyCases, numDailyDeaths)) + 1;
+    minimum = std::min(minimum, std::min(numDailyCases, numDailyDeaths));
+    y->setRange(minimum, maximum);
+    dailyCaseLineSeries->attachAxis(y);
+    dailyDeathLineSeries->attachAxis(y);
+
+    // Update the range of the X-axis
+    x->setRange(0, dailyCaseLineSeries->count());
+    dailyCaseLineSeries->attachAxis(x);
+    dailyDeathLineSeries->attachAxis(x);
+
+    // Add the new series to the chart
+    if (chart != nullptr) {
+        chart->addSeries(dailyCaseLineSeries);
+        chart->addSeries(dailyDeathLineSeries);
+    }
+}

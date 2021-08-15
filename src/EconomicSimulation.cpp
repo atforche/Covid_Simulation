@@ -210,6 +210,8 @@ void EconomicSimulation::renderChartUpdates(QString which, bool newChartView) {
                                       getNumUnemployedAgents(),
                                       static_cast<int>(getAgents().size()));
         }
+    } else {
+        SimpleSimulation::renderChartUpdates(which, newChartView);
     }
 }
 

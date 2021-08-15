@@ -138,14 +138,6 @@ public:
     virtual void reset() = 0;
 
     /**
-     * @brief test \n
-     * Function to test each simulation type. Exact purpose of function can
-     * change depending on what needs to be tested. Needs to be overridden by
-     * derived classes
-     */
-    virtual void test() = 0;
-
-    /**
      * @brief generateAgents \n
      * Function to generate the agents and assign them to behaviors and locations.
      * Should be overridden by derived classes to customize assignment

@@ -1,6 +1,7 @@
 #include <Headers/SimpleSimulation.h>
 #include "Headers/Agent.h"
 #include "Headers/EconomicAgent.h"
+#include "Headers/PandemicAgent.h"
 
 SimpleSimulation::SimpleSimulation(int numAgents, Ui::MainWindow* ui,
                                    std::map<std::string, bool> debug) :
@@ -138,15 +139,6 @@ void SimpleSimulation::reset() {
 //******************************************************************************
 
 
-void SimpleSimulation::test() {
-    std::vector<Agent*> agents = getAgents();
-    agents[0]->takeTimeStep();
-}
-
-
-//******************************************************************************
-
-
 void SimpleSimulation::generateAgents(int num, bool birth, std::string type) {
     // Create a random color for each strategy
     std::vector<QColor> agentColors;
@@ -221,17 +213,22 @@ void SimpleSimulation::generateAgents(int num, bool birth, std::string type) {
 
         // Create an agent with the determines behavior and location
         Agent* agent;
-        if (type == "Simple") {
-            agent = new Agent(ageAssignment,
-                              initialLocation,
-                              startingLocation,
-                              behaviorAssignment);
-        } else {
+        if (type == "Economic") {
             agent = new EconomicAgent(0,
                                       ageAssignment,
                                       initialLocation,
                                       startingLocation,
                                       behaviorAssignment);
+        } else if (type == "Pandemic") {
+            agent = new PandemicAgent(ageAssignment,
+                                      initialLocation,
+                                      startingLocation,
+                                      behaviorAssignment);
+        } else {
+            agent = new Agent(ageAssignment,
+                              initialLocation,
+                              startingLocation,
+                              behaviorAssignment);
         }
 
         // If selected, set a unique color for each behavior
@@ -300,6 +297,30 @@ Region* SimpleSimulation::getRegion(Agent::LOCATIONS which) {
     }
 
     return nullptr;
+}
+
+
+//******************************************************************************
+
+
+std::vector<Location*> SimpleSimulation::getAllLocations() {
+    std::vector<Location*> locations;
+
+    // Grab the locations from each Region and append them to the vector
+    std::vector<Location*> homeLocations = homeRegion->getLocations();
+    locations.reserve(4 * homeLocations.size());
+    locations.insert(locations.end(), homeLocations.begin(), homeLocations.end());
+
+    std::vector<Location*> workLocations = workRegion->getLocations();
+    locations.insert(locations.end(), workLocations.begin(), workLocations.end());
+
+    std::vector<Location*> schoolLocations = schoolRegion->getLocations();
+    locations.insert(locations.end(), schoolLocations.begin(), schoolLocations.end());
+
+    std::vector<Location*> leisureLocations = leisureRegion->getLocations();
+    locations.insert(locations.end(), leisureLocations.begin(), leisureLocations.end());
+
+    return locations;
 }
 
 

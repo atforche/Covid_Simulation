@@ -110,3 +110,11 @@ Location_Comparator::Location_Comparator(Location* searchLocation) {
 bool Location_Comparator::operator()(Location *test) {
     return test->getID() == desiredLocation->getID();
 }
+
+
+//******************************************************************************
+
+
+int Location::getNumAgents() {
+    return static_cast<int>(agents.size());
+}

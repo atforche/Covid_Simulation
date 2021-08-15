@@ -1,6 +1,7 @@
 #include "Headers/mainwindow.h"
 #include "Headers/SimpleSimulation.h"
 #include "Headers/EconomicSimulation.h"
+#include "Headers/PandemicSimulation.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -40,7 +41,13 @@ MainWindow::MainWindow(QWidget *parent)
     // Enable the UI buttons that should be enabled to begin
     enableUI();
     showEconomicOptions(false);
+    showPandemicOptions(false);
 
+    // Update the maximum value of the initial infected to match the number of agents
+    ui->initialInfected->setMaximum(ui->numAgents->value());
+    ui->initialInfectedSlider->setMaximum(ui->numAgents->value());
+    ui->hospitalCapacity->setMaximum(ui->numAgents->value());
+    ui->hospitalCapacitySlider->setMaximum(ui->numAgents->value());
 }
 
 
@@ -127,6 +134,8 @@ void MainWindow::enableUI() {
     // Handle simulation specific options
     if (ui->simulationType->currentText() == "Economic Simulation") {
         enableEconomicOptions(true);
+    } else if (ui->simulationType->currentText() == "Pandemic Simulation") {
+        enablePandemicOptions(true);
     }
 }
 
@@ -228,6 +237,105 @@ void MainWindow::enableEconomicCharts(bool enabled) {
 //******************************************************************************
 
 
+void MainWindow::showPandemicOptions(bool show) {
+    enablePandemicOptions(false);
+    ui->pandemicOptions->setVisible(show);
+    ui->initialInfected->setVisible(show);
+    ui->initialInfectedLabel->setVisible(show);
+    ui->initialInfectedSlider->setVisible(show);
+
+    ui->lagPeriod->setVisible(show);
+    ui->lagPeriodLabel->setVisible(show);
+    ui->lagPeriodSlider->setVisible(show);
+
+    ui->hospitalCapacity->setVisible(show);
+    ui->hospitalCapacityLabel->setVisible(show);
+    ui->hospitalCapacitySlider->setVisible(show);
+
+    ui->totalCaseLabel->setVisible(show);
+    ui->totalCases->setVisible(show);
+    ui->totalDeathsLabel->setVisible(show);
+    ui->totalDeaths->setVisible(show);
+
+    ui->groupBox->setVisible(show);
+}
+
+
+//******************************************************************************
+
+
+void MainWindow::enablePandemicOptions(bool enabled) {
+    ui->initialInfected->setEnabled(enabled);
+    ui->initialInfectedSlider->setEnabled(enabled);
+    ui->lagPeriod->setEnabled(enabled);
+    ui->lagPeriodSlider->setEnabled(enabled);
+
+    ui->hospitalCapacity->setEnabled(enabled);
+    ui->hospitalCapacitySlider->setEnabled(enabled);
+
+    ui->groupBox->setEnabled(enabled);
+}
+
+
+//******************************************************************************
+
+
+void MainWindow::enablePandemicCharts(bool enabled) {
+    // Block signals while working on the ComboBoxes
+    ui->graph1Selection->blockSignals(true);
+    ui->graph2Selection->blockSignals(true);
+    ui->graph3Selection->blockSignals(true);
+
+    if (enabled) {
+        // Add the Economic Charts to each Combo Box
+        ui->graph1Selection->addItem("SEIR Chart");
+        ui->graph1Selection->addItem("Daily Case/Death Tracker");
+
+        ui->graph2Selection->addItem("SEIR Chart");
+        ui->graph2Selection->addItem("Daily Case/Death Tracker");
+
+        ui->graph3Selection->addItem("SEIR Chart");
+        ui->graph3Selection->addItem("Daily Case/Death Tracker");
+
+        // Apply the default Chart config for the Economic Simulation
+        ui->graph1Selection->setCurrentIndex(3);
+        ui->graph2Selection->setCurrentIndex(4);
+        ui->graph3Selection->setCurrentIndex(2);
+
+    } else {
+        // Avoid removing items if items don't need to be removed
+        if (ui->graph1Selection->count() == 5) {
+            // Remove the Economic Charts to each Combo Box
+            ui->graph1Selection->removeItem(4);
+            ui->graph1Selection->removeItem(3);
+
+            ui->graph2Selection->removeItem(4);
+            ui->graph2Selection->removeItem(3);
+
+            ui->graph3Selection->removeItem(4);
+            ui->graph3Selection->removeItem(3);
+
+            // Apply the default Chart config for the Economic Simulation
+            ui->graph1Selection->setCurrentIndex(0);
+            ui->graph2Selection->setCurrentIndex(1);
+            ui->graph3Selection->setCurrentIndex(2);
+        }
+
+    }
+
+    // Re-enable signals while working on the ComboBoxes
+    ui->graph1Selection->blockSignals(false);
+    ui->graph2Selection->blockSignals(false);
+    ui->graph3Selection->blockSignals(false);
+
+    // Update which options are enabled and disabled
+    disableComboBoxOptions();
+}
+
+
+//******************************************************************************
+
+
 void MainWindow::initializeComboBoxes() {
 
     // Define the values for the Graph1Selection dropdowns
@@ -256,6 +364,7 @@ void MainWindow::initializeComboBoxes() {
     QStringList simulationTypes;
     simulationTypes.append("Simple Simulation");
     simulationTypes.append("Economic Simulation");
+    simulationTypes.append("Pandemic Simulation");
     ui->simulationType->addItems(simulationTypes);
 
     // Disable the current selections in the other dropdowns
@@ -331,6 +440,45 @@ std::map<std::string, bool> MainWindow::checkDebugInfo() {
                                     Qt::CheckState::Checked);
     debug["headless mode"] = (ui->headlessMode->checkState() ==
                               Qt::CheckState::Checked);
+
+    // Add debug information for the Pandemic Options
+    debug["quarantine when infected"] = (ui->quarantineWhenInfected->checkState() ==
+                                         Qt::CheckState::Checked);
+    debug["weak contact tracing"] = (ui->weak->checkState() ==
+                                     Qt::CheckState::Checked);
+    debug["moderate contact tracing"] = (ui->moderate->checkState() ==
+                                     Qt::CheckState::Checked);
+    debug["strong contact tracing"] = (ui->strong->checkState() ==
+                                     Qt::CheckState::Checked);
+
+    debug["weak lockdown"] = (ui->weakLockdown->checkState() ==
+                                     Qt::CheckState::Checked);
+    debug["moderate lockdown"] = (ui->moderateLockdown->checkState() ==
+                                     Qt::CheckState::Checked);
+    debug["strong lockdown"] = (ui->strongLockdown->checkState() ==
+                                     Qt::CheckState::Checked);
+
+    debug["weak non-compliance"] = (ui->weakCompliance->checkState() ==
+                                     Qt::CheckState::Checked);
+    debug["moderate non-compliance"] = (ui->moderateCompliance->checkState() ==
+                                     Qt::CheckState::Checked);
+    debug["strong non-compliance"] = (ui->strongCompliance->checkState() ==
+                                     Qt::CheckState::Checked);
+
+    debug["weak guidelines"] = (ui->weakGuidelines->checkState() ==
+                                     Qt::CheckState::Checked);
+    debug["moderate guidelines"] = (ui->moderateGuidelines->checkState() ==
+                                     Qt::CheckState::Checked);
+    debug["strong guidelines"] = (ui->strongGuidelines->checkState() ==
+                                     Qt::CheckState::Checked);
+
+    debug["weak e-commerce"] = (ui->weakCommerce->checkState() ==
+                                     Qt::CheckState::Checked);
+    debug["moderate e-commerce"] = (ui->moderateCommerce->checkState() ==
+                                     Qt::CheckState::Checked);
+    debug["strong e-commerce"] = (ui->strongCommerce->checkState() ==
+                                     Qt::CheckState::Checked);
+
     return debug;
 }
 
@@ -351,6 +499,11 @@ void MainWindow::on_runSimulation_clicked() {
         sim = new EconomicSimulation(ui->initialValueSlider->value(),
                                      ui->numAgents->value(), ui,
                                      checkDebugInfo());
+    } else if (ui->simulationType->currentText() == "Pandemic Simulation") {
+        sim = new PandemicSimulation(ui->lagPeriod->value(),
+                                     ui->initialInfected->value(),
+                                     ui->numAgents->value(),
+                                     ui, checkDebugInfo());
     }
     sim->init();
 
@@ -404,6 +557,14 @@ void MainWindow::on_numLocations_valueChanged(int value) {
 
 void MainWindow::on_numAgents_valueChanged(int value) {
     ui->numAgentsLabel->setValue(value);
+
+    // Update the maximum number of initially infected agents
+    ui->initialInfected->setMaximum(value);
+    ui->initialInfectedSlider->setMaximum(value);
+
+    // Update the maximum number of hospitalized agents
+    ui->hospitalCapacity->setMaximum(value);
+    ui->hospitalCapacitySlider->setMaximum(value);
 }
 
 
@@ -420,6 +581,14 @@ void MainWindow::on_numLocationsLabel_valueChanged(int arg1) {
 
 void MainWindow::on_numAgentsLabel_valueChanged(int arg1) {
     ui->numAgents->setValue(arg1);
+
+    // Update the maximum number of initially infected agents
+    ui->initialInfected->setMaximum(arg1);
+    ui->initialInfectedSlider->setMaximum(arg1);
+
+    // Update the maximum number of hospitalized agents
+    ui->hospitalCapacity->setMaximum(arg1);
+    ui->hospitalCapacitySlider->setMaximum(arg1);
 }
 
 
@@ -549,24 +718,39 @@ void MainWindow::on_simulationType_currentTextChanged(const QString &arg1) {
         delete sim;
         this->sim = new SimpleSimulation(0, ui, std::map<std::string, bool>());
 
-        // Remove the ComboBox options for the Economic charts
+        // Ensure Economic options are disabled
         enableEconomicCharts(false);
-
-        // Disable the economic options from the screen
         showEconomicOptions(false);
-        enableUI();
+
+        // Ensure Pandemic options are disabled
+        enablePandemicCharts(false);
+        showPandemicOptions(false);
 
     } else if (arg1 == "Economic Simulation") {
         delete sim;
         this->sim = new EconomicSimulation(0, 0, ui, std::map<std::string, bool>());
 
-        // Add the ComboBox options for the Economic charts
-        enableEconomicCharts(true);
+        // Ensure the Pandemic options are disabled
+        enablePandemicCharts(false);
+        showPandemicOptions(false);
 
-        // Enable the economic options to the screen
+        // Enable the Economic options
+        enableEconomicCharts(true);
         showEconomicOptions(true);
-        enableUI();
+
+    } else if (arg1 == "Pandemic Simulation") {
+        delete sim;
+        this->sim = new PandemicSimulation(0, 0, 0, ui, std::map<std::string, bool>());
+
+        // Ensure economic options are disabled
+        enableEconomicCharts(false);
+        showEconomicOptions(false);
+
+        // Enable the Pandemic options
+        enablePandemicCharts(true);
+        showPandemicOptions(true);
     }
+    enableUI();
 }
 
 
@@ -585,3 +769,53 @@ void MainWindow::on_initialValueSlider_valueChanged(int arg1) {
     ui->initialValue->setValue(arg1);
 }
 
+
+//******************************************************************************
+
+
+void MainWindow::on_lagPeriod_valueChanged(int arg1) {
+    ui->lagPeriodSlider->setValue(arg1);
+}
+
+
+//******************************************************************************
+
+
+void MainWindow::on_lagPeriodSlider_valueChanged(int value) {
+    ui->lagPeriod->setValue(value);
+}
+
+
+//******************************************************************************
+
+
+void MainWindow::on_initialInfected_valueChanged(int arg1) {
+    ui->initialInfectedSlider->setValue(arg1);
+}
+
+
+//******************************************************************************
+
+
+void MainWindow::on_initialInfectedSlider_valueChanged(int value) {
+    ui->initialInfected->setValue(value);
+}
+
+
+//******************************************************************************
+
+
+void MainWindow::on_hospitalCapacity_valueChanged(int arg1) {
+    ui->hospitalCapacitySlider->setValue(arg1);
+}
+
+
+//******************************************************************************
+
+
+void MainWindow::on_hospitalCapacitySlider_valueChanged(int value) {
+    ui->hospitalCapacity->setValue(value);
+}
+
+
+//******************************************************************************
