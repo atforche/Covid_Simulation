@@ -1,7 +1,8 @@
 #include "Headers/EconomicController.h"
 
 
-EconomicController::EconomicController(Simulation* sim) {
+EconomicController::EconomicController(Simulation* sim) :
+    AgentController(sim) {
     this->sim = dynamic_cast<EconomicSimulation*>(sim);
     agentValue = 0;
     businessValue = 0;
@@ -11,89 +12,81 @@ EconomicController::EconomicController(Simulation* sim) {
 //******************************************************************************
 
 
-int* EconomicController::executeEconomicUpdate() {
-    static int counter = 0;
+void EconomicController::updateAgentDestinations(std::vector<Agent *> &agents, int hour) {
 
-    // Trigger the update every hour
-    if (counter == 0) {
-        // Reset the business and agent values
-        businessValue = 0;
-        agentValue = 0;
-        double redistributedValue = 0; // Amount of value agents lose at home to distribute equally among businesses
+    // BUSINESS UPDATES ********************************************************
+    // Reset the business and agent values
+    businessValue = 0;
+    agentValue = 0;
+    double redistributedValue = 0; // Amount of value agents lose at home to distribute equally among businesses
 
-        // Update each Location in the Simulation
-        std::vector<Location*> workLocations = sim->getRegion(Agent::WORK)->getLocations();
-        for (int i = static_cast<int>(workLocations.size()) - 1; i >= 0; --i) {
-            EconomicLocation* workLocation = dynamic_cast<EconomicLocation*>(workLocations[i]);
+    // Update each Location in the Simulation
+    std::vector<Location*> workLocations = sim->getRegion(Agent::WORK)->getLocations();
+    for (int i = static_cast<int>(workLocations.size()) - 1; i >= 0; --i) {
+        EconomicLocation* workLocation = dynamic_cast<EconomicLocation*>(workLocations[i]);
 
-            // Reset the Locations counter for the current day
-            workLocation->startNewDay();
+        // Reset the Locations counter for the current day
+        workLocation->startNewDay();
 
-            // Have each business pay an overhead during the day
-            int currentHour = sim->getHour();
-            if (currentHour > 7 && currentHour < 20) {
-                workLocation->incrementValue(-1 * workOverhead);
-            }
-
-            // Add the businesses value to the total
-            businessValue += workLocation->getValue();
-
-            // If a business runs out of money, it becomes bankrupt
-            if (workLocation->getValue() == 0) {
-                bankruptBusiness(workLocation);
-            }
+        // Have each business pay an overhead during the day
+        int currentHour = sim->getHour();
+        if (currentHour > 7 && currentHour < 20) {
+            workLocation->incrementValue(-1 * workOverhead);
         }
 
-        // Update each Agent in the Simulation
-        std::vector<Agent*> agents = sim->getAgents();
-        for (size_t i = 0; i < agents.size(); ++i) {
+        // Add the businesses value to the total
+        businessValue += workLocation->getValue();
 
-            // Cast the the Agent and its Location to Economic variants
-            EconomicAgent* agent = dynamic_cast<EconomicAgent*>(agents[i]);
-            QString currentDestinaton = agent->getDestinationString();
-
-            // Update the Agent according to its current location
-            if (currentDestinaton == "Home") {
-                redistributedValue += homeEconomicUpdate(agent);
-            } else if (currentDestinaton == "School") {
-                schoolEconomicUpdate(agent);
-            } else if (currentDestinaton == "Work") {
-                workEconomicUpdate(agent);
-            } else if (currentDestinaton == "Leisure") {
-                leisureEconomicUpdate(agent);
-            }
-
-            // Add the agent's value to the total
-            agentValue += agent->getValue();
-        }
-
-        // If there are less than the initial amount of businesses, have a chance
-        // to generate a new business and leisure location
-        workLocations = sim->getRegion(Agent::WORK)->getLocations();
-        if (static_cast<int>(workLocations.size()) < sim->getUI()->numLocations->value()) {
-            if (rand() % 5 == 0) {
-                generateNewBusiness();
-            }
-        }
-
-        // Distribute the value lost from agents at home equally to each business
-        std::vector<Location*> locations = sim->getRegion(Agent::WORK)->getLocations();
-        businessValue += redistributedValue;
-        for (size_t i = 0; i < locations.size(); ++i) {
-            EconomicLocation* location = dynamic_cast<EconomicLocation*>(locations[i]);
-            location->incrementValue(redistributedValue / locations.size());
+        // If a business runs out of money, it becomes bankrupt
+        if (workLocation->getValue() == 0) {
+            bankruptBusiness(workLocation);
         }
     }
 
-    // Increment and reset the counter if necessary
-    counter++;
-    if (counter == Simulation::FRAMES_PER_HOUR) {
-        counter = 0;
+    // AGENT UPDATES ***********************************************************
+    // Loop through every agent
+    for (size_t i = 0; i < agents.size(); ++i) {
+
+        // Update each Agents location according to their Behavior Chart
+        updateSingleDestination(agents[i], hour, true);
+
+        // Cast the the Agent and its Location to Economic variants
+        EconomicAgent* agent = dynamic_cast<EconomicAgent*>(agents[i]);
+        QString currentDestinaton = agent->getDestinationString();
+
+        // Update the Agent according to its current location
+        if (currentDestinaton == "Home") {
+            redistributedValue += homeEconomicUpdate(agent);
+        } else if (currentDestinaton == "School") {
+            schoolEconomicUpdate(agent);
+        } else if (currentDestinaton == "Work") {
+            workEconomicUpdate(agent);
+        } else if (currentDestinaton == "Leisure") {
+            leisureEconomicUpdate(agent);
+        }
+
+        // Add the agent's value to the total
+        agentValue += agent->getValue();
     }
 
-    // Return the total value in every agent
-    int* returnVal = new int[] {agentValue, businessValue};
-    return returnVal;
+    // CLEAN UP ****************************************************************
+    // If there are less than the initial amount of businesses, have a chance
+    // to generate a new business and leisure location
+    workLocations = sim->getRegion(Agent::WORK)->getLocations();
+    if (static_cast<int>(workLocations.size()) < sim->getUI()->numLocations->value()) {
+        if (rand() % 5 == 0) {
+            generateNewBusiness();
+        }
+    }
+
+    // Distribute the value lost from agents at home equally to each business
+    std::vector<Location*> locations = sim->getRegion(Agent::WORK)->getLocations();
+    businessValue += redistributedValue;
+    for (size_t i = 0; i < locations.size(); ++i) {
+        EconomicLocation* location = dynamic_cast<EconomicLocation*>(locations[i]);
+        location->incrementValue(redistributedValue / locations.size());
+    }
+
 }
 
 
@@ -394,6 +387,22 @@ void EconomicController::generateNewBusiness() {
         agent->setLocation(newLeisure, Agent::LEISURE);
         newLeisure->addAgent(agent);
     }
+}
+
+
+//******************************************************************************
+
+
+int EconomicController::getTotalAgentValue() {
+    return this->agentValue;
+}
+
+
+//******************************************************************************
+
+
+int EconomicController::getTotalBusinessValue() {
+    return this->businessValue;
 }
 
 

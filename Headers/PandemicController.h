@@ -16,7 +16,7 @@ class PandemicSimulation;
  * with a virus, transmit that virus, and even die. Agent's
  * behavior can be dictated by their infected status.
  */
-class PandemicController {
+class PandemicController : public AgentController {
 
 private:
 
@@ -47,11 +47,11 @@ private:
     /** Total number of Agents that are currently Recovered */
     int numRecovered;
 
-    /** Map storing the value for each response flag */
-    std::map<std::string, std::string> flags;
-
     /** Boolean to store whether the initial infection has already happened */
     bool initialInfection;
+
+    /** Radius through which the infection can spread */
+    static constexpr int INFECTION_RADIUS = 16;
 
 public:
 
@@ -62,20 +62,27 @@ public:
      * behavior of Agents and Locations to change dynamically based on their
      * infected value.
      * @param sim: pointer to the simulation to control
-     * @param flags: map that stores the status of each Pandemic Response
-     *               flag from the UI
      */
-    PandemicController(Simulation* sim, std::map<std::string, std::string> flags);
+    PandemicController(Simulation* sim);
 
     /**
-     * @brief executePandemicUpdate \n
-     * Executes the transmission of the virus in the Simulation. Each hour each
-     * agent can either get the virus from another agent or give the virus to
-     * another agent. Different flags determine the exact actions that agents
-     * or locations will take when an infected agent arrives at their location.
-     * @returns: the total number of Agents in each SEIR category
+     * @brief updateAgentDestinations \n
+     * Function that goes through each of the agents and assigns them to their
+     * correct destinations. Should be called from Simulation::advanceTime() at
+     * an hourly interval to save computations
+     * @param agents: a vector of Agent* pointing to each agent in the Simulation
+     * @param hour: the current hour of the simulation
      */
-    std::vector<int> executePandemicUpdate();
+    virtual void updateAgentDestinations(std::vector<Agent*> &agents, int hour);
+
+    /**
+     * @brief updateSingleDestination \n
+     * Updates the Destination for a single agent based on their Behavior chart
+     * @param agent: pointer to the agent to be updated
+     * @param hour: current hour in the Simulation
+     * @param randomAllowed: whether Agent movement to random Locations is allowed
+     */
+    virtual void updateSingleDestination(Agent* agent, int hour, bool randomAllowed);
 
     /**
      * @brief advanceDay \n
@@ -117,19 +124,19 @@ public:
     int getDailyDeaths();
 
     /**
+     * @brief getSEIR \n
+     * Returns the number of Susceptible, Exposed, Infected, and Recovered
+     * agents respectively
+     * @return a std::vector<int>
+     */
+    std::vector<int> getSEIR();
+
+    /**
      * @brief beginInfection \n
      * Function that causes the initial infection to occur in the Simulation.
      * Infects a fixed number of random agents with the virus.
      */
     void beginInfection();
-
-    /**
-     * @brief overrideAgentDestinations \n
-     * Overrides the Agent's destination assignments according to the current
-     * rules of the Pandemic.
-     * @param agents: vector of all Agents in the Simulation
-     */
-    void overrideAgentDestinations(std::vector<Agent*> &agents);
 
     /**
      * @brief enforceLockdowns \n
@@ -185,6 +192,22 @@ public:
      * Dual simulation, working from Home results in slightly less Economic value.
      */
     void applyECommerce(PandemicAgent* agent, PandemicLocation* home);
+
+    /**
+     * @brief lockdownLocations \n
+     * Function that will move through every location and lock them down if
+     * necessary, depending on the threshold specified in the UI.
+     */
+    void lockdownLocations();
+
+    /**
+     * @brief incrementNearbyInfected \n
+     * Function to increment the number of nearby infected for all Agents within
+     * a constant radius of the specified agent
+     * @param pandemicAgents: std::vector of pointers to all Pandemic Agents in Simulation
+     * @param index: index of the Pandemic Agent to compare against
+     */
+    void incrementNearbyInfected(std::vector<PandemicAgent*> &pandemicAgents, size_t index);
 
 };
 

@@ -43,6 +43,7 @@ private:
     /** Total weight sum for adult behaviors */
     int childWeightedSum;
 
+    /** Pointer to the controlling Simulation */
     Simulation* sim;
 
     /**
@@ -69,18 +70,6 @@ private:
      */
     QJsonValue readAssignmentFromJSON(int behaviorChart, int hour,
                                             bool isAdult);
-
-    /**
-     * @brief getAgentDestination \n
-     * Determines what location the agent should be assigned to. Reads the
-     * behavior chart to determine the possible locations. Samples which
-     * location should be assigned according to the probabilities. Returns
-     * the QString corresponding to the selected location
-     * @param agent: the agent who will be assigned
-     * @param hour: the current hour in the simulation
-     * @return which location the agent will be assigned to
-     */
-    QString getAgentDestination(Agent* agent, int hour);
 
 public:
     /**
@@ -133,7 +122,7 @@ public:
      * @param agents: a vector of Agent* pointing to each agent in the Simulation
      * @param hour: the current hour of the simulation
      */
-    void updateAgentDestinations(std::vector<Agent*> &agents, int hour);
+    virtual void updateAgentDestinations(std::vector<Agent*> &agents, int hour);
 
     /**
      * @brief getStartingDestination \n
@@ -147,12 +136,36 @@ public:
     QString getStartingDestination(int behaviorChart, bool isAdult);
 
     /**
+     * @brief getAgentDestination \n
+     * Determines what location the agent should be assigned to. Reads the
+     * behavior chart to determine the possible locations. Samples which
+     * location should be assigned according to the probabilities. Returns
+     * the QString corresponding to the selected location
+     * @param agent: the agent who will be assigned
+     * @param hour: the current hour in the simulation
+     * @return which location the agent will be assigned to
+     */
+    QString getAgentDestination(Agent* agent, int hour);
+
+    /**
+     * @brief updateSingleDestination \n
+     * Updates the Destination for a single agent based on their Behavior chart
+     * @param agent: pointer to the agent to be updated
+     * @param hour: current hour in the Simulation
+     * @param randomAllowed: whether Agent movement to random locations is allowed
+     */
+    virtual void updateSingleDestination(Agent* agent, int hour, bool randomAllowed);
+
+    /**
      * @brief sampleAgentAge \n
      * Generates a new random age for an agent that is sampled from the standard
      * age distribution of the United States.
      * @return the randomly sampled age as an integer
      */
     static int sampleAgentAge();
+
+    /** Virtual Destructor of the AgentController class */
+    virtual ~AgentController();
 
 };
 

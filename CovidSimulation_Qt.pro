@@ -33,6 +33,7 @@ SOURCES += \
 
 HEADERS += \
     Headers/AgentController.h \
+    Headers/DualSimulation.h \
     Headers/EconomicAgent.h \
     Headers/EconomicController.h \
     Headers/EconomicLocation.h \

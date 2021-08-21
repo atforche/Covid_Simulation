@@ -1,12 +1,11 @@
 #include "Headers/PandemicController.h"
 
 
-PandemicController::PandemicController(Simulation* sim,
-                                       std::map<std::string, std::string> flags) {
+PandemicController::PandemicController(Simulation* sim) :
+    AgentController(sim) {
 
     // Initialize values for the controller
     this->sim = dynamic_cast<PandemicSimulation*>(sim);
-    this->flags = flags;
 
     // Initialize all counts to zero
     newDailyDeaths = 0;
@@ -26,10 +25,7 @@ PandemicController::PandemicController(Simulation* sim,
 //******************************************************************************
 
 
-std::vector<int> PandemicController::executePandemicUpdate() {
-
-    // Grab the agents and the Locations
-    std::vector<Agent*> agents = sim->getAgents();
+void PandemicController::updateAgentDestinations(std::vector<Agent *> &agents, int hour) {
 
     // Reset the counts
     numSusceptible = 0;
@@ -45,65 +41,113 @@ std::vector<int> PandemicController::executePandemicUpdate() {
         }
     }
 
-    // Update every Agent
-    for (int i = static_cast<int>(agents.size()) - 1; i >= 0; --i) {
+    // Check if Agent Compliance will have any effect on infection spread
+    bool checkCompliance = (sim->checkDebug("weak non-compliance") ||
+                            sim->checkDebug("moderate non-compliance") ||
+                            sim->checkDebug("strong non-compliance"));
+
+    // Update every Location if Lockdowns are enforced
+    if (sim->checkDebug("weak lockdown") ||
+            sim->checkDebug("moderate lockdown") ||
+            sim->checkDebug("strong lockdown") ||
+            sim->checkDebug("total lockdown")) {
+        lockdownLocations();
+    }
+
+    // Acquire the lock on the Agents vector
+    QMutexLocker agentLock(sim->getAgentsLock());
+
+    // Loop through every agent, store the cast pointers, and reset the number
+    // of nearby infected agents
+    std::vector<PandemicAgent*> pandemicAgents(agents.size(), nullptr);
+    for (size_t i = 0; i < agents.size(); ++i) {
         PandemicAgent* agent = dynamic_cast<PandemicAgent*>(agents[i]);
+        agent->resetNearbyInfected();
+        pandemicAgents[i] = agent;
+    }
+
+    // Loop through every agent
+    for (size_t i = 0; i < pandemicAgents.size(); ++i) {
+
+        // Update the Agent's destination if necessary
+        updateSingleDestination(pandemicAgents[i], hour, true);
+
+        // Update the count of each Pandemic Status
+        PandemicAgent* agent = pandemicAgents[i];
         if (agent->getStatus() == PandemicAgent::SUSCEPTIBLE) {
             numSusceptible++;
         } else if (agent->getStatus() == PandemicAgent::EXPOSED) {
             numExposed++;
+            incrementNearbyInfected(pandemicAgents, i);
         } else if (agent->getStatus() == PandemicAgent::INFECTED) {
             numInfected++;
             bool died = agent->evaluateDeathProbability();
             if (died) {
-                sim->killAgent(agent, i);
+                sim->killAgent(agent, static_cast<int>(i));
                 newDailyDeaths++;
                 totalDeaths++;
+            } else {
+                incrementNearbyInfected(pandemicAgents, i);
             }
         } else {
             numRecovered++;
         }
     }
 
-    // Update every Location if Lockdowns are enforced
-    if (sim->checkDebug("weak lockdown") ||
-            sim->checkDebug("moderate lockdown") ||
-            sim->checkDebug("strong lockdown")) {
-
-        std::vector<Location*> locations = sim->getAllLocations();
-        for (size_t i = 0; i < locations.size(); ++i) {
-            // Get the Location and calculate the infected proportion
-            PandemicLocation* location = dynamic_cast<PandemicLocation*>(locations[i]);
-            double infectedProportion = static_cast<double>(location->getNumInfectedAgents()) / location->getNumAgents();
-
-            // Home locations cannot go on lockdown
-            if (location->getType() == Agent::HOME) {
-                continue;
-            }
-
-            if (sim->checkDebug("strong lockdown")) {
-                if (infectedProportion > 0.15) {
-                    location->setStatus(PandemicLocation::LOCKDOWN);
-                }
-            } else if (sim->checkDebug("moderate lockdown")) {
-                if (infectedProportion > 0.35) {
-                    location->setStatus(PandemicLocation::LOCKDOWN);
-                }
-            } else if (sim->checkDebug("weak lockdown")) {
-                if (infectedProportion > 0.75) {
-                    location->setStatus(PandemicLocation::LOCKDOWN);
-                }
-            } else {
-                if (location->getNumInfectedAgents() > 0) {
-                    location->setStatus(PandemicLocation::EXPOSURE);
-                } else {
-                    location->setStatus(PandemicLocation::NORMAL);
-                }
-            }
+    // Loop through every agent to spread the Infection
+    for (size_t i = 0; i < pandemicAgents.size(); ++i) {
+        bool newlyExposed = pandemicAgents[i]->evaluateInfectionProbability(checkCompliance);
+        if (newlyExposed) {
+            numExposed++;
+            numSusceptible--;
         }
     }
 
-    return std::vector<int>{numSusceptible, numExposed, numInfected, numRecovered};
+}
+
+
+//******************************************************************************
+
+
+void PandemicController::updateSingleDestination(Agent* agent, int hour, bool) {
+
+    // Run the base destination update (give agents a 1% chance to move to random locations)
+    AgentController::updateSingleDestination(agent, hour, rand() % 100 == 0);
+
+    // If the Agent has been assigned to a new location, enforce the Pandemic
+    // rules
+    QString destinationString = getAgentDestination(agent, hour);
+    if (destinationString != "No Change") {
+        PandemicAgent* castAgent = dynamic_cast<PandemicAgent*>(agent);
+        PandemicLocation* home = dynamic_cast<PandemicLocation*>(castAgent->getLocation(Agent::HOME));
+        PandemicLocation* work = dynamic_cast<PandemicLocation*>(castAgent->getLocation(Agent::WORK));
+        PandemicLocation* school = dynamic_cast<PandemicLocation*>(castAgent->getLocation(Agent::SCHOOL));
+        PandemicLocation* leisure = dynamic_cast<PandemicLocation*>(castAgent->getLocation(Agent::LEISURE));
+
+        // Enforce Lockdowns. Even non-compliant agents must follow lockdowns
+        enforceLockdowns(castAgent, home);
+
+        // Calculate whether the Agent will comply with self-enforced measures
+        if (!willComply()) {
+            castAgent->setCompliance(false);
+            return;
+        }
+
+        // Update the Agent's compliance status
+        castAgent->setCompliance(true);
+
+        // Enforce the Quarantine when Infected Flag and update the currentLocation
+        enforceQuarantine(castAgent, home);
+
+        // Enable an Agent to go to Work, School, or Leisure from Home
+        applyECommerce(castAgent, home);
+
+        // Enforce the Contact Tracing Flag and update the currentLocation
+        enforceContactTracing(castAgent, home, school, work, leisure);
+
+        // Enfore the Government guidelines
+        enforceGuidelines(castAgent, home);
+    }
 }
 
 
@@ -162,6 +206,15 @@ int PandemicController::getDailyDeaths() {
 //******************************************************************************
 
 
+std::vector<int> PandemicController::getSEIR() {
+    std::vector<int> retVal = {numSusceptible, numExposed, numInfected, numRecovered};
+    return retVal;
+}
+
+
+//******************************************************************************
+
+
 void PandemicController::beginInfection() {
 
     // Initialize variables
@@ -172,41 +225,6 @@ void PandemicController::beginInfection() {
         int randIndex = rand() % agents.size();
         PandemicAgent* agent = dynamic_cast<PandemicAgent*>(agents[randIndex]);
         agent->makeExposed();
-    }
-}
-
-
-//******************************************************************************
-
-
-void PandemicController::overrideAgentDestinations(std::vector<Agent *> &agents) {
-
-    for (size_t i = 0; i < agents.size(); ++i) {
-        PandemicAgent* agent = dynamic_cast<PandemicAgent*>(agents[i]);
-        PandemicLocation* home = dynamic_cast<PandemicLocation*>(agent->getLocation(Agent::HOME));
-        PandemicLocation* work = dynamic_cast<PandemicLocation*>(agent->getLocation(Agent::WORK));
-        PandemicLocation* school = dynamic_cast<PandemicLocation*>(agent->getLocation(Agent::SCHOOL));
-        PandemicLocation* leisure = dynamic_cast<PandemicLocation*>(agent->getLocation(Agent::LEISURE));
-
-        // Enforce Lockdowns. Even non-compliant agents must follow lockdowns
-        enforceLockdowns(agent, home);
-
-        // Calculate whether the Agent will comply with self-enforced measures
-        if (!willComply()) {
-            continue;
-        }
-
-        // Enforce the Quarantine when Infected Flag and update the currentLocation
-        enforceQuarantine(agent, home);
-
-        // Enable an Agent to go to Work, School, or Leisure from Home
-        applyECommerce(agent, home);
-
-        // Enforce the Contact Tracing Flag and update the currentLocation
-        enforceContactTracing(agent, home, school, work, leisure);
-
-        // Enfore the Government guidelines
-        enforceGuidelines(agent, home);
     }
 }
 
@@ -264,15 +282,13 @@ void PandemicController::enforceContactTracing(PandemicAgent* agent, PandemicLoc
         // Enforce the probabilities of each option
         if (exposed) {
             if (sim->checkDebug("strong contact tracing")) {
-                if (rand() % 3 == 0) {
-                    agent->setDestination(*home, "Home");
-                }
+                agent->setDestination(*home, "Home");
             } else if (sim->checkDebug("moderate contact tracing")) {
-                if (rand() % 7 == 0) {
+                if (rand() % 4 != 3) {
                     agent->setDestination(*home, "Home");
                 }
             } else if (sim->checkDebug("weak contact tracing")) {
-                if (rand() % 20 == 0) {
+                if (rand() % 2 == 0) {
                     agent->setDestination(*home, "Home");
                 }
             }
@@ -360,3 +376,66 @@ void PandemicController::applyECommerce(PandemicAgent *agent, PandemicLocation *
 
 
 //******************************************************************************
+
+
+void PandemicController::lockdownLocations() {
+    // Update every Location if Lockdowns are enforced
+    std::vector<Location*> locations = sim->getAllLocations();
+    for (size_t i = 0; i < locations.size(); ++i) {
+        // Get the Location and calculate the infected proportion
+        PandemicLocation* location = dynamic_cast<PandemicLocation*>(locations[i]);
+        double infectedProportion = static_cast<double>(location->getNumInfectedAgents()) / location->getNumAgents();
+
+        // Home locations cannot go on lockdown
+        if (location->getType() == Agent::HOME) {
+            continue;
+        }
+
+        if (sim->checkDebug("total lockdown")) {
+            location->setStatus(PandemicLocation::LOCKDOWN);
+        } else if (sim->checkDebug("strong lockdown")) {
+            if (infectedProportion > 0.15) {
+                location->setStatus(PandemicLocation::LOCKDOWN);
+            }
+        } else if (sim->checkDebug("moderate lockdown")) {
+            if (infectedProportion > 0.35) {
+                location->setStatus(PandemicLocation::LOCKDOWN);
+            }
+        } else if (sim->checkDebug("weak lockdown")) {
+            if (infectedProportion > 0.75) {
+                location->setStatus(PandemicLocation::LOCKDOWN);
+            }
+        } else {
+            if (location->getNumInfectedAgents() > 0) {
+                location->setStatus(PandemicLocation::EXPOSURE);
+            } else {
+                location->setStatus(PandemicLocation::NORMAL);
+            }
+        }
+    }
+}
+
+
+//**************************************************************************
+
+
+void PandemicController::incrementNearbyInfected(std::vector<PandemicAgent*> &pandemicAgents, size_t index) {
+
+    // Grab the position of the Agent to compare against
+    Coordinate comparisonPosition = pandemicAgents[index]->getPosition();
+    bool isInfected = pandemicAgents[index]->getStatus() == PandemicAgent::INFECTED;
+
+    for (size_t i = 0; i < pandemicAgents.size(); ++i) {
+        if (i == index) continue;
+
+        Coordinate agentPosition = pandemicAgents[i]->getPosition();
+        double distance = comparisonPosition.distBetween(agentPosition);
+
+        if (distance < INFECTION_RADIUS) {
+            pandemicAgents[i]->incrementNearbyInfected(1 + isInfected);
+        }
+    }
+}
+
+
+//**************************************************************************

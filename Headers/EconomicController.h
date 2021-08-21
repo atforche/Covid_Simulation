@@ -5,6 +5,7 @@
 
 #include "EconomicAgent.h"
 #include "Simulation.h"
+#include "AgentController.h"
 
 // Forward declaration
 class EconomicSimulation;
@@ -16,7 +17,7 @@ class EconomicSimulation;
  * difference rules. Business locations can disappear and appear. Agent's
  * behavior can be dictated by their economic status.
  */
-class EconomicController {
+class EconomicController : public AgentController {
 
 private:
 
@@ -51,14 +52,14 @@ public:
     EconomicController(Simulation* sim);
 
     /**
-     * @brief executeEconomicUpdate \n
-     * Executes the flow of Economic value in the Simulation. Each hour each
-     * agent either gains or losses value depending on their current location.
-     * Agents lose value when they are at their home or leisure locations.
-     * Agents gain value when they are at work or school
-     * @returns: the total Economic value held by all agents
+     * @brief updateAgentDestinations \n
+     * Function that goes through each of the agents and assigns them to their
+     * correct destinations. Should be called from Simulation::advanceTime() at
+     * an hourly interval to save computations
+     * @param agents: a vector of Agent* pointing to each agent in the Simulation
+     * @param hour: the current hour of the simulation
      */
-    int* executeEconomicUpdate();
+    virtual void updateAgentDestinations(std::vector<Agent*> &agents, int hour);
 
     /**
      * @brief bankruptBusiness \n
@@ -133,6 +134,22 @@ public:
      * location and assigned a small number of agents to it.
      */
     void generateNewBusiness();
+
+    /**
+     * @brief getTotalAgentValue \n
+     * Getter function for the total amount of value held by Agents in the
+     * Simulation
+     * @return an int
+     */
+    int getTotalAgentValue();
+
+    /**
+     * @brief getTotalBusinessValue \n
+     * Getter function for the total amount of value held by Businesses in the
+     * Simulation
+     * @return an int
+     */
+    int getTotalBusinessValue();
 
 };
 

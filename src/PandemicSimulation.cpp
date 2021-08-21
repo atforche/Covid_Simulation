@@ -14,7 +14,8 @@ PandemicSimulation::PandemicSimulation(int lagPeriod, int initialInfected, int n
     dailyTrackerHelper = new DailyTrackerChartHelper();
 
     // Initialize the pandemic controller
-    controller = new PandemicController(this, std::map<std::string, std::string>());
+//    controller = new PandemicController(this);
+    setAgentController(new PandemicController(this));
 
     // Initialize all values to zero
     numSusceptible = 0;
@@ -32,20 +33,20 @@ void PandemicSimulation::execute() {
     // Static counter to determine if an hour has passed
     static int numFrames = 0;
 
+    // Cast the AgentController to a PandemicController
+    PandemicController* controller = dynamic_cast<PandemicController*>(getController());
+
     // SIMPLESIMULATION::EXECUTE ***********************************************
     // Advance the time in the Simulation and update the Agent's destinations
     advanceTime();
 
     if (numFrames == FRAMES_PER_HOUR) {
         // Update the Pandemic and Locations according to the Rules
-        std::vector<int> SEIR = controller->executePandemicUpdate();\
+        std::vector<int> SEIR = controller->getSEIR();
         numSusceptible = SEIR[PandemicAgent::SUSCEPTIBLE];
         numExposed = SEIR[PandemicAgent::EXPOSED];
         numInfected = SEIR[PandemicAgent::INFECTED];
         numRecovered = SEIR[PandemicAgent::RECOVERED];
-
-        // Update the Agent's Destinations according to the pandemic rules
-        controller->overrideAgentDestinations(getAgents());
     }
 
     // Advance time for each agent
@@ -53,7 +54,7 @@ void PandemicSimulation::execute() {
     for (int i = 0; i < getCurrentNumAgents(); ++i) {
         agents[i]->takeTimeStep();
     }
-    // SIMPLESIMULATION::EXECUTE ***********************************************
+
 
     // Every hour update the SEIR Chart
     if (numFrames == FRAMES_PER_HOUR) {
@@ -112,6 +113,7 @@ void PandemicSimulation::renderChartUpdates(QString which, bool newChartView) {
             SEIRHelper->updateChart(getNumSEIR(), getCurrentNumAgents());
         }
     } else if (which == "DAILY TRACKER") {
+        PandemicController* controller = dynamic_cast<PandemicController*>(getController());
         if (newChartView) {
             QtCharts::QChart* chart = dailyTrackerHelper->getChart(controller->getDailyCases(),
                                                                    controller->getDailyDeaths());
@@ -131,22 +133,6 @@ void PandemicSimulation::renderChartUpdates(QString which, bool newChartView) {
 
 std::vector<int> PandemicSimulation::getNumSEIR() {
     return std::vector<int>{numSusceptible, numExposed, numInfected, numRecovered};
-}
-
-
-//******************************************************************************
-
-
-int PandemicSimulation::getNumCases() {
-    return controller->getTotalCases();
-}
-
-
-//******************************************************************************
-
-
-int PandemicSimulation::getNumDeaths() {
-    return controller->getTotalDeaths();
 }
 
 

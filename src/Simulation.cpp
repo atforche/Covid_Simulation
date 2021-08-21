@@ -1,4 +1,5 @@
 #include "Headers/Simulation.h"
+#include "Headers/EconomicController.h"
 
 // Initialize the static members of the Simulation Class
 int Simulation::FRAMES_PER_HOUR = 20;
@@ -153,6 +154,13 @@ void Simulation::addToScreen(QGraphicsItem *item) {
 void Simulation::advanceTime() {
     // Increment the time by one frame
     static int numFrames = 0;
+    static bool firstFrame = true;
+
+    // Always force the Agent Update to run on the first frame
+    if (firstFrame) {
+        agentController->updateAgentDestinations(getAgents(), this->hour);
+        firstFrame = false;
+    }
 
     if (numFrames == FRAMES_PER_HOUR) {
         // Increment the number of hours
@@ -228,7 +236,7 @@ void Simulation::killAgent(Agent *victim, int index) {
 
 
 void Simulation::birthAgent() {
-    if (rand() % 2 == 0) {
+    if (rand() % 100 == 0) {
         // Birth a random number of agents between 0 and 5% of the total population
         generateAgents((rand() % ((getCurrentNumAgents() / 20) + 1)) + 1, true);
     }
@@ -511,6 +519,15 @@ bool Simulation::wasReset() {
 
 void Simulation::setReset(bool resetIn) {
     this->isReset = resetIn;
+}
+
+
+//******************************************************************************
+
+
+void Simulation::setAgentController(AgentController *newController) {
+    delete agentController;
+    this->agentController = newController;
 }
 
 

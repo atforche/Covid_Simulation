@@ -15,7 +15,7 @@ EconomicSimulation::EconomicSimulation(int initialValue, int numAgents,
     statusHelper = new EconomicStatusChartHelper();
 
     // Create a controller for the economy
-    this->economicController = new EconomicController(this);
+    setAgentController(new EconomicController(this));
 
 }
 
@@ -28,16 +28,13 @@ void EconomicSimulation::execute() {
     // Static counter to determine if an hour has passed
     static int numFrames = 0;
 
-    // Run the economic update and grab the total Agent and Business value
-    int* totalValues = economicController->executeEconomicUpdate();
-
     // Run the Simple Simulation's execute function
     SimpleSimulation::execute();
 
     // Update the overall values
-    this->businessEconomicValue = totalValues[1];
-    this->totalEconomicValue = totalValues[0] + totalValues[1];
-    delete totalValues;
+    EconomicController* econController = dynamic_cast<EconomicController*>(getController());
+    this->businessEconomicValue = econController->getTotalBusinessValue();
+    this->totalEconomicValue = businessEconomicValue + econController->getTotalAgentValue();
 
     // Update the current value displayed on the screen
     getUI()->currentValue->setText(QString::number(totalEconomicValue));

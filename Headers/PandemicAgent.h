@@ -97,6 +97,38 @@ public:
      */
     bool evaluateDeathProbability();
 
+    /**
+     * @brief setCompliance \n
+     * Setter function for whether the Agent is complying with mandates or not.
+     * Compliance affects the reduction in virus spread associated with
+     * mask-wearing and social distancing.
+     * @param compliant: whether the Agent is complying
+     */
+    void setCompliance(bool compliant);
+
+    /**
+     * @brief resetNearbyInfected \n
+     * Function that resets the count of nearby infected agents.
+     */
+    void resetNearbyInfected();
+
+    /**
+     * @brief incrementNearbyInfected \n
+     * Setter function that increments the number of nearby agents. Increment
+     * the number by one for a nearby exposed Agent and by two for a nearby
+     * Infected agent.
+     * @param amount: integer for the type of nearby agent. 1 for Exposed, 2 for Infected
+     */
+    void incrementNearbyInfected(int amount);
+
+    /**
+     * @brief evaluateInfectionProbability \n
+     * Function to evaluate the probability of an Agent becoming exposed, based
+     * on the number of nearby infected agents.
+     * @return whether the agent will become Exposed or not
+     */
+    bool evaluateInfectionProbability(bool checkCompliance);
+
     /** Destructor for the Pandemic Agent class*/
     ~PandemicAgent();
 
@@ -108,8 +140,14 @@ private:
     /** Overall health status of the Agent */
     HEALTH healthStatus;
 
+    /** Whether the Agent is complying with Pandemic rules or not */
+    bool compliant;
+
     /** Counter for the number of days the Agent has been in their current Pandemic status */
     int daysInStage;
+
+    /** Counter for the number of nearby Infected Agents */
+    int nearbyInfected;
 
 };
 

@@ -227,67 +227,9 @@ int AgentController::getChildBehavior() {
 
 void AgentController::updateAgentDestinations(std::vector<Agent *> &agents, int hour) {
 
-    // Chance for going to a random location
-    static int randomChance = 5;
-
     // Loop through every agent
     for (size_t i = 0; i < agents.size(); ++i) {
-
-        // Determine to where the agent will be assigned
-        QString destinationString = getAgentDestination(agents[i], hour);
-        Location* newDestination = nullptr;
-        Coordinate randomPosition;
-
-        // Determine the new destination for the Agent
-        if (destinationString == "No Change") {
-            continue;
-        } else if (destinationString == "Home") {
-            // Random chance of going to a random Home location
-            if (rand() % 100 < randomChance) {
-                newDestination = sim->getRandomLocation(Agent::HOME);
-            } else {
-                newDestination = agents[i]->getLocation(Agent::HOME);
-            }
-            randomPosition = sim->getRegion(Agent::HOME)->getRandomCoordinate();
-        } else if (destinationString == "School") {
-            // Random chance of going to a random Home location
-            if (rand() % 100 < randomChance) {
-                newDestination = sim->getRandomLocation(Agent::SCHOOL);
-            } else {
-                newDestination = agents[i]->getLocation(Agent::SCHOOL);
-            }
-            randomPosition = sim->getRegion(Agent::SCHOOL)->getRandomCoordinate();
-        } else if (destinationString == "Work") {
-            // Random chance of going to a random Home location
-            if (rand() % 100 < randomChance) {
-                newDestination = sim->getRandomLocation(Agent::WORK);
-            } else {
-                newDestination = agents[i]->getLocation(Agent::WORK);
-            }
-            randomPosition = sim->getRegion(Agent::WORK)->getRandomCoordinate();
-        } else if (destinationString == "Leisure") {
-            // Random chance of going to a random Home location
-            if (rand() % 100 < randomChance) {
-                newDestination = sim->getRandomLocation(Agent::LEISURE);
-            } else {
-                newDestination = agents[i]->getLocation(Agent::LEISURE);
-            }
-            randomPosition = sim->getRegion(Agent::LEISURE)->getRandomCoordinate();
-        } else {
-            // Throw an exception if an invalid behavior is loaded
-            throw "Invalid Behavior File Loaded";
-        }
-
-        // If the determined destination is a nullptr, send the agent to a random
-        // spot in their assigned regions
-        if (newDestination == nullptr) {
-            Location newLocation = Location(randomPosition.getCoord(Coordinate::X),
-                                            randomPosition.getCoord(Coordinate::Y));
-            agents[i]->setDestination(newLocation,
-                                      destinationString);
-        } else {
-            agents[i]->setDestination(*newDestination, destinationString);
-        }
+        updateSingleDestination(agents[i], hour, true);
     }
 }
 
@@ -339,4 +281,79 @@ int AgentController::sampleAgentAge() {
     randNum = rand() % rangeSize;
     return ages[index] + randNum;
 }
+
+//******************************************************************************
+
+
+void AgentController::updateSingleDestination(Agent* agent, int hour, bool randomAllowed) {
+
+    // Chance for going to a random location
+    static int randomChance = 5;
+    randomChance = randomAllowed ? 5 : 0;
+
+    // Determine to where the agent will be assigned
+    QString destinationString = getAgentDestination(agent, hour);
+    Location* newDestination = nullptr;
+    Coordinate randomPosition;
+
+    // Determine the new destination for the Agent
+    if (destinationString == "No Change") {
+        return;
+    } else if (destinationString == "Home") {
+        // Random chance of going to a random Home location
+        if (rand() % 100 < randomChance) {
+            newDestination = sim->getRandomLocation(Agent::HOME);
+        } else {
+            newDestination = agent->getLocation(Agent::HOME);
+        }
+        randomPosition = sim->getRegion(Agent::HOME)->getRandomCoordinate();
+    } else if (destinationString == "School") {
+        // Random chance of going to a random Home location
+        if (rand() % 100 < randomChance) {
+            newDestination = sim->getRandomLocation(Agent::SCHOOL);
+        } else {
+            newDestination = agent->getLocation(Agent::SCHOOL);
+        }
+        randomPosition = sim->getRegion(Agent::SCHOOL)->getRandomCoordinate();
+    } else if (destinationString == "Work") {
+        // Random chance of going to a random Home location
+        if (rand() % 100 < randomChance) {
+            newDestination = sim->getRandomLocation(Agent::WORK);
+        } else {
+            newDestination = agent->getLocation(Agent::WORK);
+        }
+        randomPosition = sim->getRegion(Agent::WORK)->getRandomCoordinate();
+    } else if (destinationString == "Leisure") {
+        // Random chance of going to a random Home location
+        if (rand() % 100 < randomChance) {
+            newDestination = sim->getRandomLocation(Agent::LEISURE);
+        } else {
+            newDestination = agent->getLocation(Agent::LEISURE);
+        }
+        randomPosition = sim->getRegion(Agent::LEISURE)->getRandomCoordinate();
+    } else {
+        // Throw an exception if an invalid behavior is loaded
+        throw "Invalid Behavior File Loaded";
+    }
+
+    // If the determined destination is a nullptr, send the agent to a random
+    // spot in their assigned regions
+    if (newDestination == nullptr) {
+        Location newLocation = Location(randomPosition.getCoord(Coordinate::X),
+                                        randomPosition.getCoord(Coordinate::Y));
+        agent->setDestination(newLocation,
+                                  destinationString);
+    } else {
+        agent->setDestination(*newDestination, destinationString);
+    }
+}
+
+
+//******************************************************************************
+
+
+AgentController::~AgentController() {}
+
+
+//******************************************************************************
 

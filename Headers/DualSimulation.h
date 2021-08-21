@@ -1,0 +1,4 @@
+#ifndef DUALSIMULATION_H
+#define DUALSIMULATION_H
+
+#endif // DUALSIMULATION_H

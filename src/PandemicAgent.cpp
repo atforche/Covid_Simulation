@@ -7,6 +7,8 @@ PandemicAgent::PandemicAgent(int age, Location* startingLocation,
     // Give the agent the default pandemic status
     this->currentStatus = SUSCEPTIBLE;
     this->daysInStage = 0;
+    this->compliant = true;
+    this->nearbyInfected = 0;
 
     // Give the agent a random health status, proportional to the US population
     int randNum = rand() % 100;
@@ -67,7 +69,7 @@ bool PandemicAgent::advanceDay() {
         }
     }
 
-    this->daysInStage++;
+    ++this->daysInStage;
     return newCase;
 }
 
@@ -180,6 +182,14 @@ bool PandemicAgent::evaluateDeathProbability() {
 //******************************************************************************
 
 
+void PandemicAgent::setCompliance(bool compliant) {
+    this->compliant = compliant;
+}
+
+
+//******************************************************************************
+
+
 PandemicAgent::~PandemicAgent() {
     // If the agent was infected, decrement the count at each location
     if (getStatus() == INFECTED) {
@@ -204,6 +214,40 @@ PandemicAgent::~PandemicAgent() {
             location->removeInfectedAgent();
         }
     }
+}
+
+
+//******************************************************************************
+
+
+void PandemicAgent::resetNearbyInfected() {
+    nearbyInfected = 0;
+}
+
+
+//******************************************************************************
+
+
+void PandemicAgent::incrementNearbyInfected(int amount) {
+    nearbyInfected += amount;
+}
+
+
+//******************************************************************************
+
+
+bool PandemicAgent::evaluateInfectionProbability(bool checkCompliance) {
+    // Only Susceptible agents can become exposed
+    if (getStatus() != PandemicAgent::SUSCEPTIBLE) return false;
+
+    double infectionLiklihood = nearbyInfected * nearbyInfected;
+    int threshold = checkCompliance ? 1500 : 1000;
+
+    if (rand() % threshold < infectionLiklihood) {
+        makeExposed();
+        return true;
+    }
+    return false;
 }
 
 

@@ -36,7 +36,7 @@ private:
     int initialInfected;
 
     /** Controller class to handle enforcing all Pandemic rules */
-    PandemicController* controller;
+//    PandemicController* controller;
 
     /** Pointer to helper for rendering SEIR Line Chart */
     SEIRChartHelper* SEIRHelper;
@@ -109,20 +109,6 @@ public:
      * @return the number of SEIR agents as a vector
      */
     std::vector<int> getNumSEIR();
-
-    /**
-     * @brief getNumCases \n
-     * Getter function for the total number of cases in the Simulation
-     * @return the number of cases as an int
-     */
-    int getNumCases();
-
-    /**
-     * @brief getNumDeaths \n
-     * Getter function for the total number of deaths in the Simulation
-     * @return the number of cases as an int
-     */
-    int getNumDeaths();
 
     /**
      * @brief getLagPeriod \n

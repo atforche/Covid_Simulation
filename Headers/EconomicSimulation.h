@@ -37,9 +37,6 @@ private:
     /** Pointer to a helper for rendering the Total Value chart */
     TotalValueChartHelper *totalValueHelper;
 
-    /** Pointer to a controller to manage all economic aspects of simulation */
-    EconomicController* economicController;
-
     /** Pointer to a helper for rendering the Economic Status chart*/
     EconomicStatusChartHelper* statusHelper;
 

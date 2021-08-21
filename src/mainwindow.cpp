@@ -46,8 +46,8 @@ MainWindow::MainWindow(QWidget *parent)
     // Update the maximum value of the initial infected to match the number of agents
     ui->initialInfected->setMaximum(ui->numAgents->value());
     ui->initialInfectedSlider->setMaximum(ui->numAgents->value());
-    ui->hospitalCapacity->setMaximum(ui->numAgents->value());
-    ui->hospitalCapacitySlider->setMaximum(ui->numAgents->value());
+//    ui->hospitalCapacity->setMaximum(ui->numAgents->value());
+//    ui->hospitalCapacitySlider->setMaximum(ui->numAgents->value());
 }
 
 
@@ -248,9 +248,9 @@ void MainWindow::showPandemicOptions(bool show) {
     ui->lagPeriodLabel->setVisible(show);
     ui->lagPeriodSlider->setVisible(show);
 
-    ui->hospitalCapacity->setVisible(show);
-    ui->hospitalCapacityLabel->setVisible(show);
-    ui->hospitalCapacitySlider->setVisible(show);
+//    ui->hospitalCapacity->setVisible(show);
+//    ui->hospitalCapacityLabel->setVisible(show);
+//    ui->hospitalCapacitySlider->setVisible(show);
 
     ui->totalCaseLabel->setVisible(show);
     ui->totalCases->setVisible(show);
@@ -270,8 +270,8 @@ void MainWindow::enablePandemicOptions(bool enabled) {
     ui->lagPeriod->setEnabled(enabled);
     ui->lagPeriodSlider->setEnabled(enabled);
 
-    ui->hospitalCapacity->setEnabled(enabled);
-    ui->hospitalCapacitySlider->setEnabled(enabled);
+//    ui->hospitalCapacity->setEnabled(enabled);
+//    ui->hospitalCapacitySlider->setEnabled(enabled);
 
     ui->groupBox->setEnabled(enabled);
 }
@@ -365,6 +365,7 @@ void MainWindow::initializeComboBoxes() {
     simulationTypes.append("Simple Simulation");
     simulationTypes.append("Economic Simulation");
     simulationTypes.append("Pandemic Simulation");
+    simulationTypes.append("Dual Simulation");
     ui->simulationType->addItems(simulationTypes);
 
     // Disable the current selections in the other dropdowns
@@ -456,6 +457,8 @@ std::map<std::string, bool> MainWindow::checkDebugInfo() {
     debug["moderate lockdown"] = (ui->moderateLockdown->checkState() ==
                                      Qt::CheckState::Checked);
     debug["strong lockdown"] = (ui->strongLockdown->checkState() ==
+                                     Qt::CheckState::Checked);
+    debug["total lockdown"] = (ui->totalLockdown->checkState() ==
                                      Qt::CheckState::Checked);
 
     debug["weak non-compliance"] = (ui->weakCompliance->checkState() ==
@@ -563,8 +566,8 @@ void MainWindow::on_numAgents_valueChanged(int value) {
     ui->initialInfectedSlider->setMaximum(value);
 
     // Update the maximum number of hospitalized agents
-    ui->hospitalCapacity->setMaximum(value);
-    ui->hospitalCapacitySlider->setMaximum(value);
+//    ui->hospitalCapacity->setMaximum(value);
+//    ui->hospitalCapacitySlider->setMaximum(value);
 }
 
 
@@ -587,8 +590,8 @@ void MainWindow::on_numAgentsLabel_valueChanged(int arg1) {
     ui->initialInfectedSlider->setMaximum(arg1);
 
     // Update the maximum number of hospitalized agents
-    ui->hospitalCapacity->setMaximum(arg1);
-    ui->hospitalCapacitySlider->setMaximum(arg1);
+//    ui->hospitalCapacity->setMaximum(arg1);
+//    ui->hospitalCapacitySlider->setMaximum(arg1);
 }
 
 
@@ -805,16 +808,16 @@ void MainWindow::on_initialInfectedSlider_valueChanged(int value) {
 //******************************************************************************
 
 
-void MainWindow::on_hospitalCapacity_valueChanged(int arg1) {
-    ui->hospitalCapacitySlider->setValue(arg1);
+void MainWindow::on_hospitalCapacity_valueChanged(int) {
+//    ui->hospitalCapacitySlider->setValue(arg1);
 }
 
 
 //******************************************************************************
 
 
-void MainWindow::on_hospitalCapacitySlider_valueChanged(int value) {
-    ui->hospitalCapacity->setValue(value);
+void MainWindow::on_hospitalCapacitySlider_valueChanged(int) {
+//    ui->hospitalCapacity->setValue(value);
 }
 
 

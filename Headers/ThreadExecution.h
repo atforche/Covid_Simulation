@@ -112,6 +112,9 @@ private:
     /** Pointer to the worker controlling execution on the second thread */
     SimulationWorker* worker;
 
+    /** Current Speed of the Simulation*/
+    SimulationWorker::Speed currentSpeed;
+
 public:
 
     /**

@@ -43,7 +43,7 @@ private:
 
     /** Maximum numbers for agents and locations */
     static const int MAX_AGENTS = 1000;
-    static const int MAX_LOCATIONS = 50;
+    static const int MAX_LOCATIONS = 100;
 
     /** String specifying the current speed of the simualation */
     QString currentSpeed;

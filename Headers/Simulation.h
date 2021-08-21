@@ -99,6 +99,9 @@ public:
     /** Number of frames that occur before a new hour begins */
     static int FRAMES_PER_HOUR;
 
+    /** Constant size of the Canvas */
+    static constexpr int CANVAS_SIZE = 900;
+
     /**
      * @brief Simulation:  \n
      * Constructor for the Base Simulation Object. Takes
@@ -409,6 +412,15 @@ public:
      * @param resetIn: new value for the reset flag
      */
     void setReset(bool resetIn);
+
+    /**
+     * @brief setAgentController \n
+     * Setter function for the Agent Controller that will dictate agents behavior
+     * in the Simulation. Enables derived Simulation types to override the Agent
+     * Controller with their own derived Agent Controllers
+     * @param newController: pointer to the inherited Agent Controller
+     */
+    void setAgentController(AgentController* newController);
 
 
 public slots:

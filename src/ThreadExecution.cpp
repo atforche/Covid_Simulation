@@ -91,6 +91,9 @@ SimulationController::SimulationController(Simulation* sim,
     worker = new SimulationWorker(sim, frameRate);
     this->sim = sim;
 
+    // Initialize the speed of the Simulation
+    this->currentSpeed = frameRate;
+
     // Move the worker object onto a second thread
     worker->moveToThread(&workerThread);
 
@@ -155,6 +158,7 @@ void SimulationController::changeSpeed(SimulationWorker::Speed newSpeed) {
     // Pause the sim, change the speed, and restart the sim
     pauseSimulation();
     this->worker->changeSpeed(newSpeed);
+    this->currentSpeed = newSpeed;
     startSimulation();
 }
 
@@ -163,6 +167,28 @@ void SimulationController::changeSpeed(SimulationWorker::Speed newSpeed) {
 
 
 void SimulationController::updateScreen(const QString &) {
+    static int i = 0;
+
+    // Render every third frame at 60 FPS
+    if (currentSpeed == SimulationWorker::FAST) {
+        if (i < 2) {
+            i++;
+            return;
+        } else {
+            i = 0;
+        }
+    }
+
+    // Render every 10th frame at Unlimited FPS
+    if (currentSpeed == SimulationWorker::UNLIMITED) {
+        if (i < 10) {
+            i++;
+            return;
+        } else {
+            i = 0;
+        }
+    }
+
     if (!sim->checkDebug("headless mode")) {
         sim->renderAgentUpdate();
     }
