@@ -10,7 +10,7 @@
  * Class that inherits from the Location class. Extends the Location class to
  * enable Locations to have an associated value and cost.
  */
-class EconomicLocation : public Location {
+class EconomicLocation : virtual public Location {
 
 private:
 

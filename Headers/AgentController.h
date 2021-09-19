@@ -148,6 +148,20 @@ public:
     QString getAgentDestination(Agent* agent, int hour);
 
     /**
+     * @brief getAgentLock \n
+     * Getter function for the Mutex that locks the Agent vector
+     * @return
+     */
+    QMutex* getAgentLock();
+
+    /**
+     * @brief getLocationLock \n
+     * Getter function for the Mutex that locks the Locations vector
+     * @return
+     */
+    QMutex* getLocationLock();
+
+    /**
      * @brief updateSingleDestination \n
      * Updates the Destination for a single agent based on their Behavior chart
      * @param agent: pointer to the agent to be updated
@@ -155,6 +169,13 @@ public:
      * @param randomAllowed: whether Agent movement to random locations is allowed
      */
     virtual void updateSingleDestination(Agent* agent, int hour, bool randomAllowed);
+
+    /**
+     * @brief getSim \n
+     * Getter function for the Simulation this Controller interacts with
+     * @return
+     */
+    virtual Simulation* getSim();
 
     /**
      * @brief sampleAgentAge \n

@@ -11,7 +11,8 @@ EconomicLocation::EconomicLocation(double x, double y, Agent::LOCATIONS type) :
 
     // Home locations have a cost between [1, 3]
     if (type == Agent::HOME) {
-        this->cost = (rand() % 3) + 1;
+//        this->cost = (rand() % 3) + 1;
+        this->cost = 1;
     } else if (type == Agent::SCHOOL) {
         // School locations have a cost of 1
         this->cost = 1;

@@ -16,12 +16,18 @@ class PandemicSimulation;
  * with a virus, transmit that virus, and even die. Agent's
  * behavior can be dictated by their infected status.
  */
-class PandemicController : public AgentController {
+class PandemicController : virtual public AgentController {
 
 private:
 
     /** Pointer to the Simulation this Controller interacts with */
     PandemicSimulation* sim;
+
+    /** Vector to store all cast Agents */
+    std::vector<PandemicAgent*> pandemicAgents;
+
+    /** Whether an Agent's compliance will affect Infection spread */
+    bool checkCompliance;
 
     /** Total number of Deaths in the past day */
     int newDailyDeaths;
@@ -43,6 +49,9 @@ private:
 
     /** Total number of Agents that are currently Infected */
     int numInfected;
+
+    /** Total number of Homeless Agents that are currently infected */
+    int numHomelessInfected;
 
     /** Total number of Agents that are currently Recovered */
     int numRecovered;
@@ -83,6 +92,43 @@ public:
      * @param randomAllowed: whether Agent movement to random Locations is allowed
      */
     virtual void updateSingleDestination(Agent* agent, int hour, bool randomAllowed);
+
+    /**
+     * @brief initializePandemicUpdate \n
+     * Initialize the variables needed to carry out the Pandemic update. Resets
+     * the nearbyInfected counts for each of the Agents. Additionally, casts each
+     * agent to a Pandemic Agent and stores then within the class.
+     * @param agents
+     */
+    void initializePandemicUpdate(std::vector<Agent*> &agents);
+
+    /**
+     * @brief agentPandemicUpdate \n
+     * Performs the Pandemic update on a single agent. Counts the number of
+     * agents in each Pandemic status, and gives infected agent a chance to die.
+     * Additionally, counts the number of nearby infected agents near each agent.
+     * @param agent: the agent to update
+     * @param i: the index of the current agent
+     * @return whether the agent has died or not
+     */
+    bool agentPandemicUpdate(PandemicAgent* agent, int i);
+
+    /**
+     * @brief spreadInfection \n
+     * Spreads the infection to Susceptible agents. The probability of a
+     * Susceptible agent becoming Exposed is proportional to the number
+     * of infected agents that are close to the agent in questions
+     * @param pandemicAgents: a std::vector of PandemicAgents
+     */
+    void spreadInfection(std::vector<PandemicAgent*> &pandemicAgents);
+
+    /**
+     * @brief spontaneousInfection \n
+     * If the virus has become extinct in the population, give the virus a
+     * chance to spontaneously reappear. Mimics someone from an outside population
+     * coming in and infected locals.
+     */
+    void spontaneousInfection();
 
     /**
      * @brief advanceDay \n
@@ -146,7 +192,7 @@ public:
      * stay home. Agents locked out of LEISURE will try a second leisure location
      * before going home.
      */
-    void enforceLockdowns(PandemicAgent* agent, PandemicLocation* home);
+    void enforceLockdowns(PandemicAgent* agent, Location* home);
 
     /**
      * @brief enforceQuarantine \n
@@ -154,7 +200,7 @@ public:
      * infected and quarantines are enforced, the Agent will be unable to leave
      * their house until their infection has subsided.
      */
-    void enforceQuarantine(PandemicAgent* agent, PandemicLocation* home);
+    void enforceQuarantine(PandemicAgent* agent, Location* home);
 
     /**
      * @brief enforceContactTracing \n
@@ -163,8 +209,7 @@ public:
      * tracing. An agent being restricted by contact tracing can leave their
      * house only for a short time, and they spend most of their time at home.
      */
-    void enforceContactTracing(PandemicAgent* agent, PandemicLocation* home, PandemicLocation* school,
-                               PandemicLocation* work, PandemicLocation* leisure);
+    void enforceContactTracing(PandemicAgent* agent, Location* home);
 
     /**
      * @brief willComply \n
@@ -183,22 +228,23 @@ public:
      * a Leisure location. Additionally, strong guidelines lead to more
      * mask-wearing and social distancing, which reduces spread.
      */
-    void enforceGuidelines(PandemicAgent* agent, PandemicLocation* home);
+    void enforceGuidelines(PandemicAgent* agent, Location* home);
 
     /**
      * @brief applyECommerce \n
      * Functionn that applies E-Commerce to the Simulation. E-Commerce allows
      * some Agents to go to Work, School, or Leisure locations from Home. In a
      * Dual simulation, working from Home results in slightly less Economic value.
+     * @return: whether the agent is participating in the Economic from home
      */
-    void applyECommerce(PandemicAgent* agent, PandemicLocation* home);
+    bool applyECommerce(PandemicAgent* agent, Location* home);
 
     /**
      * @brief lockdownLocations \n
      * Function that will move through every location and lock them down if
      * necessary, depending on the threshold specified in the UI.
      */
-    void lockdownLocations();
+    virtual void lockdownLocations();
 
     /**
      * @brief incrementNearbyInfected \n
@@ -208,6 +254,21 @@ public:
      * @param index: index of the Pandemic Agent to compare against
      */
     void incrementNearbyInfected(std::vector<PandemicAgent*> &pandemicAgents, size_t index);
+
+    /**
+     * @brief getPandemicAgents \n
+     * Getter function for the vector of PandemicAgents that are cast from the
+     * base agent vector
+     * @return the address of the PandemicAgent vector
+     */
+    std::vector<PandemicAgent*>& getPandemicAgents();
+
+    /**
+     * @brief getNumHomelessInfected \n
+     * Getter function for the number of Homeless agents that are infected
+     * @return
+     */
+    int getNumHomelessInfected();
 
 };
 

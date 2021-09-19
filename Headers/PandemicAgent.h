@@ -12,7 +12,7 @@
  * Pandmic Agents can also have different pandmic statuses (SUSCEPTIBLE,
  * EXPOSED, INFECTED, or RECOVERED)
  */
-class PandemicAgent : public Agent {
+class PandemicAgent : virtual public Agent {
 
 public:
 
@@ -95,7 +95,7 @@ public:
      * age and health status.
      * @returns: whether the Agent dies or not
      */
-    bool evaluateDeathProbability();
+    bool evaluateDeathProbability(int numInfected, int hospitalCapacity);
 
     /**
      * @brief setCompliance \n
@@ -127,7 +127,7 @@ public:
      * on the number of nearby infected agents.
      * @return whether the agent will become Exposed or not
      */
-    bool evaluateInfectionProbability(bool checkCompliance);
+    bool evaluateInfectionProbability(bool checkCompliance, bool guidelines);
 
     /** Destructor for the Pandemic Agent class*/
     ~PandemicAgent();

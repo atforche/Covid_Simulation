@@ -5,6 +5,9 @@ SquareRegion::SquareRegion(Simulation* sim, Coordinate start, int height,
     : Region(sim, color_in, name),
       start(Coordinate(start.getCoord(Coordinate::X), start.getCoord(Coordinate::Y))) {
     this->height = height;
+
+    // Initialize the QGraphicsItem to represent this Region
+    setGraphicsObject(createNewGraphicsItem());
 }
 
 
@@ -12,25 +15,6 @@ SquareRegion::SquareRegion(Simulation* sim, Coordinate start, int height,
 
 
 SquareRegion::~SquareRegion() {}
-
-
-//******************************************************************************
-
-
-QGraphicsItem* SquareRegion::getGraphicsObject() {
-
-    QColor color = getColor();
-    QPen pen = QPen(color);
-    QBrush brush = QBrush(QColor(color.red(), color.green(), color.blue(), 10));
-    QRect rect = QRect(start.getCoord(Coordinate::X),
-                       start.getCoord(Coordinate::Y),
-                       height, height
-                       );
-    QGraphicsRectItem* output = new QGraphicsRectItem(rect);
-    output->setBrush(brush);
-    output->setPen(pen);
-    return output;
-}
 
 
 //******************************************************************************
@@ -73,4 +57,25 @@ std::vector<QGraphicsItem*> SquareRegion::getLocationsGraphicsObject() {
     }
     return *rendered;
 }
+
+
+//******************************************************************************
+
+
+QGraphicsItem* SquareRegion::createNewGraphicsItem() {
+    QColor color = getColor();
+    QPen pen = QPen(color);
+    QBrush brush = QBrush(QColor(color.red(), color.green(), color.blue(), 20));
+    QRect rect = QRect(start.getCoord(Coordinate::X),
+                       start.getCoord(Coordinate::Y),
+                       height, height
+                       );
+    QGraphicsRectItem* output = new QGraphicsRectItem(rect);
+    output->setBrush(brush);
+    setGraphicsObject(output);
+    return output;
+}
+
+
+//******************************************************************************
 

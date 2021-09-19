@@ -119,7 +119,7 @@ public:
      * Function that makes the options relevant to the Pandemic Simulation type
      * appear or disappear from the screen. Disables them all immediately after
      * they are shown or hidden, Options can be enables with a call to
-     * enableEconomicOptions.
+     * enablePandemicOptions.
      * @param show: whether to show or hide the economic options
      */
     void showPandemicOptions(bool show);
@@ -145,6 +145,36 @@ public:
     void enablePandemicCharts(bool enabled);
 
     /**
+     * @brief showDualOptions \n
+     * Function that makes the options relevant to the Dual Simulation type
+     * appear or disappear from the screen. Disables them all immediately after
+     * they are shown or hidden, Options can be enables with a call to
+     * enablePandemicOptions.
+     * @param show: whether to show or hide the economic options
+     */
+    void showDualOptions(bool show);
+
+    /**
+     * @brief enableDualOptions \n
+     * Function that enables and disables all of the options relevent to the
+     * Dual Simualtion type. Status the options will be set to is determined
+     * by the function parameter
+     * @param enabled: whether to enable is disable the Pandemic options
+     */
+    void enableDualOptions(bool enabled);
+
+    /**
+     * @brief enableDualCharts \n
+     * Function to enable or disable the Dual Charts. If the dual charts,
+     * are enabled, the options will appear in the ComboBoxes and the default
+     * chart views for the Dual Simulation will be applied. If the Dual
+     * charts are disabled, the options will be removed in the ComboBoxes and
+     * the default chart views for the Simple Simualtion will be applied.
+     * @param enabled: whether to enable or disable the Pandemic Charts
+     */
+    void enableDualCharts(bool enabled);
+
+    /**
      * @brief initializeComboBoxes \n
      * Initialize each of the Combo Boxes with their initial values and
      * list of possible values.
@@ -165,7 +195,7 @@ public:
      * debug info to their respective truth value.
      * @return
      */
-    std::map<std::string, bool> checkDebugInfo();
+    static std::map<std::string, bool> checkDebugInfo(Ui::MainWindow* ui);
 
 private slots:
     /**

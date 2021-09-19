@@ -94,6 +94,9 @@ private:
      */
     void ageAgents();
 
+    /** Location where the homeless agents can gather when they're assigned to Home*/
+    Location* homelessShelter;
+
 public:
 
     /** Number of frames that occur before a new hour begins */
@@ -422,6 +425,28 @@ public:
      */
     void setAgentController(AgentController* newController);
 
+    /**
+     * @brief setHomelessShelter \n
+     * Setter function for the Homeless Shelter location
+     * @param newLocation
+     */
+    void setHomelessShelter(Location* newLocation);
+
+    /**
+     * @brief getHomelessShelter \n
+     * Getter function for the Location that is acting as a homeless shelter;
+     * The homeless shelter serves to prevent homeless agents from roaming
+     * randomly around the home region and spreading the virus;
+     * @return
+     */
+    Location* getHomelessShelter();
+
+    /**
+     * @brief updateDebug \n
+     * Function to update the Debug info of the Simulation to reflect the most
+     * recent state of the user inputs.
+     */
+    void updateDebug();
 
 public slots:
     /**

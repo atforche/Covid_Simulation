@@ -1,9 +1,9 @@
 ﻿#include "Headers/PandemicSimulation.h"
 
 
-PandemicSimulation::PandemicSimulation(int lagPeriod, int initialInfected, int numAgents,
+PandemicSimulation::PandemicSimulation(int lagPeriod, int initialInfected, int initialValue, int numAgents,
                                        Ui::MainWindow* ui, std::map<std::string, bool> debug) :
-    SimpleSimulation(numAgents, ui, debug) {
+    EconomicSimulation(initialValue, numAgents, ui, debug) {
 
     // Initialize parameters of Simulation
     this->lagPeriod = lagPeriod;
@@ -14,7 +14,6 @@ PandemicSimulation::PandemicSimulation(int lagPeriod, int initialInfected, int n
     dailyTrackerHelper = new DailyTrackerChartHelper();
 
     // Initialize the pandemic controller
-//    controller = new PandemicController(this);
     setAgentController(new PandemicController(this));
 
     // Initialize all values to zero
@@ -36,6 +35,9 @@ void PandemicSimulation::execute() {
     // Cast the AgentController to a PandemicController
     PandemicController* controller = dynamic_cast<PandemicController*>(getController());
 
+    // Update the Debug information in the Simulation
+    updateDebug();
+
     // SIMPLESIMULATION::EXECUTE ***********************************************
     // Advance the time in the Simulation and update the Agent's destinations
     advanceTime();
@@ -54,7 +56,6 @@ void PandemicSimulation::execute() {
     for (int i = 0; i < getCurrentNumAgents(); ++i) {
         agents[i]->takeTimeStep();
     }
-
 
     // Every hour update the SEIR Chart
     if (numFrames == FRAMES_PER_HOUR) {
@@ -80,9 +81,9 @@ void PandemicSimulation::execute() {
 //******************************************************************************
 
 
-void PandemicSimulation::init(std::string) {
+void PandemicSimulation::init(std::string type) {
     // Call the base SimpleSimulation init function to create Pandemic locations
-    SimpleSimulation::init("Pandemic");
+    SimpleSimulation::init(type);
 }
 
 
@@ -174,10 +175,28 @@ PandemicSimulation::~PandemicSimulation() {}
 void PandemicSimulation::renderAgentUpdate() {
     Simulation::renderAgentUpdate();
 
-    // Update Agent and Location color according to their Pandemic Status
+    // Lock the screen and Location vectors
+    QMutexLocker locationsLock(getLocationLock());
+
+    // Update the colors of each Location accordingly
+    std::vector<Location*> locations = getAllLocations();
+    for (size_t i = 0; i < locations.size(); ++i) {
+        PandemicLocation* location = dynamic_cast<PandemicLocation*>(locations[i]);
+
+        if (location == nullptr) continue;
+
+        if (location->getStatus() == PandemicLocation::EXPOSURE) {
+            location->setColor(PandemicLocation::EXPOSEDCOLOR);
+        } else if (location->getStatus() == PandemicLocation::LOCKDOWN) {
+            location->setColor(PandemicLocation::LOCKDOWNCOLOR);
+        } else {
+            location->setColor(PandemicLocation::NORMALCOLOR);
+        }
+    }
+
     // Lock the screen queue to synchronize with other threads
+    locationsLock.unlock();
     QMutexLocker agentLock(getAgentsLock());
-    QMutexLocker screenLock(getQueueLock());
 
     // Ensure the Simulation wasn't reset while waiting for the Lock
     if (wasReset()) {
@@ -200,24 +219,6 @@ void PandemicSimulation::renderAgentUpdate() {
             agent->setColor(RECOVEREDCOLOR);
         }
     }
-
-    // Unlock the agents but lock the locations
-    agentLock.unlock();
-    QMutexLocker locationsLock(getLocationLock());
-
-    // Update the colors of each Location accordingly
-    std::vector<Location*> locations = getAllLocations();
-    for (size_t i = 0; i < locations.size(); ++i) {
-        PandemicLocation* location = dynamic_cast<PandemicLocation*>(locations[i]);
-        if (location->getStatus() == PandemicLocation::EXPOSURE) {
-            location->setColor(PandemicLocation::EXPOSEDCOLOR);
-        } else if (location->getStatus() == PandemicLocation::LOCKDOWN) {
-            location->setColor(PandemicLocation::LOCKDOWNCOLOR);
-        } else {
-            location->setColor(PandemicLocation::NORMALCOLOR);
-        }
-    }
-
 }
 
 

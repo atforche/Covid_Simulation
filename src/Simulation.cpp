@@ -84,6 +84,9 @@ Simulation::Simulation(int numAgents, Ui::MainWindow* ui,
 
     // Update the population counter
     ui->currentPopulation->setText(QString::number(initialNumAgents));
+
+    // Default initialize the homeless shelter
+    this->homelessShelter = nullptr;
 }
 
 
@@ -174,7 +177,7 @@ void Simulation::advanceTime() {
             ui->hour->setText(QString::number(this->hour));
             this->day++;
             ui->day->setText(QString::number(this->day));
-            birthAgent(); // Have a chance to birth agents each day
+//            birthAgent(); // Have a chance to birth agents each day
             ui->currentPopulation->setText(QString::number(getCurrentNumAgents())); // Update the population counter
 
             if (this->day == 365) {
@@ -237,8 +240,7 @@ void Simulation::killAgent(Agent *victim, int index) {
 
 void Simulation::birthAgent() {
     if (rand() % 100 == 0) {
-        // Birth a random number of agents between 0 and 5% of the total population
-        generateAgents((rand() % ((getCurrentNumAgents() / 20) + 1)) + 1, true);
+        generateAgents(1, true);
     }
 }
 
@@ -327,6 +329,7 @@ AgentController* Simulation::getController() {
 
 
 bool Simulation::checkDebug(std::string val) {
+
     if (this->debug.find(val) != this->debug.end()) {
         return this->debug[val];
     }
@@ -353,6 +356,13 @@ void Simulation::mapChartViews() {
     } else if (ui->simulationType->currentText() == "Pandemic Simulation") {
         indexMap[3] = "SEIR";
         indexMap[4] = "DAILY TRACKER";
+    } else if (ui->simulationType->currentText() == "Dual Simulation") {
+        indexMap[3] = "AGENT VALUE";
+        indexMap[4] = "ECONOMIC STATUS";
+        indexMap[5] = "BUSINESS VALUE";
+        indexMap[6] = "TOTAL VALUE";
+        indexMap[7] = "SEIR";
+        indexMap[8] = "DAILY TRACKER";
     }
 
     // Delete the existing map to overwrite it
@@ -534,6 +544,30 @@ void Simulation::setAgentController(AgentController *newController) {
 //******************************************************************************
 
 
+void Simulation::setHomelessShelter(Location *newLocation) {
+    this->homelessShelter = newLocation;
+}
+
+
+//******************************************************************************
+
+
+Location* Simulation::getHomelessShelter() {
+    return this->homelessShelter;
+}
+
+
+//******************************************************************************
+
+
+void Simulation::updateDebug() {
+    this->debug = MainWindow::checkDebugInfo(ui);
+}
+
+
+//******************************************************************************
+
+
 void Simulation::renderAgentUpdate() {
 
     // Acquire the lock to prevent an Agent from begin Deleted
@@ -561,5 +595,8 @@ void Simulation::renderAgentUpdate() {
 
 
 //******************************************************************************
+
+
+
 
 

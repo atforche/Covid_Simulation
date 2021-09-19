@@ -1,6 +1,7 @@
 #include "Headers/Region.h"
 #include "Headers/Simulation.h"
 #include "Headers/PandemicLocation.h"
+#include "Headers/DualLocation.h"
 
 Region::Region(Simulation* sim, QColor color, std::string name) {
     this->numLocations = 0;
@@ -55,6 +56,10 @@ void Region::generateLocations(int num, std::string type) {
             locations.push_back(new PandemicLocation(coord.getCoord(Coordinate::X),
                                                      coord.getCoord(Coordinate::Y),
                                                      this->type));
+        } else if (type == "Dual") {
+            locations.push_back(new DualLocation(coord.getCoord(Coordinate::X),
+                                                 coord.getCoord(Coordinate::Y),
+                                                 this->type));
         }
 
     }
@@ -129,6 +134,14 @@ Coordinate Region::getRandomCoordinate() {
 //******************************************************************************
 
 
+void Region::setGraphicsObject(QGraphicsItem *object) {
+    this->graphicsObject = object;
+}
+
+
+//******************************************************************************
+
+
 void Region::removeLocation(Location *victim) {
 
     // Add the graphics object to the remove queue
@@ -141,6 +154,17 @@ void Region::removeLocation(Location *victim) {
 
     delete victim;
 }
+
+
+//******************************************************************************
+
+
+QGraphicsItem* Region::getGraphicsObject() {
+    return this->graphicsObject;
+}
+
+
+//******************************************************************************
 
 
 

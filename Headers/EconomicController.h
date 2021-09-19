@@ -17,21 +17,12 @@ class EconomicSimulation;
  * difference rules. Business locations can disappear and appear. Agent's
  * behavior can be dictated by their economic status.
  */
-class EconomicController : public AgentController {
+class EconomicController : virtual public AgentController {
 
 private:
 
     /** Pointer to the Simulation this Controller interacts with */
     EconomicSimulation* sim;
-
-    /** Proportion of worker's wages the business actually loses */
-    static constexpr double workLossProportion = 0.50;
-
-    /** Proportion of agent's home expenses that go to businesses */
-    static constexpr double homeLossProportion = 0.85;
-
-    /** Constant overhead each business pays each hour during the day */
-    static constexpr int workOverhead = 15;
 
     /** Int to store the total value in all the agents */
     int agentValue;
@@ -40,6 +31,15 @@ private:
     int businessValue;
 
 public:
+
+    /** Constant overhead each business pays each hour during the day */
+    static constexpr int workOverhead = 15;
+
+    /** Proportion of worker's wages the business actually loses */
+    static constexpr double workLossProportion = 0.50;
+
+    /** Proportion of agent's home expenses that go to businesses */
+    static constexpr double homeLossProportion = 0.85;
 
     /**
      * @brief EconomicController \n
@@ -62,6 +62,37 @@ public:
     virtual void updateAgentDestinations(std::vector<Agent*> &agents, int hour);
 
     /**
+     * @brief businessEconomicUpdate \n
+     * Perform the economic update for the Business locations. Each business
+     * location loses a fixed amount of value during business hours, and a
+     * business will go bankrupt if they run out of money.
+     * @param hour: the current hour in the Simulation
+     */
+    virtual void businessEconomicUpdate(int hour);
+
+    /**
+     * @brief agentEconomicUpdate \n
+     * Perform the economic update for the Agents. Agents gain and lose value
+     * depending on their current location. Agents can also become homeless if
+     * they run out of money, or unemployed if their place of work goes
+     * bankrupt.
+     * @param agent: the agent to perform the update on
+     * @return the amount of value the agent lost that will be redistributed to all businesses
+     */
+    virtual double agentEconomicUpdate(EconomicAgent* agent);
+
+    /**
+     * @brief finishEconomicUpdate \n
+     * Performs the finishing operations on the Economic update. Enables new
+     * businesses to be created if there are less than the maximum number.
+     * Additionally, equal distributed the value lost by Agents at home locations
+     * among all the businesses.
+     * @param redistributedValue: the total amount of value to be distributed to businesses
+     * @param type: the type of location for a newly generated business to be
+     */
+    virtual void finishEconomicUpdate(double redistributedValue, QString type = "Economic");
+
+    /**
      * @brief bankruptBusiness \n
      * Bankrupts the victim EconomicLocation, which removes it and it's sibling
      * leisure location from the Simulation. All agents assigned to the business
@@ -78,7 +109,7 @@ public:
      * to nullptr
      * @param agent: pointer to the agent to be modified
      */
-    void makeHomeless(EconomicAgent* agent);
+    virtual void makeHomeless(EconomicAgent* agent);
 
     /**
      * @brief makeUnemployed \n
@@ -96,7 +127,7 @@ public:
      * @param agent: agent to be updated
      * @returns value lost by agent that should be distributed to businesses
      */
-    double homeEconomicUpdate(EconomicAgent* agent);
+    virtual double homeEconomicUpdate(EconomicAgent* agent);
 
     /**
      * @brief workEconomicUpdate \n
@@ -105,7 +136,7 @@ public:
      * the business. Businesses can go bankrupt while workers are there
      * @param agent: agent to be updated
      */
-    void workEconomicUpdate(EconomicAgent* agent);
+    virtual void workEconomicUpdate(EconomicAgent* agent);
 
     /**
      * @brief schoolEconomicUpdate \n
@@ -133,7 +164,7 @@ public:
      * select a single employed agent). Also, creates a new sibling leisure
      * location and assigned a small number of agents to it.
      */
-    void generateNewBusiness();
+    void generateNewBusiness(QString type);
 
     /**
      * @brief getTotalAgentValue \n
@@ -150,6 +181,13 @@ public:
      * @return an int
      */
     int getTotalBusinessValue();
+
+    /**
+     * @brief setTotalBusinessValue \n
+     * Setter function for the total amoutn of value held by Businesses in the
+     * Simulation
+     */
+    void setTotalBusinessValue(int newValue);
 
 };
 

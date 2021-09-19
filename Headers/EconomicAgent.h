@@ -11,7 +11,7 @@
  * Economic Agents can also have different economic statuses (NORMAL,
  * UNEMPLOYED, HOMELESS, or BOTH)
  */
-class EconomicAgent : public Agent {
+class EconomicAgent : virtual public Agent {
 
 public:
 

@@ -143,6 +143,29 @@ public:
      */
     std::vector<Agent*> getUnemployedAgents();
 
+    /**
+     * @brief setBusinessEconomicValue \n
+     * Setter function for the amount of Economic value held by businesses
+     * in the entire Simulation
+     * @param newValue: the new total amount of value that businesses hold
+     */
+    void setBusinessEconomicValue(double newValue);
+
+    /**
+     * @brief setTotalEconomicValue \n
+     * Setter function for the total amount of Economic value that exists in
+     * the Simulation, both by Agents and Businesses
+     * @param newValue: the new total amount of value in the Simulation
+     */
+    void setTotalEconomicValue(double newValue);
+
+    /**
+     * @brief getTotalEconomicValue \n
+     * Getter function for the total amount of Economic Value in the Simulation
+     * @return the total Economic value as a double
+     */
+    double getTotalEconomicValue();
+
     /** Destructor for the Economic Simulation class */
     ~EconomicSimulation();
 

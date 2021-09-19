@@ -53,7 +53,11 @@ void SimulationWorker::startThread(const QString &) {
 
     // Set the timeout milliseconds based on the simulation speed
     if (this->frameRate == UNLIMITED) {
-        executeLoop->start(5); //Unlimited FPS
+        if (sim->checkDebug("headless mode")) {
+            executeLoop->start(2);
+        } else {
+            executeLoop->start(5);
+        }
     } else if (this->frameRate == FAST) {
         executeLoop->start(16); //60 FPS
     } else if (this->frameRate == NORMAL) {

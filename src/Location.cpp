@@ -1,21 +1,24 @@
 #include <Headers/Location.h>
 
-Location::Location(double x, double y) {
+Location::Location(double x, double y, bool temporary) {
     position = Coordinate(x, y);
 
-    // Offset by (LOCATION_WIDTH/2) is necessary to allow locations to be
-    // rendered so they are centered around their position, instead of the
-    // position being the top left coordinate of the Location
-    ellipse = new QGraphicsEllipseItem(
-                position.getCoord(Coordinate::X) - (LOCATION_WIDTH/2),
-                position.getCoord(Coordinate::Y) - (LOCATION_WIDTH/2),
-                LOCATION_WIDTH, LOCATION_WIDTH
-                );
+    // Only render the location if it is not temporary
+    if (!temporary) {
+        ellipse = new QGraphicsEllipseItem(
+                    position.getCoord(Coordinate::X) - (LOCATION_WIDTH/2),
+                    position.getCoord(Coordinate::Y) - (LOCATION_WIDTH/2),
+                    LOCATION_WIDTH, LOCATION_WIDTH
+                    );
 
-    // Update the border of the location
-    QPen temp = QPen(QColor(0,0,0));
-    temp.setWidthF(locationBorderWidth);
-    ellipse->setPen(temp);
+        // Update the border of the location
+        QPen temp = QPen(QColor(0,0,0));
+        temp.setWidthF(locationBorderWidth);
+        ellipse->setPen(temp);
+
+    } else {
+        ellipse = nullptr;
+    }
 
     // Initialize the Agent's set
     agents = std::unordered_set<Agent*>();
@@ -40,8 +43,6 @@ void Location::addAgent(Agent *agent) {
 void Location::removeAgent(Agent* agent) {
     if(agents.find(agent) != agents.end()) {
         agents.erase(agent);
-    } else {
-        qDebug() << "Error removing agent from location";
     }
 }
 

@@ -16,7 +16,6 @@ EconomicSimulation::EconomicSimulation(int initialValue, int numAgents,
 
     // Create a controller for the economy
     setAgentController(new EconomicController(this));
-
 }
 
 
@@ -53,9 +52,9 @@ void EconomicSimulation::execute() {
 //******************************************************************************
 
 
-void EconomicSimulation::init(std::string) {
+void EconomicSimulation::init(std::string type) {
     // Run the base init function
-    SimpleSimulation::init("Economic");
+    SimpleSimulation::init(type);
 
     // Create sibling pairs between Work and Leisure locations
     std::vector<Location*> workLocations = getRegion(Agent::WORK)->getLocations();
@@ -83,14 +82,23 @@ void EconomicSimulation::init(std::string) {
     // Update the totalEconomicValue now that the business and agent values
     // have been calculated
     this->totalEconomicValue = this->agentEconomicValue + this->businessEconomicValue;
+
+    // Initialize the homeless shelter location
+    Coordinate newPosition = getRegion(Agent::HOME)->getRandomCoordinate();
+    Location* newHomelessShelter = new Location(newPosition.getCoord(Coordinate::X),
+                                                newPosition.getCoord(Coordinate::Y));
+    setHomelessShelter(newHomelessShelter);
+
+    // Add the homeless shelter to the screen
+    addToScreen(newHomelessShelter->getGraphicsObject());
 }
 
 
 //******************************************************************************
 
 
-void EconomicSimulation::generateAgents(int num, bool birth, std::string) {
-    SimpleSimulation::generateAgents(num, birth, "Economic");
+void EconomicSimulation::generateAgents(int num, bool birth, std::string type) {
+    SimpleSimulation::generateAgents(num, birth, type);
 
     // Grab all the agents
     QMutexLocker lock(getAgentsLock());
@@ -313,6 +321,30 @@ std::vector<Agent*> EconomicSimulation::getUnemployedAgents() {
 //******************************************************************************
 
 
+void EconomicSimulation::setBusinessEconomicValue(double newValue) {
+    this->businessEconomicValue = newValue;
+}
+
+
+//******************************************************************************
+
+
+void EconomicSimulation::setTotalEconomicValue(double newValue) {
+    this->totalEconomicValue = newValue;
+}
+
+
+//******************************************************************************
+
+
+double EconomicSimulation::getTotalEconomicValue() {
+    return this->totalEconomicValue;
+}
+
+
+//******************************************************************************
+
+
 EconomicSimulation::~EconomicSimulation() {
 
     // Remove any memory traces from the chartViews
@@ -335,7 +367,6 @@ void EconomicSimulation::renderAgentUpdate() {
 
     // Lock the screen queue to synchronize with other threads
     QMutexLocker locationLock(getLocationLock());
-    QMutexLocker screenLock(getQueueLock());
 
     // Ensure the Simulation wasn't reset while waiting for the Lock
     if (wasReset()) {
@@ -371,8 +402,8 @@ void EconomicSimulation::renderAgentUpdate() {
         workLocation->getSibling()->setColor(color);
     }
 
-    // Add comment
-    screenLock.unlock();
+    // Unlock the Locations lock
+    locationLock.unlock();
 
     // Update the colors of the Agents based on their current value
     QMutexLocker lock(getAgentsLock());

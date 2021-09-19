@@ -12,6 +12,10 @@ CONFIG += c++11
 SOURCES += \
     src/AgentController.cpp \
     src/ChartHelpers.cpp \
+    src/DualAgent.cpp \
+    src/DualController.cpp \
+    src/DualLocation.cpp \
+    src/DualSimulation.cpp \
     src/EconomicAgent.cpp \
     src/EconomicController.cpp \
     src/EconomicLocation.cpp \
@@ -33,6 +37,9 @@ SOURCES += \
 
 HEADERS += \
     Headers/AgentController.h \
+    Headers/DualAgent.h \
+    Headers/DualController.h \
+    Headers/DualLocation.h \
     Headers/DualSimulation.h \
     Headers/EconomicAgent.h \
     Headers/EconomicController.h \

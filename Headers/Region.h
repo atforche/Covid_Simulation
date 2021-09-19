@@ -40,6 +40,9 @@ private:
     /** Pointer to the enclosing Simulation */
     Simulation* sim;
 
+    /** Pointer to the QGraphicsItem that represents this Region */
+    QGraphicsItem* graphicsObject;
+
 public:
 
     /**
@@ -116,6 +119,14 @@ public:
     Coordinate getRandomCoordinate();
 
     /**
+     * @brief setGraphicsObject \n
+     * Setter function for the QGraphicsItem that will represent this region
+     * in the Simulation
+     * @param object: a pointer to the new GraphicsItem
+     */
+    void setGraphicsObject(QGraphicsItem* object);
+
+    /**
      * @brief removeLocation \n
      * Removes a location from the Region. Removes the QGraphicsObject represeting
      * the location from the screen. Agents assigned to this location should be
@@ -132,7 +143,7 @@ public:
      * re-rendered once created. Must be overridden by derived classes
      * @return a QGraphicsItem* representing the shape of the region
      */
-    virtual QGraphicsItem* getGraphicsObject() = 0;
+    virtual QGraphicsItem* getGraphicsObject();
 
     /**
      * @brief getNameGraphicsObject \n
@@ -151,6 +162,13 @@ public:
      * @return a vector of QGraphicsItem* that render all the locations
      */
     virtual std::vector<QGraphicsItem*> getLocationsGraphicsObject() = 0;
+
+    /**
+     * @brief createNewGraphicsItem \n
+     * Creates a new QGraphicsItem* to represent the region in the Simulation
+     * @return
+     */
+    virtual QGraphicsItem* createNewGraphicsItem() = 0;
 
 };
 

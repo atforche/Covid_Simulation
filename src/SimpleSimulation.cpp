@@ -2,6 +2,7 @@
 #include "Headers/Agent.h"
 #include "Headers/EconomicAgent.h"
 #include "Headers/PandemicAgent.h"
+#include "Headers/DualAgent.h"
 
 SimpleSimulation::SimpleSimulation(int numAgents, Ui::MainWindow* ui,
                                    std::map<std::string, bool> debug) :
@@ -90,7 +91,7 @@ void SimpleSimulation::init(std::string type) {
     }
 
     // Generate a set of agents for the simulation
-    generateAgents(getInitialNumAgents());
+    generateAgents(getInitialNumAgents(), false, type);
 }
 
 
@@ -122,15 +123,19 @@ void SimpleSimulation::reset() {
     clearAgents();
 
     // Redraw the regions to the screen to prevent blank area
+    homeRegion->setGraphicsObject(homeRegion->createNewGraphicsItem());
     addToScreen(homeRegion->getGraphicsObject());
     addToScreen(homeRegion->getNameGraphicsObject());
 
+    workRegion->setGraphicsObject(workRegion->createNewGraphicsItem());
     addToScreen(workRegion->getGraphicsObject());
     addToScreen(workRegion->getNameGraphicsObject());
 
+    schoolRegion->setGraphicsObject(schoolRegion->createNewGraphicsItem());
     addToScreen(schoolRegion->getGraphicsObject());
     addToScreen(schoolRegion->getNameGraphicsObject());
 
+    leisureRegion->setGraphicsObject(leisureRegion->createNewGraphicsItem());
     addToScreen(leisureRegion->getGraphicsObject());
     addToScreen(leisureRegion->getNameGraphicsObject());
 }
@@ -224,6 +229,12 @@ void SimpleSimulation::generateAgents(int num, bool birth, std::string type) {
                                       initialLocation,
                                       startingLocation,
                                       behaviorAssignment);
+        } else if (type == "Dual") {
+            agent = new DualAgent(0,
+                                  ageAssignment,
+                                  initialLocation,
+                                  startingLocation,
+                                  behaviorAssignment);
         } else {
             agent = new Agent(ageAssignment,
                               initialLocation,

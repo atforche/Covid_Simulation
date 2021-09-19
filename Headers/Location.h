@@ -49,7 +49,7 @@ public:
      * @param x: the x position of the Location
      * @param y: the y position of the Location
      */
-    Location(double x, double y);
+    Location(double x, double y, bool temporary = false);
 
     /**
      * @brief addAgent \n

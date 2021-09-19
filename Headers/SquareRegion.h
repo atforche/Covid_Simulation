@@ -46,15 +46,6 @@ public:
     ~SquareRegion();
 
     /**
-     * @brief getGraphicsObject \n
-     * Function that returns a QGraphicsRectItem* used to render the region
-     * on the QGraphicsScene. Returns QGraphicsItem needs to be added to
-     * the Simulation for it to appear.
-     * @return a QGraphicsItem* representing the rectangular region
-     */
-    virtual QGraphicsItem* getGraphicsObject() override;
-
-    /**
      * @brief getNameGraphicsObject \n
      * Function to render the text name of the region onto the canvas. Renders
      * the name as a QGraphicsTextItem and places it in the top left corner
@@ -88,6 +79,13 @@ public:
      * be added to a Simulation in order to appear
      */
     std::vector<QGraphicsItem*> getLocationsGraphicsObject() override;
+
+    /**
+     * @brief createNewGraphicsItem \n
+     * Creates a new QGraphicsItem to represent this region
+     * @return a point to that QGraphicsItem
+     */
+    virtual QGraphicsItem* createNewGraphicsItem() override;
 
 };
 

@@ -4,7 +4,7 @@
 #include "ui_mainwindow.h"
 
 #include "Simulation.h"
-#include "SimpleSimulation.h"
+#include "EconomicSimulation.h"
 #include "PandemicController.h"
 
 /**
@@ -13,7 +13,7 @@
  * Simulation to include pandemic rules. The pandemic rules are based on the
  * SEIR infectivity model.
  */
-class PandemicSimulation : public SimpleSimulation {
+class PandemicSimulation : public EconomicSimulation {
 
 private:
 
@@ -63,7 +63,7 @@ public:
      * @param ui: the MainWindow::ui containing information on all the user inputs
      * @param debug: a map of debug info about the Simulation
      */
-    PandemicSimulation(int lagPeriod, int initialInfected, int numAgents,
+    PandemicSimulation(int lagPeriod, int initialInfected, int initialValue, int numAgents,
                        Ui::MainWindow* ui, std::map<std::string, bool> debug);
 
     /**

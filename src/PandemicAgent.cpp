@@ -64,7 +64,7 @@ bool PandemicAgent::advanceDay() {
             makeRecovered();
         }
     } else if (currentStatus == RECOVERED) {
-        if (daysInStage + ((rand() % 3) - 1) > 9) {
+        if (daysInStage + ((rand() % 3) - 1) > 21) {
             makeSusceptible();
         }
     }
@@ -155,13 +155,18 @@ void PandemicAgent::makeRecovered() {
 //******************************************************************************
 
 
-bool PandemicAgent::evaluateDeathProbability() {
+bool PandemicAgent::evaluateDeathProbability(int numInfected, int hospitalCapacity) {
 
     double survivalProbability;
     if (getAge() < 50) {
         survivalProbability = 100;
     } else {
         survivalProbability = 100 - 2 * (getAge() - 50);
+    }
+
+    // Decrease the probability of surviving if the number of infected agents is too high
+    if (numInfected > hospitalCapacity) {
+        survivalProbability = survivalProbability - 10 * (numInfected / hospitalCapacity);
     }
 
     if (healthStatus == MODERATE) {
@@ -171,6 +176,8 @@ bool PandemicAgent::evaluateDeathProbability() {
     } else if (healthStatus == VERY_POOR) {
         survivalProbability = survivalProbability / 4;
     }
+
+    survivalProbability = std::max(survivalProbability, 1.0);
 
     if (rand() % static_cast<int>((survivalProbability * 100)) == 0) {
         return true;
@@ -236,14 +243,21 @@ void PandemicAgent::incrementNearbyInfected(int amount) {
 //******************************************************************************
 
 
-bool PandemicAgent::evaluateInfectionProbability(bool checkCompliance) {
+bool PandemicAgent::evaluateInfectionProbability(bool checkCompliance, bool guidelines) {
     // Only Susceptible agents can become exposed
     if (getStatus() != PandemicAgent::SUSCEPTIBLE) return false;
 
     double infectionLiklihood = nearbyInfected * nearbyInfected;
-    int threshold = checkCompliance ? 1500 : 1000;
+    int threshold = 4500;
+    if (checkCompliance && !compliant) {
+        threshold = 3500;
+    }
 
     if (rand() % threshold < infectionLiklihood) {
+        // If strong enough guidelines and compliance, give an agent a 1/4 chance to avoid infection
+        if (guidelines && compliant && rand() % 4 == 0) {
+            return false;
+        }
         makeExposed();
         return true;
     }

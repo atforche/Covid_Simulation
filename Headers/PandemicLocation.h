@@ -10,7 +10,7 @@
  * Class that inherits from the Location class. Extends the Location class to
  * enable Locations to have an associated Pandemic Status.
  */
-class PandemicLocation : public Location {
+class PandemicLocation : virtual public Location {
 
 public:
 

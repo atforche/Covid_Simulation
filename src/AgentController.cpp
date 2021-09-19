@@ -243,7 +243,7 @@ QString AgentController::getStartingDestination(int behaviorChart,
     int age = isAdult ? 50 : 10;
 
     // Create a dummy agent with the specified behavior chart
-    Location temp2(0,0);
+    Location temp2(0,0, true);
     Agent temp(age, &temp2, "Null", behaviorChart);
 
     // Return the destination assignment of the agent, which is its starting location
@@ -285,6 +285,22 @@ int AgentController::sampleAgentAge() {
 //******************************************************************************
 
 
+QMutex* AgentController::getAgentLock() {
+    return sim->getAgentsLock();
+}
+
+
+//******************************************************************************
+
+
+QMutex* AgentController::getLocationLock() {
+    return sim->getLocationLock();
+}
+
+
+//******************************************************************************
+
+
 void AgentController::updateSingleDestination(Agent* agent, int hour, bool randomAllowed) {
 
     // Chance for going to a random location
@@ -306,7 +322,13 @@ void AgentController::updateSingleDestination(Agent* agent, int hour, bool rando
         } else {
             newDestination = agent->getLocation(Agent::HOME);
         }
-        randomPosition = sim->getRegion(Agent::HOME)->getRandomCoordinate();
+
+        // Send agents to the homeless shelter if it exists
+        if (sim->getHomelessShelter() != nullptr) {
+            randomPosition = sim->getHomelessShelter()->getPosition();
+        } else {
+            randomPosition = sim->getRegion(Agent::HOME)->getRandomCoordinate();
+        }
     } else if (destinationString == "School") {
         // Random chance of going to a random Home location
         if (rand() % 100 < randomChance) {
@@ -346,6 +368,14 @@ void AgentController::updateSingleDestination(Agent* agent, int hour, bool rando
     } else {
         agent->setDestination(*newDestination, destinationString);
     }
+}
+
+
+//******************************************************************************
+
+
+Simulation* AgentController::getSim() {
+    return this->sim;
 }
 
 

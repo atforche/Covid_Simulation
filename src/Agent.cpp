@@ -75,7 +75,7 @@ void Agent::takeTimeStep() {
 //******************************************************************************
 
 
-void Agent::setDestination(Location &newLocation, QString destinationType) {
+void Agent::setDestination(Location& newLocation, QString destinationType) {
 
     // Update the destination of the agent
     this->destination = newLocation.getPosition();

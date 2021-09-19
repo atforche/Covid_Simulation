@@ -563,7 +563,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>500</y>
+      <y>490</y>
       <width>151</width>
       <height>16</height>
      </rect>
@@ -576,7 +576,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>560</y>
+      <y>540</y>
       <width>261</width>
       <height>16</height>
      </rect>
@@ -604,7 +604,7 @@
     <property name="geometry">
      <rect>
       <x>120</x>
-      <y>530</y>
+      <y>510</y>
       <width>71</width>
       <height>23</height>
      </rect>
@@ -623,7 +623,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>530</y>
+      <y>510</y>
       <width>104</width>
       <height>23</height>
      </rect>
@@ -662,7 +662,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>590</y>
+      <y>560</y>
       <width>151</width>
       <height>16</height>
      </rect>
@@ -675,7 +675,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>640</y>
+      <y>610</y>
       <width>261</width>
       <height>16</height>
      </rect>
@@ -703,7 +703,7 @@
     <property name="geometry">
      <rect>
       <x>120</x>
-      <y>610</y>
+      <y>580</y>
       <width>59</width>
       <height>23</height>
      </rect>
@@ -722,7 +722,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>610</y>
+      <y>580</y>
       <width>104</width>
       <height>23</height>
      </rect>
@@ -735,7 +735,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>660</y>
+      <y>630</y>
       <width>104</width>
       <height>23</height>
      </rect>
@@ -748,7 +748,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>690</y>
+      <y>660</y>
       <width>261</width>
       <height>16</height>
      </rect>
@@ -776,7 +776,7 @@
     <property name="geometry">
      <rect>
       <x>120</x>
-      <y>660</y>
+      <y>630</y>
       <width>59</width>
       <height>23</height>
      </rect>
@@ -847,8 +847,8 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>730</y>
-      <width>291</width>
+      <y>740</y>
+      <width>281</width>
       <height>211</height>
      </rect>
     </property>
@@ -1234,7 +1234,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Government Assistance:</string>
+      <string>Govern. Assistance:</string>
      </property>
     </widget>
     <widget class="QCheckBox" name="totalLockdown">
@@ -1253,6 +1253,89 @@
       <string>Total Lockdown</string>
      </property>
     </widget>
+   </widget>
+   <widget class="QComboBox" name="agentColoring">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>960</y>
+      <width>131</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="agentColoringLabel">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>960</y>
+      <width>104</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Agent Coloring:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="hospitalCapacityLabel">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>680</y>
+      <width>104</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Hospital Capacity:</string>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="hospitalCapacity">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>680</y>
+      <width>59</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
+    <property name="maximum">
+     <number>500</number>
+    </property>
+    <property name="value">
+     <number>50</number>
+    </property>
+   </widget>
+   <widget class="QSlider" name="hospitalCapacitySlider">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>710</y>
+      <width>261</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
+    <property name="maximum">
+     <number>500</number>
+    </property>
+    <property name="value">
+     <number>50</number>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+    <property name="tickPosition">
+     <enum>QSlider::TicksBelow</enum>
+    </property>
+    <property name="tickInterval">
+     <number>100</number>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
