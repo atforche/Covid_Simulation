@@ -179,6 +179,7 @@ int EconomicSimulation::getCurrentValue() {
 
 void EconomicSimulation::renderChartUpdates(QString which, bool newChartView) {
     int graphView = getChartView(which);
+    std::string which_std = which.toStdString();
     if (graphView == -1) {
         return;
     }
@@ -437,6 +438,11 @@ void EconomicSimulation::renderAgentUpdate() {
 
 
 void EconomicSimulation::renderCharts(const QString &which, bool newChartView) {
+
+    if (getUI()->headlessMode->checkState() == Qt::CheckState::Checked) {
+        return;
+    }
+
     if (which == "ALL") {
         Simulation::renderChartUpdates("AGE", newChartView);
         Simulation::renderChartUpdates("BEHAVIOR", newChartView);

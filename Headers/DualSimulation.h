@@ -5,6 +5,14 @@
 #include "PandemicSimulation.h"
 #include "DualController.h"
 
+// Special include for torch
+#undef slots
+#include "torch/torch.h"
+#define slots Q_SLOTS
+
+// Forward Declaration
+class PolicyNetwork;
+
 
 /**
  * @brief The DualSimulation class \n
@@ -16,6 +24,11 @@ class DualSimulation : public PandemicSimulation {
 
 private:
 
+    /** Network that may be used to control the Simulation */
+    PolicyNetwork* network;
+
+    /** Mapping between integer indexes and Policy QCheckBoxes*/
+    std::unordered_map<int, QCheckBox*> indexPolicyMapping;
 
 public:
 
@@ -31,7 +44,7 @@ public:
      * @param debug: a map of debug info about the Simulation
      */
     DualSimulation(int lagPeriod, int initialInfected, int initialValue, int numAgents, Ui::MainWindow* ui,
-                       std::map<std::string, bool> debug);
+                       std::map<std::string, bool> debug, PolicyNetwork* network = nullptr);
 
     /**
      * @brief execute \n
@@ -67,6 +80,20 @@ public:
      * @param newChartView: whether the chart is being moved to a new view
      */
     virtual void renderChartUpdates(QString which, bool newChartView) override;
+
+    /**
+     * @brief getState \n
+     * Function that returns the current state of the Simulation as a Torch::Tensor
+     * @return
+     */
+    torch::Tensor getState();
+
+    /**
+     * @brief takeStep \n
+     * Advances the Simulation for an hour
+     * @return: true if the episode is finished, false otherwise
+     */
+    bool takeStep(int episodeLength);
 
 
 public slots:

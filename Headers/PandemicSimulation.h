@@ -134,6 +134,20 @@ public:
      */
     void updatePandemicCharts(bool newDay);
 
+    /**
+     * @brief getTotalCases \n
+     * Returns the total number of cases that have occurred in the Simulation
+     * @return
+     */
+    int getTotalCases();
+
+    /**
+     * @brief getTotalDeaths \n
+     * Returns the total number of deaths that have occurred in the Simulation
+     * @return
+     */
+    int getTotalDeaths();
+
     /** Destructor for the Pandemic Simulation class */
     ~PandemicSimulation();
 

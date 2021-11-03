@@ -72,6 +72,24 @@ public:
      */
     void setStatus(STATUS newStatus);
 
+    /**
+     * @brief incrementHoursOfEmployment \n
+     * Increments the number of employment hours the agents has
+     */
+    void incrementHoursOfEmployment();
+
+    /**
+     * @brief incrementHoursOfUnemployment \n
+     * Increments the number of unemployments hours the agent has
+     */
+    void incrementHoursOfUnemployment();
+
+    /**
+     * @brief canReceiveUnemployment \n
+     * Return whether the Agent is eligble to receive unemployment
+     * @return
+     */
+    bool canReceiveUnemployment();
 
 private:
 
@@ -80,6 +98,15 @@ private:
 
     /** Current economic status of the Agent */
     STATUS currentStatus;
+
+    /** Number of consecutive days that an agent is in an Economic state*/
+    int hoursOfEmployment;
+
+    /** Number of hours that an Agent has received unemployment. */
+    int hoursOfUnemployment;
+
+    /** Bool to track whether an Agent is eligible to receive unemployment */
+    bool receiveUnemployment;
 
 };
 

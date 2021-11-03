@@ -177,7 +177,6 @@ void Simulation::advanceTime() {
             ui->hour->setText(QString::number(this->hour));
             this->day++;
             ui->day->setText(QString::number(this->day));
-//            birthAgent(); // Have a chance to birth agents each day
             ui->currentPopulation->setText(QString::number(getCurrentNumAgents())); // Update the population counter
 
             if (this->day == 365) {

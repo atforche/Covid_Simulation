@@ -3,16 +3,27 @@
 #include "Headers/EconomicSimulation.h"
 #include "Headers/PandemicSimulation.h"
 #include "Headers/DualSimulation.h"
+#include "Headers/TrainingExecution.h"
+#include "Headers/Network.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow) {
+    , ui(new Ui::MainWindow),
+      network(50) {
 
     // Setup the main UI components for the mainWindow
     ui->setupUi(this);
     QGraphicsView* view = ui->mainCanvas;
     QGraphicsScene* scene = new QGraphicsScene(this);
     view->setScene(scene);
+
+    // Update to CUDA if it is available
+    if (torch::cuda::is_available()) {
+        TrainingController::tensorDevice = torch::kCUDA;
+        qDebug() << "CUDA is available.";
+    } else {
+        qDebug() << "Unable to use CUDA.";
+    }
 
     // Sets the maximum agents and locations based on constant values
     ui->numAgents->setMaximum(MAX_AGENTS);
@@ -43,6 +54,10 @@ MainWindow::MainWindow(QWidget *parent)
     enableUI();
     showEconomicOptions(false);
     showPandemicOptions(false);
+
+    // Create the trainingController and train the Network
+    trainingController = new TrainingController(ui, this, 50, 2000, 50);
+    networkLoaded = false;
 
     // Update the maximum value of the initial infected to match the number of agents
     ui->initialInfected->setMaximum(ui->numAgents->value());
@@ -356,6 +371,10 @@ void MainWindow::showDualOptions(bool show) {
 
     ui->agentColoringLabel->setVisible(show);
     ui->agentColoring->setVisible(show);
+    ui->trainingControls->setVisible(show);
+    if (show) {
+        ui->evaluateNetwork->setVisible(!show);
+    }
 }
 
 
@@ -474,6 +493,12 @@ void MainWindow::initializeComboBoxes() {
     coloringTypes.append("Pandemic Status");
     coloringTypes.append("Economic Status");
     ui->agentColoring->addItems(coloringTypes);
+
+    QStringList policyTypes;
+    policyTypes.append("Pandemic");
+    policyTypes.append("Economic");
+    policyTypes.append("Dual");
+    ui->policy->addItems(policyTypes);
 
     // Disable the current selections in the other dropdowns
     disableComboBoxOptions();
@@ -630,16 +655,22 @@ void MainWindow::on_runSimulation_clicked() {
                                      ui, checkDebugInfo(ui));
         locationType = "Pandemic";
     } else if (ui->simulationType->currentText() == "Dual Simulation") {
+        PolicyNetwork* networkPtr = nullptr;
+        if (networkLoaded) {
+            networkPtr = &network;
+            network->to(TrainingController::tensorDevice);
+        }
         sim = new DualSimulation(ui->lagPeriod->value(),
-                                              ui->initialInfected->value(),
-                                              ui->initialValueSlider->value(),
-                                              ui->numAgents->value(),
-                                              ui, checkDebugInfo(ui));
+                                 ui->initialInfected->value(),
+                                 ui->initialValueSlider->value(),
+                                 ui->numAgents->value(),
+                                 ui, checkDebugInfo(ui),
+                                 networkPtr);
         locationType = "Dual";
     }
     sim->init(locationType);
 
-    // Update the charts on the main window (non-dynamic for now)
+    // Update the charts on the main window
     sim->mapChartViews();
     sim->renderCharts("ALL", true);
 
@@ -966,6 +997,72 @@ void MainWindow::on_hospitalCapacity_valueChanged(int arg1) {
 
 void MainWindow::on_hospitalCapacitySlider_valueChanged(int value) {
     ui->hospitalCapacity->setValue(value);
+}
+
+
+//******************************************************************************
+
+
+void MainWindow::on_startTraining_clicked() {
+    // Hide the check boxes to improve stability
+    ui->groupBox->setVisible(false);
+
+    trainingController->trainNetwork(false);
+}
+
+
+//******************************************************************************
+
+
+void MainWindow::on_loadNetwork_clicked() {
+    // Load a network in from file
+    QString filename = QFileDialog::getOpenFileName();
+    torch::load(network, filename.toStdString());
+    networkLoaded = true;
+
+    // Change button text to indicate that training will continue
+    ui->startTraining->setText("Continue Training");
+
+    // Split the file path to get the currentStep and the Policy type
+    QStringList splitString = filename.split("/", Qt::SkipEmptyParts);
+    QString policyType = splitString[splitString.size() - 2];
+    ui->policy->setCurrentText(policyType);
+
+    QStringList splitFilename = splitString[splitString.size() - 1].split(".");
+    int currentStep = splitFilename[0].toInt();
+
+    // Update the currentStep and Network in the TrainingController incase
+    // the user wants to continue training
+    trainingController->loadNetwork(network, currentStep);
+
+    // Enable the user to evaluate the Network
+    ui->evaluateNetwork->setVisible(true);
+}
+
+
+//******************************************************************************
+
+
+void MainWindow::on_evaluateNetwork_clicked() {
+//    trainingController->evaluateNetwork();
+    evaluateNetwork(this->network, this->ui);
+}
+
+
+//******************************************************************************
+
+
+void MainWindow::printMessage(const QString& message) {
+    qDebug() << message << endl;
+}
+
+
+//******************************************************************************
+
+
+void MainWindow::forceUpdate() {
+    update();
+    qApp->processEvents();
 }
 
 

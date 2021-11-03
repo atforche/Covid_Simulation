@@ -1,5 +1,5 @@
-#ifndef THREADEXECUTION_H
-#define THREADEXECUTION_H
+#ifndef SIMULATIONEXECUTION_H
+#define SIMULATIONEXECUTION_H
 
 #include "windows.h"
 #include "QObject"
@@ -7,7 +7,10 @@
 #include "QTimer"
 
 #include "Simulation.h"
-//#include "EconomicSimulation.h"
+
+
+
+class DualSimulation;
 
 /**
  * @brief The SimulationWorker class \n
@@ -93,6 +96,10 @@ private:
 
 };
 
+
+//******************************************************************************
+
+
 /**
  * @brief The SimulationController class \n
  * Class that controls the simulation and delegates it to a thread. Also
@@ -174,4 +181,8 @@ signals:
 
 };
 
-#endif // THREADEXECUTION_H
+
+//******************************************************************************
+
+
+#endif // SIMULATIONEXECUTION_H

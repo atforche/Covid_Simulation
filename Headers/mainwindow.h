@@ -13,12 +13,17 @@
 #include "QJsonObject"
 
 #include "ui_mainwindow.h"
-#include "Headers/ThreadExecution.h"
+#include "Headers/SimulationExecution.h"
 #include "Headers/SimpleSimulation.h"
+
+#include "Headers/Network.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
+
+// Forward Declarations
+class TrainingController;
 
 
 /**
@@ -41,6 +46,9 @@ private:
     /** Controller that executes the Simulation in a separate thread */
     SimulationController* controller;
 
+    /** Controller that executes the Training in a separate thread */
+    TrainingController* trainingController;
+
     /** Maximum numbers for agents and locations */
     static const int MAX_AGENTS = 1000;
     static const int MAX_LOCATIONS = 100;
@@ -55,6 +63,12 @@ private:
     std::vector<QString> graphViews = {"Age Distribution",
                                        "Behavior Chart Distribution",
                                        "Destination Assignments"};
+
+    /** A network loaded from a file */
+    PolicyNetwork network;
+
+    /** Boolean to indicate if a network was loaded*/
+    bool networkLoaded;
 
 public:
     /**
@@ -392,6 +406,37 @@ private slots:
      * @param value: the new value of the Slider
      */
     void on_hospitalCapacitySlider_valueChanged(int value);
+
+    /**
+     * @brief on_trainNetwork_clicked \n
+     * Function to handle the training of a Neural Network to control the
+     * Simulation
+     */
+    void on_startTraining_clicked();
+
+    /**
+     * @brief on_loadNetwork_clicked \n
+     * Function to handle the loading of a trained network;
+     */
+    void on_loadNetwork_clicked();
+
+    /**
+     * @brief on_evaluateNetwork_clicked \n
+     * Function to handle the evaluation of a trained network;
+     */
+    void on_evaluateNetwork_clicked();
+
+public slots:
+
+    /**
+     * @brief printMessage \n
+     * Prints a message to the console
+     * @param message
+     */
+    static void printMessage(const QString &message);
+
+    /** Force the application to update the screen */
+    void forceUpdate();
 
 };
 

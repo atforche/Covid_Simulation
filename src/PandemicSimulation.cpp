@@ -166,6 +166,22 @@ void PandemicSimulation::updatePandemicCharts(bool newDay) {
 //******************************************************************************
 
 
+int PandemicSimulation::getTotalCases() {
+    return dynamic_cast<PandemicController*>(getController())->getTotalCases();
+}
+
+
+//******************************************************************************
+
+
+int PandemicSimulation::getTotalDeaths() {
+    return dynamic_cast<PandemicController*>(getController())->getTotalDeaths();
+}
+
+
+//******************************************************************************
+
+
 PandemicSimulation::~PandemicSimulation() {}
 
 
@@ -226,6 +242,11 @@ void PandemicSimulation::renderAgentUpdate() {
 
 
 void PandemicSimulation::renderCharts(const QString &which, bool newChartView) {
+
+    if (getUI()->headlessMode->checkState() == Qt::CheckState::Checked) {
+        return;
+    }
+
     if (which == "ALL") {
         Simulation::renderChartUpdates("AGE", newChartView);
         Simulation::renderChartUpdates("BEHAVIOR", newChartView);

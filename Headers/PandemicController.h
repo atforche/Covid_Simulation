@@ -2,6 +2,7 @@
 #define PANDEMICCONTROLLER_H
 
 #include <algorithm>
+#include <deque>
 
 #include "PandemicAgent.h"
 #include "Simulation.h"
@@ -55,6 +56,12 @@ private:
 
     /** Total number of Agents that are currently Recovered */
     int numRecovered;
+
+    /** The number of new exposures over the past 24 hours */
+    std::deque<int> last24Exposed;
+
+    /** The number of deaths over the past 24 hours */
+    std::deque<int> last24Deaths;
 
     /** Boolean to store whether the initial infection has already happened */
     bool initialInfection;
@@ -111,7 +118,7 @@ public:
      * @param i: the index of the current agent
      * @return whether the agent has died or not
      */
-    bool agentPandemicUpdate(PandemicAgent* agent, int i);
+    virtual bool agentPandemicUpdate(PandemicAgent* agent, int i);
 
     /**
      * @brief spreadInfection \n
@@ -269,6 +276,19 @@ public:
      * @return
      */
     int getNumHomelessInfected();
+
+    /**
+     * @brief getState \n
+     * Gets the attributes used to train the controlling network
+     * @return a vector of the state attributes
+     */
+    std::vector<double> getState();
+
+    /**
+     * @brief killAgent \n
+     * Updates the Simulation state on an Agent's death
+     */
+    void killAgents(int numDeaths);
 
 };
 

@@ -16,6 +16,8 @@ class DualController : public PandemicController, public EconomicController {
 
 private:
 
+    /** Economic value to be redistributed when an Agent dies */
+    double agentRedistributedValue;
 
 public:
 

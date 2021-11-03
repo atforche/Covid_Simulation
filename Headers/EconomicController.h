@@ -2,6 +2,7 @@
 #define ECONOMICCONTROLLER_H
 
 #include <algorithm>
+#include <deque>
 
 #include "EconomicAgent.h"
 #include "Simulation.h"
@@ -29,6 +30,12 @@ private:
 
     /** Int to store the total value in all businesses */
     int businessValue;
+
+    /** Deque to store the change in Economic value over the past 24 hours */
+    std::deque<double> changeInValue;
+
+    /** The value at the previous step in the Simulation */
+    int previousValue;
 
 public:
 
@@ -184,10 +191,31 @@ public:
 
     /**
      * @brief setTotalBusinessValue \n
+     * Setter function for the total amoutn of value held by Agents in the
+     * Simulation
+     */
+    void setTotalAgentValue(int newValue);
+
+    /**
+     * @brief setTotalBusinessValue \n
      * Setter function for the total amoutn of value held by Businesses in the
      * Simulation
      */
     void setTotalBusinessValue(int newValue);
+
+    /**
+     * @brief getState \n
+     * Gets the attributes used to train the controlling network
+     * @return a vector of the state attributes
+     */
+    std::vector<double> getState();
+
+    /**
+     * @brief finishEconomicState \n
+     * Function that updates the Economic portion of the Simulation state
+     * @param newTotalValue: new total value of the Simulation
+     */
+    void finishEconomicState();
 
 };
 

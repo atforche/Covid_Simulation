@@ -6,7 +6,10 @@
 DualController::DualController(Simulation* sim) :
     AgentController(sim),
     PandemicController(sim),
-    EconomicController(sim) {};
+    EconomicController(sim) {
+
+    agentRedistributedValue = 0;
+};
 
 
 //******************************************************************************
@@ -17,6 +20,9 @@ void DualController::updateAgentDestinations(std::vector<Agent *> &agents, int h
     // Acquire the Locations lock to avoid race conditions
     QMutexLocker locationsLock(getLocationLock());
 
+    // Initialize the number of deaths this hour
+    int numHourlyDeaths = 0;
+
     // Initialize all values needed for the Pandemic update
     initializePandemicUpdate(agents);
 
@@ -25,7 +31,8 @@ void DualController::updateAgentDestinations(std::vector<Agent *> &agents, int h
 
     // Perform the Pandemic and Economic updates for every agent
     locationsLock.unlock();
-    double redistributedValue = 0;
+    double businessRedistributedValue = 0;
+    agentRedistributedValue = 0;
     QMutexLocker agentLock(getAgentLock());
 
     std::vector<PandemicAgent*> pandemicAgents = getPandemicAgents();
@@ -33,22 +40,29 @@ void DualController::updateAgentDestinations(std::vector<Agent *> &agents, int h
         // Update each Agents location according to their Behavior Chart
         updateSingleDestination(agents[i], hour, true);
 
+        DualAgent* dualAgent = dynamic_cast<DualAgent*>(pandemicAgents[i]);
+        int agentValue = dualAgent->getValue();
         bool died = agentPandemicUpdate(pandemicAgents[i], static_cast<int>(i));
         if (died) {
+            agentRedistributedValue += agentValue;
             pandemicAgents[i] = nullptr;
+            numHourlyDeaths++;
         } else {
-            redistributedValue += agentEconomicUpdate(dynamic_cast<EconomicAgent*>(agents[i]));
+            businessRedistributedValue += agentEconomicUpdate(dynamic_cast<EconomicAgent*>(agents[i]));
         }
     }
+
+    // Update the state of the Simulation
+    killAgents(numHourlyDeaths);
 
     // Spread the Infection to new Agents
     spreadInfection(pandemicAgents);
 
     // Give the virus a change to re-emerge if it disappears
-    spontaneousInfection();
+//    spontaneousInfection();
 
     // Distribute value to locations and spawn new businesses if applicable
-    finishEconomicUpdate(redistributedValue, "Dual");
+    finishEconomicUpdate(businessRedistributedValue, "Dual");
 }
 
 
@@ -89,25 +103,26 @@ void DualController::businessEconomicUpdate(int hour) {
                 if (workLocation->getStatus() == PandemicLocation::LOCKDOWN) {
                     double additionalAssistance;
                     if (sim->checkDebug("strong assistance")) {
-                        additionalAssistance = 0.4;
+                        additionalAssistance = 0.5;
                     } else if (sim->checkDebug("moderate assistance")) {
-                        additionalAssistance = 0.25;
+                        additionalAssistance = 0.3;
                     } else {
                         additionalAssistance = 0.15;
                     }
 
-                    // Add the additional assistance to the Agent
-                    workLocation->incrementValue(additionalAssistance * workOverhead);
+//                    // Add the additional assistance to the Business
+//                    workLocation->incrementValue(additionalAssistance * workOverhead);
 
                     // Provide additional assistance to each of the Locations workers
                     std::unordered_set<Agent*> workers = workLocation->getAgents();
                     for (auto it = workers.begin(); it != workers.end(); ++it) {
                         DualAgent* worker = dynamic_cast<DualAgent*>(*it);
-                        worker->incrementValue(additionalAssistance * workLocation->getCost());
+                        worker->incrementValue(std::floor(additionalAssistance * workLocation->getCost()));
                     }
 
                 } else {
-                    // Otherwise, make the business pay some additional overhead
+
+                    // Also, make all businesses pay some additional overhead
                     double additionalOverhead;
                     if (sim->checkDebug("strong assistance")) {
                         additionalOverhead = 0.2;
@@ -118,8 +133,9 @@ void DualController::businessEconomicUpdate(int hour) {
                     }
 
                     // Decrease the work locations value by the additional overhead
-                    workLocation->incrementValue(-1 * additionalOverhead * workOverhead);
+                    workLocation->incrementValue(-1 * std::ceil(additionalOverhead * workOverhead));
                 }
+
             }
         }
     }
@@ -160,28 +176,35 @@ double DualController::homeEconomicUpdate(EconomicAgent *agent) {
         returnValue = EconomicController::homeEconomicUpdate(agent);
     }
 
-    // If there is government assistance, give homeless agents some value
-    if (agent->getStatus() == EconomicAgent::HOMELESS ||
-            agent->getStatus() == EconomicAgent::BOTH) {
-
-        if (sim->checkDebug("strong assistance")) {
-            agent->incrementValue(3);
-        } else if (sim->checkDebug("moderate assistance")) {
-            agent->incrementValue(2);
-        } else if (sim->checkDebug("weak assistance")) {
-            agent->incrementValue(1);
-        }
-    } else {
-        // If there is government assistance, make the agents pay some extra for their homes
-        int homeCost = dynamic_cast<EconomicLocation*>(agent->getLocation(Agent::HOME))->getCost();
-        if (sim->checkDebug("strong assistance")) {
-            agent->incrementValue(-1 * 0.2 * homeCost);
-        } else if (sim->checkDebug("moderate assistance")) {
-            agent->incrementValue(-1 * 0.125 * homeCost);
-        } else if (sim->checkDebug("weak assistance")) {
-            agent->incrementValue(-1 * 0.075 * homeCost);
+    // If there is government assistance, give unemployed agents some value
+    if (sim->getHour() > 7 && sim->getHour() < 20) {
+        if (agent->getStatus() == EconomicAgent::UNEMPLOYED ||
+                agent->getStatus() == EconomicAgent::BOTH) {
+            if (agent->canReceiveUnemployment()) {
+                agent->incrementHoursOfUnemployment();
+                if (sim->checkDebug("strong assistance")) {
+                    agent->incrementValue(rand() % 3 == 0);
+                } else if (sim->checkDebug("moderate assistance")) {
+                    agent->incrementValue(rand() % 5 == 0);
+                } else if (sim->checkDebug("weak assistance")) {
+                    agent->incrementValue(rand() % 8 == 0);
+                }
+            }
         }
     }
+
+//    // If there is government assistance, make the agents pay some extra for their homes
+//    if (agent->getStatus() != EconomicAgent::HOMELESS &&
+//            agent->getStatus() != EconomicAgent::BOTH) {
+//        int homeCost = dynamic_cast<EconomicLocation*>(agent->getLocation(Agent::HOME))->getCost();
+//        if (sim->checkDebug("strong assistance")) {
+//            agent->incrementValue(-1 * std::ceil(0.2 * homeCost));
+//        } else if (sim->checkDebug("moderate assistance")) {
+//            agent->incrementValue(-1 * std::ceil(0.125 * homeCost));
+//        } else if (sim->checkDebug("weak assistance")) {
+//            agent->incrementValue(-1 * std::ceil(0.075 * homeCost));
+//        }
+//    }
 
     return returnValue;
 }
@@ -201,14 +224,18 @@ void DualController::workEconomicUpdate(EconomicAgent *agent) {
     // If there is government assistance, give unemployed agents some value
     if (agent->getStatus() == EconomicAgent::UNEMPLOYED ||
             agent->getStatus() == EconomicAgent::BOTH) {
-
-        if (sim->checkDebug("strong assistance")) {
-            agent->incrementValue(3);
-        } else if (sim->checkDebug("moderate assistance")) {
-            agent->incrementValue(2);
-        } else if (sim->checkDebug("weak assistance")) {
-            agent->incrementValue(1);
+        if (agent->canReceiveUnemployment()) {
+            agent->incrementHoursOfUnemployment();
+            if (sim->checkDebug("strong assistance")) {
+                agent->incrementValue(3);
+            } else if (sim->checkDebug("moderate assistance")) {
+                agent->incrementValue(2);
+            } else if (sim->checkDebug("weak assistance")) {
+                agent->incrementValue(1);
+            }
         }
+    } else {
+        agent->incrementHoursOfEmployment();
     }
 }
 
@@ -243,31 +270,35 @@ void DualController::lockdownLocations() {
         }
 
         // If all of the Agents at the Location are Infected, immediately lockdown
-        if (infectedProportion == 1) {
-            location->setStatus(PandemicLocation::LOCKDOWN);
-            continue;
-        }
+//        if (infectedProportion == 1) {
+//            location->setStatus(PandemicLocation::LOCKDOWN);
+//            continue;
+//        }
 
         if (sim->checkDebug("total lockdown")) {
             location->setStatus(PandemicLocation::LOCKDOWN);
+            continue;
         } else if (sim->checkDebug("strong lockdown")) {
             if (infectedProportion > 0.20) {
                 location->setStatus(PandemicLocation::LOCKDOWN);
+                continue;
             }
         } else if (sim->checkDebug("moderate lockdown")) {
-            if (infectedProportion > 0.40) {
+            if (infectedProportion > 0.35) {
                 location->setStatus(PandemicLocation::LOCKDOWN);
+                continue;
             }
         } else if (sim->checkDebug("weak lockdown")) {
-            if (infectedProportion > 0.60) {
+            if (infectedProportion > 0.75) {
                 location->setStatus(PandemicLocation::LOCKDOWN);
+                continue;
             }
+        }
+
+        if (location->getNumInfectedAgents() > 0) {
+            location->setStatus(PandemicLocation::EXPOSURE);
         } else {
-            if (location->getNumInfectedAgents() > 0) {
-                location->setStatus(PandemicLocation::EXPOSURE);
-            } else {
-                location->setStatus(PandemicLocation::NORMAL);
-            }
+            location->setStatus(PandemicLocation::NORMAL);
         }
     }
 }
@@ -338,12 +369,18 @@ void DualController::finishEconomicUpdate(double redistributedValue, QString typ
 
     DualSimulation* sim = dynamic_cast<DualSimulation*>(getSim());
 
+    // Track how many hours since the last new business was generated, new
+    // businesses can only appear once every 24 hours
+    static int lastNewBusiness = 0;
+    lastNewBusiness += 1;
+
     // If there are less than the initial amount of businesses, have a chance
     // to generate a new business and leisure location
     std::vector<Location*> workLocations = sim->getRegion(Agent::WORK)->getLocations();
     if (static_cast<int>(workLocations.size()) < sim->getUI()->numLocations->value()) {
-        if (rand() % 5 == 0) {
+        if (rand() % 5 == 0 && lastNewBusiness > (7 * 24)) {
             generateNewBusiness(type);
+            lastNewBusiness = 0;
         }
     }
 
@@ -361,6 +398,7 @@ void DualController::finishEconomicUpdate(double redistributedValue, QString typ
 
     // If there are no open businesses, don't distribute any value
     if (openBusinesses == 0) {
+        finishEconomicState();
         return;
     }
 
@@ -372,9 +410,19 @@ void DualController::finishEconomicUpdate(double redistributedValue, QString typ
             location->incrementValue(redistributedValue / openBusinesses);
         }
     }
+
+    // Distribute the value from dead agents to other agents
+    setTotalAgentValue(getTotalAgentValue() + agentRedistributedValue);
+    std::vector<Agent*> agents = sim->getAgents();
+    for (size_t i = 0; i < agents.size(); ++i) {
+        DualAgent* agent = dynamic_cast<DualAgent*>(agents[i]);
+        agent->incrementValue(agentRedistributedValue / agents.size());
+    }
+
+    // Update the economic state of the Simulation
+    finishEconomicState();
 }
 
 
 //******************************************************************************
-
 

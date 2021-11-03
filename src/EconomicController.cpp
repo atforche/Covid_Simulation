@@ -7,6 +7,8 @@ EconomicController::EconomicController(Simulation* sim) :
     this->sim = dynamic_cast<EconomicSimulation*>(sim);
     agentValue = 0;
     businessValue = 0;
+    changeInValue = std::deque<double>(24, 0);
+    previousValue = 0;
 }
 
 
@@ -42,6 +44,12 @@ void EconomicController::updateAgentDestinations(std::vector<Agent *> &agents, i
 
 void EconomicController::businessEconomicUpdate(int hour) {
     // Reset the business and agent values
+    previousValue = businessValue + agentValue;
+    if (previousValue == 0) {
+        previousValue = sim->getCurrentValue();
+    }
+//    double temp = previousValue;
+//    qDebug() << QString::number(temp);
     businessValue = 0;
     agentValue = 0;
 
@@ -103,12 +111,19 @@ double EconomicController::agentEconomicUpdate(EconomicAgent* agent) {
 
 
 void EconomicController::finishEconomicUpdate(double redistributedValue, QString type) {
+
+    // Track how many hours since the last new business was generated, new
+    // businesses can only appear once every 24 hours
+    static int lastNewBusiness = 0;
+    lastNewBusiness += 1;
+
     // If there are less than the initial amount of businesses, have a chance
     // to generate a new business and leisure location
     std::vector<Location*> workLocations = sim->getRegion(Agent::WORK)->getLocations();
     if (static_cast<int>(workLocations.size()) < sim->getUI()->numLocations->value()) {
-        if (rand() % 5 == 0) {
+        if (rand() % 5 == 0 && lastNewBusiness > 24) {
             generateNewBusiness(type);
+            lastNewBusiness = 0;
         }
     }
 
@@ -127,8 +142,8 @@ void EconomicController::finishEconomicUpdate(double redistributedValue, QString
 
 void EconomicController::bankruptBusiness(EconomicLocation *victim) {
 
-    // Businesses can't go bankrupt on Day 1
-    if (sim->getDay() == 0) {
+    // Businesses can't go bankrupt on Day 1 or on their first day open
+    if (sim->getDay() == 0 || victim->getDaysOpen() < 2) {
         return;
     }
 
@@ -417,13 +432,18 @@ void EconomicController::generateNewBusiness(QString type) {
         }
     }
 
-    // IF AN AGENT ALREADY HAS A WORK OR LEISURE LOCATION, MAKE SURE TO REMOVE
-    // THEM FROM THE EXISTING ONE BEFORE ASSIGNING THEM TO THE NEW ONE
+    // Assign all agents with no leisure location to this new location
+    int count = 0;
+    for (size_t i = 0; i < agents.size(); ++i) {
+        if (agents[i]->getLocation(Agent::LEISURE) == nullptr) {
+            agents[i]->setLocation(newLeisure, Agent::LEISURE);
+            newLeisure->addAgent(agents[i]);
+            count++;
+        }
+    }
 
-    // Assign agents to the new Leisure location
-    // PROBLEM AREA
-    // *************************************************************************
-    int newAgents = std::min(rand() % 5 + 3, static_cast<int>(agents.size()));
+    // Add additional agents to the new Leisure location to reach enough agents
+    int newAgents = std::min(std::max((rand() % 10 + 3) - count, 0), static_cast<int>(agents.size()));
     for (int i = 0; i < newAgents; ++i) {
         EconomicAgent* agent = dynamic_cast<EconomicAgent*>(agents[rand() % agents.size()]);
 
@@ -437,7 +457,6 @@ void EconomicController::generateNewBusiness(QString type) {
         agent->setLocation(newLeisure, Agent::LEISURE);
         newLeisure->addAgent(agent);
     }
-    // *************************************************************************
 }
 
 
@@ -460,9 +479,38 @@ int EconomicController::getTotalBusinessValue() {
 //******************************************************************************
 
 
+void EconomicController::setTotalAgentValue(int newValue) {
+    this->agentValue = newValue;
+}
+
+
+//******************************************************************************
+
+
 void EconomicController::setTotalBusinessValue(int newValue) {
     this->businessValue = newValue;
 }
 
 
 //******************************************************************************
+
+
+std::vector<double> EconomicController::getState() {
+    return std::vector<double>({static_cast<double>(sim->getNumHomelessAgents()) / sim->getCurrentNumAgents() * 100,
+                               static_cast<double>(sim->getNumUnemployedAgents()) / sim->getCurrentNumAgents() * 100,
+                               /*std::accumulate(changeInValue.begin(), changeInValue.end(), 0.0) / std::max(agentValue + businessValue, 1) * 100*/
+                               changeInValue.back()});
+}
+
+
+//******************************************************************************
+
+
+void EconomicController::finishEconomicState() {
+//    qDebug() << QString::number(agentValue);
+//    qDebug() << QString::number(businessValue);
+//    qDebug() << QString::number(previousValue);
+    double percentChange = 100 * (((agentValue + businessValue) / static_cast<double>(previousValue)) - 1.0);
+    changeInValue.pop_front();
+    changeInValue.push_back(percentChange);
+}
